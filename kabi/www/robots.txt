@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kondycjonowanie-wody.pl/sitemap.xml

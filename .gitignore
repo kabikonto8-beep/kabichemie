@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Preview server logs
+*.log
+kabi/preview-server.err
+
+# Office / LibreOffice lock files
+.~lock.*#
+
+# Local Claude settings (machine-specific)
+.claude/settings.local.json
+**/.claude/settings.local.json
