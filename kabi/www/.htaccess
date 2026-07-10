@@ -1,0 +1,25 @@
+# Kabi-Chemie, SEO technical layer.
+RewriteEngine On
+
+# Canonical host and HTTPS. Keep one indexable version of every URL.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\.kondycjonowanie-wody.pl$ [NC]
+RewriteRule ^ https://kondycjonowanie-wody.pl%{REQUEST_URI} [R=301,L]
+
+AddType image/svg+xml .svg
+AddType text/plain .txt
+AddType application/xml .xml
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Robots-Tag "index, follow"
+
+  <FilesMatch "\.(css|js|png|jpg|jpeg|svg|webp|mp4)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+</IfModule>

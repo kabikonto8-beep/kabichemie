@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "kabi-www",
-      "runtimeExecutable": "C:\\Users\\Admin\\AppData\\Roaming\\uv\\python\\cpython-3.12.11-windows-x86_64-none\\python.exe",
+      "runtimeExecutable": "C:\\Users\\regin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
       "runtimeArgs": ["-m", "http.server", "8124", "--directory", "www"],
       "port": 8124
     }

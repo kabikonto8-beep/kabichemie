@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# LibreOffice / Office lock files
+.~lock.*#
+
+# Local preview-server logs
+*.log
+preview-server.err
+preview-server.out
+
+# Local Claude Code settings (machine-specific)
+.claude/settings.local.json
+
+# Duży master wideo 4K (źródło hero, nie serwowany — trzymany lokalnie, poza repo)
+kabi-tło-nowe.mp4

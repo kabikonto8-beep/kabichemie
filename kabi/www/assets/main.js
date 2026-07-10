@@ -487,10 +487,13 @@
     core.setAttribute("aria-expanded", "true");
     core.setAttribute("aria-controls", steps.id);
     core.setAttribute("title", "Kliknij, aby ukryć lub pokazać etapy procesu");
-    var hint = document.createElement("span");
-    hint.className = "proc-hub__hint";
-    hint.textContent = "Kliknij, aby zwinąć";
-    core.appendChild(hint);
+    var hint = core.querySelector(".proc-hub__hint");
+    if (!hint) {
+      hint = document.createElement("span");
+      hint.className = "proc-hub__hint";
+      hint.textContent = "Kliknij, aby zwinąć";
+      core.appendChild(hint);
+    }
     var toggle = function () {
       var hidden = arc.classList.toggle("steps-hidden");
       core.setAttribute("aria-expanded", hidden ? "false" : "true");
@@ -901,10 +904,9 @@
       if (note) {
         note.hidden = false;
         note.textContent =
-          "Dziękujemy! To demonstracyjny formularz — aby działał, podłącz go do skrzynki e-mail lub systemu (np. usługa formularzy). Tymczasem napisz na " +
+          "Dziękujemy! Formularz demonstracyjny przyjął dane kontaktowe. Aby działał produkcyjnie, podłącz go do skrzynki e-mail lub systemu formularzy. Tymczasem napisz na " +
           (form.getAttribute("data-email") || "info@kondycjonowanie-wody.pl") + ".";
       }
-      form.reset();
     });
   });
 
@@ -914,8 +916,8 @@
     if (!result) return;
 
     // tabele osad [mm] -> strata sprawności (VLOOKUP przybliżony, jak w arkuszu)
-    var BOILER = [[0.1,0.02],[0.2,0.03],[0.3,0.05],[0.4,0.06],[0.5,0.08],[0.6,0.09],[0.7,0.11],[0.8,0.12],[0.9,0.14],[1,0.15],[1.1,0.16],[1.2,0.17],[1.3,0.18],[1.4,0.19],[1.5,0.2],[1.6,0.21],[1.7,0.22],[1.8,0.23],[1.9,0.24],[2,0.25]];
-    var COND   = [[0.1,0.02],[0.2,0.04],[0.3,0.06],[0.4,0.08],[0.5,0.1],[0.6,0.12],[0.7,0.14],[0.8,0.16],[0.9,0.17],[1,0.18],[1.1,0.19],[1.2,0.2],[1.3,0.22],[1.4,0.24],[1.5,0.25],[1.6,0.26],[1.7,0.27],[1.8,0.28],[1.9,0.29],[2,0.3]];
+    var BOILER = [[0.1,0.02],[0.2,0.03],[0.3,0.05],[0.4,0.06],[0.5,0.08],[0.6,0.09],[0.7,0.11],[0.8,0.12],[0.9,0.14],[1,0.15],[1.1,0.16],[1.2,0.17],[1.3,0.18],[1.4,0.19],[1.5,0.2],[1.6,0.21],[1.7,0.22],[1.8,0.23],[1.9,0.24],[2,0.25],[2.1,0.2721],[2.2,0.2842],[2.3,0.2963],[2.4,0.3084],[2.5,0.3205],[2.6,0.3326],[2.7,0.3447],[2.8,0.3568],[2.9,0.3689],[3,0.3811],[3.1,0.3932],[3.2,0.4053],[3.3,0.4174],[3.4,0.4295],[3.5,0.4416],[3.6,0.4537],[3.7,0.4658],[3.8,0.4779],[3.9,0.49],[4,0.5021],[4.1,0.5142],[4.2,0.5263],[4.3,0.5384],[4.4,0.5505],[4.5,0.5626],[4.6,0.5747],[4.7,0.5868],[4.8,0.5989],[4.9,0.6111],[5,0.6232],[5.1,0.6353],[5.2,0.6474],[5.3,0.6595],[5.4,0.6716],[5.5,0.6837],[5.6,0.6958],[5.7,0.7079],[5.8,0.72],[5.9,0.7321],[6,0.7442],[6.1,0.7563],[6.2,0.7684],[6.3,0.7805],[6.4,0.7926],[6.5,0.8047],[6.6,0.8168],[6.7,0.8289],[6.8,0.8411],[6.9,0.8532],[7,0.8653],[7.1,0.8774],[7.2,0.8895],[7.3,0.9016],[7.4,0.9137],[7.5,0.9258],[7.6,0.9379],[7.7,0.95],[7.8,0.9621],[7.9,0.9742],[8,0.9863],[8.1,0.9984]];
+    var COND   = [[0.1,0.03],[0.2,0.05],[0.3,0.07],[0.4,0.09],[0.5,0.12],[0.6,0.14],[0.7,0.16],[0.8,0.18],[0.9,0.2],[1,0.22],[1.1,0.24],[1.2,0.26],[1.3,0.28],[1.4,0.3],[1.5,0.32],[1.6,0.34],[1.7,0.36],[1.8,0.37],[1.9,0.39],[2,0.4],[2.1,0.4355],[2.2,0.4555],[2.3,0.4754],[2.4,0.4954],[2.5,0.5153],[2.6,0.5353],[2.7,0.5553],[2.8,0.5752],[2.9,0.5952],[3,0.6151],[3.1,0.6351],[3.2,0.655],[3.3,0.675],[3.4,0.6949],[3.5,0.7149],[3.6,0.7348],[3.7,0.7548],[3.8,0.7748],[3.9,0.7947],[4,0.8147],[4.1,0.8346],[4.2,0.8546],[4.3,0.8745],[4.4,0.8945],[4.5,0.9144],[4.6,0.9344],[4.7,0.9544],[4.8,0.9743],[4.9,0.9943],[5,1]];
     var K = 1.56;
 
     var lookup = function (table, x) {
@@ -923,9 +925,13 @@
       for (var i = 0; i < table.length; i++) { if (table[i][0] <= x + 1e-9) v = table[i][1]; else break; }
       return v;
     };
+    // wartości domyślne pól ukrytych w interfejsie (model liczy jak w arkuszu)
+    var DEF = { kb_cret: 70, kb_cond: 1500, kb_condT: 3500, kb_make_ro: 30, kb_make_soft: 0, kb_enth: 721, kb_eff: 94, kb_dens: 997,
+      sk_cop: 4, sk_statpower: 15000, sk_blow: 95, sk_cond: 1800, sk_condT: 4000, sk_make: 500, sk_enth: 2426, sk_dens: 997 };
     var num = function (name) {
       var el = form.querySelector("[name='" + name + "']");
-      return Math.max(0, Number((el && el.value || "0").replace(",", ".")) || 0);
+      if (!el) return DEF[name] != null ? DEF[name] : 0;
+      return Math.max(0, Number((el.value || "0").replace(",", ".")) || 0);
     };
     var zl = function (v) { return fmt(v, "zł", 2); };
     var unit = function (v, u) { return fmt(v, u, 2); };
@@ -969,15 +975,9 @@
       var saltSav = finGain + waterSav;                             // B36
       return {
         scale: scaleSav, salt: saltSav, total: scaleSav + saltSav,
-        m1l: "Wzrost zużycia gazu", m1: pct(scaleLoss),
-        m2l: "Roczna strata energii", m2: fmt(energyLoss, "MWh", 2),
-        m3l: "Mniej odsolin rocznie", m3: fmt(diff, "t", 2),
-        steps: {
-          kb_loss: pct(scaleLoss), kb_annualE: fmt(annualEnergy, "MWh", 2), kb_lossE: fmt(energyLoss, "MWh", 2), kb_scaleSav: zl(scaleSav),
-          kb_coefNow: fr(coefNow), kb_bdNow: fmt(bdNow, "t/h", 3), kb_coefAfter: fr(coefAfter), kb_bdAfter: fmt(bdAfter, "t/h", 3),
-          kb_yrNow: fmt(yrNow, "t", 2), kb_yrAfter: fmt(yrAfter, "t", 2), kb_diff: fmt(diff, "t", 2),
-          kb_energyGain: fmt(energyGain, "kWh", 2), kb_finGain: zl(finGain), kb_waterSav: zl(waterSav), kb_saltSav: zl(saltSav)
-        }
+        m1l: "Roczna strata energii", m1: fmt(energyLoss, "MWh", 2),
+        m2l: "Mniej odsolin rocznie", m2: fmt(diff, "t", 2),
+        m3l: "", m3: ""
       };
     };
 
@@ -1005,14 +1005,7 @@
         scale: scaleSav, salt: saltSav, total: scaleSav + saltSav,
         m1l: "Wyliczona grubość osadu", m1: fmt(thick, "mm", 2),
         m2l: "Strata sprawności", m2: pct(scaleLoss),
-        m3l: "Mniej odsolin rocznie", m3: fmt(diff, "t", 2),
-        steps: {
-          sk_thick: fmt(thick, "mm", 1), sk_loss: pct(scaleLoss), sk_elec: fmt(elec, "kW", 2), sk_addElec: fmt(addElec, "kW", 2),
-          sk_lossE: fmt(annualLoss, "kWh", 2), sk_scaleSav: zl(scaleSav),
-          sk_coefNow: fr(coefNow), sk_evap: fmt(evap, "m³/h", 2), sk_bdNow: fmt(bdNow, "t/h", 3),
-          sk_coefAfter: fr(coefAfter), sk_bdAfter: fmt(bdAfter, "t/h", 3),
-          sk_yrNow: fmt(yrNow, "t", 2), sk_yrAfter: fmt(yrAfter, "t", 2), sk_diff: fmt(diff, "t", 2), sk_saltSav: zl(saltSav)
-        }
+        m3l: "Mniej odsolin rocznie", m3: fmt(diff, "t", 2)
       };
     };
 
@@ -1029,14 +1022,6 @@
     };
     var current = "kotly";
 
-    var fillSteps = function (steps) {
-      if (!steps) return;
-      Object.keys(steps).forEach(function (k) {
-        var el = form.querySelector("[data-step='" + k + "']");
-        if (el) el.textContent = steps[k];
-      });
-    };
-
     var calculate = function () {
       var r = current === "kotly" ? calcBoiler() : calcCond();
       if (out.total) out.total.textContent = zl(r.total);
@@ -1045,10 +1030,14 @@
       if (out.m1) out.m1.textContent = r.m1; if (out.m1l) out.m1l.textContent = r.m1l;
       if (out.m2) out.m2.textContent = r.m2; if (out.m2l) out.m2l.textContent = r.m2l;
       if (out.m3) out.m3.textContent = r.m3; if (out.m3l) out.m3l.textContent = r.m3l;
+      // ukryj wiersze metryk bez etykiety (np. kotły mają 2 pozycje)
+      [[out.m1l, r.m1l], [out.m2l, r.m2l], [out.m3l, r.m3l]].forEach(function (pair) {
+        var li = pair[0] && pair[0].closest("li");
+        if (li) li.hidden = !pair[1];
+      });
       var tot = r.scale + r.salt, ps = tot > 0 ? r.scale / tot * 100 : 50;
       if (out.barScale) out.barScale.style.width = ps.toFixed(1) + "%";
       if (out.barSalt) out.barSalt.style.width = (100 - ps).toFixed(1) + "%";
-      fillSteps(r.steps);
       if (out.msg) {
         out.msg.textContent = r.total > 250000
           ? "Bardzo duży potencjał oszczędności - warto policzyć też biały certyfikat. Potwierdźmy wynik audytem technicznym."

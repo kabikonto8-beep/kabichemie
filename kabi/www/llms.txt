@@ -1,0 +1,53 @@
+# Kabi-Chemie
+
+> Kabi-Chemie to polski producent autorskiej chemii KCAQUA do kondycjonowania wody przemysłowej. Firma pomaga zakładom produkcyjnym ograniczać kamień, korozję, biofilm, zużycie wody, energii i ścieków w kotłach parowych, układach chłodniczych, skraplaczach wyparnych oraz systemach RO.
+
+Kabi-Chemie pracuje dla przemysłu, utrzymania ruchu, energetyki zakładowej, chłodnictwa przemysłowego, przetwórstwa spożywczego i firm produkcyjnych. Kluczowe korzyści dla klienta to niższe koszty mediów, stabilniejsza praca instalacji, mniej awarii, dłuższe cykle między czyszczeniami i czytelny raport techniczny dla decyzji zakupowej.
+
+Firma działa w Polsce. Główna lokalizacja: Siedlce, oddział techniczny: Toruń.
+
+## Najważniejsze strony
+
+- [Strona główna](https://kondycjonowanie-wody.pl/): Kim jest Kabi-Chemie i w czym specjalizuje się firma.
+- [Usługi](https://kondycjonowanie-wody.pl/uslugi/): Zakres usług: audyt, analiza wody, serwis i dobór programu chemicznego.
+- [Kotły parowe](https://kondycjonowanie-wody.pl/kotly-parowe/): Rozwiązania dla kotłów parowych i wody kotłowej.
+- [Układy chłodnicze](https://kondycjonowanie-wody.pl/uklady-chlodnicze/): Rozwiązania dla wież chłodniczych, skraplaczy i obiegów chłodzenia.
+- [Membrany RO](https://kondycjonowanie-wody.pl/membrany-ro/): Ochrona membran RO, antyskalanty i diagnostyka stacji odwróconej osmozy.
+- [Ochrona antykorozyjna](https://kondycjonowanie-wody.pl/ochrona-antykorozyjna/): Ochrona antykorozyjna, pasywacja i chemiczne czyszczenie instalacji.
+- [Case studies](https://kondycjonowanie-wody.pl/case-study/): Realizacje pokazujące efekty wdrożeń KCAQUA.
+- [Baza wiedzy](https://kondycjonowanie-wody.pl/baza-wiedzy/): Artykuły eksperckie o wodzie przemysłowej, korozji, kamieniu i biofilmie.
+- [Kontakt](https://kondycjonowanie-wody.pl/kontakt/): Dane kontaktowe i szybka ścieżka rozmowy z inżynierem.
+
+## Usługi i technologie
+
+- [Kondycjonowanie wody kotłowej](https://kondycjonowanie-wody.pl/kotly-parowe/kondycjonowanie-wody-kotlowej/): Dobór programu chemicznego KCAQUA do kotłów parowych, stabilizacja parametrów wody i ograniczenie kamienia.
+- [Odkamienianie kotłów](https://kondycjonowanie-wody.pl/kotly-parowe/odkamienianie/): Chemiczne usuwanie kamienia kotłowego, płukanie i zabezpieczenie powierzchni po czyszczeniu.
+- [Układy chłodnicze](https://kondycjonowanie-wody.pl/uklady-chlodnicze/): Programy dla wież chłodniczych, skraplaczy wyparnych i obiegów chłodzących: kamień, korozja, biofilm.
+- [Membrany RO](https://kondycjonowanie-wody.pl/membrany-ro/): Antyskalanty, analiza wody i rekomendacje eksploatacyjne dla systemów odwróconej osmozy.
+- [Ochrona antykorozyjna](https://kondycjonowanie-wody.pl/ochrona-antykorozyjna/): Inhibitory korozji, pasywacja stali i chemiczne czyszczenie instalacji przemysłowych.
+- [Usługi](https://kondycjonowanie-wody.pl/uslugi/): Wizyta inżyniera, badanie parametrów wody, raport ryzyk i rekomendacje dla zakładu.
+
+## Obszary specjalizacji
+
+- kondycjonowanie wody przemysłowej
+- chemia przemysłowa KCAQUA
+- uzdatnianie wody dla kotłów parowych
+- odkamienianie instalacji przemysłowych
+- ochrona antykorozyjna instalacji
+- ochrona wież chłodniczych i skraplaczy wyparnych
+- antyskalanty do membran odwróconej osmozy
+- analiza wody przemysłowej
+- audyt techniczny instalacji wodnych
+- redukcja zużycia wody, energii i ścieków
+
+## Kontakt
+
+- Telefon: +48 662 792 875
+- E-mail: info@kondycjonowanie-wody.pl
+- Siedziba: Żabokliki-Kolonia ul. Stocka 10, 08-110 Siedlce
+- Oddział w Toruniu: Przemysław Jesiołkowski, +48 669 060 022, PJ@kondycjonowanie-wody.pl
+
+## Pełniejszy indeks
+
+- [llms-full.txt](https://kondycjonowanie-wody.pl/llms-full.txt): pełniejszy indeks podstron z tytułami i opisami.
+- [sitemap.xml](https://kondycjonowanie-wody.pl/sitemap.xml): komplet adresów URL do indeksowania.

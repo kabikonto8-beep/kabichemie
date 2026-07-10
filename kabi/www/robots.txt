@@ -1,4 +1,31 @@
+# Kabi-Chemie, publiczny serwis ofertowy i ekspercki.
+# Strona ma być widoczna dla wyszukiwarek oraz agentów AI korzystających z publicznie dostępnych treści.
 User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://kondycjonowanie-wody.pl/sitemap.xml
+# AI summary: https://kondycjonowanie-wody.pl/llms.txt

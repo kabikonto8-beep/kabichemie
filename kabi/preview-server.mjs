@@ -1,51 +1,66 @@
-import { createServer } from "node:http";
-import { createReadStream, existsSync, statSync } from "node:fs";
-import { extname, join, normalize } from "node:path";
-import { fileURLToPath } from "node:url";
+import { createServer } from 'node:http';
+import { readFile, stat } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = join(fileURLToPath(new URL(".", import.meta.url)), "www");
+const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'www');
 const port = 8124;
 
-const types = {
-  ".html": "text/html; charset=utf-8",
-  ".css": "text/css; charset=utf-8",
-  ".js": "text/javascript; charset=utf-8",
-  ".json": "application/json; charset=utf-8",
-  ".svg": "image/svg+xml",
-  ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg",
-  ".png": "image/png",
-  ".ico": "image/x-icon",
-  ".xml": "application/xml; charset=utf-8",
-  ".txt": "text/plain; charset=utf-8",
-};
-
-function resolvePath(urlPath) {
-  const decoded = decodeURIComponent(urlPath.split("?")[0]);
-  const clean = normalize(decoded).replace(/^(\.\.[/\\])+/, "");
-  let target = join(root, clean);
-
-  if (existsSync(target) && statSync(target).isDirectory()) {
-    target = join(target, "index.html");
+function getContentType(filePath) {
+  switch (path.extname(filePath).toLowerCase()) {
+    case '.html': return 'text/html; charset=utf-8';
+    case '.css': return 'text/css; charset=utf-8';
+    case '.js': return 'text/javascript; charset=utf-8';
+    case '.json': return 'application/json; charset=utf-8';
+    case '.svg': return 'image/svg+xml';
+    case '.mp4': return 'video/mp4';
+    case '.jpg':
+    case '.jpeg': return 'image/jpeg';
+    case '.png': return 'image/png';
+    case '.ico': return 'image/x-icon';
+    case '.xml': return 'application/xml; charset=utf-8';
+    case '.txt': return 'text/plain; charset=utf-8';
+    default: return 'application/octet-stream';
   }
-
-  if (!existsSync(target)) {
-    target = join(root, "404.html");
-  }
-
-  return target;
 }
 
-createServer((req, res) => {
-  const file = resolvePath(req.url || "/");
-  const ext = extname(file).toLowerCase();
+createServer(async (req, res) => {
+  try {
+    const url = new URL(req.url ?? '/', 'http://localhost');
+    let reqPath = decodeURIComponent(url.pathname.replace(/^\/+/, ''));
+    if (!reqPath) reqPath = 'index.html';
 
-  res.writeHead(file.endsWith("404.html") ? 404 : 200, {
-    "Content-Type": types[ext] || "application/octet-stream",
-    "Cache-Control": "no-store, max-age=0",
-  });
+    let full = path.join(root, reqPath);
+    let fileStat = null;
 
-  createReadStream(file).pipe(res);
+    try {
+      fileStat = await stat(full);
+    } catch {
+      fileStat = null;
+    }
+
+    if (fileStat?.isDirectory()) {
+      full = path.join(full, 'index.html');
+    }
+
+    let statusCode = 200;
+    try {
+      await stat(full);
+    } catch {
+      full = path.join(root, '404.html');
+      statusCode = 404;
+    }
+
+    const bytes = await readFile(full);
+    res.statusCode = statusCode;
+    res.setHeader('Content-Type', getContentType(full));
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+    res.end(bytes);
+  } catch {
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.end('Internal Server Error');
+  }
 }).listen(port, () => {
-  console.log(`Preview running at http://localhost:${port}/`);
+  console.log(`Kabi-Chemie preview running at http://localhost:${port}/`);
 });

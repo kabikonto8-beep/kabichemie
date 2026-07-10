@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ns1="http://www.w3.org/1999/xlink" id="Warstwa_1" version="1.1" viewBox="0 0 485 340"><defs>
+    <style>
+      .st0 {
+        fill: url(#Gradient_bez_nazwy_8422);
+      }
+
+      .st1 {
+        fill: url(#Gradient_bez_nazwy_8411);
+      }
+
+      .st2 {
+        fill: url(#Gradient_bez_nazwy_8417);
+      }
+
+      .st3 {
+        fill: url(#Gradient_bez_nazwy_8421);
+      }
+
+      .st4 {
+        fill: url(#Gradient_bez_nazwy_8420);
+      }
+
+      .st5 {
+        fill: url(#Gradient_bez_nazwy_8423);
+      }
+
+      .st6 {
+        fill: url(#Gradient_bez_nazwy_848);
+      }
+
+      .st7 {
+        fill: url(#Gradient_bez_nazwy_8414);
+      }
+
+      .st8 {
+        fill: #0a1f4a;
+      }
+
+      .st9 {
+        fill: url(#Gradient_bez_nazwy_8419);
+      }
+
+      .st10 {
+        fill: url(#Gradient_bez_nazwy_8413);
+      }
+
+      .st11 {
+        fill: url(#Gradient_bez_nazwy_841);
+      }
+
+      .st12 {
+        fill: url(#Gradient_bez_nazwy_845);
+      }
+
+      .st13 {
+        fill: url(#Gradient_bez_nazwy_8418);
+      }
+
+      .st14 {
+        fill: url(#Gradient_bez_nazwy_8416);
+      }
+
+      .st15 {
+        fill: url(#Gradient_bez_nazwy_846);
+      }
+
+      .st16 {
+        fill: url(#Gradient_bez_nazwy_847);
+      }
+
+      .st17 {
+        fill: url(#Gradient_bez_nazwy_842);
+      }
+
+      .st18 {
+        fill: url(#Gradient_bez_nazwy_843);
+      }
+
+      .st19 {
+        fill: url(#Gradient_bez_nazwy_8412);
+      }
+
+      .st20 {
+        fill: url(#Gradient_bez_nazwy_849);
+      }
+
+      .st21 {
+        fill: url(#Gradient_bez_nazwy_8415);
+      }
+
+      .st22 {
+        fill: url(#Gradient_bez_nazwy_8410);
+      }
+
+      .st23 {
+        fill: url(#Gradient_bez_nazwy_844);
+      }
+
+      .st24 {
+        fill: url(#Gradient_bez_nazwy_84);
+      }
+    </style>
+    <linearGradient id="Gradient_bez_nazwy_84" data-name="Gradient bez nazwy 84" x1="149.28" y1="236.74" x2="229.82" y2="42.9" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" />
+      <stop offset=".06" stop-color="#c4e6ff" />
+      <stop offset=".73" stop-color="#227aff" />
+      <stop offset="1" stop-color="#0a1f4a" />
+    </linearGradient>
+    <linearGradient id="Gradient_bez_nazwy_841" data-name="Gradient bez nazwy 84" x1="141.54" y1="233.6" x2="222.17" y2="39.55" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_842" data-name="Gradient bez nazwy 84" x1="137.1" y1="231.87" x2="217.87" y2="37.47" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_843" data-name="Gradient bez nazwy 84" x1="136.68" y1="231.99" x2="217.82" y2="36.72" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_844" data-name="Gradient bez nazwy 84" x1="141.21" y1="233.17" x2="221.69" y2="39.48" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_845" data-name="Gradient bez nazwy 84" x1="150.37" y1="236.77" x2="230.3" y2="44.4" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_846" data-name="Gradient bez nazwy 84" x1="162.06" y1="241.85" x2="242.25" y2="48.87" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_847" data-name="Gradient bez nazwy 84" x1="175.4" y1="247.53" x2="255.72" y2="54.21" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_848" data-name="Gradient bez nazwy 84" x1="189.87" y1="253.64" x2="270.3" y2="60.07" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_849" data-name="Gradient bez nazwy 84" x1="207.81" y1="261.21" x2="288.34" y2="67.4" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8410" data-name="Gradient bez nazwy 84" x1="221.37" y1="266.97" x2="302" y2="72.91" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8411" data-name="Gradient bez nazwy 84" x1="233.38" y1="272.15" x2="314.16" y2="77.73" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8412" data-name="Gradient bez nazwy 84" x1="243.21" y1="276.63" x2="324.31" y2="81.45" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8413" data-name="Gradient bez nazwy 84" x1="249.92" y1="278.93" x2="330.4" y2="85.24" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8414" data-name="Gradient bez nazwy 84" x1="253.04" y1="278.98" x2="332.71" y2="87.24" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8415" data-name="Gradient bez nazwy 84" x1="252.21" y1="279" x2="332.21" y2="86.47" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8416" data-name="Gradient bez nazwy 84" x1="248.84" y1="277.77" x2="328.98" y2="84.88" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8417" data-name="Gradient bez nazwy 84" x1="244.18" y1="275.92" x2="324.41" y2="82.83" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8418" data-name="Gradient bez nazwy 84" x1="238.26" y1="273.49" x2="318.54" y2="80.3" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8419" data-name="Gradient bez nazwy 84" x1="231.46" y1="270.72" x2="311.78" y2="77.4" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8420" data-name="Gradient bez nazwy 84" x1="221.77" y1="266.71" x2="302.12" y2="73.32" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8421" data-name="Gradient bez nazwy 84" x1="197.81" y1="256.79" x2="278.21" y2="63.3" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8422" data-name="Gradient bez nazwy 84" x1="180.46" y1="249.61" x2="260.89" y2="56.03" ns1:href="#Gradient_bez_nazwy_84" />
+    <linearGradient id="Gradient_bez_nazwy_8423" data-name="Gradient bez nazwy 84" x1="162.73" y1="242.28" x2="243.21" y2="48.58" ns1:href="#Gradient_bez_nazwy_84" />
+  </defs>
+  <g>
+    <path class="st8" d="M40,260.79h9.23v15.89h.25c6.02-5.31,12.05-10.58,18.07-15.89h10.84c-6.07,5.56-12.1,11.07-18.17,16.63,6.32,7.23,12.7,14.51,19.02,21.75h-11.19c-4.72-5.22-9.39-10.38-14.1-15.6-1.56,1.53-3.16,3-4.72,4.53v11.07h-9.23v-38.38Z" />
+    <path class="st8" d="M101.26,260.79h10.79l17.77,38.38h-9.79c-1.46-2.9-2.91-5.85-4.37-8.76h-18.22c-1.46,2.9-2.91,5.85-4.37,8.76h-9.59l17.77-38.38ZM111.55,281.89c-1.66-3.39-3.26-6.89-4.92-10.53h-.15c-1.66,3.64-3.26,7.13-4.92,10.53h9.99Z" />
+    <path class="st8" d="M134.74,260.79h19.82c9.18,0,14.3,4.13,14.3,9.89,0,3.74-2.46,7.48-7.48,8.71v.1c5.12.89,9.18,3.39,9.18,9.1,0,8.76-9.39,10.58-16.21,10.58h-19.62v-38.38ZM151.6,275.99c3.46,0,7.58-.25,7.58-3.59s-4.17-3.54-7.48-3.54h-7.73v7.13h7.63ZM152.45,291.09c3.41,0,8.23-.25,8.23-3.79s-4.72-3.79-8.03-3.79h-8.68v7.58h8.48Z" />
+    <path class="st8" d="M177.7,260.79h9.23v38.38h-9.23v-38.38Z" />
+    <path class="st8" d="M194.86,280.02c0-12.3,10.69-20.02,23.54-20.02,8.93,0,17.67,3.89,20.78,11.46l-4.52,1.67c-2.81-5.56-9.03-8.86-16.26-8.86-9.84,0-18.22,5.95-18.22,15.89,0,10.73,9.59,15.55,18.92,15.55s15.16-4.72,17.37-10.97l4.57,1.48c-3.11,8.31-10.69,13.78-22.33,13.78-13.9,0-23.84-8.12-23.84-19.98Z" />
+    <path class="st8" d="M248.46,260.79h5.02v16.97h26.45v-16.97h4.97v38.38h-4.97v-17.07h-26.45v17.07h-5.02v-38.38Z" />
+    <path class="st8" d="M297.14,260.79h29.71v4.18h-24.69v12.35h23.49v4.38h-23.49v13.19h25.3v4.28h-30.31v-38.38Z" />
+    <path class="st8" d="M336.69,260.79h6.12c6.02,10.58,12.05,21.16,18.07,31.73h.1c6.02-10.58,12.05-21.16,18.07-31.73h6.12v38.38h-5.07v-29.62h-.2c-5.62,9.89-11.19,19.73-16.81,29.62h-4.37c-5.62-9.89-11.14-19.73-16.76-29.62h-.2v29.62h-5.07v-38.38Z" />
+    <path class="st8" d="M397.42,260.79h5.02v38.38h-5.02v-38.38Z" />
+    <path class="st8" d="M414.69,260.79h29.71v4.18h-24.69v12.35h23.49v4.38h-23.49v13.19h25.3v4.28h-30.31v-38.38Z" />
+  </g>
+</svg>
