@@ -6,6 +6,17 @@ RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\.kondycjonowanie-wody.pl$ [NC]
 RewriteRule ^ https://kondycjonowanie-wody.pl%{REQUEST_URI} [R=301,L]
 
+# Zduplikowane adresy tej samej usługi.
+RewriteRule ^baza-wiedzy/korozja/?$ /baza-wiedzy/ [R=301,L]
+RewriteRule ^baza-wiedzy/kotly-parowe/?$ /baza-wiedzy/ [R=301,L]
+RewriteRule ^baza-wiedzy/kotly-parowe/kamien-kotlowy/?$ /baza-wiedzy/kamien-kotlowy/ [R=301,L]
+RewriteRule ^baza-wiedzy/membrany-ro/?$ /baza-wiedzy/ [R=301,L]
+RewriteRule ^baza-wiedzy/membrany-ro/antyskalant-ro/?$ /baza-wiedzy/antyskalant-ro/ [R=301,L]
+RewriteRule ^baza-wiedzy/parametry-wody/?$ /baza-wiedzy/ [R=301,L]
+RewriteRule ^baza-wiedzy/wieze-chlodnicze/?$ /baza-wiedzy/ [R=301,L]
+RewriteRule ^baza-wiedzy/wieze-chlodnicze/biofilm-w-ukladzie-chlodniczym/?$ /baza-wiedzy/biofilm-w-ukladzie-chlodniczym/ [R=301,L]
+RewriteRule ^uslugi/audyt-techniczny/?$ /bezplatna-konsultacja/ [R=301,L]
+
 AddType image/svg+xml .svg
 AddType text/plain .txt
 AddType application/xml .xml

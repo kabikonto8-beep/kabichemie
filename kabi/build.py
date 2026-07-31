@@ -14,7 +14,7 @@ import content as C
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, 'www')
 DOMAIN = 'https://kondycjonowanie-wody.pl'
-ASSET_VERSION = '20260710-hero-fade-v156'
+ASSET_VERSION = '20260731-kb-search-cat-v264'
 BUILD_DATE = os.environ.get('KABI_BUILD_DATE') or date.today().isoformat()
 CANONICAL_HOST = 'kondycjonowanie-wody.pl'
 CANONICAL_SCHEME = 'https'
@@ -35,8 +35,8 @@ CORE_EXPERTISE = [
 SERVICE_CATALOG = [
     ("Kondycjonowanie wody kotłowej", "/kotly-parowe/kondycjonowanie-wody-kotlowej/",
      "Dobór programu chemicznego KCAQUA do kotłów parowych, stabilizacja parametrów wody i ograniczenie kamienia."),
-    ("Odkamienianie kotłów i instalacji", "/kotly-parowe/odkamienianie/",
-     "Chemiczne usuwanie kamienia kotłowego, płukanie i zabezpieczenie powierzchni po czyszczeniu."),
+    ("Odkamienianie kotłów i instalacji", "/odkamienianie-instalacji/",
+     "Kontrolowane usuwanie kamienia z wymienników, rurociągów, kotłów i obiegów przemysłowych."),
     ("Ochrona układów chłodniczych", "/uklady-chlodnicze/",
      "Programy dla wież chłodniczych, skraplaczy wyparnych i obiegów chłodzących: kamień, korozja, biofilm."),
     ("Ochrona membran RO", "/membrany-ro/",
@@ -56,9 +56,9 @@ BLOG_IMAGE_BY_CATEGORY = {
 }
 
 BLOG_IMAGE_BY_HREF = {
-    '/baza-wiedzy/pojedynczy-wpis-blogowy-1/': '/assets/blog/blog-boiler-scale.png',
-    '/baza-wiedzy/pojedynczy-wpis-blogowy-2/': '/assets/blog/blog-biofilm-cleaning.png',
-    '/baza-wiedzy/pojedynczy-wpis-blogowy-3/': '/assets/blog/blog-ro-antiscalant.png',
+    '/baza-wiedzy/kamien-kotlowy/': '/assets/blog/blog-boiler-scale.png',
+    '/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/': '/assets/blog/blog-biofilm-cleaning.png',
+    '/baza-wiedzy/antyskalant-ro/': '/assets/blog/blog-ro-antiscalant.png',
     '/baza-wiedzy/kotly-parowe/': '/assets/blog/blog-boiler-scale.png',
     '/baza-wiedzy/wieze-chlodnicze/': '/assets/blog/blog-cooling-towers.png',
     '/baza-wiedzy/korozja/': '/assets/blog/blog-corrosion-pipes.png',
@@ -72,19 +72,19 @@ PAGE_ART_BY_PATH = {
     '/baza-wiedzy/kotly-parowe/': '/assets/blog/blog-boiler-scale.png',
     '/baza-wiedzy/membrany-ro/': '/assets/blog/blog-ro-antiscalant.png',
     '/baza-wiedzy/parametry-wody/': '/assets/blog/blog-water-reduction.png',
-    '/baza-wiedzy/pojedynczy-wpis-blogowy-1/': '/assets/blog/blog-boiler-scale.png',
-    '/baza-wiedzy/pojedynczy-wpis-blogowy-2/': '/assets/blog/blog-biofilm-cleaning.png',
-    '/baza-wiedzy/pojedynczy-wpis-blogowy-3/': '/assets/blog/blog-ro-antiscalant.png',
+    '/baza-wiedzy/kamien-kotlowy/': '/assets/blog/blog-boiler-scale.png',
+    '/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/': '/assets/blog/blog-biofilm-cleaning.png',
+    '/baza-wiedzy/antyskalant-ro/': '/assets/blog/blog-ro-antiscalant.png',
     '/baza-wiedzy/wieze-chlodnicze/': '/assets/blog/blog-cooling-towers.png',
     '/branze/': '/assets/industries/industry-branches-collage.jpg',
     '/case-study/': '/assets/case/case-fako-boiler-generated.png',
-    '/case-study/warsztaty-amoniakalne-2024/': '/assets/industries/industry-cold-storage.jpg',
+    '/case-study/warsztaty-amoniakalne-2024/': '/assets/case/case-ammonia-workshop-hero.png',
     '/kalkulator-oszczednosci/': '/assets/impact/impact-05-operational-costs.png',
     '/kotly-parowe/ochrona-antykorozyjna/': '/assets/blog/blog-corrosion-pipes.png',
     '/kotly-parowe/odkamienianie/': '/assets/blog/blog-boiler-scale.png',
     '/ochrona-antykorozyjna/chemiczne-czyszczenie/': '/assets/impact/impact-04-installation-protection.png',
     '/ochrona-antykorozyjna/pasywacja-stali/': '/assets/impact/impact-04-installation-protection.png',
-    '/polityka-prywatnosci/': '/assets/impact/impact-02-effluent-control.jpeg',
+    '/polityka-prywatnosci/': '/assets/visuals-v2/hero-privacy-control-v1.webp',
     '/uklady-chlodnicze/ochrona-wiez-chlodniczych/': '/assets/blog/blog-cooling-towers.png',
     '/uklady-chlodnicze/odkamienianie/': '/assets/impact/impact-03-energy-reduction.jpeg',
     '/uklady-chlodnicze/skraplacze-amoniakalne/': '/assets/case/case-skraplacz.png',
@@ -107,6 +107,21 @@ PAGE_ART_FALLBACKS = (
 
 EXCLUDED_PATHS = {
     '/branze/zaklady-miesne-i-drobiarskie/',
+}
+
+# Adresy, które prowadzą do innej strony (ta sama usługa pod inną nazwą).
+# Serwer robi 301 (.htaccess), a plik HTML przekierowuje lokalnie i u hostingów bez mod_rewrite.
+REDIRECTS = {
+    '/uslugi/audyt-techniczny/': '/bezplatna-konsultacja/',
+    # Baza wiedzy: kategorie zlikwidowane, artykuły przeniesione na płaskie adresy.
+    '/baza-wiedzy/kotly-parowe/kamien-kotlowy/': '/baza-wiedzy/kamien-kotlowy/',
+    '/baza-wiedzy/wieze-chlodnicze/biofilm-w-ukladzie-chlodniczym/': '/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/',
+    '/baza-wiedzy/membrany-ro/antyskalant-ro/': '/baza-wiedzy/antyskalant-ro/',
+    '/baza-wiedzy/kotly-parowe/': '/baza-wiedzy/',
+    '/baza-wiedzy/wieze-chlodnicze/': '/baza-wiedzy/',
+    '/baza-wiedzy/korozja/': '/baza-wiedzy/',
+    '/baza-wiedzy/parametry-wody/': '/baza-wiedzy/',
+    '/baza-wiedzy/membrany-ro/': '/baza-wiedzy/',
 }
 
 # ---------------------------------------------------------------- utilities
@@ -295,8 +310,9 @@ def page_kind(path, page):
         return 'AboutPage'
     if path == '/baza-wiedzy/':
         return 'CollectionPage'
-    if path.startswith('/baza-wiedzy/') and 'pojedynczy-wpis' in path:
-        return 'BlogPosting'
+    if path.startswith('/baza-wiedzy/') and path != '/baza-wiedzy/':
+        # /baza-wiedzy/{kategoria}/{wpis}/ -> wpis; /baza-wiedzy/{kategoria}/ -> kategoria
+        return 'BlogPosting' if len(path.strip('/').split('/')) == 3 else 'CollectionPage'
     if path.startswith('/baza-wiedzy/'):
         return 'CollectionPage'
     if path.startswith('/case-study/') and path != '/case-study/':
@@ -597,6 +613,8 @@ def render_head(path, page):
 <link rel="preload" href="/assets/style.css?v={ASSET_VERSION}" as="style">
 {('<link rel="preload" href="' + esc(preload_image) + '" as="image" fetchpriority="high">') if preload_image else ''}
 <link rel="stylesheet" href="/assets/style.css?v={ASSET_VERSION}">
+<link rel="stylesheet" href="/assets/solution-pages.css?v={ASSET_VERSION}">
+<link rel="stylesheet" href="/assets/company-case-pages.css?v={ASSET_VERSION}">
 {ld_html}</head>
 <body{(' class="' + page['body_class'] + '"') if page.get('body_class') else ''}>
 """
@@ -608,14 +626,25 @@ def render_header(path):
     for it in C.NAV:
         href = it['href']
         active = ' aria-current="page"' if (href != '/' and path.startswith(href)) else ''
-        if it.get('children'):
-            sub = ''.join(
-                f'<li><a href="{c["href"]}"><img class="nav-panel__item-logo" '
-                'src="/assets/logo-mark.png" alt="" aria-hidden="true">'
-                f'<span class="nav-panel__link-label">{esc(c["label"])}</span>'
-                '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/>'
-                '<path d="m13 6 6 6-6 6"/></svg></a></li>'
-                for c in it['children'])
+        if it.get('children') or it.get('groups'):
+            def nav_links(entries):
+                return ''.join(
+                    f'<li><a href="{c["href"]}"><img class="nav-panel__item-logo" '
+                    'src="/assets/logo-mark.png" alt="" aria-hidden="true">'
+                    f'<span class="nav-panel__link-label">{esc(c["label"])}</span>'
+                    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/>'
+                    '<path d="m13 6 6 6-6 6"/></svg></a></li>'
+                    for c in entries)
+
+            if it.get('groups'):
+                sub = '<div class="nav-panel__groups">' + ''.join(
+                    '<div class="nav-panel__group">'
+                    f'<span class="nav-panel__group-title">{esc(g["title"])}</span>'
+                    f'<ul class="nav-panel__links nav-panel__links--stack">{nav_links(g["links"])}</ul>'
+                    '</div>'
+                    for g in it['groups']) + '</div>'
+            else:
+                sub = f'<ul class="nav-panel__links">{nav_links(it["children"])}</ul>'
             promo = it.get('promo')
             if promo:
                 p_h, p_cta, p_href = promo
@@ -624,6 +653,11 @@ def render_header(path):
                                       'Umów bezpłatny audyt', '/bezplatna-konsultacja/')
             panel_id = 'nav-panel-' + ''.join(ch.lower() if ch.isalnum() else '-'
                                                for ch in it['label']).strip('-')
+            # Panele z grupami mają własne nagłówki kolumn, więc tytuł sekcji jest zbędny.
+            head = '' if it.get('groups') else (
+                '<div class="nav-panel__services-head">'
+                f'<span class="nav-panel__section-title">{esc(it["label"])}</span>'
+                '</div>')
             items += (
                 f'<li class="has-sub"><a href="{href}"{active} aria-haspopup="true" '
                 f'aria-expanded="false" aria-controls="{panel_id}">{esc(it["label"])}'
@@ -634,23 +668,10 @@ def render_header(path):
                 '<div class="nav-panel__lockup" aria-hidden="true">'
                 '<img class="nav-panel__lockup-logo" src="/assets/kabi-logo-old-light.png" width="456" height="90" alt="">'
                 '</div>'
-                '<div class="nav-panel__identity-copy">'
-                '<span>Water Performance System</span>'
-                '<strong>Woda pod kontrolą. Wynik w liczbach.</strong>'
-                '</div>'
                 '</div>'
                 '<div class="nav-panel__services">'
-                '<div class="nav-panel__services-head">'
-                f'<span class="nav-panel__section-title">{esc(it["label"])}</span>'
-                '</div>'
-                f'<ul class="nav-panel__links">{sub}</ul>'
-                '<div class="nav-panel__action">'
-                f'<strong class="nav-panel__action-title">{esc(p_h)}</strong>'
-                '<span class="nav-panel__action-note">Porozmawiaj z inżynierem KABI-CHEMIE.</span>'
-                f'<a class="nav-panel__cta" href="{p_href}">{esc(p_cta)}'
-                '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/>'
-                '<path d="m13 6 6 6-6 6"/></svg></a>'
-                '</div>'
+                f'{head}'
+                f'{sub}'
                 '</div>'
                 '</div></div></li>')
         else:
@@ -701,29 +722,20 @@ def render_footer():
         <img class="fbrand-logo__image" src="/assets/kabi-logo-old-light.png" width="456" height="90" alt="" aria-hidden="true">
       </span>
       <div class="footer-socials" aria-label="Media społecznościowe">
-        <span class="footer-social-icon footer-social-icon--text" role="img" aria-label="LinkedIn"><span aria-hidden="true">in</span></span>
-        <span class="footer-social-icon footer-social-icon--text" role="img" aria-label="Facebook"><span aria-hidden="true">f</span></span>
-        <span class="footer-social-icon" role="img" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4"></rect><path d="m10 9 5 3-5 3Z"></path></svg></span>
-        <span class="footer-social-icon" role="img" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="3.5"></circle><circle cx="17.3" cy="6.8" r=".8" class="footer-social-dot"></circle></svg></span>
-        <span class="footer-social-icon" role="img" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4 19 20M19 4 5 20"></path></svg></span>
+        <span class="footer-social-icon" role="img" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.2" cy="6.3" r="1.65"></circle><path d="M4.7 9.7h3v9.6h-3zM10.4 9.7h2.9V11c.8-1.1 1.9-1.7 3.3-1.7 2.4 0 3.7 1.5 3.7 4.5v5.5h-3v-5.1c0-1.5-.5-2.4-1.8-2.4-1.4 0-2.1 1-2.1 2.8v4.7h-3z"></path></svg></span>
+        <span class="footer-social-icon" role="img" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.9 20v-7h2.4l.4-2.8h-2.8V8.6c0-.8.3-1.5 1.5-1.5h1.5V4.6c-.7-.1-1.5-.2-2.4-.2-2.5 0-4.1 1.5-4.1 4.1v1.7H8V13h2.4v7z"></path></svg></span>
+        <span class="footer-social-icon" role="img" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a2.8 2.8 0 0 0-2-2C17.2 5.7 12 5.7 12 5.7s-5.2 0-7 .5a2.8 2.8 0 0 0-2 2A28 28 0 0 0 2.6 12 28 28 0 0 0 3 15.8a2.8 2.8 0 0 0 2 2c1.8.5 7 .5 7 .5s5.2 0 7-.5a2.8 2.8 0 0 0 2-2 28 28 0 0 0 .4-3.8 28 28 0 0 0-.4-3.8ZM10 15.1V8.9l5.4 3.1z"></path></svg></span>
       </div>
     </div>
     {cols}
-    <div class="footer-offices" aria-label="Dane kontaktowe oddziałów">
+    <div class="footer-offices" aria-label="Dane kontaktowe KABI CHEMIE">
       <address class="footer-location">
-        <strong>Siedziba główna</strong>
-        <span class="footer-company">{esc(s['company'])}</span>
+        <strong>KABI CHEMIE</strong>
         <span>{esc(s['postal_code'])} {esc(s['city'])}</span>
         <span>{esc(s['street'])}</span>
         <span>NIP: {esc(s['nip'])}</span>
         <a href="tel:{s['phone_raw']}">{esc(s['phone'])}</a>
         <a href="mailto:{s['email']}">{esc(s['email'])}</a>
-      </address>
-      <address class="footer-location">
-        <strong>{esc(s['branch']['name'])}</strong>
-        <span class="footer-company">{esc(s['branch']['contact'])}</span>
-        <a href="tel:{s['branch']['phone_raw']}">{esc(s['branch']['phone'])}</a>
-        <a href="mailto:{s['branch']['email']}">{esc(s['branch']['email'])}</a>
       </address>
     </div>
   </div>
@@ -1099,7 +1111,7 @@ def s_contact(d):
     <div class="form-consents" aria-label="Zgody i informacje prawne">
       <label class="form-consent form-consent--required" for="cf-privacy-consent">
         <input id="cf-privacy-consent" name="privacyConsent" type="checkbox" required>
-        <span>Akceptuję <a href="/polityka-prywatnosci/">politykę prywatności</a> i potwierdzam, że moje dane mogą zostać wykorzystane w celu obsługi zapytania oraz kontaktu zwrotnego. <span class="form-consent__tag">wymagane</span></span>
+        <span>Zgadzam się na kontakt w sprawie zapytania zgodnie z <a href="/polityka-prywatnosci/">polityką prywatności</a>. <span class="form-consent__tag">wymagane</span></span>
       </label>
     </div>
     <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
@@ -1188,8 +1200,8 @@ def build_page(path):
         body_classes.append('has-video-hero')
     if page.get('body_class'):
         body_classes.append(page['body_class'])
-    preload_image = None
-    if sections and sections[0].get('type') == 'hero' and not sections[0].get('video'):
+    preload_image = page.get('preload_image')
+    if not preload_image and sections and sections[0].get('type') == 'hero' and not sections[0].get('video'):
         preload_image = page_art_for(path)
     pmeta = {'title': title, 'h1': h1, 'meta': meta,
              'jsonld': jsonld, 'og_type': page.get('og_type', 'website'),
@@ -1208,12 +1220,41 @@ def build_page(path):
     write(path, htmltext)
     return title
 
+def build_redirect_page(path, target):
+    """Strona-przekierowanie: meta refresh + canonical na docelowy adres, poza indeksem."""
+    label = short_title(target)
+    title = f'{label} | {C.SITE["name"]}'
+    htmltext = f"""<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(title)}</title>
+<meta name="description" content="Ta strona została połączona z sekcją {esc(label)}. Przenosimy Cię pod właściwy adres.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="{DOMAIN}{target}">
+<meta http-equiv="refresh" content="0; url={target}">
+<link rel="stylesheet" href="/assets/style.css?v={ASSET_VERSION}">
+</head>
+<body class="redirect-page">
+<main id="main">
+  <h1>{esc(label)}</h1>
+  <p>Ta usługa jest opisana na stronie <a href="{target}">{esc(label)}</a>. Za chwilę nastąpi przekierowanie.</p>
+</main>
+<script>window.location.replace({json.dumps(target)});</script>
+</body>
+</html>
+"""
+    write(path, htmltext)
+    return title
+
+
 # ---------------------------------------------------------------- SITEMAP / ROBOTS
 def sitemap_priority(path):
     if path == '/':
         return '1.0'
     if path in ('/uslugi/', '/kotly-parowe/', '/uklady-chlodnicze/', '/membrany-ro/',
-                '/ochrona-antykorozyjna/', '/kontakt/', '/bezplatna-konsultacja/'):
+                '/odkamienianie-instalacji/', '/ochrona-antykorozyjna/', '/kontakt/', '/bezplatna-konsultacja/'):
         return '0.9'
     if path.startswith(('/case-study/', '/baza-wiedzy/')):
         return '0.8'
@@ -1238,6 +1279,7 @@ def write_llms(paths):
             ("/kotly-parowe/", "Rozwiązania dla kotłów parowych i wody kotłowej."),
             ("/uklady-chlodnicze/", "Rozwiązania dla wież chłodniczych, skraplaczy i obiegów chłodzenia."),
             ("/membrany-ro/", "Ochrona membran RO, antyskalanty i diagnostyka stacji odwróconej osmozy."),
+            ("/odkamienianie-instalacji/", "Odkamienianie wymienników, rurociągów i obiegów przemysłowych."),
             ("/ochrona-antykorozyjna/", "Ochrona antykorozyjna, pasywacja i chemiczne czyszczenie instalacji."),
             ("/case-study/", "Realizacje pokazujące efekty wdrożeń KCAQUA."),
             ("/baza-wiedzy/", "Artykuły eksperckie o wodzie przemysłowej, korozji, kamieniu i biofilmie."),
@@ -1361,6 +1403,10 @@ def write_sitemap(paths):
         )
 
 def write_server_hints():
+    redirect_rules = ''.join(
+        f'RewriteRule ^{src.strip("/")}/?$ {dst} [R=301,L]\n'
+        for src, dst in sorted(REDIRECTS.items())
+    )
     htaccess = f"""# Kabi-Chemie, SEO technical layer.
 RewriteEngine On
 
@@ -1369,6 +1415,8 @@ RewriteCond %{{HTTPS}} !=on [OR]
 RewriteCond %{{HTTP_HOST}} ^www\\.{CANONICAL_HOST}$ [NC]
 RewriteRule ^ {CANONICAL_SCHEME}://{CANONICAL_HOST}%{{REQUEST_URI}} [R=301,L]
 
+# Zduplikowane adresy tej samej usługi.
+{redirect_rules}
 AddType image/svg+xml .svg
 AddType text/plain .txt
 AddType application/xml .xml
@@ -1436,15 +1484,19 @@ def main():
 
     count = 0
     for p in paths:
-        build_page(p)
+        if p in REDIRECTS:
+            build_redirect_page(p, REDIRECTS[p])
+        else:
+            build_page(p)
         count += 1
 
     # 404 -> także kopia w korzeniu (dla hostingów)
     if os.path.exists(out_file('/404/')):
         shutil.copyfile(out_file('/404/'), os.path.join(OUT, '404.html'))
 
-    write_sitemap(paths)
-    write_llms(paths)
+    indexable = [p for p in paths if p not in REDIRECTS]
+    write_sitemap(indexable)
+    write_llms(indexable)
     write_server_hints()
     print(f'OK: wygenerowano {count} stron -> {OUT}')
 

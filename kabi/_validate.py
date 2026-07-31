@@ -31,6 +31,14 @@ def attrs(tag):
 
 for url, fp in sorted(PAGES.items()):
     html = open(fp, encoding='utf-8').read()
+    # Strony przekierowujące są celowo poza indeksem: sprawdzamy tylko cel przekierowania.
+    if 'http-equiv="refresh"' in html and 'noindex' in html:
+        target = re.search(r'<link rel="canonical" href="(?:https?://[^/"]+)?(/[^"]*)"', html)
+        if not target:
+            missing_seo.append(f'{url} -> przekierowanie bez canonical')
+        elif target.group(1) not in existing:
+            broken.append(f'{url} -> przekierowanie do nieistniejącej strony {target.group(1)}')
+        continue
     # SEO completeness
     for tag, pat in [('title', r'<title>[^<]+</title>'),
                      ('description', r'<meta name="description" content="[^"]+">'),

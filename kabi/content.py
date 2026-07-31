@@ -5,6 +5,10 @@ Dane SEO (title/meta/h1/breadcrumbs) pochodzą z _seo.json (arkusz „Optymaliza
 Tu definiujemy: SITE, NAV, FOOTER, SHORT (etykiety okruszków) oraz PAGES (sekcje).
 """
 
+from solution_pages import install_solution_pages
+from company_case_pages import install_company_case_pages
+from knowledge_pages import install_knowledge_pages
+
 # ------------------------------------------------------------------ globalne
 SITE = {
     "name": "Kabi-Chemie",
@@ -70,7 +74,7 @@ NAV = [
         {"label": "Odkamienianie instalacji", "href": "/odkamienianie-instalacji/"},
     ]},
     {"label": "Usługi", "href": "/uslugi/", "children": [
-        {"label": "Audyt techniczny", "href": "/uslugi/audyt-techniczny/"},
+        {"label": "Audyt techniczny", "href": "/bezplatna-konsultacja/"},
         {"label": "Analiza wody", "href": "/uslugi/analiza-wody/"},
         {"label": "Serwis urządzeń", "href": "/uslugi/serwis-urzadzen/"},
     ]},
@@ -93,16 +97,18 @@ NAV = [
 FOOTER = [
     {"title": "Oferta", "links": [
         {"label": "Kotły parowe", "href": "/kotly-parowe/"},
-        {"label": "Układy chłodnicze", "href": "/uklady-chlodnicze/"},
-        {"label": "Membrany RO", "href": "/membrany-ro/"},
+        {"label": "Skraplacze wyparne", "href": "/uklady-chlodnicze/"},
+        {"label": "Autoklawy i pasteryzatory", "href": "/autoklawy-i-pasteryzatory/"},
+        {"label": "Technologia KCAQUA", "href": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"},
+        {"label": "Ochrona membran RO", "href": "/membrany-ro/"},
         {"label": "Odkamienianie instalacji", "href": "/odkamienianie-instalacji/"},
         {"label": "Ochrona antykorozyjna", "href": "/ochrona-antykorozyjna/"},
     ]},
     {"title": "Usługi", "links": [
-        {"label": "Audyt techniczny", "href": "/uslugi/audyt-techniczny/"},
+        {"label": "Audyt techniczny", "href": "/bezplatna-konsultacja/"},
         {"label": "Analiza wody", "href": "/uslugi/analiza-wody/"},
         {"label": "Serwis urządzeń", "href": "/uslugi/serwis-urzadzen/"},
-        {"label": "Bezpłatna konsultacja", "href": "/bezplatna-konsultacja/"},
+        {"label": "Białe certyfikaty", "href": "/biale-certyfikaty/"},
     ]},
     {"title": "Wiedza", "links": [
         {"label": "Baza wiedzy", "href": "/baza-wiedzy/"},
@@ -121,28 +127,26 @@ FOOTER = [
 
 # Nowa nawigacja zgodna z briefem: mniej pozycji, więcej ścieżek decyzyjnych.
 NAV = [
-    {"label": "Rozwiązania", "href": "/uslugi/", "promo": ("Dobierzemy program chemiczny pod Twoją instalację.", "Umów bezpłatny audyt", "/bezplatna-konsultacja/"), "children": [
-        {"label": "Kotły parowe", "href": "/kotly-parowe/"},
-        {"label": "Skraplacze wyparne", "href": "/uklady-chlodnicze/"},
-        {"label": "Technologia KCAQUA", "href": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"},
-        {"label": "Białe certyfikaty", "href": "/bezplatna-konsultacja/"},
-        {"label": "Ochrona membran RO", "href": "/membrany-ro/"},
-        {"label": "Serwis i automatyka", "href": "/uslugi/serwis-urzadzen/"},
+    {"label": "Rozwiązania", "href": "/uslugi/", "promo": ("Dobierzemy program chemiczny pod Twoją instalację.", "Umów bezpłatny audyt", "/bezplatna-konsultacja/"), "groups": [
+        {"title": "Oferta", "links": [
+            {"label": "Kotły parowe", "href": "/kotly-parowe/"},
+            {"label": "Skraplacze wyparne", "href": "/uklady-chlodnicze/"},
+            {"label": "Autoklawy i pasteryzatory", "href": "/autoklawy-i-pasteryzatory/"},
+            {"label": "Ochrona membran RO", "href": "/membrany-ro/"},
+            {"label": "Odkamienianie instalacji", "href": "/odkamienianie-instalacji/"},
+            {"label": "Ochrona antykorozyjna", "href": "/ochrona-antykorozyjna/"},
+        ]},
+        {"title": "Usługi", "links": [
+            {"label": "Audyt techniczny", "href": "/bezplatna-konsultacja/"},
+            {"label": "Analiza wody", "href": "/uslugi/analiza-wody/"},
+            {"label": "Serwis i automatyka", "href": "/uslugi/serwis-urzadzen/"},
+            {"label": "Białe certyfikaty", "href": "/biale-certyfikaty/"},
+        ]},
     ]},
-    {"label": "Case studies", "href": "/case-study/", "promo": ("Realne wdrożenia z liczbami gotowymi dla zarządu.", "Zobacz wszystkie realizacje", "/case-study/"), "children": [
-        {"label": "Fako: −32% paliwa", "href": "/case-study/kociol-parowy-fako/"},
-        {"label": "BAC: KCAQUA 305", "href": "/case-study/skraplacz-bac-kcaqua/"},
-        {"label": "Evapco: przetwórstwo rybne", "href": "/case-study/skraplacz-evapco-przetworstwo-rybne/"},
-    ]},
+    {"label": "Technologia KCAQUA", "href": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"},
+    {"label": "Case studies", "href": "/case-study/"},
     {"label": "Branże", "href": "/branze/"},
-    {"label": "Baza wiedzy", "href": "/baza-wiedzy/", "promo": ("Praktyczna wiedza o kondycjonowaniu wody w przemyśle.", "Przejdź do bazy wiedzy", "/baza-wiedzy/"), "children": [
-        {"label": "Centrum Wiedzy", "href": "/baza-wiedzy/"},
-        {"label": "Kotły parowe", "href": "/baza-wiedzy/kotly-parowe/"},
-        {"label": "Skraplacze i chłodnictwo", "href": "/baza-wiedzy/wieze-chlodnicze/"},
-        {"label": "Oszczędność wody i parametry", "href": "/baza-wiedzy/parametry-wody/"},
-        {"label": "Membrany RO", "href": "/baza-wiedzy/membrany-ro/"},
-        {"label": "Korozja i chemia", "href": "/baza-wiedzy/korozja/"},
-    ]},
+    {"label": "Baza wiedzy", "href": "/baza-wiedzy/"},
     {"label": "Firma", "href": "/o-firmie/", "promo": ("Poznaj Kabi-Chemie i nasz model współpracy.", "Skontaktuj się z nami", "/kontakt/"), "children": [
         {"label": "Misja firmy", "href": "/o-firmie/"},
         {"label": "Model współpracy", "href": "/warunki-wspolpracy/"},
@@ -158,6 +162,7 @@ SHORT = {
     "/o-firmie/": "O firmie",
     "/bezplatna-konsultacja/": "Bezpłatna konsultacja",
     "/kalkulator-oszczednosci/": "Kalkulator oszczędności",
+    "/biale-certyfikaty/": "Białe certyfikaty",
     "/referencje/": "Referencje",
     "/case-study/": "Case studies",
     "/case-study/kociol-parowy-fako/": "Kocioł parowy Fako",
@@ -166,6 +171,7 @@ SHORT = {
     "/case-study/warsztaty-amoniakalne-2024/": "Warsztaty Amoniakalne 2024",
     "/faq/": "FAQ",
     "/kotly-parowe/": "Kotły parowe",
+    "/autoklawy-i-pasteryzatory/": "Autoklawy i pasteryzatory",
     "/kotly-parowe/kondycjonowanie-wody-kotlowej/": "Kondycjonowanie wody kotłowej",
     "/kotly-parowe/odkamienianie/": "Odkamienianie kotłów",
     "/kotly-parowe/ochrona-antykorozyjna/": "Ochrona antykorozyjna",
@@ -300,7 +306,7 @@ PAGES["/"] = {"sections": [
         ),
         ctas=[
             ("Sprawdź potencjał oszczędności", "/kalkulator-oszczednosci/"),
-            ("Skontaktuj się z inżynierem", "/kontakt/"),
+            ("Skontaktuj się z inżynierem", "/bezplatna-konsultacja/"),
         ],
         scroll_cue="Zobacz więcej",
         scroll_href="#nasze-branze",
@@ -417,53 +423,53 @@ PAGES["/"] = {"sections": [
     <div class="impact-copy">
       <p class="eyebrow scrub-l">Czym się zajmujemy</p>
       <h2 class="scrub-l">Mniej wody. Mniej energii. Większe&nbsp;zyski.</h2>
-      <p class="scrub-l">Porządkujemy gospodarkę wodną tam, gdzie codziennie uciekają pieniądze: w poborze świeżej wody, zrzutach ścieków, energii i awaryjności instalacji.</p>
+      <p class="scrub-l">Porządkujemy obieg wody tam, gdzie wynik techniczny przekłada się na koszty: w poborze wody uzupełniającej, zrzutach z instalacji, wymianie ciepła i trwałości urządzeń.</p>
       <a class="btn btn-primary btn-arrow impact-copy__cta scrub-l" href="/bezplatna-konsultacja/">Umów darmowy audyt</a>
     </div>
     <div class="impact-grid impact-accordion scrub-r" data-impact-accordion aria-label="Animowane obszary wpływu Kabi-Chemie">
-      <article class="impact-card impact-card--active" role="button" tabindex="0" aria-expanded="true" data-impact-item style="--card-img:url('/assets/impact/impact-01-water-reduction.jpeg');--card-pos:center center;--card-a:#062030;--card-b:#0f6f93;--card-accent:#7fd4ef">
+      <article class="impact-card impact-card--active" role="button" tabindex="0" aria-expanded="true" data-impact-item style="--card-img:url('/assets/impact/impact-01-process-water-control-v2.webp');--card-pos:center center;--card-a:#062030;--card-b:#0f6f93;--card-accent:#7fd4ef">
         <span class="impact-card__number">01</span>
         <div class="impact-card__visual" aria-hidden="true"></div>
         <div class="impact-card__content">
-          <p class="impact-card__kicker">Woda procesowa</p>
-          <h3>Ograniczamy pobór wody</h3>
-          <p>Wyższa stabilność parametrów pozwala zmniejszyć ilość świeżej wody potrzebnej do pracy instalacji.</p>
+          <p class="impact-card__kicker">Woda uzupełniająca</p>
+          <h3>Zmniejszamy pobór świeżej wody</h3>
+          <p>Stabilne parametry pozwalają rzadziej uzupełniać obieg i ograniczyć ilość wody potrzebnej do jego pracy.</p>
         </div>
       </article>
-      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-02-effluent-control.jpeg');--card-pos:center center;--card-a:#061d1a;--card-b:#1f9d57;--card-accent:#8ce8bd">
+      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-02-process-water-discharge-v2.webp');--card-pos:center center;--card-a:#062030;--card-b:#0f6f93;--card-accent:#7fd4ef">
         <span class="impact-card__number">02</span>
         <div class="impact-card__visual" aria-hidden="true"></div>
         <div class="impact-card__content">
-          <p class="impact-card__kicker">Zrzuty i opłaty</p>
-          <h3>Ograniczamy zrzuty ścieków</h3>
-          <p>Mniej odsalania i wymian wody to mniej ścieków technologicznych oraz niższe opłaty operacyjne.</p>
+          <p class="impact-card__kicker">Zrzut wody z instalacji</p>
+          <h3>Ograniczamy zrzut wody z instalacji</h3>
+          <p>Lepsza kontrola odsalania i wymian pozwala dłużej wykorzystać wodę w obiegu, ograniczając ilość odprowadzanej wody i związane z tym koszty.</p>
         </div>
       </article>
-      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-03-energy-reduction.jpeg');--card-pos:center center;--card-a:#061a2a;--card-b:#1789b6;--card-accent:#8ee3ff">
+      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-03-heat-transfer-v2.webp');--card-pos:center center;--card-a:#061a2a;--card-b:#1789b6;--card-accent:#8ee3ff">
         <span class="impact-card__number">03</span>
         <div class="impact-card__visual" aria-hidden="true"></div>
         <div class="impact-card__content">
-          <p class="impact-card__kicker">Energia i wymiana ciepła</p>
-          <h3>Zmniejszamy zużycie energii</h3>
-          <p>Czystsze powierzchnie wymiany ciepła zmniejszają straty paliwa, pary i chłodu.</p>
+          <p class="impact-card__kicker">Sprawna wymiana ciepła</p>
+          <h3>Ograniczamy straty energii</h3>
+          <p>Czyste powierzchnie wymiany ciepła pomagają efektywniej wykorzystać paliwo, parę i chłód.</p>
         </div>
       </article>
-      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-04-installation-protection.png');--card-pos:center center;--card-a:#061421;--card-b:#0b3d5c;--card-accent:#b8eaff">
+      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-04-installation-protection-v2.webp');--card-pos:center center;--card-a:#061421;--card-b:#0b3d5c;--card-accent:#b8eaff">
         <span class="impact-card__number">04</span>
         <div class="impact-card__visual" aria-hidden="true"></div>
         <div class="impact-card__content">
-          <p class="impact-card__kicker">Ochrona instalacji</p>
-          <h3>Chronimy instalacje</h3>
-          <p>Kontrolujemy kamień, korozję, biofilm i osady, które skracają żywotność urządzeń.</p>
+          <p class="impact-card__kicker">Trwałość urządzeń</p>
+          <h3>Chronimy instalację</h3>
+          <p>Kontrola kamienia, korozji i biofilmu ogranicza awarie oraz wydłuża czas bezpiecznej pracy urządzeń.</p>
         </div>
       </article>
-      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-05-operational-costs.png');--card-pos:center center;--card-a:#071824;--card-b:#0a789b;--card-accent:#7fd4ef">
+      <article class="impact-card" role="button" tabindex="0" aria-expanded="false" data-impact-item style="--card-img:url('/assets/impact/impact-05-measured-savings-v2.webp');--card-pos:center center;--card-a:#071824;--card-b:#0a789b;--card-accent:#7fd4ef">
         <span class="impact-card__number">05</span>
         <div class="impact-card__visual" aria-hidden="true"></div>
         <div class="impact-card__content">
-          <p class="impact-card__kicker">Koszty operacyjne</p>
-          <h3>Obniżamy koszty operacyjne</h3>
-          <p>Łączymy chemię, audyt i monitoring, żeby oszczędność była policzalna dla zarządu i utrzymania ruchu.</p>
+          <p class="impact-card__kicker">Wynik w danych</p>
+          <h3>Pokazujemy efekt w liczbach</h3>
+          <p>Monitoring i raporty łączą parametry techniczne z kosztami, ułatwiając decyzje utrzymania ruchu i zarządu.</p>
         </div>
       </article>
     </div>
@@ -705,6 +711,23 @@ PAGES["/"] = {"sections": [
   </div>
 </section>
 
+<section class="company-stories" id="baza-wiedzy">
+  <span class="section-bg-word section-bg-word--dark" aria-hidden="true">WIEDZA</span>
+  <img class="section-bg-logo section-bg-logo--dark" src="/assets/kabi-sygnet.svg" alt="" aria-hidden="true">
+  <div class="wrap company-stories__grid">
+    <header class="company-stories__intro reveal-left">
+      <p class="company-kicker"><span></span>Baza wiedzy</p>
+      <h2><span>Wiedza z prawdziwych</span><span>instalacji.</span></h2>
+      <p>Każdy artykuł pokazuje konkretny problem instalacji, jego przyczyny i działania, które realnie obniżają koszty codziennej pracy.</p>
+    </header>
+    <div class="company-stories__list">
+      <a class="reveal" href="/baza-wiedzy/kamien-kotlowy/"><span>Kotły parowe</span><strong>Kamień kotłowy: jak cienki osad podnosi koszty pracy kotła.</strong><i aria-hidden="true">↗</i></a>
+      <a class="reveal" href="/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/"><span>Chłodnictwo przemysłowe</span><strong>Biofilm w układzie chłodniczym: jak rozpoznać i usunąć osady.</strong><i aria-hidden="true">↗</i></a>
+      <a class="reveal" href="/baza-wiedzy/antyskalant-ro/"><span>Membrany RO</span><strong>Antyskalant RO: kiedy naprawdę chroni membranę.</strong><i aria-hidden="true">↗</i></a>
+    </div>
+  </div>
+</section>
+
 <section class="section home-faq-section section-brand-panel" id="faq" data-faq-scroll>
   <span class="section-bg-word" aria-hidden="true">PYTANIA</span>
   <img class="section-bg-logo" src="/assets/kabi-sygnet.svg" alt="" aria-hidden="true">
@@ -780,7 +803,7 @@ PAGES["/"] = {"sections": [
       <div class="form-consents" aria-label="Zgody i informacje prawne">
         <label class="form-consent form-consent--required" for="audit-privacy-consent">
           <input id="audit-privacy-consent" name="privacyConsent" type="checkbox" required>
-          <span>Akceptuję <a href="/polityka-prywatnosci/">politykę prywatności</a> i potwierdzam, że moje dane mogą zostać wykorzystane w celu obsługi zapytania oraz kontaktu zwrotnego. <span class="form-consent__tag">wymagane</span></span>
+          <span>Zgadzam się na kontakt w sprawie zapytania zgodnie z <a href="/polityka-prywatnosci/">polityką prywatności</a>. <span class="form-consent__tag">wymagane</span></span>
         </label>
       </div>
       <button type="submit" class="btn btn-primary">Poproś o kontakt <span aria-hidden="true">→</span></button>
@@ -846,43 +869,9 @@ PAGES["/bezplatna-konsultacja/"] = {
       <li><a href="/kotly-parowe/">Kotły parowe <span aria-hidden="true">↘</span></a></li>
       <li><a href="/uklady-chlodnicze/">Skraplacze wyparne <span aria-hidden="true">↘</span></a></li>
       <li><a href="/membrany-ro/">Ochrona membran <span aria-hidden="true">↘</span></a></li>
-      <li><a href="/kalkulator-oszczednosci/">Białe certyfikaty <span aria-hidden="true">↘</span></a></li>
+      <li><a href="/biale-certyfikaty/">Białe certyfikaty <span aria-hidden="true">↘</span></a></li>
       <li><a href="/uslugi/serwis-urzadzen/">Serwis i automatyka <span aria-hidden="true">↘</span></a></li>
     </ul>
-  </div>
-</section>
-
-<section class="branches-proof consult-branches-proof reveal" aria-label="Co ustalimy podczas konsultacji" data-scroll-fly>
-  <div class="wrap branches-proof__inner">
-    <div class="branches-proof__head">
-      <div data-fly="left">
-        <p class="branches-proof__eyebrow">Pierwsza rozmowa</p>
-        <h2 class="branches-proof__intro"><span>Objaw, instalacja,</span> <span>dane i kolejny krok.</span></h2>
-      </div>
-      <p class="branches-proof__lead" data-fly="right" data-fly-delay="0.04">Nie musisz mieć pełnej dokumentacji. Wystarczy krótki opis sytuacji, typ instalacji i numer telefonu. Resztę doprecyzuje osoba techniczna.</p>
-    </div>
-    <div class="branches-proof__flow">
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">01</span></span>
-        <strong>Rozumiemy objaw</strong>
-        <span>kamień, korozja, biofilm, przewodność, spadek wydajności albo problem z jakością wody</span>
-      </article>
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">02</span></span>
-        <strong>Mapujemy instalację</strong>
-        <span>kocioł, skraplacz, wieża chłodnicza, RO, wymiennik, CIP lub obieg technologiczny</span>
-      </article>
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">03</span></span>
-        <strong>Wskazujemy potrzebne dane</strong>
-        <span>mówimy, które wyniki wody, zdjęcia lub parametry pracy realnie pomogą w decyzji</span>
-      </article>
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">04</span></span>
-        <strong>Ustalamy kolejny krok</strong>
-        <span>analiza wody, audyt, korekta dozowania, czyszczenie chemiczne albo dobór KCAQUA</span>
-      </article>
-    </div>
   </div>
 </section>
 
@@ -890,13 +879,13 @@ PAGES["/bezplatna-konsultacja/"] = {
   <div class="wrap branches-method__grid">
     <div data-fly="left">
       <p class="branches-kicker">Jak przebiega konsultacja</p>
-      <h2 id="consult-method-title"><span>Minimum formularza.</span> <span>Maksimum konkretu.</span></h2>
-      <p>Kontakt ma być prosty. Zostawiasz podstawowe dane, a my bierzemy na siebie rozmowę techniczną: kwalifikację problemu, listę informacji do zebrania i rekomendację dalszego działania.</p>
+      <h2 id="consult-method-title"><span>Krótka rozmowa.</span> <span>Jasny kolejny krok.</span></h2>
+      <p>Wystarczy numer telefonu i jedno zdanie o instalacji. Potrzebne dane ustalimy wspólnie podczas rozmowy.</p>
     </div>
     <ol class="branches-method__steps">
-      <li data-fly="right"><strong>Zgłoszenie</strong><span>Podajesz firmę, telefon i krótki temat. Jeśli nie wiesz, jak opisać problem, zostawiasz wiadomość ogólną.</span></li>
-      <li data-fly="right" data-fly-delay="0.04"><strong>Rozmowa z inżynierem</strong><span>Ustalamy instalację, objawy, dostępne dane, ryzyko dla procesu i to, czy sprawa wymaga pilnej reakcji.</span></li>
-      <li data-fly="right" data-fly-delay="0.08"><strong>Rekomendacja</strong><span>Dostajesz jasny następny krok: analiza, audyt, dobór chemii, korekta dozowania albo plan czyszczenia.</span></li>
+      <li data-fly="right"><strong>Krótka informacja</strong><span>Podajesz firmę, numer telefonu i temat rozmowy.</span></li>
+      <li data-fly="right" data-fly-delay="0.04"><strong>Rozmowa techniczna</strong><span>Inżynier porządkuje objawy, warunki pracy i dostępne dane.</span></li>
+      <li data-fly="right" data-fly-delay="0.08"><strong>Ustalenie działania</strong><span>Otrzymujesz konkretną rekomendację dalszego kroku.</span></li>
     </ol>
   </div>
 </section>
@@ -922,23 +911,25 @@ PAGES["/bezplatna-konsultacja/"] = {
   <div class="wrap branches-savings__grid consult-branches-form__grid">
     <div data-fly="left">
       <p class="branches-kicker">Umów konsultację</p>
-      <h2 id="consult-form-title"><span>Zostaw dane.</span> <span>Oddzwonimy do Ciebie.</span></h2>
-      <p>Podaj firmę lub imię, telefon i opcjonalny e-mail. Możesz dopisać jedno zdanie o instalacji, ale nie musisz. W rozmowie ustalimy temat, zakres i najwygodniejszy kolejny krok.</p>
+      <h2 id="consult-form-title"><span>Porozmawiajmy o</span> <span>Twojej instalacji.</span></h2>
+      <p>Wypełnij krótki formularz, a nasz inżynier skontaktuje się z Tobą. Wystarczy numer telefonu i krótka informacja o instalacji. Podczas rozmowy wspólnie ustalimy najlepszy kolejny krok.</p>
       <div class="consult-branches-form__notes" aria-label="Najważniejsze informacje o kontakcie">
-        <p><strong>Telefon:</strong> <a href="tel:+48662792875">+48 662 792 875</a></p>
-        <p><strong>E-mail:</strong> <a href="mailto:info@kondycjonowanie-wody.pl">info@kondycjonowanie-wody.pl</a></p>
-        <p><strong>Zakres:</strong> kotły, chłodnictwo, RO, czyszczenie chemiczne i obiegi procesowe.</p>
+        <a class="consult-contact-link" href="tel:+48662792875">
+          <span class="consult-contact-link__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg></span>
+          <span><small>Telefon</small><strong>+48 662 792 875</strong></span>
+        </a>
+        <a class="consult-contact-link" href="mailto:info@kondycjonowanie-wody.pl">
+          <span class="consult-contact-link__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <span><small>E-mail</small><strong>info@kondycjonowanie-wody.pl</strong></span>
+        </a>
       </div>
     </div>
-    <form class="contact-form contact-form--smart consult-smart-form consult-branches-form__card" data-email="info@kondycjonowanie-wody.pl" novalidate data-fly="right">
-      <div class="consult-form-head">
-        <strong>Krótki formularz kontaktowy</strong>
-        <span>około 30 sekund</span>
-      </div>
+    <div class="consult-branches-form__stage" data-fly="right">
+      <span class="consult-branches-form__sigil" aria-hidden="true"></span>
+      <form class="contact-form contact-form--smart consult-smart-form consult-branches-form__card" data-email="info@kondycjonowanie-wody.pl" novalidate>
       <div class="field field--identity">
         <label for="consult-identity">Firma / imię i nazwisko <span class="field-meta">wymagane</span></label>
-        <input id="consult-identity" name="identity" autocomplete="name organization" required aria-describedby="consult-identity-hint" placeholder="np. ABC Sp. z o.o. - Jan Kowalski">
-        <p id="consult-identity-hint" class="field-hint">Wpisz nazwę firmy i osobę, do której mamy oddzwonić.</p>
+        <input id="consult-identity" name="identity" autocomplete="name organization" required placeholder="np. ABC Sp. z o.o. - Jan Kowalski">
       </div>
       <div class="contact-form__row">
         <div class="field field--phone">
@@ -952,18 +943,18 @@ PAGES["/bezplatna-konsultacja/"] = {
       </div>
       <div class="field field--message">
         <label for="consult-message">Wiadomość <span class="field-meta">opcjonalne</span></label>
-        <textarea id="consult-message" name="message" rows="4" aria-describedby="consult-message-hint" placeholder="Napisz krótko, czego dotyczy sprawa lub jaki typ instalacji mamy omówić."></textarea>
-        <p id="consult-message-hint" class="field-hint">Możesz dopisać typ instalacji, problem, preferowany termin kontaktu albo dodatkowy kontekst techniczny.</p>
+        <textarea id="consult-message" name="message" rows="4" placeholder="Napisz krótko, czego dotyczy sprawa lub jaki typ instalacji mamy omówić."></textarea>
       </div>
       <div class="form-consents" aria-label="Zgody i informacje prawne">
         <label class="form-consent form-consent--required" for="consult-privacy-consent">
           <input id="consult-privacy-consent" name="privacyConsent" type="checkbox" required>
-          <span>Akceptuję <a href="/polityka-prywatnosci/">politykę prywatności</a> i potwierdzam, że moje dane mogą zostać wykorzystane w celu obsługi zapytania oraz kontaktu zwrotnego. <span class="form-consent__tag">wymagane</span></span>
+          <span>Zgadzam się na kontakt w sprawie zapytania zgodnie z <a href="/polityka-prywatnosci/">polityką prywatności</a>. <span class="form-consent__tag">wymagane</span></span>
         </label>
       </div>
       <button type="submit" class="btn btn-primary">Poproś o kontakt</button>
       <p class="form-note" role="status" aria-live="polite" hidden></p>
-    </form>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -1058,29 +1049,79 @@ PAGES["/referencje/"] = {"sections": [
 
 # ---------- KALKULATOR OSZCZĘDNOŚCI --------------------------------------
 PAGES["/kalkulator-oszczednosci/"] = {
-    "body_class": "has-dark-hero",
+    "body_class": "has-dark-hero branches-hub-page calculator-experience-page",
     "no_breadcrumbs": True,
-    "title": "Kalkulator oszczędności wody dla przemysłu | Kabi-Chemie",
-    "meta": "Policz orientacyjny potencjał oszczędności wody, ścieków i energii w zakładzie przemysłowym. Prosty kalkulator Kabi-Chemie dla instalacji wodnych.",
+    "title": "Kalkulator oszczędności wody i energii dla przemysłu | Kabi-Chemie",
+    "h1": "Kalkulator oszczędności wody i energii",
+    "meta": "Poznaj potencjał ograniczenia kosztów wody, ścieków i energii w kotle parowym lub skraplaczu wyparnym. Bezpłatny kalkulator Kabi-Chemie dla przemysłu.",
+    "image": "/assets/impact/impact-05-operational-costs.png",
+    "og_image": "/assets/impact/impact-05-operational-costs.png",
+    "jsonld": [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Kalkulator oszczędności wody i energii Kabi-Chemie",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "Kalkulator potencjału ograniczenia kosztów dla kotłów parowych i skraplaczy wyparnych.",
+            "offers": {"@type": "Offer", "price": "0", "priceCurrency": "PLN"},
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {"@type": "Question", "name": "Co dokładnie obejmuje wynik rocznych oszczędności?", "acceptedAnswer": {"@type": "Answer", "text": "Wynik sumuje dwa składniki: koszt energii traconej przez kamień lub osad oraz potencjał wynikający z ograniczenia odsalania, czyli zużycia wody, ścieków, a w kotle także strat ciepła. Pokazuje wartość dla podanych godzin pracy i cen mediów, a nie gwarantowaną kwotę oszczędności."}},
+                {"@type": "Question", "name": "Które dane mają największy wpływ na wynik dla kotła parowego?", "acceptedAnswer": {"@type": "Answer", "text": "Na część energetyczną najmocniej wpływają moc kotła, czas pracy, cena gazu i grubość kamienia. Potencjał ograniczenia odsalania zależy przede wszystkim od produkcji pary, czasu pracy oraz kosztów gazu, wody i ścieków."}},
+                {"@type": "Question", "name": "Które dane mają największy wpływ na wynik dla skraplacza wyparnego?", "acceptedAnswer": {"@type": "Answer", "text": "Kluczowe są moc chłodnicza, roczny czas pracy, cena energii oraz różnica między średnicą czystej wężownicy a średnicą z osadem. Koszty wody i ścieków decydują o wartości potencjalnego ograniczenia odsalania."}},
+                {"@type": "Question", "name": "Jak wiarygodnie określić grubość kamienia lub osadu?", "acceptedAnswer": {"@type": "Answer", "text": "Najlepiej wykorzystać pomiar wykonany podczas postoju, dokumentację z ostatniego czyszczenia albo różnicę średnic wężownicy. Gdy nie ma pomiaru, warto policzyć kilka scenariuszy grubości zamiast traktować jedną wartość jako pewną."}},
+                {"@type": "Question", "name": "Czy kalkulator uwzględnia zmienne obciążenie instalacji w ciągu roku?", "acceptedAnswer": {"@type": "Answer", "text": "Nie w pełni. Model używa jednej wartości mocy i łącznej liczby godzin pracy, dlatego przy dużych zmianach obciążenia dokładniejszy wynik wymaga danych miesięcznych lub godzinowych z systemu monitoringu."}},
+                {"@type": "Question", "name": "Dlaczego wynik może różnić się od audytu?", "acceptedAnswer": {"@type": "Answer", "text": "Audyt uwzględnia rzeczywiste obciążenie, jakość wody, automatykę, stan powierzchni wymiany ciepła i historię pracy instalacji, których model kalkulatora nie opisuje w pełni."}},
+                {"@type": "Question", "name": "Kiedy kalkulację należy potwierdzić pomiarem lub audytem?", "acceptedAnswer": {"@type": "Answer", "text": "Zawsze przed zatwierdzeniem budżetu, zmianą programu chemicznego, czyszczeniem instalacji lub przyjęciem oszczędności do planu inwestycyjnego. Pomiar potwierdza stan powierzchni, parametry wody i rzeczywisty profil pracy urządzenia."}},
+                {"@type": "Question", "name": "Jakie dane przygotować do weryfikacji wyniku z inżynierem?", "acceptedAnswer": {"@type": "Answer", "text": "Najbardziej użyteczne są dane z ostatnich 12 miesięcy: zużycie paliwa lub energii, godziny pracy, produkcja pary albo obciążenie chłodnicze, zużycie wody, ilość ścieków i wyniki analiz wody. Warto dołączyć także historię czyszczeń, nastawy automatyki i aktualne stawki za media."}},
+                {"@type": "Question", "name": "Czy wynik można wykorzystać przy planowaniu białego certyfikatu?", "acceptedAnswer": {"@type": "Answer", "text": "Tak, jako wstępny sygnał, że przedsięwzięcie warto przeanalizować. Do formalnej oceny potrzebne są jednak dane bazowe, metodyka obliczeń, pomiary i audyt efektywności energetycznej."}},
+            ],
+        },
+    ],
     "sections": [
-    hero(
-        h1="Kalkulator oszczędności wody dla zakładów przemysłowych",
-        lead="Wpisz podstawowe dane instalacji i sprawdź orientacyjny potencjał oszczędności wody, ścieków oraz energii. Wynik jest szacunkiem do rozmowy z inżynierem, nie ofertą handlową.",
-        ctas=[("Policz oszczędności", "#kalkulator"), ("Umów audyt techniczny", "/bezplatna-konsultacja/")],
-    ),
+    custom("""
+<section class="calc-page-hero" id="kalkulator-top" aria-label="Kalkulator oszczędności wody i energii">
+  <div class="calc-page-hero__media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="/assets/calculator-hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="calc-page-hero__shade" aria-hidden="true"></div>
+  <div class="wrap calc-page-hero__inner">
+    <div class="calc-page-hero__copy">
+      <p class="branches-kicker">Kalkulator potencjału oszczędności</p>
+      <h1><span>Policz potencjał oszczędności</span> <span>wody i energii.</span></h1>
+      <p class="calc-page-hero__lead">Uzupełnij dane kotła parowego lub skraplacza wyparnego. Kalkulator pokaże roczną wartość energii, wody i ścieków, którą warto odzyskać w Państwa zakładzie.</p>
+      <div class="branches-hero__actions calc-page-hero__actions">
+        <a class="btn btn-primary" href="#kalkulator">Przejdź do kalkulatora</a>
+        <a class="branches-link" href="/bezplatna-konsultacja/">Porozmawiaj z inżynierem</a>
+      </div>
+    </div>
+  </div>
+</section>
+"""),
     custom("""
 <section class="section calc2-section" id="kalkulator">
   <div class="wrap">
     <div class="section-head calc2-head">
-      <p class="eyebrow">Kalkulator potencjału</p>
-      <h2>Policz roczny potencjał oszczędności</h2>
-      <p>Wybierz typ instalacji i podaj parametry pracy. Model liczy dwa źródła strat - <strong>zakamienienie</strong> (gorsza wymiana ciepła = więcej energii / paliwa) oraz <strong>zasolenie</strong> (nadmierne odsalanie = strata wody i ciepła). Wynik to szacunek inżynierski do rozmowy, nie oferta handlowa.</p>
+      <p class="eyebrow">Wstępna kalkulacja techniczna</p>
+      <h2>Roczny potencjał oszczędności dla Państwa instalacji</h2>
+      <p>Wybierz rodzaj instalacji i uzupełnij podstawowe parametry jej pracy. Model pokaże potencjał ograniczenia kosztów energii, wody i ścieków związanych z osadami oraz nadmiernym odsalaniem. Wyliczenie pomaga wybrać obszary warte wspólnej weryfikacji technicznej.</p>
     </div>
 
     <form class="calc2" data-savings-calculator novalidate>
       <div class="calc2-grid">
         <div class="calc2-panel">
-          <div class="calc2-typebar" role="tablist" aria-label="Typ instalacji">
+          <header class="calc2-panel__header">
+            <span class="calc2-section-brand calc2-section-brand--lockup" aria-hidden="true"><img src="/assets/kabi-logo-horizontal.svg" width="730" height="164" alt=""></span>
+            <span><strong>Dane instalacji</strong><small>Wynik aktualizuje się automatycznie</small></span>
+          </header>
+          <div class="calc2-typebar" role="tablist" aria-label="Typ instalacji" data-active-type="kotly">
+            <span class="calc2-typebar__thumb" aria-hidden="true"><span class="calc2-typebar__drop"></span></span>
             <button type="button" class="calc2-type is-active" data-calc-type="kotly" role="tab" aria-selected="true">
               <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8"/><path d="M9 15v3M15 15v3"/></svg>
               <span>Kotły parowe</span>
@@ -1093,7 +1134,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
 
           <div class="calc2-fields" data-calc-fields="kotly">
             <fieldset class="calc2-group">
-              <legend><span class="calc2-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c.4 5.2 3.8 8.6 9 9-5.2.4-8.6 3.8-9 9-.4-5.2-3.8-8.6-9-9 5.2-.4 8.6-3.8 9-9Z"/></svg></span> Zakamienienie powierzchni grzewczych</legend>
+              <legend><span class="calc2-ico calc2-ico--scale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18-9.61 4.37a1 1 0 0 0 0 1.82l7.95 3.62a2 2 0 0 0 1.66 0l7.95-3.62a1 1 0 0 0 0-1.82l-9.61-4.37a2 2 0 0 0-1.66 0Z"/><path d="m22 12.5-9.17 4.17a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-9.17 4.17a2 2 0 0 1-1.66 0L2 17.5"/></svg></span> Zakamienienie powierzchni grzewczych</legend>
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Moc cieplna kotła <i class="calc2-info" tabindex="0" aria-label="Maksymalna moc cieplna kotła parowego określona przez producenta." data-tip="Maksymalna moc cieplna kotła parowego określona przez producenta.">i</i></span><span class="calc2-input"><input type="number" name="kb_power" value="2500" min="0" step="50" inputmode="decimal"><em>kW</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Godziny pracy / rok <i class="calc2-info" tabindex="0" aria-label="Łączna liczba godzin pracy kotła w ciągu roku (365 dni × 24 h)." data-tip="Łączna liczba godzin pracy kotła w ciągu roku (365 dni × 24 h).">i</i></span><span class="calc2-input"><input type="number" name="kb_hours" value="8760" min="0" max="8760" step="10" inputmode="decimal"><em>h</em></span></label>
@@ -1111,7 +1152,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
 
           <div class="calc2-fields" data-calc-fields="skraplacze" hidden>
             <fieldset class="calc2-group">
-              <legend><span class="calc2-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c.4 5.2 3.8 8.6 9 9-5.2.4-8.6 3.8-9 9-.4-5.2-3.8-8.6-9-9 5.2-.4 8.6-3.8 9-9Z"/></svg></span> Zakamienienie wężownic / wymiany ciepła</legend>
+              <legend><span class="calc2-ico calc2-ico--scale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18-9.61 4.37a1 1 0 0 0 0 1.82l7.95 3.62a2 2 0 0 0 1.66 0l7.95-3.62a1 1 0 0 0 0-1.82l-9.61-4.37a2 2 0 0 0-1.66 0Z"/><path d="m22 12.5-9.17 4.17a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-9.17 4.17a2 2 0 0 1-1.66 0L2 17.5"/></svg></span> Zakamienienie wężownic / wymiany ciepła</legend>
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Moc chłodnicza układu <i class="calc2-info" tabindex="0" aria-label="Moc układu chłodniczego opisana w karcie produktu." data-tip="Moc układu chłodniczego opisana w karcie produktu.">i</i></span><span class="calc2-input"><input type="number" name="sk_power" value="1400" min="0" step="50" inputmode="decimal"><em>kW</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Godziny pracy / rok <i class="calc2-info" tabindex="0" aria-label="Dla instalacji pracujących całorocznie w trybie ciągłym przyjmuje się 8760 h/rok (365 dni × 24 h)." data-tip="Dla instalacji pracujących całorocznie w trybie ciągłym przyjmuje się 8760 h/rok (365 dni × 24 h).">i</i></span><span class="calc2-input"><input type="number" name="sk_hours" value="8760" min="0" max="8760" step="10" inputmode="decimal"><em>h</em></span></label>
@@ -1122,8 +1163,11 @@ PAGES["/kalkulator-oszczednosci/"] = {
             </fieldset>
           </div>
 
-          <details class="calc2-adv">
-            <summary>Założenia i ceny mediów</summary>
+          <section class="calc2-adv" aria-labelledby="calc2-adv-title">
+            <header class="calc2-adv__head">
+              <span class="calc2-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 12h3M11 12h9M4 17h8M16 17h4"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="14" cy="17" r="2"/></svg></span>
+              <span><h3 id="calc2-adv-title">Założenia i ceny mediów</h3><p>Dopasuj wartości do aktualnych kosztów w swoim zakładzie.</p></span>
+            </header>
             <div class="calc2-fields" data-calc-fields="kotly">
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Cena gazu - odzysk ciepła <i class="calc2-info" tabindex="0" aria-label="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania." data-tip="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania.">i</i></span><span class="calc2-input"><input type="number" name="kb_gas2" value="425.4" min="0" step="0.1" inputmode="decimal"><em>zł/MWh</em></span></label>
@@ -1137,11 +1181,15 @@ PAGES["/kalkulator-oszczednosci/"] = {
                 <label class="calc2-field"><span class="calc2-field__label">Koszt ścieków <i class="calc2-info" tabindex="0" aria-label="Koszt odprowadzenia 1 m³ ścieków." data-tip="Koszt odprowadzenia 1 m³ ścieków.">i</i></span><span class="calc2-input"><input type="number" name="sk_sewage" value="6" min="0" step="0.5" inputmode="decimal"><em>zł/m³</em></span></label>
               </div>
             </div>
-          </details>
+          </section>
         </div>
 
         <aside class="calc2-result" aria-live="polite">
-          <span class="panel-kicker">Suma oszczędności / rok</span>
+          <header class="calc2-result__header">
+            <span class="calc2-section-brand calc2-section-brand--mark" aria-hidden="true"></span>
+            <span><strong>Wynik kalkulacji</strong><small>Roczny potencjał ograniczenia kosztów</small></span>
+          </header>
+          <span class="panel-kicker">Łączny potencjał oszczędności</span>
           <strong data-calc-total>0 zł</strong>
           <span class="calc2-accent" aria-hidden="true"></span>
           <p class="calc2-result-sub" data-calc-message>Uzupełnij dane, aby zobaczyć potencjał oszczędności.</p>
@@ -1150,8 +1198,8 @@ PAGES["/kalkulator-oszczednosci/"] = {
             <div><span class="calc2-split__val calc2-split__val--alt" data-calc-salt>0 zł</span><span class="calc2-split__lbl">zatężenie (woda + ścieki)</span></div>
           </div>
           <div class="calc2-bar" role="img" aria-label="Udział oszczędności: odkamienienie i zatężenie">
-            <span class="calc2-bar__seg calc2-bar__seg--scale" data-calc-bar-scale style="width:50%"></span>
-            <span class="calc2-bar__seg calc2-bar__seg--salt" data-calc-bar-salt style="width:50%"></span>
+            <span class="calc2-bar__seg calc2-bar__seg--scale" data-calc-bar-scale style="--segment-scale:.5"></span>
+            <span class="calc2-bar__seg calc2-bar__seg--salt" data-calc-bar-salt style="--segment-scale:.5"></span>
           </div>
           <div class="calc2-legend">
             <span class="calc2-legend__item"><i class="calc2-dot calc2-dot--scale"></i>odkamienienie</span>
@@ -1163,15 +1211,108 @@ PAGES["/kalkulator-oszczednosci/"] = {
             <li><span class="calc2-mlist__lbl" data-calc-m3l>—</span><span class="calc2-mlist__val" data-calc-m3>—</span></li>
           </ul>
           <a class="btn calc2-cta btn-arrow" href="/bezplatna-konsultacja/">Zweryfikuj wynik z inżynierem</a>
-          <p class="calc2-disclaimer">Wynik orientacyjny - konserwatywny model oparty o praktykę eksploatacyjną oraz zależności HVAC/ASHRAE. Dokładne wartości potwierdzamy audytem technicznym.</p>
+          <p class="calc2-disclaimer">Wyliczenie modelowe oparte o praktykę eksploatacyjną oraz zależności HVAC/ASHRAE. Konkretne działania i ich efekt potwierdzamy audytem technicznym.</p>
         </aside>
       </div>
     </form>
   </div>
 </section>
 """),
-    std_cta("Chcesz sprawdzić wynik na realnych danych?",
-            "Podczas audytu policzymy potencjał na podstawie parametrów Twojej instalacji, kosztów mediów i obecnego programu chemicznego."),
+    custom("""
+<section class="branches-method calc-page-method reveal" id="metoda-obliczen" aria-labelledby="calc-method-title" data-scroll-fly>
+  <div class="wrap branches-method__grid">
+    <div data-fly="left">
+      <p class="branches-kicker">Metoda obliczeń</p>
+      <h2 id="calc-method-title"><span>Od danych wejściowych</span> <span>do wyniku, który da się zweryfikować.</span></h2>
+      <p>Kalkulator nie zastępuje pomiarów z instalacji. Porządkuje jednak najważniejsze zależności i pokazuje, gdzie mogą powstawać koszty związane z osadem, energią oraz gospodarką wodno-ściekową.</p>
+    </div>
+    <ol class="branches-method__steps">
+      <li data-fly="right"><strong>Dane instalacji</strong><span>Wybierasz kocioł parowy albo skraplacz wyparny i wpisujesz moc, czas pracy oraz parametry osadu.</span></li>
+      <li data-fly="right" data-fly-delay="0.04"><strong>Dwa źródła strat</strong><span>Model oddzielnie szacuje koszt gorszej wymiany ciepła oraz potencjał ograniczenia odsalania i zużycia wody.</span></li>
+      <li data-fly="right" data-fly-delay="0.08"><strong>Wynik do audytu</strong><span>Otrzymujesz roczny potencjał finansowy i techniczne wskaźniki, które warto potwierdzić na danych eksploatacyjnych.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="branch-chapter calc-page-reading reveal" id="interpretacja-wyniku" aria-labelledby="calc-reading-title" data-scroll-fly>
+  <div class="wrap branch-chapter__grid">
+    <figure class="branch-chapter__media">
+      <img src="/assets/industries/industry-cold-storage.jpg" alt="Przemysłowe skraplacze wyparne i instalacja chłodnicza zakładu" loading="lazy">
+    </figure>
+    <div class="branch-chapter__copy">
+      <p class="branches-kicker" data-fly="right">Interpretacja wyniku</p>
+      <h2 id="calc-reading-title" data-fly="right" data-fly-delay="0.02"><span>Wynik jest początkiem decyzji.</span> <span>Nie gotową ofertą.</span></h2>
+      <p data-fly="right" data-fly-delay="0.05">Wysoki potencjał wskazuje obszar, który warto sprawdzić w pierwszej kolejności. Dopiero pomiary, bilans mediów i stan instalacji pozwalają potwierdzić realny zakres usprawnień.</p>
+      <div class="branch-matrix" data-fly="right" data-fly-delay="0.08">
+        <article><h3>Co pokazuje kalkulator</h3><p>Potencjał ograniczenia kosztów energii, wody i ścieków w skali roku.</p></article>
+        <article><h3>Czego nie zastępuje</h3><p>Pomiaru osadu, analizy wody, bilansu przepływów, oceny automatyki i rzeczywistego profilu obciążenia.</p></article>
+        <article><h3>Co potwierdza audyt</h3><p>Stan bazowy, wykonalne działania, realny efekt ekonomiczny, sposób wdrożenia i parametry do monitorowania.</p></article>
+      </div>
+      <div class="branch-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Zweryfikuj wynik z inżynierem</a><a class="branches-link" href="#faq-kalkulatora">Przejdź do FAQ</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="branches-proof consult-branches-faq calc-page-faq reveal" id="faq-kalkulatora" aria-labelledby="calc-faq-title" data-scroll-fly>
+  <div class="wrap consult-branches-faq__layout">
+    <div class="consult-branches-faq__intro" data-fly="left">
+      <p class="branches-proof__eyebrow">Weryfikacja wyniku</p>
+      <h2 id="calc-faq-title" class="branches-proof__intro"><span>Co decyduje</span> <span>o wiarygodności wyniku?</span></h2>
+      <p class="branches-proof__lead">Konkretne odpowiedzi o jakości danych, ograniczeniach modelu i momencie, w którym kalkulację trzeba potwierdzić pomiarem lub audytem.</p>
+    </div>
+    <div class="consult-branches-faq__list" data-fly="right">
+      <details>
+        <summary>Co dokładnie obejmuje wynik rocznych oszczędności?</summary>
+        <p>Wynik sumuje dwa składniki: koszt energii traconej przez kamień lub osad oraz potencjał wynikający z ograniczenia odsalania, czyli zużycia wody, ścieków, a w kotle także strat ciepła. Pokazuje wartość dla podanych godzin pracy i cen mediów, a nie gwarantowaną kwotę oszczędności.</p>
+      </details>
+      <details>
+        <summary>Które dane mają największy wpływ na wynik dla kotła parowego?</summary>
+        <p>Na część energetyczną najmocniej wpływają moc kotła, czas pracy, cena gazu i grubość kamienia. Potencjał ograniczenia odsalania zależy przede wszystkim od produkcji pary, czasu pracy oraz kosztów gazu, wody i ścieków.</p>
+      </details>
+      <details>
+        <summary>Które dane mają największy wpływ na wynik dla skraplacza wyparnego?</summary>
+        <p>Kluczowe są moc chłodnicza, roczny czas pracy, cena energii oraz różnica między średnicą czystej wężownicy a średnicą z osadem. Koszty wody i ścieków decydują o wartości potencjalnego ograniczenia odsalania.</p>
+      </details>
+      <details>
+        <summary>Jak wiarygodnie określić grubość kamienia lub osadu?</summary>
+        <p>Najlepiej wykorzystać pomiar wykonany podczas postoju, dokumentację z ostatniego czyszczenia albo różnicę średnic wężownicy. Gdy nie ma pomiaru, warto policzyć kilka scenariuszy grubości zamiast traktować jedną wartość jako pewną.</p>
+      </details>
+      <details>
+        <summary>Czy kalkulator uwzględnia zmienne obciążenie instalacji w ciągu roku?</summary>
+        <p>Nie w pełni. Model używa jednej wartości mocy i łącznej liczby godzin pracy, dlatego przy dużych zmianach obciążenia dokładniejszy wynik wymaga danych miesięcznych lub godzinowych z systemu monitoringu.</p>
+      </details>
+      <details>
+        <summary>Dlaczego wynik może różnić się od audytu?</summary>
+        <p>Audyt uwzględnia rzeczywiste obciążenie, jakość wody, automatykę, stan powierzchni wymiany ciepła i historię pracy instalacji, których model kalkulatora nie opisuje w pełni.</p>
+      </details>
+      <details>
+        <summary>Kiedy kalkulację należy potwierdzić pomiarem lub audytem?</summary>
+        <p>Zawsze przed zatwierdzeniem budżetu, zmianą programu chemicznego, czyszczeniem instalacji lub przyjęciem oszczędności do planu inwestycyjnego. Pomiar potwierdza stan powierzchni, parametry wody i rzeczywisty profil pracy urządzenia.</p>
+      </details>
+      <details>
+        <summary>Jakie dane przygotować do weryfikacji wyniku z inżynierem?</summary>
+        <p>Najbardziej użyteczne są dane z ostatnich 12 miesięcy: zużycie paliwa lub energii, godziny pracy, produkcja pary albo obciążenie chłodnicze, zużycie wody, ilość ścieków i wyniki analiz wody. Warto dołączyć także historię czyszczeń, nastawy automatyki i aktualne stawki za media.</p>
+      </details>
+      <details>
+        <summary>Czy wynik można wykorzystać przy planowaniu białego certyfikatu?</summary>
+        <p>Tak, jako wstępny sygnał, że przedsięwzięcie warto przeanalizować. Do formalnej oceny potrzebne są jednak dane bazowe, metodyka obliczeń, pomiary i audyt efektywności energetycznej.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="branches-final calc-page-final reveal" aria-labelledby="calc-final-title">
+  <div class="wrap branches-final__inner">
+    <span class="branches-final__sigil" aria-hidden="true"></span>
+    <h2 id="calc-final-title"><span>Wspólna weryfikacja</span> <span>potencjału oszczędności w Państwa instalacji.</span></h2>
+    <p>Inżynier Kabi-Chemie przeanalizuje przyjęte założenia, wskaże potrzebne pomiary i pomoże ocenić rozwiązania najlepiej dopasowane do warunków pracy Państwa zakładu.</p>
+    <div class="branches-final__actions">
+      <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów konsultację techniczną</a>
+      <a class="branches-link" href="/bezplatna-konsultacja/">Poznaj zakres audytu technicznego</a>
+    </div>
+  </div>
+</section>
+"""),
 ]}
 
 _S = SITE
@@ -1249,7 +1390,7 @@ PAGES["/kontakt/"] = {"body_class": "has-dark-hero firm-page firm-contact-page",
       <div class="form-consents" aria-label="Zgody i informacje prawne">
         <label class="form-consent form-consent--required" for="kontakt-privacy-consent">
           <input id="kontakt-privacy-consent" name="privacyConsent" type="checkbox" required>
-          <span>Akceptuję <a href="/polityka-prywatnosci/">politykę prywatności</a> i potwierdzam, że moje dane mogą zostać wykorzystane w celu obsługi zapytania oraz kontaktu zwrotnego. <span class="form-consent__tag">wymagane</span></span>
+          <span>Zgadzam się na kontakt w sprawie zapytania zgodnie z <a href="/polityka-prywatnosci/">polityką prywatności</a>. <span class="form-consent__tag">wymagane</span></span>
         </label>
       </div>
       <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
@@ -1457,25 +1598,26 @@ PAGES["/odkamienianie-instalacji/"] = {"body_class": "has-dark-hero firm-page so
 """),
 ]}
 
-PAGES["/uslugi/analiza-wody/"] = {"body_class": "has-dark-hero firm-page solution-page solution-page--lab", "sections": [
+PAGES["/uslugi/analiza-wody/"] = {"body_class": "has-dark-hero firm-page solution-page solution-page--boilers service-analysis-page", "sections": [
     custom("""
-<section class="solution-hero solution-hero--lab" style="--solution-bg:url('/assets/impact/impact-02-effluent-control.jpeg')" id="top">
+<section class="solution-hero" id="top" style="--solution-image:url('/assets/impact/impact-02-effluent-control.jpeg'); --solution-position:center center">
+  <div class="solution-hero__media" aria-hidden="true"></div>
   <div class="solution-hero__shade" aria-hidden="true"></div>
   <div class="wrap solution-hero__inner">
-    <div class="solution-hero__copy reveal-left">
-      <p class="firm-kicker">Laboratoryjna analiza wody</p>
-      <h1>Badamy wodę przed awarią instalacji.</h1>
-      <p>Analiza wody przemysłowej pomaga szybko zobaczyć, czy instalacja pracuje stabilnie. Wynik przekładamy na konkretne decyzje dla kotłowni, chłodnictwa i RO.</p>
-      <div class="firm-actions">
+    <div class="solution-hero__copy">
+      <p class="solution-kicker"><span></span>Usługi / Analiza wody</p>
+      <h1>Badamy wodę <span>przed awarią instalacji.</span></h1>
+      <p class="solution-hero__lead">Analiza wody przemysłowej pomaga szybko zobaczyć, czy instalacja pracuje stabilnie. Wynik przekładamy na konkretne decyzje dla kotłowni, chłodnictwa i RO.</p>
+      <div class="solution-hero__actions">
         <a class="btn btn-primary" href="/kontakt/">Zleć analizę wody</a>
-        <a class="btn btn-ghost-light" href="/baza-wiedzy/parametry-wody/">Poznaj parametry wody</a>
+        <a class="solution-text-link" href="/baza-wiedzy/parametry-wody/">Poznaj parametry wody <span aria-hidden="true">↗</span></a>
       </div>
+      <ul class="solution-hero__signals" aria-label="Najważniejsze obszary">
+        <li class="has-icon"><span class="solution-hero__signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7.5v5l3.5 2"/></svg></span><span>Utrzymanie ruchu i produkcja</span></li>
+        <li class="has-icon"><span class="solution-hero__signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 16h9"/><path d="m9.4 12.8 1.6 1.2 2.2-2 2 1.3"/></svg></span><span>Diagnoza kamienia i korozji</span></li>
+        <li class="has-icon"><span class="solution-hero__signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v18H7z"/><path d="M9.5 7h5M9.5 11h5M9.5 15h2.5"/><path d="m13.6 16.1 1.2 1.2 2.3-2.5"/></svg></span><span>Raport z rekomendacją</span></li>
+      </ul>
     </div>
-    <aside class="solution-hero__panel reveal-right">
-      <div><span>Dla kogo</span><strong>Utrzymanie ruchu, energetyka, chłodnictwo i produkcja.</strong></div>
-      <div><span>Co daje</span><strong>Szybsza diagnoza kamienia, korozji i niestabilnej przewodności.</strong></div>
-      <div><span>Wynik</span><strong>Raport z rekomendacją kolejnego kroku technicznego.</strong></div>
-    </aside>
   </div>
 </section>
 
@@ -1547,25 +1689,26 @@ PAGES["/uslugi/analiza-wody/"] = {"body_class": "has-dark-hero firm-page solutio
 """),
 ]}
 
-PAGES["/uslugi/audyt-techniczny/"] = {"body_class": "has-dark-hero firm-page solution-page solution-page--audit", "sections": [
+PAGES["/uslugi/audyt-techniczny/"] = {"body_class": "has-dark-hero firm-page solution-page solution-page--boilers service-audit-page", "sections": [
     custom("""
-<section class="solution-hero solution-hero--audit" style="--solution-bg:url('/assets/industries/industry-heavy.jpg')" id="top">
+<section class="solution-hero" id="top" style="--solution-image:url('/assets/industries/industry-heavy.jpg'); --solution-position:center center">
+  <div class="solution-hero__media" aria-hidden="true"></div>
   <div class="solution-hero__shade" aria-hidden="true"></div>
   <div class="wrap solution-hero__inner">
-    <div class="solution-hero__copy reveal-left">
-      <p class="firm-kicker">Bezpłatny audyt techniczny</p>
-      <h1>Sprawdzamy instalację i realne miejsca strat.</h1>
-      <p>Audyt pokazuje, gdzie zakład traci wodę, energię, stabilność parametrów lub czas serwisu. Po wizycie otrzymujesz jasną rekomendację dalszych działań.</p>
-      <div class="firm-actions">
+    <div class="solution-hero__copy">
+      <p class="solution-kicker"><span></span>Usługi / Audyt techniczny</p>
+      <h1>Sprawdzamy instalację <span>i realne miejsca strat.</span></h1>
+      <p class="solution-hero__lead">Audyt pokazuje, gdzie zakład traci wodę, energię, stabilność parametrów lub czas serwisu. Po wizycie otrzymujesz jasną rekomendację dalszych działań.</p>
+      <div class="solution-hero__actions">
         <a class="btn btn-primary" href="/kontakt/">Umów audyt</a>
-        <a class="btn btn-ghost-light" href="/kalkulator-oszczednosci/">Policz potencjał oszczędności</a>
+        <a class="solution-text-link" href="/kalkulator-oszczednosci/">Policz potencjał oszczędności <span aria-hidden="true">↗</span></a>
       </div>
+      <ul class="solution-hero__signals" aria-label="Najważniejsze obszary">
+        <li class="has-icon"><span class="solution-hero__signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/><path d="M8 10.5h5M10.5 8v5"/></svg></span><span>Rozmowa, oględziny i pomiary</span></li>
+        <li class="has-icon"><span class="solution-hero__signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h9"/><circle cx="8" cy="6" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="6.5" cy="18" r="1.6"/></svg></span><span>Kotłownie, chłodnictwo i RO</span></li>
+        <li class="has-icon"><span class="solution-hero__signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9M10 20V4M16 20v-7M22 20H2"/><path d="M4 9 10 4l6 9 6-6"/></svg></span><span>Priorytety kosztów i ryzyka</span></li>
+      </ul>
     </div>
-    <aside class="solution-hero__panel reveal-right">
-      <div><span>Forma</span><strong>Rozmowa techniczna, oględziny, pomiary i rekomendacje.</strong></div>
-      <div><span>Dla kogo</span><strong>Kotłownie, chłodnictwo, skraplacze, wymienniki i RO.</strong></div>
-      <div><span>Efekt</span><strong>Priorytety działań dla kosztów, ryzyka i jakości wody.</strong></div>
-    </aside>
   </div>
 </section>
 
@@ -1641,7 +1784,8 @@ PAGES["/uslugi/audyt-techniczny/"] = {"body_class": "has-dark-hero firm-page sol
 
 PAGES["/baza-wiedzy/"] = {"body_class": "has-dark-hero firm-page solution-page knowledge-page", "sections": [
     custom("""
-<section class="solution-hero knowledge-hero" style="--solution-bg:url('/assets/blog/blog-water-reduction.png')" id="top">
+<section class="solution-hero knowledge-hero" style="--solution-image:url('/assets/blog/blog-water-reduction.png'); --solution-position:center center" id="top">
+  <div class="solution-hero__media" aria-hidden="true"></div>
   <div class="solution-hero__shade" aria-hidden="true"></div>
   <div class="wrap solution-hero__inner solution-hero__inner--editorial">
     <div class="solution-hero__copy reveal-left">
@@ -1663,14 +1807,14 @@ PAGES["/baza-wiedzy/"] = {"body_class": "has-dark-hero firm-page solution-page k
 
 <section class="knowledge-feature" id="artykuly">
   <div class="wrap knowledge-feature__grid">
-    <a class="knowledge-feature__media reveal" href="/baza-wiedzy/pojedynczy-wpis-blogowy-1/" aria-label="Przeczytaj artykuł o kamieniu kotłowym">
+    <a class="knowledge-feature__media reveal" href="/baza-wiedzy/kamien-kotlowy/" aria-label="Przeczytaj artykuł o kamieniu kotłowym">
       <img src="/assets/blog/blog-boiler-scale.png" alt="Kamień kotłowy i osad na powierzchni wymiany ciepła">
     </a>
     <div class="knowledge-feature__copy reveal">
       <p class="firm-kicker">Polecany temat</p>
       <h2>Dlaczego cienka warstwa kamienia potrafi podnieść koszt pracy kotła.</h2>
       <p>Pokazujemy, jak osad ogranicza wymianę ciepła, zwiększa zużycie paliwa i przyspiesza ryzyko awarii.</p>
-      <a class="text-link" href="/baza-wiedzy/pojedynczy-wpis-blogowy-1/">Przeczytaj artykuł</a>
+      <a class="text-link" href="/baza-wiedzy/kamien-kotlowy/">Przeczytaj artykuł</a>
     </div>
   </div>
 </section>
@@ -1698,8 +1842,8 @@ PAGES["/baza-wiedzy/"] = {"body_class": "has-dark-hero firm-page solution-page k
       <h2>Artykuły o problemach z prawdziwych instalacji.</h2>
     </div>
     <div class="knowledge-stream__list">
-      <a class="reveal" href="/baza-wiedzy/pojedynczy-wpis-blogowy-2/"><img src="/assets/blog/blog-biofilm-cleaning.png" alt=""><span>Biofilm w układzie chłodniczym</span><strong>jak rozpoznać problem, zanim spadnie sprawność skraplacza.</strong></a>
-      <a class="reveal" href="/baza-wiedzy/pojedynczy-wpis-blogowy-3/"><img src="/assets/blog/blog-ro-antiscalant.png" alt=""><span>Antyskalant do membran RO</span><strong>kiedy pomaga, a kiedy maskuje problem z jakością wody.</strong></a>
+      <a class="reveal" href="/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/"><img src="/assets/blog/blog-biofilm-cleaning.png" alt=""><span>Biofilm w układzie chłodniczym</span><strong>jak rozpoznać problem, zanim spadnie sprawność skraplacza.</strong></a>
+      <a class="reveal" href="/baza-wiedzy/antyskalant-ro/"><img src="/assets/blog/blog-ro-antiscalant.png" alt=""><span>Antyskalant do membran RO</span><strong>kiedy pomaga, a kiedy maskuje problem z jakością wody.</strong></a>
       <a class="reveal" href="/baza-wiedzy/korozja/"><img src="/assets/blog/blog-corrosion-pipes.png" alt=""><span>Korozja w instalacji</span><strong>najczęstsze objawy, błędy i kierunek diagnostyki.</strong></a>
     </div>
   </div>
@@ -1763,7 +1907,7 @@ PAGES["/autor/"] = {
 </section><section class="section reveal"><div class="wrap narrow author">
       <div class="author-avatar" aria-hidden="true">KC</div>
       <div><h2>Zespół ekspertów Kabi-Chemie</h2><p class="author-role">Inżynierowie i technolodzy kondycjonowania wody</p>
-      <p>Tworzymy specjalistyczne treści o uzdatnianiu i kondycjonowaniu wody dla przemysłu. Nasze doświadczenie potwierdza m.in. udział w Warsztatach Amoniakalnych. <em>(Biogram do uzupełnienia o realne dane i zdjęcia autorów.)</em></p></div></div></section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły zespołu</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-1/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-boiler-scale.png')"></div><div class="post-body"><span class="post-cat">Kotły parowe</span><h3>Co to jest kamień kotłowy?</h3><p></p><span class="post-meta"></span></div></a><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-2/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-biofilm-cleaning.png')"></div><div class="post-body"><span class="post-cat">Wieże chłodnicze</span><h3>Biofilm w układzie chłodniczym</h3><p></p><span class="post-meta"></span></div></a><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-3/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-ro-antiscalant.png')"></div><div class="post-body"><span class="post-cat">Membrany RO</span><h3>Antyskalant do membran RO</h3><p></p><span class="post-meta"></span></div></a></div></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
+      <p>Tworzymy specjalistyczne treści o uzdatnianiu i kondycjonowaniu wody dla przemysłu. Nasze doświadczenie potwierdza m.in. udział w Warsztatach Amoniakalnych. <em>(Biogram do uzupełnienia o realne dane i zdjęcia autorów.)</em></p></div></div></section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły zespołu</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-boiler-scale.png')"></div><div class="post-body"><span class="post-cat">Kotły parowe</span><h3>Co to jest kamień kotłowy?</h3><p></p><span class="post-meta"></span></div></a><a class="post-card" href="/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-biofilm-cleaning.png')"></div><div class="post-body"><span class="post-cat">Wieże chłodnicze</span><h3>Biofilm w układzie chłodniczym</h3><p></p><span class="post-meta"></span></div></a><a class="post-card" href="/baza-wiedzy/antyskalant-ro/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-ro-antiscalant.png')"></div><div class="post-body"><span class="post-cat">Membrany RO</span><h3>Antyskalant do membran RO</h3><p></p><span class="post-meta"></span></div></a></div></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
       <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
@@ -1784,7 +1928,7 @@ PAGES["/baza-wiedzy/korozja/"] = {
       <figcaption>praktyczna wiedza dla utrzymania ruchu i technologii</figcaption>
     </figure>
   </div>
-</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-1/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-corrosion-pipes.png')"></div><div class="post-body"><span class="post-cat">Korozja</span><h3>Korozja w instalacjach przemysłowych, rodzaje i zapobieganie</h3><p>Korozja tlenowa, wżerowa i biała, jak im przeciwdziałać.</p><span class="post-meta">9 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/ochrona-antykorozyjna/">Ochrona antykorozyjna, oferta</a></li><li><a href="/ochrona-antykorozyjna/pasywacja-stali/">Pasywacja stali</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
+</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-corrosion-pipes.png')"></div><div class="post-body"><span class="post-cat">Korozja</span><h3>Korozja w instalacjach przemysłowych, rodzaje i zapobieganie</h3><p>Korozja tlenowa, wżerowa i biała, jak im przeciwdziałać.</p><span class="post-meta">9 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/ochrona-antykorozyjna/">Ochrona antykorozyjna, oferta</a></li><li><a href="/ochrona-antykorozyjna/pasywacja-stali/">Pasywacja stali</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
       <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
@@ -1805,7 +1949,7 @@ PAGES["/baza-wiedzy/kotly-parowe/"] = {
       <figcaption>praktyczna wiedza dla utrzymania ruchu i technologii</figcaption>
     </figure>
   </div>
-</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-1/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-boiler-scale.png')"></div><div class="post-body"><span class="post-cat">Kotły parowe</span><h3>Co to jest kamień kotłowy i dlaczego niszczy kotły parowe?</h3><p>Mechanizm powstawania kamienia i jego wpływ na koszty.</p><span class="post-meta">8 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/">Kotły parowe, oferta</a></li><li><a href="/baza-wiedzy/parametry-wody/">Parametry wody</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
+</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-boiler-scale.png')"></div><div class="post-body"><span class="post-cat">Kotły parowe</span><h3>Co to jest kamień kotłowy i dlaczego niszczy kotły parowe?</h3><p>Mechanizm powstawania kamienia i jego wpływ na koszty.</p><span class="post-meta">8 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/">Kotły parowe, oferta</a></li><li><a href="/baza-wiedzy/parametry-wody/">Parametry wody</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
       <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
@@ -1826,7 +1970,7 @@ PAGES["/baza-wiedzy/membrany-ro/"] = {
       <figcaption>praktyczna wiedza dla utrzymania ruchu i technologii</figcaption>
     </figure>
   </div>
-</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-3/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-ro-antiscalant.png')"></div><div class="post-body"><span class="post-cat">Membrany RO</span><h3>Antyskalant i jego rola w ochronie membran RO</h3><p>Jak antyskalant przedłuża żywotność membran.</p><span class="post-meta">6 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/membrany-ro/">Membrany RO, oferta</a></li><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
+</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/antyskalant-ro/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-ro-antiscalant.png')"></div><div class="post-body"><span class="post-cat">Membrany RO</span><h3>Antyskalant i jego rola w ochronie membran RO</h3><p>Jak antyskalant przedłuża żywotność membran.</p><span class="post-meta">6 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/membrany-ro/">Membrany RO, oferta</a></li><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
       <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
@@ -1847,7 +1991,7 @@ PAGES["/baza-wiedzy/parametry-wody/"] = {
       <figcaption>praktyczna wiedza dla utrzymania ruchu i technologii</figcaption>
     </figure>
   </div>
-</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-1/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-water-reduction.png')"></div><div class="post-body"><span class="post-cat">Parametry wody</span><h3>Twardość wody, dlaczego niszczy kotły i instalacje?</h3><p>Stopnie twardości i ich znaczenie dla przemysłu.</p><span class="post-meta">6 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
+</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-water-reduction.png')"></div><div class="post-body"><span class="post-cat">Parametry wody</span><h3>Twardość wody, dlaczego niszczy kotły i instalacje?</h3><p>Stopnie twardości i ich znaczenie dla przemysłu.</p><span class="post-meta">6 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
       <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
@@ -1961,7 +2105,7 @@ PAGES["/baza-wiedzy/wieze-chlodnicze/"] = {
       <figcaption>praktyczna wiedza dla utrzymania ruchu i technologii</figcaption>
     </figure>
   </div>
-</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/pojedynczy-wpis-blogowy-2/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-biofilm-cleaning.png')"></div><div class="post-body"><span class="post-cat">Wieże chłodnicze</span><h3>Biofilm w układzie chłodniczym, jak usunąć osady biologiczne?</h3><p>Kontrola mikroorganizmów w obiegu chłodzącym.</p><span class="post-meta">7 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/">Układy chłodnicze, oferta</a></li><li><a href="/uklady-chlodnicze/skraplacze-amoniakalne/">Skraplacze amoniakalne</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
+</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-biofilm-cleaning.png')"></div><div class="post-body"><span class="post-cat">Wieże chłodnicze</span><h3>Biofilm w układzie chłodniczym, jak usunąć osady biologiczne?</h3><p>Kontrola mikroorganizmów w obiegu chłodzącym.</p><span class="post-meta">7 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/">Układy chłodnicze, oferta</a></li><li><a href="/uklady-chlodnicze/skraplacze-amoniakalne/">Skraplacze amoniakalne</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
       <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
@@ -2142,7 +2286,7 @@ PAGES["/branze/"] = {
         <article><h3>Co sprawdzamy</h3><p>Jakość wody surowej, filtrację, przewodność, twardość, TDS, chlorki, zużycie wody, ścieków i wpływ parametrów na powtarzalność produkcji.</p></article>
         <article><h3>Jaka korzyść</h3><p>Mniejszy koszt mediów, stabilniejsza produkcja, prostsze raportowanie i mniej decyzji podejmowanych dopiero po awarii.</p></article>
       </div>
-      <div class="branch-actions" data-fly="right" data-fly-delay="0.11"><a class="btn btn-primary" href="/kalkulator-oszczednosci/#kalkulator">Policz oszczędności</a><a class="branches-link" href="/uslugi/audyt-techniczny/">Umów audyt</a></div>
+      <div class="branch-actions" data-fly="right" data-fly-delay="0.11"><a class="btn btn-primary" href="/kalkulator-oszczednosci/#kalkulator">Policz oszczędności</a><a class="branches-link" href="/bezplatna-konsultacja/">Umów audyt</a></div>
     </div>
   </div>
 </section>
@@ -2435,7 +2579,7 @@ PAGES["/case-study/kociol-parowy-fako/"] = {
     <div class="case-results"><article class="case-result reveal"><span class="case-result__big"><b class="num-counter" data-count-to="32" data-prefix="−" data-suffix="%">0</b></span><span class="case-result__label">zużycia paliwa</span><span class="case-result__ba"><em>przed: poziom 100%</em><em>po: trwały spadek</em></span></article><article class="case-result reveal"><span class="case-result__big"><b class="num-counter" data-count-to="2800">0</b><i>µS</i></span><span class="case-result__label">przewodność wody</span><span class="case-result__ba"><em>przed: 4200 µS</em><em>po: 2800 µS</em></span></article><article class="case-result reveal"><span class="case-result__big"><b>0,02</b><i>°n</i></span><span class="case-result__label">twardość wody</span><span class="case-result__ba"><em>przed: 8°n</em><em>po: 0,02°n</em></span></article><article class="case-result reveal"><span class="case-result__big"><b class="num-counter" data-count-to="12">0</b><i>mies.</i></span><span class="case-result__label">cykl między czyszczeniami</span><span class="case-result__ba"><em>przed: co 3 miesiące</em><em>po: co 12 miesięcy</em></span></article></div>
     <p class="case-results__note">Dane liczbowe są przykładowe i przed publikacją wymagają autoryzacji klienta.</p>
   </div>
-</section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li><li><a href="/kotly-parowe/odkamienianie/">Odkamienianie kotłów parowych</a></li><li><a href="/uslugi/audyt-techniczny/">Audyt techniczny instalacji</a></li></ul></div></section>
+</section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li><li><a href="/kotly-parowe/odkamienianie/">Odkamienianie kotłów parowych</a></li><li><a href="/bezplatna-konsultacja/">Audyt techniczny instalacji</a></li></ul></div></section>
 <section class="consult-final">
   <div class="wrap">
     <div class="consult-final__card">
@@ -2775,7 +2919,7 @@ PAGES["/kotly-parowe/"] = {
     </div>
     <div class="consult-value__list"><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2 3 5 4.5 5 8a5 5 0 0 1-10 0c0-1.5.7-2.7 1.5-3.5C9 9 9.5 7 9 5c2 .5 2.5 1.5 3 2 .3-1.2.2-2.7 0-4Z"/></svg></span><div><strong>Mniej paliwa</strong><span>Czyste powierzchnie grzewcze oddają ciepło efektywniej, więc kocioł zużywa mniej paliwa.</span></div></article><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19 12a7 7 0 0 0-.1-1.3l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2.3-1.3L13.8 1h-3.6l-.3 2.2a7 7 0 0 0-2.3 1.3l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .5 0 .9.1 1.3l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2.3 1.3l.3 2.2h3.6l.3-2.2a7 7 0 0 0 2.3-1.3l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.3Z"/></svg></span><div><strong>Dłuższe cykle czyszczenia</strong><span>Rzadsze przestoje na czyszczenie mechaniczne i chemiczne.</span></div></article><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Ochrona przed awarią</strong><span>Mniej korozji i wżerów, czyli mniejsze ryzyko nieszczelności rur.</span></div></article><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><div><strong>Dane dla zarządu</strong><span>Raportujemy parametry i oszczędności w zrozumiałych liczbach.</span></div></article></div>
   </div>
-</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Nasze rozwiązania dla kotłowni</h2></div><div class="card-grid"><a class="card" href="/kotly-parowe/kondycjonowanie-wody-kotlowej/"><h3>Kondycjonowanie wody kotłowej</h3><p>Program dozowania KCAQUA 303, czyli ochrona i oszczędność.</p><span class="card-link">Dowiedz się więcej →</span></a><a class="card" href="/kotly-parowe/odkamienianie/"><h3>Odkamienianie kotłów</h3><p>Chemiczne usuwanie kamienia w trakcie eksploatacji.</p><span class="card-link">Dowiedz się więcej →</span></a><a class="card" href="/kotly-parowe/ochrona-antykorozyjna/"><h3>Ochrona antykorozyjna</h3><p>Inhibitory korozji i wiązanie tlenu w układzie parowym.</p><span class="card-link">Dowiedz się więcej →</span></a></div></div></section><section class="section alt reveal"><div class="wrap narrow faq"><div class="section-head"><h2>Najczęstsze pytania</h2></div><details><summary>Jak kondycjonowanie wody zmniejsza rachunki za paliwo?</summary><div class="faq-a"><p>Usuwając warstwę kamienia, która izoluje powierzchnie grzewcze. Czysty kocioł oddaje ciepło wodzie znacznie efektywniej.</p></div></details><details><summary>Czy program wymaga wyłączenia kotła?</summary><div class="faq-a"><p>Kondycjonowanie prowadzimy w trakcie normalnej eksploatacji. Odkamienianie chemiczne planujemy zależnie od stanu układu.</p></div></details><details><summary>Co się stanie, jeśli nie będę kondycjonować wody?</summary><div class="faq-a"><p>Narasta kamień i korozja. Rosną koszty paliwa, częstotliwość czyszczeń i ryzyko awarii.</p></div></details><details><summary>Jakie parametry wody kotłowej kontrolujecie?</summary><div class="faq-a"><p>Najczęściej sprawdzamy pH, twardość, przewodność, żelazo i zasadowość. Na tej podstawie dobieramy program dozowania i limity odsalania.</p></div></details><details><summary>Czy obsługujecie kotłownie poza Siedlcami i Toruniem?</summary><div class="faq-a"><p>Tak. Pracujemy z zakładami przemysłowymi w całej Polsce. Zespół techniczny planuje wizyty tak, aby połączyć analizę wody, oględziny i rekomendacje w jednym procesie.</p></div></details></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li><li><a href="/kotly-parowe/odkamienianie/">Odkamienianie kotłów parowych</a></li><li><a href="/uslugi/audyt-techniczny/">Audyt techniczny instalacji</a></li></ul></div></section>
+</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Nasze rozwiązania dla kotłowni</h2></div><div class="card-grid"><a class="card" href="/kotly-parowe/kondycjonowanie-wody-kotlowej/"><h3>Kondycjonowanie wody kotłowej</h3><p>Program dozowania KCAQUA 303, czyli ochrona i oszczędność.</p><span class="card-link">Dowiedz się więcej →</span></a><a class="card" href="/kotly-parowe/odkamienianie/"><h3>Odkamienianie kotłów</h3><p>Chemiczne usuwanie kamienia w trakcie eksploatacji.</p><span class="card-link">Dowiedz się więcej →</span></a><a class="card" href="/kotly-parowe/ochrona-antykorozyjna/"><h3>Ochrona antykorozyjna</h3><p>Inhibitory korozji i wiązanie tlenu w układzie parowym.</p><span class="card-link">Dowiedz się więcej →</span></a></div></div></section><section class="section alt reveal"><div class="wrap narrow faq"><div class="section-head"><h2>Najczęstsze pytania</h2></div><details><summary>Jak kondycjonowanie wody zmniejsza rachunki za paliwo?</summary><div class="faq-a"><p>Usuwając warstwę kamienia, która izoluje powierzchnie grzewcze. Czysty kocioł oddaje ciepło wodzie znacznie efektywniej.</p></div></details><details><summary>Czy program wymaga wyłączenia kotła?</summary><div class="faq-a"><p>Kondycjonowanie prowadzimy w trakcie normalnej eksploatacji. Odkamienianie chemiczne planujemy zależnie od stanu układu.</p></div></details><details><summary>Co się stanie, jeśli nie będę kondycjonować wody?</summary><div class="faq-a"><p>Narasta kamień i korozja. Rosną koszty paliwa, częstotliwość czyszczeń i ryzyko awarii.</p></div></details><details><summary>Jakie parametry wody kotłowej kontrolujecie?</summary><div class="faq-a"><p>Najczęściej sprawdzamy pH, twardość, przewodność, żelazo i zasadowość. Na tej podstawie dobieramy program dozowania i limity odsalania.</p></div></details><details><summary>Czy obsługujecie kotłownie poza Siedlcami i Toruniem?</summary><div class="faq-a"><p>Tak. Pracujemy z zakładami przemysłowymi w całej Polsce. Zespół techniczny planuje wizyty tak, aby połączyć analizę wody, oględziny i rekomendacje w jednym procesie.</p></div></details></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li><li><a href="/kotly-parowe/odkamienianie/">Odkamienianie kotłów parowych</a></li><li><a href="/bezplatna-konsultacja/">Audyt techniczny instalacji</a></li></ul></div></section>
 <section class="consult-final">
   <div class="wrap">
     <div class="consult-final__card">
@@ -2820,7 +2964,7 @@ PAGES["/kotly-parowe/kondycjonowanie-wody-kotlowej/"] = {
     <div class="consult-section-head">
       <p class="consult-kicker">Parametry wody kotłowej</p>
       <h2>Cztery parametry decydują o bezpieczeństwie i kosztach pracy kotła.</h2>
-      <p>Wartości są orientacyjne. Docelowe normy dobieramy do konkretnego kotła i wymagań procesu.</p>
+      <p>Podane zakresy są punktem odniesienia. Docelowe normy dobieramy do konkretnego kotła i wymagań procesu.</p>
     </div>
     <div class="consult-fit-grid"><article class="fitcard"><span class="fitcard__no" aria-hidden="true">01</span><span class="fitcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 8a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-8V3"/><path d="M7.5 14h9"/></svg></span><h3>pH: 9,0-11,0</h3><p>Utrzymuje wodę w zakresie bezpiecznym dla stali i chroni przed korozją.</p><span class="fitcard__tag">Ochrona przed korozją</span></article><article class="fitcard"><span class="fitcard__no" aria-hidden="true">02</span><span class="fitcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></span><h3>Twardość: < 0,02°n</h3><p>Woda pozbawiona twardości nie wytrąca kamienia na powierzchniach grzewczych.</p><span class="fitcard__tag">Zapobiega kamieniowi</span></article><article class="fitcard"><span class="fitcard__no" aria-hidden="true">03</span><span class="fitcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></svg></span><h3>Przewodność: < 3000 µS</h3><p>Kontrola zasolenia pozwala ograniczyć odsalanie i stratę ciepła.</p><span class="fitcard__tag">Kontrola odsalania</span></article><article class="fitcard"><span class="fitcard__no" aria-hidden="true">04</span><span class="fitcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>Żelazo: < 0,1 mg/l</h3><p>Poziom żelaza w wodzie pokazuje, czy w układzie postępuje korozja.</p><span class="fitcard__tag">Wskaźnik korozji</span></article></div>
   </div>
@@ -3021,19 +3165,18 @@ PAGES["/ochrona-antykorozyjna/pasywacja-stali/"] = {
 }
 
 PAGES["/polityka-prywatnosci/"] = {
-    "body_class": "privacy-page",
-    "sections": [custom("""<section class="hero hero-basic" style="--page-art:url('/assets/impact/impact-02-effluent-control.jpeg')">
-  <div class="hero-basic__shade" aria-hidden="true"></div>
-  <div class="wrap hero-basic__inner">
-    <div class="hero-copy hero-basic__copy">
-      <p class="eyebrow">Kabi-Chemie · water treatment</p><h1>Polityka prywatności</h1><p class="lead">Jasne zasady ochrony danych osobowych, obsługi zapytań B2B, formularzy kontaktowych i danych technicznych przekazywanych w serwisie kondycjonowanie-wody.pl.</p>
-      
-      
-      <p class="hero-basic__geo">Obsługa zakładów przemysłowych w całej Polsce, z zespołem technicznym w Siedlcach i Toruniu.</p>
+    "body_class": "has-dark-hero privacy-page",
+    "og_image": "/assets/visuals-v2/hero-privacy-control-v1.webp",
+    "preload_image": "/assets/visuals-v2/hero-privacy-control-v1.webp",
+    "sections": [custom("""<section class="solution-hero privacy-hero" id="top" style="--solution-image:url('/assets/visuals-v2/hero-privacy-control-v1.webp'); --solution-position:center center">
+  <div class="solution-hero__media" aria-hidden="true"></div>
+  <div class="solution-hero__shade" aria-hidden="true"></div>
+  <div class="wrap solution-hero__inner">
+    <div class="solution-hero__copy">
+      <p class="solution-kicker"><span></span>Kabi-Chemie / ochrona danych</p>
+      <h1>Polityka prywatności.</h1>
+      <p class="solution-hero__lead">Jasne zasady ochrony danych osobowych, zapytań B2B i informacji technicznych przekazywanych Kabi-Chemie.</p>
     </div>
-    <figure class="hero-basic__art">
-      <img src="/assets/impact/impact-02-effluent-control.jpeg" alt="kondycjonowanie wody przemysłowej Kabi-Chemie" loading="eager">
-    </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose">
 <p class="note">Wersja obowiązująca od 2 lipca 2026 r. Dokument opisuje, jak Kabi-Chemie przetwarza dane osób korzystających ze strony, wysyłających formularz, dzwoniących, piszących e-mail lub przekazujących informacje techniczne dotyczące instalacji przemysłowej.</p>
@@ -3236,24 +3379,73 @@ PAGES["/uklady-chlodnicze/skraplacze-amoniakalne/"] = {
 }
 
 PAGES["/uslugi/"] = {
-    "sections": [custom("""<section class="hero hero-basic" style="--page-art:url('/assets/impact/impact-04-installation-protection.png')">
-  <div class="hero-basic__shade" aria-hidden="true"></div>
-  <div class="wrap hero-basic__inner">
-    <div class="hero-copy hero-basic__copy">
-      <p class="eyebrow">Usługi · diagnostyka i serwis</p><h1>Usługi inżynieryjne: Audyty i serwis instalacji wodnych</h1><p class="lead"><strong>Trzy usługi inżynieryjne, które porządkują gospodarkę wodną zakładu:</strong> audyt techniczny, analiza wody i serwis urządzeń uzdatniania.</p>
-      <div class="cta-row"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a></div>
-      
-      <p class="hero-basic__geo">Obsługa zakładów przemysłowych w całej Polsce, z zespołem technicznym w Siedlcach i Toruniu.</p>
+    "body_class": "has-dark-hero firm-page solution-page services-page",
+    "sections": [custom("""
+<section class="solution-hero" style="--solution-image:url('/assets/visuals-v2/hero-service-v2.jpg'); --solution-position:center center" id="top">
+  <div class="solution-hero__media" aria-hidden="true"></div>
+  <div class="solution-hero__shade" aria-hidden="true"></div>
+  <div class="wrap solution-hero__inner solution-hero__inner--editorial">
+    <div class="solution-hero__copy reveal-left">
+      <p class="firm-kicker">Usługi · diagnostyka i serwis</p>
+      <h1>Usługi inżynieryjne: audyt, analiza wody i serwis</h1>
+      <p>Trzy usługi inżynieryjne, które porządkują gospodarkę wodną zakładu: audyt techniczny, analiza wody i serwis urządzeń uzdatniania.</p>
+      <div class="firm-actions">
+        <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
+        <a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a>
+      </div>
     </div>
-    <figure class="hero-basic__art">
-      <img src="/assets/impact/impact-04-installation-protection.png" alt="audyt, analiza i serwis prowadzone przez inżyniera" loading="eager">
-      <figcaption>audyt, analiza i serwis prowadzone przez inżyniera</figcaption>
-    </figure>
+    <aside class="solution-hero__panel knowledge-hero__panel reveal-right">
+      <div><span>Audyt techniczny</span><strong>Wizyta inżyniera i ocena stanu instalacji.</strong></div>
+      <div><span>Analiza wody</span><strong>Badanie parametrów wody kotłowej i chłodniczej.</strong></div>
+      <div><span>Serwis urządzeń</span><strong>Stacje uzdatniania, pompy dozujące i sondy.</strong></div>
+    </aside>
   </div>
-</section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Nasze usługi</h2></div><div class="card-grid"><a class="card" href="/uslugi/audyt-techniczny/"><h3>Audyt techniczny</h3><p>Bezpłatna wizyta inżyniera i ocena stanu instalacji.</p><span class="card-link">Dowiedz się więcej →</span></a><a class="card" href="/uslugi/analiza-wody/"><h3>Analiza wody</h3><p>Badanie parametrów wody kotłowej i chłodniczej.</p><span class="card-link">Dowiedz się więcej →</span></a><a class="card" href="/uslugi/serwis-urzadzen/"><h3>Serwis urządzeń</h3><p>Serwis stacji uzdatniania, pomp i sond.</p><span class="card-link">Dowiedz się więcej →</span></a></div></div></section><section class="section alt reveal"><div class="wrap"><div class="section-head"><h2>Proces współpracy</h2></div><ol class="steps"><li><div class="step-num">1</div><div><h3>Audyt techniczny</h3><p>Inżynier ocenia instalację i mierzy parametry.</p></div></li><li><div class="step-num">2</div><div><h3>Program chemiczny</h3><p>Dobieramy preparat KCAQUA do układu.</p></div></li><li><div class="step-num">3</div><div><h3>Monitoring i serwis</h3><p>Regularne wizyty i kontrola parametrów.</p></div></li></ol></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/bezplatna-konsultacja/">Bezpłatna konsultacja</a></li><li><a href="/branze/">Branże, które obsługujemy</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
-      <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
-    </div></section>""")],
+</section>
+<section class="knowledge-index">
+  <div class="wrap">
+    <div class="firm-section-head reveal">
+      <p class="firm-kicker">Nasze usługi</p>
+      <h2>Trzy usługi inżynieryjne dla Twojej instalacji.</h2>
+    </div>
+    <nav class="knowledge-index__rows" aria-label="Nasze usługi">
+      <a class="reveal" href="/bezplatna-konsultacja/"><span>01</span><strong>Audyt techniczny</strong><em>Bezpłatna wizyta inżyniera i ocena stanu instalacji.</em></a>
+      <a class="reveal" href="/uslugi/analiza-wody/"><span>02</span><strong>Analiza wody</strong><em>Badanie parametrów wody kotłowej i chłodniczej.</em></a>
+      <a class="reveal" href="/uslugi/serwis-urzadzen/"><span>03</span><strong>Serwis urządzeń</strong><em>Serwis stacji uzdatniania, pomp dozujących i sond.</em></a>
+    </nav>
+  </div>
+</section>
+<section class="section alt reveal">
+  <div class="wrap">
+    <div class="firm-section-head reveal">
+      <p class="firm-kicker">Proces współpracy</p>
+      <h2>Od audytu do stałego serwisu.</h2>
+    </div>
+    <ol class="uslugi-process">
+      <li class="reveal"><span class="uslugi-process__no">01</span><h3>Audyt techniczny</h3><p>Inżynier ocenia instalację i mierzy parametry.</p></li>
+      <li class="reveal"><span class="uslugi-process__no">02</span><h3>Program chemiczny</h3><p>Dobieramy preparat KCAQUA do układu.</p></li>
+      <li class="reveal"><span class="uslugi-process__no">03</span><h3>Monitoring i serwis</h3><p>Regularne wizyty i kontrola parametrów.</p></li>
+    </ol>
+  </div>
+</section>
+<nav class="solution-related" aria-label="Powiązane strony"><div class="wrap">
+  <p>Powiązane strony</p>
+  <div class="solution-related__links">
+    <a href="/bezplatna-konsultacja/"><span>Kontakt</span><strong>Bezpłatna konsultacja</strong><i aria-hidden="true">↗</i></a>
+    <a href="/branze/"><span>Branże</span><strong>Branże, które obsługujemy</strong><i aria-hidden="true">↗</i></a>
+    <a href="/kalkulator-oszczednosci/"><span>Narzędzie</span><strong>Kalkulator oszczędności</strong><i aria-hidden="true">↗</i></a>
+  </div>
+</div></nav>
+<section class="solution-cta"><span class="solution-cta__mark" aria-hidden="true"></span>
+  <div class="wrap solution-cta__inner"><div>
+    <p class="solution-kicker"><span></span>Następny krok</p>
+    <h2>Sprawdź, ile zaoszczędzi Twój zakład.</h2>
+    <p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+    <div class="solution-cta__actions">
+      <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
+      <a class="solution-phone-link" href="tel:+48662792875"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg><span>Zadzwoń: +48 662 792 875</span></a>
+    </div>
+  </div>
+</section>""")],
 }
 
 PAGES["/uslugi/serwis-urzadzen/"] = {
@@ -3267,7 +3459,7 @@ PAGES["/uslugi/serwis-urzadzen/"] = {
       <p class="consult-kicker">Rozwiązania · Serwis i automatyka</p>
       <h1>Serwis przemysłowych stacji uzdatniania wody <em>i pomp</em></h1>
       <p class="consult-lead">Serwisujemy urządzenia uzdatniania wody: stacje zmiękczania i RO, pompy dozujące oraz sondy i sterowniki. Jeden partner od chemii, serwisu i automatyki.</p>
-      <div class="consult-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/uslugi/audyt-techniczny/">Audyt techniczny instalacji</a></div>
+      <div class="consult-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/bezplatna-konsultacja/">Audyt techniczny instalacji</a></div>
       <ul class="consult-hero__points" aria-label="Najważniejsze informacje"><li>Serwis planowy i awaryjny</li><li>Kalibracja sond i pomp</li><li>Protokół po każdej wizycie</li></ul>
     </div>
     <div class="consult-hero__visual">
@@ -3309,7 +3501,7 @@ PAGES["/uslugi/serwis-urzadzen/"] = {
     </div>
     <div class="consult-value__list"><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span><div><strong>Szybka reakcja</strong><span>Priorytet dla awarii, które zagrażają produkcji.</span></div></article><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19 12a7 7 0 0 0-.1-1.3l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2.3-1.3L13.8 1h-3.6l-.3 2.2a7 7 0 0 0-2.3 1.3l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .5 0 .9.1 1.3l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2.3 1.3l.3 2.2h3.6l.3-2.2a7 7 0 0 0 2.3-1.3l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.3Z"/></svg></span><div><strong>Serwis planowy</strong><span>Stały harmonogram przeglądów bez pilnowania terminów.</span></div></article><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M7 20V10M12 20V5M17 20v-7"/></svg></span><div><strong>Dokładne pomiary</strong><span>Skalibrowane sondy to wiarygodne dane i dozowanie.</span></div></article><article class="valuecard"><span class="valuecard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><div><strong>Pełna dokumentacja</strong><span>Protokoły i zalecenia po każdej wizycie serwisowej.</span></div></article></div>
   </div>
-</section><section class="section alt reveal"><div class="wrap narrow faq"><div class="section-head"><h2>Najczęstsze pytania</h2></div><details><summary>Jak szybko reagujecie na awarię?</summary><div class="faq-a"><p>Awarie pilne staramy się obsłużyć priorytetowo. Serwis planowy realizujemy w uzgodnionym harmonogramie.</p></div></details><details><summary>Jakie marki urządzeń serwisujecie?</summary><div class="faq-a"><p>Obsługujemy popularne urządzenia stosowane w przemyśle. Zakres potwierdzamy po rozpoznaniu.</p></div></details><details><summary>Czy serwis obejmuje pompy dozujące chemię?</summary><div class="faq-a"><p>Tak. Sprawdzamy wydajność pomp, szczelność układu, stan przewodów, zawory i poprawność nastaw dozowania preparatów.</p></div></details><details><summary>Czy kalibrujecie sondy przewodności i pH?</summary><div class="faq-a"><p>Tak. Kalibracja sond jest częścią serwisu automatyki. Dzięki temu odsalanie, dozowanie i alarmy opierają się na wiarygodnych pomiarach.</p></div></details><details><summary>Czy po serwisie otrzymamy protokół?</summary><div class="faq-a"><p>Tak. Po wizycie przekazujemy zakres wykonanych prac, zalecenia, wykryte ryzyka i propozycję dalszych działań serwisowych.</p></div></details></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uslugi/audyt-techniczny/">Audyt techniczny</a></li><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li></ul></div></section>
+</section><section class="section alt reveal"><div class="wrap narrow faq"><div class="section-head"><h2>Najczęstsze pytania</h2></div><details><summary>Jak szybko reagujecie na awarię?</summary><div class="faq-a"><p>Awarie pilne staramy się obsłużyć priorytetowo. Serwis planowy realizujemy w uzgodnionym harmonogramie.</p></div></details><details><summary>Jakie marki urządzeń serwisujecie?</summary><div class="faq-a"><p>Obsługujemy popularne urządzenia stosowane w przemyśle. Zakres potwierdzamy po rozpoznaniu.</p></div></details><details><summary>Czy serwis obejmuje pompy dozujące chemię?</summary><div class="faq-a"><p>Tak. Sprawdzamy wydajność pomp, szczelność układu, stan przewodów, zawory i poprawność nastaw dozowania preparatów.</p></div></details><details><summary>Czy kalibrujecie sondy przewodności i pH?</summary><div class="faq-a"><p>Tak. Kalibracja sond jest częścią serwisu automatyki. Dzięki temu odsalanie, dozowanie i alarmy opierają się na wiarygodnych pomiarach.</p></div></details><details><summary>Czy po serwisie otrzymamy protokół?</summary><div class="faq-a"><p>Tak. Po wizycie przekazujemy zakres wykonanych prac, zalecenia, wykryte ryzyka i propozycję dalszych działań serwisowych.</p></div></details></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/bezplatna-konsultacja/">Audyt techniczny</a></li><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li></ul></div></section>
 <section class="consult-final">
   <div class="wrap">
     <div class="consult-final__card">
@@ -3618,3 +3810,7 @@ PAGES["/referencje/"] = {
 """)],
 }
 
+# Najnowszy system sześciu głównych podstron rozwiązań zastępuje starsze definicje.
+install_solution_pages(PAGES, custom)
+install_company_case_pages(PAGES, custom, SITE)
+install_knowledge_pages(PAGES, custom, SHORT)

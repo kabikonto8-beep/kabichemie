@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Kabi-Chemie — kondycjonowanie wody">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b3d5c"/><stop offset="1" stop-color="#0f6f93"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="none" stroke="#1789b6" stroke-width="6" opacity="0.5">
+    <path d="M0 470 q100 -70 200 0 t200 0 t200 0 t200 0 t200 0"/>
+    <path d="M0 530 q100 -70 200 0 t200 0 t200 0 t200 0 t200 0" opacity="0.6"/>
+  </g>
+  <g fill="#7fd4ef" opacity="0.85">
+    <circle cx="980" cy="150" r="10"/><circle cx="1040" cy="220" r="6"/><circle cx="930" cy="240" r="7"/>
+  </g>
+  <text x="90" y="250" font-family="-apple-system,Segoe UI,Roboto,Arial,sans-serif" font-size="34" font-weight="700" fill="#7fd4ef" letter-spacing="3">KABI-CHEMIE · KCAQUA</text>
+  <text x="86" y="340" font-family="-apple-system,Segoe UI,Roboto,Arial,sans-serif" font-size="68" font-weight="800" fill="#ffffff">Przemysłowe kondycjonowanie</text>
+  <text x="86" y="420" font-family="-apple-system,Segoe UI,Roboto,Arial,sans-serif" font-size="68" font-weight="800" fill="#ffffff">wody i optymalizacja kosztów</text>
+  <text x="90" y="500" font-family="-apple-system,Segoe UI,Roboto,Arial,sans-serif" font-size="30" font-weight="500" fill="#bcd9e8">Kotły parowe · Układy chłodnicze · Membrany RO · Antykorozja</text>
+</svg>

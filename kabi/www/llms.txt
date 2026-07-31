@@ -13,6 +13,7 @@ Firma działa w Polsce. Główna lokalizacja: Siedlce, oddział techniczny: Toru
 - [Kotły parowe](https://kondycjonowanie-wody.pl/kotly-parowe/): Rozwiązania dla kotłów parowych i wody kotłowej.
 - [Układy chłodnicze](https://kondycjonowanie-wody.pl/uklady-chlodnicze/): Rozwiązania dla wież chłodniczych, skraplaczy i obiegów chłodzenia.
 - [Membrany RO](https://kondycjonowanie-wody.pl/membrany-ro/): Ochrona membran RO, antyskalanty i diagnostyka stacji odwróconej osmozy.
+- [Odkamienianie instalacji](https://kondycjonowanie-wody.pl/odkamienianie-instalacji/): Odkamienianie wymienników, rurociągów i obiegów przemysłowych.
 - [Ochrona antykorozyjna](https://kondycjonowanie-wody.pl/ochrona-antykorozyjna/): Ochrona antykorozyjna, pasywacja i chemiczne czyszczenie instalacji.
 - [Case studies](https://kondycjonowanie-wody.pl/case-study/): Realizacje pokazujące efekty wdrożeń KCAQUA.
 - [Baza wiedzy](https://kondycjonowanie-wody.pl/baza-wiedzy/): Artykuły eksperckie o wodzie przemysłowej, korozji, kamieniu i biofilmie.
@@ -21,7 +22,7 @@ Firma działa w Polsce. Główna lokalizacja: Siedlce, oddział techniczny: Toru
 ## Usługi i technologie
 
 - [Kondycjonowanie wody kotłowej](https://kondycjonowanie-wody.pl/kotly-parowe/kondycjonowanie-wody-kotlowej/): Dobór programu chemicznego KCAQUA do kotłów parowych, stabilizacja parametrów wody i ograniczenie kamienia.
-- [Odkamienianie kotłów](https://kondycjonowanie-wody.pl/kotly-parowe/odkamienianie/): Chemiczne usuwanie kamienia kotłowego, płukanie i zabezpieczenie powierzchni po czyszczeniu.
+- [Odkamienianie instalacji](https://kondycjonowanie-wody.pl/odkamienianie-instalacji/): Kontrolowane usuwanie kamienia z wymienników, rurociągów, kotłów i obiegów przemysłowych.
 - [Układy chłodnicze](https://kondycjonowanie-wody.pl/uklady-chlodnicze/): Programy dla wież chłodniczych, skraplaczy wyparnych i obiegów chłodzących: kamień, korozja, biofilm.
 - [Membrany RO](https://kondycjonowanie-wody.pl/membrany-ro/): Antyskalanty, analiza wody i rekomendacje eksploatacyjne dla systemów odwróconej osmozy.
 - [Ochrona antykorozyjna](https://kondycjonowanie-wody.pl/ochrona-antykorozyjna/): Inhibitory korozji, pasywacja stali i chemiczne czyszczenie instalacji przemysłowych.

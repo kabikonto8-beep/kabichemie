@@ -12,6 +12,17 @@
     });
   }
 
+  // --- FAQ firmowe: tylko jedna odpowiedź aktywna w całym zestawie ---
+  var companyFaqItems = Array.prototype.slice.call(document.querySelectorAll(".company-faq-editorial details"));
+  companyFaqItems.forEach(function (item) {
+    item.addEventListener("toggle", function () {
+      if (!item.open) return;
+      companyFaqItems.forEach(function (other) {
+        if (other !== item && other.open) other.open = false;
+      });
+    });
+  });
+
   // --- mega-menu: hover/focus na desktopie, pierwszy tap na mobile ---
   var mq = window.matchMedia("(max-width: 1160px)");
   var submenuItems = Array.prototype.slice.call(document.querySelectorAll(".has-sub"));
@@ -46,17 +57,7 @@
     var link = item.querySelector(":scope > a");
     var panel = item.querySelector(":scope > .nav-panel");
     if (!link) return;
-    item.addEventListener("pointerenter", function () {
-      if (mq.matches) return;
-      clearSubmenuTimer(item);
-      openSubmenu(item);
-    });
-    item.addEventListener("pointerleave", function () { if (!mq.matches) scheduleSubmenuClose(item); });
-    if (panel) {
-      panel.addEventListener("pointerenter", function () { clearSubmenuTimer(item); });
-      panel.addEventListener("pointerleave", function () { if (!mq.matches) scheduleSubmenuClose(item); });
-    }
-    item.addEventListener("focusin", function () { if (!mq.matches) openSubmenu(item); });
+    // Desktop: panel otwiera się tylko po kliknięciu (nie na hover). Klik przełącza otwarcie.
     item.addEventListener("focusout", function () {
       if (mq.matches) return;
       window.setTimeout(function () {
@@ -66,10 +67,11 @@
     link.addEventListener("click", function (e) {
       var li = link.parentElement;
       if (!mq.matches) {
-        if (li.getAttribute("data-click-open") !== "true") {
-          e.preventDefault();
+        e.preventDefault();
+        if (li.classList.contains("is-open")) {
+          closeSubmenu(li);
+        } else {
           openSubmenu(li);
-          li.setAttribute("data-click-open", "true");
         }
         return;
       }
@@ -486,6 +488,7 @@
     core.setAttribute("tabindex", "0");
     core.setAttribute("aria-expanded", "true");
     core.setAttribute("aria-controls", steps.id);
+    steps.setAttribute("aria-hidden", "false");
     core.setAttribute("title", "Kliknij, aby ukryć lub pokazać etapy procesu");
     var hint = core.querySelector(".proc-hub__hint");
     if (!hint) {
@@ -494,10 +497,25 @@
       hint.textContent = "Kliknij, aby zwinąć";
       core.appendChild(hint);
     }
+    var readyTimer = 0;
+    var setReadyAfterDomino = function () {
+      window.clearTimeout(readyTimer);
+      arc.classList.remove("proc-ready");
+      if (!arc.classList.contains("in-view") || arc.classList.contains("steps-hidden")) return;
+      if (reduceMotion) {
+        arc.classList.add("proc-ready");
+        return;
+      }
+      readyTimer = window.setTimeout(function () {
+        if (arc.classList.contains("in-view") && !arc.classList.contains("steps-hidden")) arc.classList.add("proc-ready");
+      }, 1020);
+    };
     var toggle = function () {
       var hidden = arc.classList.toggle("steps-hidden");
       core.setAttribute("aria-expanded", hidden ? "false" : "true");
+      steps.setAttribute("aria-hidden", hidden ? "true" : "false");
       hint.textContent = hidden ? "Kliknij, aby rozwinąć" : "Kliknij, aby zwinąć";
+      setReadyAfterDomino();
     };
     core.addEventListener("click", toggle);
     core.addEventListener("keydown", function (e) {
@@ -507,7 +525,12 @@
     // wejście kart odpalane PRZY SCROLLU — i powtarzane przy każdym wejściu w widok
     var reveal = function (on) {
       arc.classList.toggle("in-view", on);
-      if (!on) arc.classList.remove("proc-ready");
+      if (!on) {
+        window.clearTimeout(readyTimer);
+        arc.classList.remove("proc-ready");
+      } else {
+        setReadyAfterDomino();
+      }
     };
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (entries) {
@@ -517,9 +540,6 @@
       reveal(true);
     }
     // po zakończeniu animacji wejścia kart włącz szybki, bezopóźnieniowy hover
-    steps.addEventListener("transitionend", function (e) {
-      if (e.propertyName === "transform" && arc.classList.contains("in-view")) arc.classList.add("proc-ready");
-    });
   });
 
   // --- FAQ: każde pytanie wjeżdża z prawej i cofa się razem ze scrollem ---
@@ -911,9 +931,89 @@
   });
 
   // --- kalkulator oszczędności (model inżynierski: kotły parowe / skraplacze wyparne) ---
-  document.querySelectorAll("[data-savings-calculator]").forEach(function (form) {
+  document.querySelectorAll("[data-savings-calculator]").forEach(function (form, calculatorIndex) {
     var result = form.querySelector(".calc2-result");
     if (!result) return;
+
+    // Własne przyciski zmiany wartości zastępują nachodzące na jednostki kontrolki przeglądarki.
+    form.querySelectorAll(".calc2-input input[type='number']").forEach(function (input, inputIndex) {
+      if (input.getAttribute("data-calc-stepper-ready") === "true") return;
+
+      var field = input.closest("label.calc2-field");
+      if (!field || !field.parentNode) return;
+
+      var fieldNameNode = field.querySelector(".calc2-field__label");
+      var fieldNameCopy = fieldNameNode ? fieldNameNode.cloneNode(true) : null;
+      if (fieldNameCopy) {
+        fieldNameCopy.querySelectorAll(".calc2-info").forEach(function (info) { info.remove(); });
+      }
+      var fieldName = fieldNameCopy
+        ? fieldNameCopy.textContent.replace(/\s+/g, " ").trim()
+        : (input.name || "wartość");
+
+      var inputId = input.id || ("calc2-" + calculatorIndex + "-" + (input.name || inputIndex));
+      input.id = inputId;
+      input.setAttribute("data-calc-stepper-ready", "true");
+
+      var shell = document.createElement("div");
+      shell.className = "calc2-field-shell";
+      field.parentNode.insertBefore(shell, field);
+      shell.appendChild(field);
+
+      var stepper = document.createElement("span");
+      stepper.className = "calc2-stepper";
+      stepper.setAttribute("role", "group");
+      stepper.setAttribute("aria-label", "Zmiana wartości: " + fieldName);
+
+      var makeButton = function (direction) {
+        var increase = direction === "up";
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "calc2-stepper__btn calc2-stepper__btn--" + direction;
+        button.setAttribute("data-step-direction", direction);
+        button.setAttribute("aria-controls", inputId);
+        button.setAttribute("aria-label", (increase ? "Zwiększ" : "Zmniejsz") + " wartość pola " + fieldName);
+        button.title = increase ? "Zwiększ wartość" : "Zmniejsz wartość";
+        button.innerHTML = increase
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 14.5 4.5-4.5 4.5 4.5"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 9.5 4.5 4.5 4.5-4.5"/></svg>';
+        return button;
+      };
+
+      var downButton = makeButton("down");
+      var upButton = makeButton("up");
+      stepper.appendChild(downButton);
+      stepper.appendChild(upButton);
+      shell.appendChild(stepper);
+
+      var syncStepper = function () {
+        var value = input.valueAsNumber;
+        var hasValue = Number.isFinite(value);
+        downButton.disabled = input.disabled || (hasValue && input.min !== "" && value <= Number(input.min));
+        upButton.disabled = input.disabled || (hasValue && input.max !== "" && value >= Number(input.max));
+      };
+
+      stepper.addEventListener("click", function (event) {
+        var button = event.target.closest("[data-step-direction]");
+        if (!button || button.disabled) return;
+
+        var previousValue = input.value;
+        try {
+          if (button.getAttribute("data-step-direction") === "up") input.stepUp();
+          else input.stepDown();
+        } catch (error) {
+          return;
+        }
+
+        syncStepper();
+        if (input.value !== previousValue) {
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      });
+
+      input.addEventListener("input", syncStepper);
+      syncStepper();
+    });
 
     // tabele osad [mm] -> strata sprawności (VLOOKUP przybliżony, jak w arkuszu)
     var BOILER = [[0.1,0.02],[0.2,0.03],[0.3,0.05],[0.4,0.06],[0.5,0.08],[0.6,0.09],[0.7,0.11],[0.8,0.12],[0.9,0.14],[1,0.15],[1.1,0.16],[1.2,0.17],[1.3,0.18],[1.4,0.19],[1.5,0.2],[1.6,0.21],[1.7,0.22],[1.8,0.23],[1.9,0.24],[2,0.25],[2.1,0.2721],[2.2,0.2842],[2.3,0.2963],[2.4,0.3084],[2.5,0.3205],[2.6,0.3326],[2.7,0.3447],[2.8,0.3568],[2.9,0.3689],[3,0.3811],[3.1,0.3932],[3.2,0.4053],[3.3,0.4174],[3.4,0.4295],[3.5,0.4416],[3.6,0.4537],[3.7,0.4658],[3.8,0.4779],[3.9,0.49],[4,0.5021],[4.1,0.5142],[4.2,0.5263],[4.3,0.5384],[4.4,0.5505],[4.5,0.5626],[4.6,0.5747],[4.7,0.5868],[4.8,0.5989],[4.9,0.6111],[5,0.6232],[5.1,0.6353],[5.2,0.6474],[5.3,0.6595],[5.4,0.6716],[5.5,0.6837],[5.6,0.6958],[5.7,0.7079],[5.8,0.72],[5.9,0.7321],[6,0.7442],[6.1,0.7563],[6.2,0.7684],[6.3,0.7805],[6.4,0.7926],[6.5,0.8047],[6.6,0.8168],[6.7,0.8289],[6.8,0.8411],[6.9,0.8532],[7,0.8653],[7.1,0.8774],[7.2,0.8895],[7.3,0.9016],[7.4,0.9137],[7.5,0.9258],[7.6,0.9379],[7.7,0.95],[7.8,0.9621],[7.9,0.9742],[8,0.9863],[8.1,0.9984]];
@@ -975,9 +1075,10 @@
       var saltSav = finGain + waterSav;                             // B36
       return {
         scale: scaleSav, salt: saltSav, total: scaleSav + saltSav,
-        m1l: "Roczna strata energii", m1: fmt(energyLoss, "MWh", 2),
-        m2l: "Mniej odsolin rocznie", m2: fmt(diff, "t", 2),
-        m3l: "", m3: ""
+        metrics: [
+          { label: "Roczna strata energii", value: energyLoss, unit: "MWh", decimals: 2 },
+          { label: "Mniej odsolin rocznie", value: diff, unit: "t", decimals: 2 }
+        ]
       };
     };
 
@@ -1003,9 +1104,11 @@
       var saltSav = diff * (num("sk_water") + num("sk_sewage"));    // B34 zł
       return {
         scale: scaleSav, salt: saltSav, total: scaleSav + saltSav,
-        m1l: "Wyliczona grubość osadu", m1: fmt(thick, "mm", 2),
-        m2l: "Strata sprawności", m2: pct(scaleLoss),
-        m3l: "Mniej odsolin rocznie", m3: fmt(diff, "t", 2)
+        metrics: [
+          { label: "Wyliczona grubość osadu", value: thick, unit: "mm", decimals: 2 },
+          { label: "Strata sprawności", value: scaleLoss, kind: "percent" },
+          { label: "Mniej odsolin rocznie", value: diff, unit: "t", decimals: 2 }
+        ]
       };
     };
 
@@ -1020,51 +1123,439 @@
       barScale: result.querySelector("[data-calc-bar-scale]"),
       barSalt: result.querySelector("[data-calc-bar-salt]")
     };
+    var metricRows = [
+      { label: out.m1l, value: out.m1 },
+      { label: out.m2l, value: out.m2 },
+      { label: out.m3l, value: out.m3 }
+    ];
     var current = "kotly";
+    var scrollScrubActive = false;
+    var scrollScrubReady = false;
+    var scrollScrubWriting = false;
+    var scrollScrubFrame = 0;
+    var scrollScrubForce = false;
+    var scrollScrubProgress = -1;
+    var scrollScrubObserver = null;
+    var scrollScrubVisible = false;
+    var scrollScrubViewportHeight = 1;
+    var scrollTargetsByType = { kotly: [], skraplacze: [] };
+    var scrollResultTargets = { kotly: null, skraplacze: null };
+    var scrollResultValueNodes = [out.total, out.scale, out.salt, out.m1, out.m2, out.m3].filter(Boolean);
+    var scrollResultAccent = result.querySelector(".calc2-accent");
+    var resultMotionFrame = null;
+    var resultMotionTimer = null;
 
-    var calculate = function () {
-      var r = current === "kotly" ? calcBoiler() : calcCond();
+    var animateResult = function () {
+      if (resultMotionFrame) cancelAnimationFrame(resultMotionFrame);
+      if (resultMotionTimer) clearTimeout(resultMotionTimer);
+      result.classList.remove("is-updating");
+      resultMotionFrame = requestAnimationFrame(function () {
+        result.classList.add("is-updating");
+        resultMotionTimer = setTimeout(function () {
+          result.classList.remove("is-updating");
+        }, 520);
+      });
+    };
+
+    var metricText = function (metric, value) {
+      if (!metric) return "";
+      return metric.kind === "percent"
+        ? pct(value)
+        : fmt(value, metric.unit, metric.decimals);
+    };
+
+    var resultMessage = function (total) {
+      return total > 250000
+        ? "Wysoki potencjał odzyskania kosztów. Sprawdźmy, które działania mogą przynieść zakładowi największy efekt."
+        : total > 80000
+          ? "Wyraźny potencjał poprawy. Warto ustalić, które straty można ograniczyć w pierwszej kolejności."
+          : "Warto sprawdzić zakamienienie i odsalanie, aby określić możliwość ograniczenia kosztów.";
+    };
+
+    var applyResultStructure = function (r, waiting) {
+      metricRows.forEach(function (row, index) {
+        var metric = r.metrics[index];
+        var item = row.label && row.label.closest("li");
+        if (item) item.hidden = !metric;
+        if (row.label) row.label.textContent = metric ? metric.label : "";
+      });
+      if (out.msg) {
+        out.msg.textContent = waiting
+          ? "Analizujemy parametry instalacji. Wynik pojawi się po uzupełnieniu danych."
+          : resultMessage(r.total);
+      }
+    };
+
+    var applyResultValues = function (r) {
       if (out.total) out.total.textContent = zl(r.total);
       if (out.scale) out.scale.textContent = zl(r.scale);
       if (out.salt) out.salt.textContent = zl(r.salt);
-      if (out.m1) out.m1.textContent = r.m1; if (out.m1l) out.m1l.textContent = r.m1l;
-      if (out.m2) out.m2.textContent = r.m2; if (out.m2l) out.m2l.textContent = r.m2l;
-      if (out.m3) out.m3.textContent = r.m3; if (out.m3l) out.m3l.textContent = r.m3l;
-      // ukryj wiersze metryk bez etykiety (np. kotły mają 2 pozycje)
-      [[out.m1l, r.m1l], [out.m2l, r.m2l], [out.m3l, r.m3l]].forEach(function (pair) {
-        var li = pair[0] && pair[0].closest("li");
-        if (li) li.hidden = !pair[1];
+      metricRows.forEach(function (row, index) {
+        var metric = r.metrics[index];
+        if (row.value) row.value.textContent = metric ? metricText(metric, metric.value) : "";
       });
-      var tot = r.scale + r.salt, ps = tot > 0 ? r.scale / tot * 100 : 50;
-      if (out.barScale) out.barScale.style.width = ps.toFixed(1) + "%";
-      if (out.barSalt) out.barSalt.style.width = (100 - ps).toFixed(1) + "%";
-      if (out.msg) {
-        out.msg.textContent = r.total > 250000
-          ? "Bardzo duży potencjał oszczędności - warto policzyć też biały certyfikat. Potwierdźmy wynik audytem technicznym."
-          : r.total > 80000
-            ? "Realny potencjał poprawy. Audyt wskaże, które straty da się ograniczyć najszybciej."
-            : "Potencjał umiarkowany, ale wciąż warto sprawdzić zakamienienie i poziom odsalania instalacji.";
+    };
+
+    var applyResultBars = function (r, empty) {
+      var total = r.scale + r.salt;
+      var scaleShare = total > 0 ? r.scale / total : 0.5;
+      if (out.barScale) out.barScale.style.transform = "scaleX(" + (empty ? "0" : scaleShare.toFixed(4)) + ")";
+      if (out.barSalt) out.barSalt.style.transform = "scaleX(" + (empty ? "0" : (1 - scaleShare).toFixed(4)) + ")";
+    };
+
+    var calculate = function () {
+      var r = current === "kotly" ? calcBoiler() : calcCond();
+      if (scrollScrubActive && scrollScrubReady && !scrollScrubWriting) return r;
+      applyResultStructure(r, false);
+      applyResultValues(r);
+      applyResultBars(r, false);
+      animateResult();
+      return r;
+    };
+
+    var clampScrollProgress = function (value) {
+      return Math.max(0, Math.min(1, value));
+    };
+
+    var easeScrollProgress = function (progress) {
+      progress = clampScrollProgress(progress);
+      return progress * progress * (3 - 2 * progress);
+    };
+
+    var makeScrollTarget = function (input) {
+      var targetText = input.value || "0";
+      var normalized = targetText.replace(",", ".");
+      var dot = normalized.indexOf(".");
+      var shell = input.closest(".calc2-field-shell");
+      var visual = shell ? shell.querySelector(".calc2-input") : null;
+      var charge = document.createElement("span");
+      charge.className = "calc2-scroll-charge";
+      charge.setAttribute("aria-hidden", "true");
+      if (visual) visual.appendChild(charge);
+      return {
+        input: input,
+        shell: shell,
+        visual: visual,
+        charge: charge,
+        targetText: targetText,
+        target: Number(normalized) || 0,
+        decimals: dot === -1 ? 0 : Math.min(3, normalized.length - dot - 1)
+      };
+    };
+
+    var collectScrollTargets = function (type) {
+      return Array.prototype.slice.call(
+        form.querySelectorAll("[data-calc-fields='" + type + "'] input[type='number']")
+      ).map(makeScrollTarget).filter(function (item) { return item.shell; });
+    };
+
+    var inputScrollProgress = function (progress, index, total) {
+      if (total <= 1) return easeScrollProgress(progress);
+      var fillWindow = 0.32;
+      var start = (index / (total - 1)) * (1 - fillWindow);
+      return easeScrollProgress((progress - start) / fillWindow);
+    };
+
+    var setScrollInputValue = function (item, progress) {
+      var value = item.target * progress;
+      item.input.value = progress >= 0.999
+        ? item.targetText
+        : (item.decimals ? value.toFixed(item.decimals) : String(Math.round(value)));
+      if (item.visual) {
+        item.visual.style.opacity = (0.5 + progress * 0.5).toFixed(3);
+        item.visual.style.transform = "translate3d(0," + ((1 - progress) * 3).toFixed(2) + "px,0)";
       }
+      if (item.charge) {
+        item.charge.style.opacity = (Math.sin(Math.PI * progress) * 0.72).toFixed(3);
+        item.charge.style.transform = "scaleX(" + progress.toFixed(4) + ")";
+      }
+      item.shell.classList.toggle("is-filling", progress > 0.001 && progress < 0.999);
+      item.shell.classList.toggle("is-filled", progress >= 0.999);
+    };
+
+    var applyScrollResult = function (progress) {
+      var target = scrollResultTargets[current];
+      if (!target) return;
+
+      var resultProgress = easeScrollProgress((progress - 0.16) / 0.84);
+      var displayed = {
+        scale: target.scale * resultProgress,
+        salt: target.salt * resultProgress,
+        total: target.total * resultProgress,
+        metrics: target.metrics.map(function (metric) {
+          return {
+            label: metric.label,
+            value: metric.value * resultProgress,
+            unit: metric.unit,
+            decimals: metric.decimals,
+            kind: metric.kind
+          };
+        })
+      };
+
+      applyResultStructure(displayed, false);
+      applyResultValues(displayed);
+
+      var total = target.scale + target.salt;
+      var scaleShare = total > 0 ? target.scale / total : 0.5;
+      if (out.barScale) out.barScale.style.transform = "scaleX(" + (scaleShare * resultProgress).toFixed(4) + ")";
+      if (out.barSalt) out.barSalt.style.transform = "scaleX(" + ((1 - scaleShare) * resultProgress).toFixed(4) + ")";
+
+      scrollResultValueNodes.forEach(function (node) {
+        node.style.opacity = (0.34 + resultProgress * 0.66).toFixed(3);
+        node.style.transform = "translate3d(0," + ((1 - resultProgress) * 4).toFixed(2) + "px,0)";
+      });
+      if (scrollResultAccent) {
+        scrollResultAccent.style.transform = "scaleX(" + resultProgress.toFixed(4) + ")";
+      }
+
+      if (out.msg) {
+        out.msg.textContent = resultProgress < 0.01
+          ? "Potencjał pojawi się wraz z danymi instalacji."
+          : resultProgress < 0.985
+            ? "Model przelicza kolejne parametry instalacji."
+            : resultMessage(target.total);
+      }
+
+      result.classList.toggle("is-scroll-complete", resultProgress >= 0.999);
+    };
+
+    var measureScrollScrub = function () {
+      scrollScrubViewportHeight = Math.max(window.innerHeight || 0, 1);
+    };
+
+    var readScrollScrubProgress = function () {
+      var formTop = form.getBoundingClientRect().top;
+      var startLine = scrollScrubViewportHeight * 0.88;
+      var endLine = scrollScrubViewportHeight * 0.16;
+      return clampScrollProgress((startLine - formTop) / (startLine - endLine));
+    };
+
+    var renderScrollScrub = function (force) {
+      if (!scrollScrubActive) return;
+
+      var progress = readScrollScrubProgress();
+
+      if (!force && Math.abs(progress - scrollScrubProgress) < 0.0005) return;
+      scrollScrubProgress = progress;
+      scrollScrubWriting = true;
+
+      var activeTargets = scrollTargetsByType[current] || [];
+      activeTargets.forEach(function (item, index) {
+        setScrollInputValue(item, inputScrollProgress(progress, index, activeTargets.length));
+      });
+      applyScrollResult(progress);
+
+      form.classList.toggle("is-scroll-complete", progress >= 0.999);
+      scrollScrubWriting = false;
+    };
+
+    var runScrollScrubFrame = function () {
+      var shouldForce = scrollScrubForce;
+      scrollScrubFrame = 0;
+      scrollScrubForce = false;
+      renderScrollScrub(shouldForce);
+    };
+
+    var requestScrollScrub = function (force) {
+      scrollScrubForce = scrollScrubForce || !!force;
+      if (scrollScrubFrame) return;
+      scrollScrubFrame = requestAnimationFrame(runScrollScrubFrame);
+    };
+
+    var onScrollScrubResize = function () {
+      measureScrollScrub();
+      requestScrollScrub(true);
+    };
+
+    var onScrollScrubScroll = function () {
+      if (scrollScrubVisible) requestScrollScrub(false);
+    };
+
+    var finishScrollScrub = function () {
+      if (!scrollScrubActive) return;
+      scrollScrubActive = false;
+      if (scrollScrubFrame) cancelAnimationFrame(scrollScrubFrame);
+      scrollScrubFrame = 0;
+      scrollScrubVisible = false;
+      window.removeEventListener("scroll", onScrollScrubScroll);
+      window.removeEventListener("resize", onScrollScrubResize);
+      if (scrollScrubObserver) scrollScrubObserver.disconnect();
+      scrollScrubObserver = null;
+
+      scrollScrubWriting = true;
+      Object.keys(scrollTargetsByType).forEach(function (type) {
+        scrollTargetsByType[type].forEach(function (item) {
+          item.input.value = item.targetText;
+          item.input.dispatchEvent(new Event("input", { bubbles: true }));
+          item.shell.removeAttribute("data-scroll-field");
+          item.shell.classList.remove("is-filling", "is-filled");
+          if (item.visual) {
+            item.visual.style.removeProperty("opacity");
+            item.visual.style.removeProperty("transform");
+          }
+          if (item.charge) item.charge.remove();
+        });
+      });
+      scrollScrubWriting = false;
+
+      scrollResultValueNodes.forEach(function (node) {
+        node.style.removeProperty("opacity");
+        node.style.removeProperty("transform");
+      });
+      if (scrollResultAccent) scrollResultAccent.style.removeProperty("transform");
+
+      form.classList.remove("is-scroll-scrubbing", "is-scroll-complete");
+      result.classList.remove("is-scroll-scrubbing", "is-scroll-complete");
+      result.removeAttribute("aria-busy");
+      result.setAttribute("aria-live", "polite");
+      calculate();
+    };
+
+    var setupScrollScrub = function () {
+      if (!("IntersectionObserver" in window)) return false;
+      scrollTargetsByType.kotly = collectScrollTargets("kotly");
+      scrollTargetsByType.skraplacze = collectScrollTargets("skraplacze");
+      if (!scrollTargetsByType.kotly.length || !scrollTargetsByType.skraplacze.length) return false;
+
+      scrollResultTargets.kotly = calcBoiler();
+      scrollResultTargets.skraplacze = calcCond();
+      Object.keys(scrollTargetsByType).forEach(function (type) {
+        scrollTargetsByType[type].forEach(function (item) {
+          item.shell.setAttribute("data-scroll-field", "");
+        });
+      });
+
+      measureScrollScrub();
+      scrollScrubReady = true;
+      scrollScrubActive = true;
+      form.classList.add("is-scroll-scrubbing");
+      result.classList.add("is-scroll-scrubbing");
+      result.setAttribute("aria-live", "off");
+      window.addEventListener("scroll", onScrollScrubScroll, { passive: true });
+      window.addEventListener("resize", onScrollScrubResize);
+
+      scrollScrubObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          scrollScrubVisible = entry.isIntersecting;
+          if (scrollScrubVisible) requestScrollScrub(true);
+          else {
+            if (scrollScrubFrame) cancelAnimationFrame(scrollScrubFrame);
+            scrollScrubFrame = 0;
+            renderScrollScrub(true);
+          }
+        });
+      }, { threshold: 0, rootMargin: "18% 0px 18% 0px" });
+      scrollScrubObserver.observe(form);
+
+      renderScrollScrub(true);
+      return true;
     };
 
     // przełącznik typu instalacji
     var groups = form.querySelectorAll("[data-calc-fields]");
+    var typebar = form.querySelector(".calc2-typebar");
+    var typeButtons = Array.prototype.slice.call(form.querySelectorAll("[data-calc-type]"));
+    var categoryLinks = Array.prototype.slice.call(document.querySelectorAll("[data-calc-category]"));
+    var typeMotionTimer = null;
+    var typeContentTimer = null;
+    var typePressTimer = null;
+
+    var syncCategoryLinks = function (type) {
+      categoryLinks.forEach(function (link) {
+        var active = link.getAttribute("data-calc-category") === type;
+        link.classList.toggle("is-active", active);
+        if (active) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+    };
+
+    var pulseTypebar = function () {
+      if (!typebar) return;
+      if (typePressTimer) clearTimeout(typePressTimer);
+      typebar.classList.remove("is-pressing");
+      void typebar.offsetWidth;
+      typebar.classList.add("is-pressing");
+      typePressTimer = setTimeout(function () {
+        typebar.classList.remove("is-pressing");
+      }, 360);
+    };
+
     var setType = function (type) {
+      if (type !== "kotly" && type !== "skraplacze") return;
+      if (type === current) {
+        syncCategoryLinks(type);
+        pulseTypebar();
+        return;
+      }
+
       current = type;
-      form.querySelectorAll("[data-calc-type]").forEach(function (b) {
+      syncCategoryLinks(type);
+      if (typebar) {
+        if (typeMotionTimer) clearTimeout(typeMotionTimer);
+        typebar.classList.remove("is-pressing", "is-shifting");
+        void typebar.offsetWidth;
+        typebar.setAttribute("data-active-type", type);
+        typebar.classList.add("is-shifting");
+        typeMotionTimer = setTimeout(function () {
+          typebar.classList.remove("is-shifting");
+        }, 640);
+      }
+
+      typeButtons.forEach(function (b) {
         var on = b.getAttribute("data-calc-type") === type;
         b.classList.toggle("is-active", on);
         b.setAttribute("aria-selected", on ? "true" : "false");
+        b.tabIndex = on ? 0 : -1;
       });
       groups.forEach(function (g) {
         if (g.getAttribute("data-calc-fields") === type) g.removeAttribute("hidden");
         else g.setAttribute("hidden", "");
       });
-      calculate();
+
+      if (typeContentTimer) clearTimeout(typeContentTimer);
+      form.classList.remove("is-type-switching");
+      void form.offsetWidth;
+      form.classList.add("is-type-switching");
+      typeContentTimer = setTimeout(function () {
+        form.classList.remove("is-type-switching");
+      }, 620);
+
+      if (scrollScrubActive) requestScrollScrub(true);
+      else calculate();
     };
-    form.querySelectorAll("[data-calc-type]").forEach(function (b) {
+
+    typeButtons.forEach(function (b) {
+      b.tabIndex = b.getAttribute("data-calc-type") === current ? 0 : -1;
       b.addEventListener("click", function () { setType(b.getAttribute("data-calc-type")); });
     });
+
+    syncCategoryLinks(current);
+    categoryLinks.forEach(function (link) {
+      link.addEventListener("click", function () {
+        setType(link.getAttribute("data-calc-category"));
+      });
+    });
+
+    if (typebar) {
+      typebar.addEventListener("keydown", function (event) {
+        var activeIndex = typeButtons.findIndex(function (button) {
+          return button.getAttribute("data-calc-type") === current;
+        });
+        var nextIndex = activeIndex;
+
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = Math.max(0, activeIndex - 1);
+        else if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = Math.min(typeButtons.length - 1, activeIndex + 1);
+        else if (event.key === "Home") nextIndex = 0;
+        else if (event.key === "End") nextIndex = typeButtons.length - 1;
+        else return;
+
+        event.preventDefault();
+        var nextButton = typeButtons[nextIndex];
+        setType(nextButton.getAttribute("data-calc-type"));
+        nextButton.focus();
+      });
+    }
 
     // suwaki -> podgląd wartości (mm)
     var syncRange = function (input) {
@@ -1076,10 +1567,32 @@
       input.addEventListener("input", function () { syncRange(input); });
     });
 
-    form.addEventListener("submit", function (e) { e.preventDefault(); calculate(); });
-    form.addEventListener("input", calculate);
-    form.addEventListener("change", calculate);
-    calculate();
+    var finishScrubForManualControl = function (event) {
+      if (!scrollScrubActive || scrollScrubWriting) return;
+      if (event && event.target.closest("[data-calc-type]")) return;
+      finishScrollScrub();
+    };
+
+    var calculateAfterManualChange = function () {
+      if (scrollScrubWriting) return;
+      if (scrollScrubActive) finishScrollScrub();
+      else calculate();
+    };
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      calculateAfterManualChange();
+    });
+    form.addEventListener("input", calculateAfterManualChange);
+    form.addEventListener("change", calculateAfterManualChange);
+
+    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reducedMotion && "requestAnimationFrame" in window && setupScrollScrub()) {
+      form.addEventListener("pointerdown", finishScrubForManualControl, true);
+      form.addEventListener("keydown", finishScrubForManualControl, true);
+    } else {
+      calculate();
+    }
   });
 
   // --- coverflow branż (Nasze branże) ---
@@ -1427,5 +1940,97 @@
     window.addEventListener("resize", requestFly);
     window.addEventListener("load", requestFly);
     updateFly();
+  });
+
+  // --- listy realizacji / bazy wiedzy: wyszukiwarka + paginacja ---
+  // Filtruje pozycje po fragmencie tytułu (element <strong>) i dzieli je na
+  // strony po 5 (numerowana nawigacja 1, 2, 3 … N).
+  var STORIES_PER_PAGE = 5;
+  Array.prototype.slice.call(document.querySelectorAll(".company-stories__list")).forEach(function (list) {
+    var section = list.closest ? list.closest(".company-stories") : null;
+    if (!section) return;
+    var input = section.querySelector("[data-stories-search]");
+    var pager = section.querySelector("[data-stories-pager]");
+    var empty = section.querySelector("[data-stories-empty]");
+    if (!input && !pager) return;
+    var paginate = !!pager;
+    var items = Array.prototype.slice.call(list.querySelectorAll("a"));
+    var page = 1;
+
+    function matches() {
+      var q = input ? input.value.trim().toLowerCase() : "";
+      if (!q) return items;
+      return items.filter(function (a) {
+        var strong = a.querySelector("strong");   // tytuł
+        var cat = a.querySelector("span");          // kategoria (etykieta)
+        var hay = ((cat ? cat.textContent + " " : "") + (strong ? strong.textContent : a.textContent)).toLowerCase();
+        return hay.indexOf(q) !== -1;
+      });
+    }
+
+    function pageList(cur, total) {
+      var out = [], i;
+      if (total <= 7) { for (i = 1; i <= total; i++) out.push(i); return out; }
+      out.push(1);
+      var left = Math.max(2, cur - 1), right = Math.min(total - 1, cur + 1);
+      if (left > 2) out.push("...");
+      for (i = left; i <= right; i++) out.push(i);
+      if (right < total - 1) out.push("...");
+      out.push(total);
+      return out;
+    }
+
+    function pbtn(label, target, disabled, active, aria) {
+      return '<button type="button" class="stories-pager__btn' + (active ? " is-active" : "") + '"'
+        + (disabled ? " disabled" : "")
+        + ' data-page="' + target + '" aria-label="' + aria + '"'
+        + (active ? ' aria-current="page"' : "") + ">" + label + "</button>";
+    }
+
+    function drawPager(total) {
+      if (!pager) return;
+      if (total <= 1) { pager.innerHTML = ""; pager.hidden = true; return; }
+      pager.hidden = false;
+      var html = pbtn("‹", page - 1, page <= 1, false, "Poprzednia strona");
+      pageList(page, total).forEach(function (n) {
+        if (n === "...") { html += '<span class="stories-pager__gap" aria-hidden="true">…</span>'; return; }
+        html += pbtn(String(n), n, false, n === page, "Strona " + n);
+      });
+      html += pbtn("›", page + 1, page >= total, false, "Następna strona");
+      pager.innerHTML = html;
+    }
+
+    function render() {
+      var vis = matches();
+      var total = Math.max(1, Math.ceil(vis.length / STORIES_PER_PAGE));
+      if (page > total) page = total;
+      if (page < 1) page = 1;
+      var shown = paginate ? vis.slice((page - 1) * STORIES_PER_PAGE, page * STORIES_PER_PAGE) : vis;
+      items.forEach(function (a) { a.hidden = true; });
+      shown.forEach(function (a) { a.hidden = false; });
+      if (empty) empty.hidden = vis.length !== 0;
+      drawPager(paginate ? total : 1);
+    }
+
+    if (input) {
+      input.addEventListener("input", function () { page = 1; render(); });
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") { input.value = ""; page = 1; render(); }
+      });
+    }
+    if (pager) {
+      pager.addEventListener("click", function (e) {
+        var b = e.target.closest ? e.target.closest("button[data-page]") : null;
+        if (!b || b.disabled) return;
+        var p = parseInt(b.getAttribute("data-page"), 10);
+        if (!isNaN(p) && p !== page) {
+          page = p;
+          render();
+          try { list.scrollIntoView({ behavior: "smooth", block: "start" }); }
+          catch (err) { list.scrollIntoView(); }
+        }
+      });
+    }
+    render();
   });
 })();
