@@ -14,7 +14,7 @@ import content as C
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, 'www')
 DOMAIN = 'https://kondycjonowanie-wody.pl'
-ASSET_VERSION = '20260731-kb-search-cat-v264'
+ASSET_VERSION = '20260731-kb-pager-domino-v266'
 BUILD_DATE = os.environ.get('KABI_BUILD_DATE') or date.today().isoformat()
 CANONICAL_HOST = 'kondycjonowanie-wody.pl'
 CANONICAL_SCHEME = 'https'

@@ -1946,6 +1946,21 @@
   // Filtruje pozycje po fragmencie tytułu (element <strong>) i dzieli je na
   // strony po 5 (numerowana nawigacja 1, 2, 3 … N).
   var STORIES_PER_PAGE = 5;
+  // animacja pojawiania się wierszy przy zmianie strony: fade-up z efektem domina
+  // (każdy kolejny wiersz startuje z narastającym opóźnieniem — kaskada jak spadające kostki)
+  function animateStoryRows(els) {
+    if (reduceMotion) return;
+    els.forEach(function (el, i) {
+      if (!el.animate) return;
+      el.animate(
+        [
+          { opacity: 0, transform: "translateY(22px)" },
+          { opacity: 1, transform: "translateY(0)" }
+        ],
+        { duration: 440, delay: Math.min(i, 9) * 85, easing: "cubic-bezier(.2,.75,.25,1)", fill: "backwards" }
+      );
+    });
+  }
   Array.prototype.slice.call(document.querySelectorAll(".company-stories__list")).forEach(function (list) {
     var section = list.closest ? list.closest(".company-stories") : null;
     if (!section) return;
@@ -2000,16 +2015,17 @@
       pager.innerHTML = html;
     }
 
-    function render() {
+    function render(animate) {
       var vis = matches();
       var total = Math.max(1, Math.ceil(vis.length / STORIES_PER_PAGE));
       if (page > total) page = total;
       if (page < 1) page = 1;
       var shown = paginate ? vis.slice((page - 1) * STORIES_PER_PAGE, page * STORIES_PER_PAGE) : vis;
       items.forEach(function (a) { a.hidden = true; });
-      shown.forEach(function (a) { a.hidden = false; });
+      shown.forEach(function (a) { a.hidden = false; a.classList.add("in-view"); });
       if (empty) empty.hidden = vis.length !== 0;
       drawPager(paginate ? total : 1);
+      if (animate) animateStoryRows(shown);
     }
 
     if (input) {
@@ -2025,9 +2041,8 @@
         var p = parseInt(b.getAttribute("data-page"), 10);
         if (!isNaN(p) && p !== page) {
           page = p;
-          render();
-          try { list.scrollIntoView({ behavior: "smooth", block: "start" }); }
-          catch (err) { list.scrollIntoView(); }
+          render(true);
+          // bez auto-przewijania — strona zostaje w miejscu, zmienia się tylko lista
         }
       });
     }
