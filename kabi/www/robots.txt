@@ -1,4 +1,4 @@
-# Kabi-Chemie, publiczny serwis ofertowy i ekspercki.
+# Kabi Chemie, publiczny serwis ofertowy i ekspercki.
 # Strona ma być widoczna dla wyszukiwarek oraz agentów AI korzystających z publicznie dostępnych treści.
 User-agent: *
 Allow: /

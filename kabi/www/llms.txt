@@ -1,14 +1,14 @@
-# Kabi-Chemie
+# Kabi Chemie
 
-> Kabi-Chemie to polski producent autorskiej chemii KCAQUA do kondycjonowania wody przemysłowej. Firma pomaga zakładom produkcyjnym ograniczać kamień, korozję, biofilm, zużycie wody, energii i ścieków w kotłach parowych, układach chłodniczych, skraplaczach wyparnych oraz systemach RO.
+> Kabi Chemie to polski producent autorskiej chemii KCAQUA do kondycjonowania wody przemysłowej. Firma pomaga zakładom produkcyjnym ograniczać kamień, korozję, biofilm, zużycie wody, energii i ścieków w kotłach parowych, układach chłodniczych, skraplaczach wyparnych oraz systemach RO.
 
-Kabi-Chemie pracuje dla przemysłu, utrzymania ruchu, energetyki zakładowej, chłodnictwa przemysłowego, przetwórstwa spożywczego i firm produkcyjnych. Kluczowe korzyści dla klienta to niższe koszty mediów, stabilniejsza praca instalacji, mniej awarii, dłuższe cykle między czyszczeniami i czytelny raport techniczny dla decyzji zakupowej.
+Kabi Chemie pracuje dla przemysłu, utrzymania ruchu, energetyki zakładowej, chłodnictwa przemysłowego, przetwórstwa spożywczego i firm produkcyjnych. Kluczowe korzyści dla klienta to niższe koszty mediów, stabilniejsza praca instalacji, mniej awarii, dłuższe cykle między czyszczeniami i czytelny raport techniczny dla decyzji zakupowej.
 
 Firma działa w Polsce. Główna lokalizacja: Siedlce, oddział techniczny: Toruń.
 
 ## Najważniejsze strony
 
-- [Strona główna](https://kondycjonowanie-wody.pl/): Kim jest Kabi-Chemie i w czym specjalizuje się firma.
+- [Strona główna](https://kondycjonowanie-wody.pl/): Kim jest Kabi Chemie i w czym specjalizuje się firma.
 - [Usługi](https://kondycjonowanie-wody.pl/uslugi/): Zakres usług: audyt, analiza wody, serwis i dobór programu chemicznego.
 - [Kotły parowe](https://kondycjonowanie-wody.pl/kotly-parowe/): Rozwiązania dla kotłów parowych i wody kotłowej.
 - [Układy chłodnicze](https://kondycjonowanie-wody.pl/uklady-chlodnicze/): Rozwiązania dla wież chłodniczych, skraplaczy i obiegów chłodzenia.

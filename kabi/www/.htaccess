@@ -1,4 +1,4 @@
-# Kabi-Chemie, SEO technical layer.
+# Kabi Chemie, SEO technical layer.
 RewriteEngine On
 
 # Canonical host and HTTPS. Keep one indexable version of every URL.

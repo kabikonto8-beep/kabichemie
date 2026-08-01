@@ -1,4 +1,4 @@
-/* Kabi-Chemie — drobna interaktywność (bez zależności) */
+/* Kabi Chemie — drobna interaktywność (bez zależności) */
 (function () {
   "use strict";
 
@@ -625,7 +625,7 @@
   });
 
   // --- animowany akordeon kart w sekcji "Czym się zajmujemy" ---
-  // --- animowana rolka cytatow Kabi-Chemie ---
+  // --- animowana rolka cytatow Kabi Chemie ---
   document.querySelectorAll("[data-expert-reel]").forEach(function (reel) {
     var panels = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-panel]"));
     var images = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-image]"));
