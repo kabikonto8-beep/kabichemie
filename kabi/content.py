@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Treść i konfiguracja serwisu Kabi-Chemie.
+Treść i konfiguracja serwisu KABI CHEMIE.
 Dane SEO (title/meta/h1/breadcrumbs) pochodzą z _seo.json (arkusz „Optymalizacja”).
 Tu definiujemy: SITE, NAV, FOOTER, SHORT (etykiety okruszków) oraz PAGES (sekcje).
 """
@@ -11,9 +11,9 @@ from knowledge_pages import install_knowledge_pages
 
 # ------------------------------------------------------------------ globalne
 SITE = {
-    "name": "Kabi-Chemie",
-    "legal": "Kabi-Chemie",
-    "company": "Kabi-Chemie",
+    "name": "KABI CHEMIE",
+    "legal": "KABI CHEMIE",
+    "company": "KABI CHEMIE",
     "tagline": "Producent autorskiej chemii KCAQUA do kondycjonowania wody w przemyśle. Mniej kamienia, mniejsze zużycie wody i energii, ochrona instalacji.",
     "phone": "+48 662 792 875",
     "phone_raw": "+48662792875",
@@ -88,7 +88,6 @@ NAV = [
     {"label": "O firmie", "href": "/o-firmie/", "children": [
         {"label": "Branże", "href": "/branze/"},
         {"label": "Case studies", "href": "/case-study/"},
-        {"label": "Referencje", "href": "/referencje/"},
         {"label": "FAQ", "href": "/faq/"},
         {"label": "Kontakt", "href": "/kontakt/"},
     ]},
@@ -118,7 +117,6 @@ FOOTER = [
     ]},
     {"title": "Firma", "links": [
         {"label": "O firmie", "href": "/o-firmie/"},
-        {"label": "Referencje", "href": "/referencje/"},
         {"label": "Kontakt", "href": "/kontakt/"},
         {"label": "Polityka prywatności", "href": "/polityka-prywatnosci/"},
         {"label": "Model współpracy", "href": "/warunki-wspolpracy/"},
@@ -127,6 +125,8 @@ FOOTER = [
 
 # Nowa nawigacja zgodna z briefem: mniej pozycji, więcej ścieżek decyzyjnych.
 NAV = [
+    {"label": "Strona główna", "href": "/"},
+    {"label": "Technologia KCAQUA", "href": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"},
     {"label": "Rozwiązania", "href": "/uslugi/", "promo": ("Dobierzemy program chemiczny pod Twoją instalację.", "Umów bezpłatny audyt", "/bezplatna-konsultacja/"), "groups": [
         {"title": "Oferta", "links": [
             {"label": "Kotły parowe", "href": "/kotly-parowe/"},
@@ -143,18 +143,16 @@ NAV = [
             {"label": "Białe certyfikaty", "href": "/biale-certyfikaty/"},
         ]},
     ]},
-    {"label": "Technologia KCAQUA", "href": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"},
-    {"label": "Case studies", "href": "/case-study/"},
     {"label": "Branże", "href": "/branze/"},
+    {"label": "Case studies", "href": "/case-study/"},
     {"label": "Baza wiedzy", "href": "/baza-wiedzy/"},
-    {"label": "Firma", "href": "/o-firmie/", "promo": ("Poznaj Kabi-Chemie i nasz model współpracy.", "Skontaktuj się z nami", "/kontakt/"), "children": [
+    {"label": "Firma", "href": "/o-firmie/", "promo": ("Poznaj KABI CHEMIE i nasz model współpracy.", "Skontaktuj się z nami", "/kontakt/"), "children": [
         {"label": "Misja firmy", "href": "/o-firmie/"},
         {"label": "Model współpracy", "href": "/warunki-wspolpracy/"},
-        {"label": "Referencje", "href": "/referencje/"},
         {"label": "FAQ", "href": "/faq/"},
-        {"label": "Kontakt", "href": "/kontakt/"},
     ]},
     {"label": "Kontakt", "href": "/kontakt/"},
+    {"label": "Kalkulator", "href": "/kalkulator-oszczednosci/", "class": "nav-calculator-item"},
 ]
 
 # ------------------------------------------------------------------ etykiety okruszków/nawigacji
@@ -243,7 +241,7 @@ CONSULT = ("Umów bezpłatną konsultację", "/bezplatna-konsultacja/")
 CONTACT = ("Kontakt", "/kontakt/")
 
 def std_cta(title="Sprawdź, ile zaoszczędzi Twój zakład",
-            text="Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie — bez zobowiązań."):
+            text="Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE — bez zobowiązań."):
     return cta(title, CONSULT, text, secondary=CONTACT)
 
 # ================================================================== STRONY
@@ -254,7 +252,7 @@ PAGES["/"] = {"sections": [
     hero(
         video="/assets/kabi-hero-latest.mp4",
         eyebrow="Producent chemii KCAQUA",
-        lead="<strong>Kabi-Chemie to producent autorskiej chemii do kondycjonowania wody</strong> w kotłach parowych, układach chłodniczych i systemach RO. Rozpuszczamy kamień, chronimy instalacje przed korozją i obniżamy zużycie wody oraz energii.",
+        lead="<strong>KABI CHEMIE to producent autorskiej chemii do kondycjonowania wody</strong> w kotłach parowych, układach chłodniczych i systemach RO. Rozpuszczamy kamień, chronimy instalacje przed korozją i obniżamy zużycie wody oraz energii.",
         ctas=[CONSULT, ("Zobacz ofertę", "/uslugi/")],
         stats=[("−32%", "zużycia paliwa*"), ("−30–40%", "zużycia wody*"), ("3×", "dłuższy cykl czyszczenia*")],
     ),
@@ -266,7 +264,7 @@ PAGES["/"] = {"sections": [
         (ICON["shield"], "Ochrona antykorozyjna", "Programy antykorozyjne, pasywacja stali i chemiczne czyszczenie."),
         (ICON["gear"], "Usługi inżynieryjne", "Audyt techniczny, analiza wody i serwis urządzeń uzdatniania."),
     ], intro="Dobieramy chemię i program dozowania do konkretnej instalacji — nie sprzedajemy „z półki”."),
-    features("Dlaczego Kabi-Chemie", [
+    features("Dlaczego KABI CHEMIE", [
         (ICON["chart"], "Mniej paliwa", "Rozpuszczamy kamień, który izoluje powierzchnie grzewcze. 1 mm kamienia to nawet +10% zużycia paliwa."),
         (ICON["drop"], "Mniej wody", "Wyższa dopuszczalna przewodność = rzadsze odsalanie i odmulanie, czyli realnie mniejsze zużycie wody."),
         (ICON["shield"], "Autorska ochrona", "Preparaty KCAQUA łączą inhibitory korozji, odtlenianie i kontrolę pH w jednym programie."),
@@ -426,7 +424,7 @@ PAGES["/"] = {"sections": [
       <p class="scrub-l">Porządkujemy obieg wody tam, gdzie wynik techniczny przekłada się na koszty: w poborze wody uzupełniającej, zrzutach z instalacji, wymianie ciepła i trwałości urządzeń.</p>
       <a class="btn btn-primary btn-arrow impact-copy__cta scrub-l" href="/bezplatna-konsultacja/">Umów darmowy audyt</a>
     </div>
-    <div class="impact-grid impact-accordion scrub-r" data-impact-accordion aria-label="Animowane obszary wpływu Kabi-Chemie">
+    <div class="impact-grid impact-accordion scrub-r" data-impact-accordion aria-label="Animowane obszary wpływu KABI CHEMIE">
       <article class="impact-card impact-card--active" role="button" tabindex="0" aria-expanded="true" data-impact-item style="--card-img:url('/assets/impact/impact-01-process-water-control-v2.webp');--card-pos:center center;--card-a:#062030;--card-b:#0f6f93;--card-accent:#7fd4ef">
         <span class="impact-card__number">01</span>
         <div class="impact-card__visual" aria-hidden="true"></div>
@@ -482,7 +480,7 @@ PAGES["/"] = {"sections": [
   <img class="section-bg-logo" src="/assets/kabi-sygnet.svg" alt="" aria-hidden="true">
   <div class="process-loss-inner">
     <div class="process-loss-head" data-fly="left">
-      <p class="eyebrow">Proces Kabi-Chemie</p>
+      <p class="eyebrow">Proces KABI CHEMIE</p>
       <h2 id="process-loss-title">Od audytu do mierzalnych oszczędności</h2>
       <p>Jedna infrastruktura: audyt, program chemiczny, monitoring i raport kosztów wody, energii oraz ścieków.</p>
     </div>
@@ -501,7 +499,7 @@ PAGES["/"] = {"sections": [
         <span class="proc-hub__ring proc-hub__ring--1"></span>
         <span class="proc-hub__ring proc-hub__ring--2"></span>
         <span class="proc-hub__core">
-          <img class="proc-hub__logo" src="/assets/kabi-logo-old-color.png" alt="Kabi-Chemie Water Treatment" loading="lazy">
+          <img class="proc-hub__logo" src="/assets/kabi-logo-old-color.png" alt="KABI CHEMIE Water Treatment" loading="lazy">
           <span class="proc-hub__hint">Kliknij, aby zwinąć</span>
         </span>
       </div>
@@ -560,7 +558,7 @@ PAGES["/"] = {"sections": [
       <p class="eyebrow">Misja firmy</p>
       <h2>Nasza historia zaczęła się od jednego pytania</h2>
       <p><strong>Dlaczego przemysł zużywa tak dużo wody i energii, skoro nowoczesna chemia pozwala ograniczyć jej wykorzystanie?</strong></p>
-      <p>Kabi-Chemie powstało w 2022 roku z przekonania, że przemysł nie musi wybierać pomiędzy rentownością a odpowiedzialnym gospodarowaniem wodą.</p>
+      <p>KABI CHEMIE powstało w 2022 roku z przekonania, że przemysł nie musi wybierać pomiędzy rentownością a odpowiedzialnym gospodarowaniem wodą.</p>
       <p>Tak powstała technologia KCAQUA: autorski program kondycjonowania wody, który łączy ochronę instalacji z wymiernymi oszczędnościami zasobów i kosztów.</p>
       <ul class="check-list">
         <li>obniża koszty produkcji</li>
@@ -657,13 +655,13 @@ PAGES["/"] = {"sections": [
         </div>
         <div class="reel-column reel-column--main" data-reel-track>
           <figure class="reel-portrait is-active" data-reel-image="0">
-            <img src="/assets/people/lukasz-mielcarz.png" alt="" loading="lazy">
+            <img src="/assets/people/lukasz-mielcarz.png" alt="Łukasz Mielcarz, prezes KABI CHEMIE" loading="lazy">
           </figure>
           <figure class="reel-portrait" data-reel-image="1">
-            <img src="/assets/people/przemyslaw-jesiolkowski.png" alt="" loading="lazy">
+            <img src="/assets/people/przemyslaw-jesiolkowski.png" alt="Przemysław Jesiołkowski, członek zarządu KABI CHEMIE" loading="lazy">
           </figure>
           <figure class="reel-portrait" data-reel-image="2">
-            <img src="/assets/people/lukasz-kumor.jpg" alt="" loading="lazy">
+            <img src="/assets/people/lukasz-kumor.jpg" alt="Łukasz Kumor, Business Development Manager w KABI CHEMIE" loading="lazy">
           </figure>
         </div>
         <div class="reel-column reel-column--side reel-column--right" data-reel-side>
@@ -675,19 +673,19 @@ PAGES["/"] = {"sections": [
       </div>
 
       <div class="expert-reel__content">
-        <p class="eyebrow">Twarze Kabi-Chemie</p>
+        <p class="eyebrow">Twarze KABI CHEMIE</p>
         <div class="expert-quote-stage" aria-live="polite">
           <article class="expert-quote is-active" data-reel-panel="0">
             <p class="expert-quote__mark" aria-hidden="true">“</p>
             <h2 data-quote-text>Najlepsza woda w zakładzie to ta, której nie trzeba pobrać ponownie. Dlatego każdy program zaczynamy od liczb, parametrów i punktów strat.</h2>
-            <p class="expert-person"><strong>Łukasz Mielcarz</strong><span>Prezes Kabi-Chemie</span></p>
+            <p class="expert-person"><strong>Łukasz Mielcarz</strong><span>Prezes KABI CHEMIE</span></p>
             <p class="expert-meta">Strategia wdrożeń i kierunek rozwoju technologii KCAQUA dla instalacji przemysłowych.</p>
           </article>
 
           <article class="expert-quote" data-reel-panel="1">
             <p class="expert-quote__mark" aria-hidden="true">“</p>
             <h2 data-quote-text>Stabilna instalacja nie bierze się z przypadku. Wynika z dobrze dobranej chemii, kontroli parametrów i serwisu, który utrzymuje wynik miesiąc po miesiącu.</h2>
-            <p class="expert-person"><strong>Przemysław Jesiołkowski</strong><span>Członek zarządu · Oddział w Toruniu</span></p>
+            <p class="expert-person"><strong>Przemysław Jesiołkowski</strong><span>Członek zarządu</span></p>
             <p class="expert-meta">Wdrożenia oszczędnościowe, nadzór nad parametrami pracy układów i rozwój klientów przemysłowych w regionie.</p>
           </article>
 
@@ -711,23 +709,6 @@ PAGES["/"] = {"sections": [
   </div>
 </section>
 
-<section class="company-stories" id="baza-wiedzy">
-  <span class="section-bg-word section-bg-word--dark" aria-hidden="true">WIEDZA</span>
-  <img class="section-bg-logo section-bg-logo--dark" src="/assets/kabi-sygnet.svg" alt="" aria-hidden="true">
-  <div class="wrap company-stories__grid">
-    <header class="company-stories__intro reveal-left">
-      <p class="company-kicker"><span></span>Baza wiedzy</p>
-      <h2><span>Wiedza z prawdziwych</span><span>instalacji.</span></h2>
-      <p>Każdy artykuł pokazuje konkretny problem instalacji, jego przyczyny i działania, które realnie obniżają koszty codziennej pracy.</p>
-    </header>
-    <div class="company-stories__list">
-      <a class="reveal" href="/baza-wiedzy/kamien-kotlowy/"><span>Kotły parowe</span><strong>Kamień kotłowy: jak cienki osad podnosi koszty pracy kotła.</strong><i aria-hidden="true">↗</i></a>
-      <a class="reveal" href="/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/"><span>Chłodnictwo przemysłowe</span><strong>Biofilm w układzie chłodniczym: jak rozpoznać i usunąć osady.</strong><i aria-hidden="true">↗</i></a>
-      <a class="reveal" href="/baza-wiedzy/antyskalant-ro/"><span>Membrany RO</span><strong>Antyskalant RO: kiedy naprawdę chroni membranę.</strong><i aria-hidden="true">↗</i></a>
-    </div>
-  </div>
-</section>
-
 <section class="section home-faq-section section-brand-panel" id="faq" data-faq-scroll>
   <span class="section-bg-word" aria-hidden="true">PYTANIA</span>
   <img class="section-bg-logo" src="/assets/kabi-sygnet.svg" alt="" aria-hidden="true">
@@ -741,7 +722,7 @@ PAGES["/"] = {"sections": [
     <div class="faq home-faq__list">
       <details>
         <summary>Czym różni się technologia KCAQUA od standardowej chemii kotłowej?</summary>
-        <div class="faq-a"><p>KCAQUA opiera się na autorskiej technologii polimerowej, która pozwala osiągać wyższe parametry pracy instalacji przy jednoczesnym ograniczeniu zużycia wody i energii. W wielu przypadkach umożliwia zmniejszenie częstotliwości odsalania.</p></div>
+        <div class="faq-a"><p>KCAQUA opiera się na autorskiej technologii opartej o polimery i fosfoniany, która pozwala osiągać wyższe parametry pracy instalacji przy jednoczesnym ograniczeniu zużycia wody i energii. W wielu przypadkach umożliwia zmniejszenie częstotliwości odsalania.</p></div>
       </details>
       <details>
         <summary>Czy KCAQUA zastępuje obecnie stosowaną chemię?</summary>
@@ -749,7 +730,7 @@ PAGES["/"] = {"sections": [
       </details>
       <details>
         <summary>Ile można zaoszczędzić dzięki technologii KCAQUA?</summary>
-        <div class="faq-a"><p>To zależy od rodzaju instalacji, jakości wody i obecnie stosowanego programu chemicznego. W wybranych przypadkach oszczędności wody i energii sięgają nawet 50%.</p></div>
+        <div class="faq-a"><p>To zależy od rodzaju instalacji, jakości wody i obecnie stosowanego programu chemicznego. W wybranych przypadkach oszczędności wody i energii sięgają nawet 70%.</p></div>
       </details>
       <details>
         <summary>Dlaczego oszczędność wody oznacza również oszczędność energii?</summary>
@@ -816,7 +797,7 @@ PAGES["/"] = {"sections": [
 
 # ---------- O FIRMIE ------------------------------------------------------
 PAGES["/o-firmie/"] = {"sections": [
-    hero(lead="<strong>Kabi-Chemie to producent autorskiej chemii KCAQUA.</strong> Specjalizujemy się w kondycjonowaniu wody dla polskiego przemysłu — od kotłowni parowych, przez układy chłodnicze, po systemy odwróconej osmozy.",
+    hero(lead="<strong>KABI CHEMIE to producent autorskiej chemii KCAQUA.</strong> Specjalizujemy się w kondycjonowaniu wody dla polskiego przemysłu — od kotłowni parowych, przez układy chłodnicze, po systemy odwróconej osmozy.",
          ctas=[CONSULT, ("Nasze realizacje", "/case-study/")]),
     richtext(title="Nasza historia i misja", blocks=[
         ("p", "Powstaliśmy z przekonania, że kondycjonowanie wody w przemyśle nie musi oznaczać przepłacania za nieskuteczną chemię. Opracowaliśmy własną linię preparatów <strong>KCAQUA</strong> i podejście oparte na pomiarze, edukacji i uczciwym raportowaniu efektów."),
@@ -843,13 +824,13 @@ PAGES["/o-firmie/"] = {"sections": [
 # ---------- BEZPŁATNA KONSULTACJA ----------------------------------------
 PAGES["/bezplatna-konsultacja/"] = {
     "body_class": "has-dark-hero consultation-branches-page",
-    "title": "Bezpłatna konsultacja techniczna | Kabi-Chemie",
+    "title": "Bezpłatna konsultacja techniczna | KABI CHEMIE",
     "h1": "Porozmawiaj z inżynierem przed doborem chemii.",
-    "meta": "Bezpłatna konsultacja techniczna Kabi-Chemie: rozmowa z inżynierem, wstępna diagnoza instalacji, analiza objawów i jasny kolejny krok dla kotłów, chłodnictwa, RO i obiegów procesowych.",
+    "meta": "Bezpłatna konsultacja techniczna KABI CHEMIE: rozmowa z inżynierem, wstępna diagnoza instalacji, analiza objawów i jasny kolejny krok dla kotłów, chłodnictwa, RO i obiegów procesowych.",
     "image": "/assets/industries/industry-branches-collage.jpg",
     "og_image": "/assets/industries/industry-branches-collage.jpg",
     "sections": [custom("""
-<section class="consult-branches-hero" id="konsultacja" aria-label="Bezpłatna konsultacja techniczna Kabi-Chemie">
+<section class="consult-branches-hero" id="konsultacja" aria-label="Bezpłatna konsultacja techniczna KABI CHEMIE">
   <div class="consult-branches-hero__media" aria-hidden="true">
     <video autoplay muted loop playsinline preload="metadata" poster="/assets/industries/industry-branches-collage.jpg">
       <source src="/assets/consultation-hero.mp4" type="video/mp4">
@@ -1030,7 +1011,7 @@ PAGES["/bezplatna-konsultacja/"] = {
 
 # ---------- REFERENCJE ----------------------------------------------------
 PAGES["/referencje/"] = {"sections": [
-    hero(lead="Zaufały nam zakłady z przemysłu spożywczego, chłodniczego i produkcyjnego. Zobacz, jak chemia Kabi-Chemie chroni instalacje naszych klientów.",
+    hero(lead="Zaufały nam zakłady z przemysłu spożywczego, chłodniczego i produkcyjnego. Zobacz, jak chemia KABI CHEMIE chroni instalacje naszych klientów.",
          ctas=[("Zobacz case studies", "/case-study/"), CONSULT]),
     logos(["Zakład mięsny", "Mleczarnia", "Browar", "Chłodnia amoniakalna", "Przemysł ciężki", "Przetwórstwo rybne"],
           title="Wybrane branże, które obsługujemy"),
@@ -1051,16 +1032,16 @@ PAGES["/referencje/"] = {"sections": [
 PAGES["/kalkulator-oszczednosci/"] = {
     "body_class": "has-dark-hero branches-hub-page calculator-experience-page",
     "no_breadcrumbs": True,
-    "title": "Kalkulator oszczędności wody i energii dla przemysłu | Kabi-Chemie",
+    "title": "Kalkulator oszczędności wody i energii dla przemysłu | KABI CHEMIE",
     "h1": "Kalkulator oszczędności wody i energii",
-    "meta": "Poznaj potencjał ograniczenia kosztów wody, ścieków i energii w kotle parowym lub skraplaczu wyparnym. Bezpłatny kalkulator Kabi-Chemie dla przemysłu.",
+    "meta": "Poznaj potencjał ograniczenia kosztów wody, ścieków i energii w kotle parowym lub skraplaczu wyparnym. Bezpłatny kalkulator KABI CHEMIE dla przemysłu.",
     "image": "/assets/impact/impact-05-operational-costs.png",
     "og_image": "/assets/impact/impact-05-operational-costs.png",
     "jsonld": [
         {
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "Kalkulator oszczędności wody i energii Kabi-Chemie",
+            "name": "Kalkulator oszczędności wody i energii KABI CHEMIE",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Web",
             "description": "Kalkulator potencjału ograniczenia kosztów dla kotłów parowych i skraplaczy wyparnych.",
@@ -1134,7 +1115,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
 
           <div class="calc2-fields" data-calc-fields="kotly">
             <fieldset class="calc2-group">
-              <legend><span class="calc2-ico calc2-ico--scale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18-9.61 4.37a1 1 0 0 0 0 1.82l7.95 3.62a2 2 0 0 0 1.66 0l7.95-3.62a1 1 0 0 0 0-1.82l-9.61-4.37a2 2 0 0 0-1.66 0Z"/><path d="m22 12.5-9.17 4.17a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-9.17 4.17a2 2 0 0 1-1.66 0L2 17.5"/></svg></span> Zakamienienie powierzchni grzewczych</legend>
+              <legend class="sr-only">Zakamienienie powierzchni grzewczych</legend>
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Moc cieplna kotła <i class="calc2-info" tabindex="0" aria-label="Maksymalna moc cieplna kotła parowego określona przez producenta." data-tip="Maksymalna moc cieplna kotła parowego określona przez producenta.">i</i></span><span class="calc2-input"><input type="number" name="kb_power" value="2500" min="0" step="50" inputmode="decimal"><em>kW</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Godziny pracy / rok <i class="calc2-info" tabindex="0" aria-label="Łączna liczba godzin pracy kotła w ciągu roku (365 dni × 24 h)." data-tip="Łączna liczba godzin pracy kotła w ciągu roku (365 dni × 24 h).">i</i></span><span class="calc2-input"><input type="number" name="kb_hours" value="8760" min="0" max="8760" step="10" inputmode="decimal"><em>h</em></span></label>
@@ -1143,7 +1124,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
               </div>
             </fieldset>
             <fieldset class="calc2-group">
-              <legend><span class="calc2-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.3 6 10.5a6 6 0 0 1-12 0C6 9.3 12 3 12 3Z"/></svg></span> Zasolenie wody kotłowej</legend>
+              <legend class="sr-only">Zasolenie wody kotłowej</legend>
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Produkcja pary <i class="calc2-info" tabindex="0" aria-label="Ilość pary produkowanej przez kocioł w ciągu godziny." data-tip="Ilość pary produkowanej przez kocioł w ciągu godziny.">i</i></span><span class="calc2-input"><input type="number" name="kb_steam" value="20" min="0" step="1" inputmode="decimal"><em>t/h</em></span></label>
               </div>
@@ -1152,7 +1133,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
 
           <div class="calc2-fields" data-calc-fields="skraplacze" hidden>
             <fieldset class="calc2-group">
-              <legend><span class="calc2-ico calc2-ico--scale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18-9.61 4.37a1 1 0 0 0 0 1.82l7.95 3.62a2 2 0 0 0 1.66 0l7.95-3.62a1 1 0 0 0 0-1.82l-9.61-4.37a2 2 0 0 0-1.66 0Z"/><path d="m22 12.5-9.17 4.17a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-9.17 4.17a2 2 0 0 1-1.66 0L2 17.5"/></svg></span> Zakamienienie wężownic / wymiany ciepła</legend>
+              <legend class="sr-only">Zakamienienie wężownic / wymiany ciepła</legend>
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Moc chłodnicza układu <i class="calc2-info" tabindex="0" aria-label="Moc układu chłodniczego opisana w karcie produktu." data-tip="Moc układu chłodniczego opisana w karcie produktu.">i</i></span><span class="calc2-input"><input type="number" name="sk_power" value="1400" min="0" step="50" inputmode="decimal"><em>kW</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Godziny pracy / rok <i class="calc2-info" tabindex="0" aria-label="Dla instalacji pracujących całorocznie w trybie ciągłym przyjmuje się 8760 h/rok (365 dni × 24 h)." data-tip="Dla instalacji pracujących całorocznie w trybie ciągłym przyjmuje się 8760 h/rok (365 dni × 24 h).">i</i></span><span class="calc2-input"><input type="number" name="sk_hours" value="8760" min="0" max="8760" step="10" inputmode="decimal"><em>h</em></span></label>
@@ -1163,11 +1144,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
             </fieldset>
           </div>
 
-          <section class="calc2-adv" aria-labelledby="calc2-adv-title">
-            <header class="calc2-adv__head">
-              <span class="calc2-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 12h3M11 12h9M4 17h8M16 17h4"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="14" cy="17" r="2"/></svg></span>
-              <span><h3 id="calc2-adv-title">Założenia i ceny mediów</h3><p>Dopasuj wartości do aktualnych kosztów w swoim zakładzie.</p></span>
-            </header>
+          <section class="calc2-adv" aria-label="Założenia i ceny mediów">
             <div class="calc2-fields" data-calc-fields="kotly">
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Cena gazu - odzysk ciepła <i class="calc2-info" tabindex="0" aria-label="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania." data-tip="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania.">i</i></span><span class="calc2-input"><input type="number" name="kb_gas2" value="425.4" min="0" step="0.1" inputmode="decimal"><em>zł/MWh</em></span></label>
@@ -1305,7 +1282,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
   <div class="wrap branches-final__inner">
     <span class="branches-final__sigil" aria-hidden="true"></span>
     <h2 id="calc-final-title"><span>Wspólna weryfikacja</span> <span>potencjału oszczędności w Państwa instalacji.</span></h2>
-    <p>Inżynier Kabi-Chemie przeanalizuje przyjęte założenia, wskaże potrzebne pomiary i pomoże ocenić rozwiązania najlepiej dopasowane do warunków pracy Państwa zakładu.</p>
+    <p>Inżynier KABI CHEMIE przeanalizuje przyjęte założenia, wskaże potrzebne pomiary i pomoże ocenić rozwiązania najlepiej dopasowane do warunków pracy Państwa zakładu.</p>
     <div class="branches-final__actions">
       <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów konsultację techniczną</a>
       <a class="branches-link" href="/bezplatna-konsultacja/">Poznaj zakres audytu technicznego</a>
@@ -1323,9 +1300,9 @@ PAGES["/kontakt/"] = {"body_class": "has-dark-hero firm-page firm-contact-page",
   <div class="firm-hero__shade" aria-hidden="true"></div>
   <div class="wrap firm-hero__inner">
     <div class="firm-hero__copy reveal-left">
-      <p class="firm-kicker">Kontakt z inżynierem Kabi-Chemie</p>
+      <p class="firm-kicker">Kontakt z inżynierem KABI CHEMIE</p>
       <h1>Opisz instalację. Wskażemy kolejny krok.</h1>
-      <p>Masz problem z kamieniem, korozją, przewodnością, biofilmem albo zbyt wysokim zużyciem wody? Skontaktuj się z nami, a inżynier Kabi-Chemie pomoże szybko uporządkować temat.</p>
+      <p>Masz problem z kamieniem, korozją, przewodnością, biofilmem albo zbyt wysokim zużyciem wody? Skontaktuj się z nami, a inżynier KABI CHEMIE pomoże szybko uporządkować temat.</p>
       <div class="firm-actions">
         <a class="btn btn-primary" href="tel:{_S['phone_raw']}">Zadzwoń: {_S['phone']}</a>
         <a class="btn btn-ghost-light" href="#kontakt-form">Napisz wiadomość</a>
@@ -1789,7 +1766,7 @@ PAGES["/baza-wiedzy/"] = {"body_class": "has-dark-hero firm-page solution-page k
   <div class="solution-hero__shade" aria-hidden="true"></div>
   <div class="wrap solution-hero__inner solution-hero__inner--editorial">
     <div class="solution-hero__copy reveal-left">
-      <p class="firm-kicker">Baza wiedzy Kabi-Chemie</p>
+      <p class="firm-kicker">Baza wiedzy KABI CHEMIE</p>
       <h1>Praktyczna wiedza o wodzie przemysłowej dla decyzji technicznych.</h1>
       <p>Wyjaśniamy kamień, korozję, biofilm, membrany RO i parametry wody w języku, który pomaga działać w zakładzie produkcyjnym.</p>
       <div class="firm-actions">
@@ -1894,21 +1871,21 @@ PAGES["/autor/"] = {
   <div class="hero-basic__shade" aria-hidden="true"></div>
   <div class="wrap hero-basic__inner">
     <div class="hero-copy hero-basic__copy">
-      <p class="eyebrow">Kabi-Chemie · water treatment</p><h1>Nasi inżynierowie i eksperci techniczni</h1><p class="lead">Za treściami w bazie wiedzy stoją inżynierowie i technolodzy z praktycznym doświadczeniem w kondycjonowaniu wody przemysłowej.</p>
+      <p class="eyebrow">KABI CHEMIE · water treatment</p><h1>Nasi inżynierowie i eksperci techniczni</h1><p class="lead">Za treściami w bazie wiedzy stoją inżynierowie i technolodzy z praktycznym doświadczeniem w kondycjonowaniu wody przemysłowej.</p>
       <div class="cta-row"><a class="btn btn-primary" href="/baza-wiedzy/">Baza wiedzy</a><a class="btn btn-ghost" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a></div>
       
       <p class="hero-basic__geo">Obsługa zakładów przemysłowych w całej Polsce, z zespołem technicznym w Siedlcach i Toruniu.</p>
     </div>
     <figure class="hero-basic__art">
-      <img src="/assets/people/lukasz-kumor.jpg" alt="kondycjonowanie wody przemysłowej Kabi-Chemie" loading="eager">
-      <figcaption>kondycjonowanie wody przemysłowej Kabi-Chemie</figcaption>
+      <img src="/assets/people/lukasz-kumor.jpg" alt="kondycjonowanie wody przemysłowej KABI CHEMIE" loading="eager">
+      <figcaption>kondycjonowanie wody przemysłowej KABI CHEMIE</figcaption>
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow author">
       <div class="author-avatar" aria-hidden="true">KC</div>
-      <div><h2>Zespół ekspertów Kabi-Chemie</h2><p class="author-role">Inżynierowie i technolodzy kondycjonowania wody</p>
+      <div><h2>Zespół ekspertów KABI CHEMIE</h2><p class="author-role">Inżynierowie i technolodzy kondycjonowania wody</p>
       <p>Tworzymy specjalistyczne treści o uzdatnianiu i kondycjonowaniu wody dla przemysłu. Nasze doświadczenie potwierdza m.in. udział w Warsztatach Amoniakalnych. <em>(Biogram do uzupełnienia o realne dane i zdjęcia autorów.)</em></p></div></div></section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły zespołu</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-boiler-scale.png')"></div><div class="post-body"><span class="post-cat">Kotły parowe</span><h3>Co to jest kamień kotłowy?</h3><p></p><span class="post-meta"></span></div></a><a class="post-card" href="/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-biofilm-cleaning.png')"></div><div class="post-body"><span class="post-cat">Wieże chłodnicze</span><h3>Biofilm w układzie chłodniczym</h3><p></p><span class="post-meta"></span></div></a><a class="post-card" href="/baza-wiedzy/antyskalant-ro/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-ro-antiscalant.png')"></div><div class="post-body"><span class="post-cat">Membrany RO</span><h3>Antyskalant do membran RO</h3><p></p><span class="post-meta"></span></div></a></div></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -1929,7 +1906,7 @@ PAGES["/baza-wiedzy/korozja/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-corrosion-pipes.png')"></div><div class="post-body"><span class="post-cat">Korozja</span><h3>Korozja w instalacjach przemysłowych, rodzaje i zapobieganie</h3><p>Korozja tlenowa, wżerowa i biała, jak im przeciwdziałać.</p><span class="post-meta">9 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/ochrona-antykorozyjna/">Ochrona antykorozyjna, oferta</a></li><li><a href="/ochrona-antykorozyjna/pasywacja-stali/">Pasywacja stali</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -1950,7 +1927,7 @@ PAGES["/baza-wiedzy/kotly-parowe/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-boiler-scale.png')"></div><div class="post-body"><span class="post-cat">Kotły parowe</span><h3>Co to jest kamień kotłowy i dlaczego niszczy kotły parowe?</h3><p>Mechanizm powstawania kamienia i jego wpływ na koszty.</p><span class="post-meta">8 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/">Kotły parowe, oferta</a></li><li><a href="/baza-wiedzy/parametry-wody/">Parametry wody</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -1971,7 +1948,7 @@ PAGES["/baza-wiedzy/membrany-ro/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/antyskalant-ro/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-ro-antiscalant.png')"></div><div class="post-body"><span class="post-cat">Membrany RO</span><h3>Antyskalant i jego rola w ochronie membran RO</h3><p>Jak antyskalant przedłuża żywotność membran.</p><span class="post-meta">6 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/membrany-ro/">Membrany RO, oferta</a></li><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -1992,7 +1969,7 @@ PAGES["/baza-wiedzy/parametry-wody/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/kamien-kotlowy/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-water-reduction.png')"></div><div class="post-body"><span class="post-cat">Parametry wody</span><h3>Twardość wody, dlaczego niszczy kotły i instalacje?</h3><p>Stopnie twardości i ich znaczenie dla przemysłu.</p><span class="post-meta">6 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -2023,7 +2000,7 @@ PAGES["/baza-wiedzy/pojedynczy-wpis-blogowy-1/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose"><h2>Jak powstaje kamień kotłowy?</h2><p>Podgrzewana woda traci zdolność utrzymania rozpuszczonych soli wapnia i magnezu. Wytrącają się one na najgorętszych powierzchniach, tworząc twardą skorupę.</p><h2>Jak kamień wpływa na rachunki za paliwo?</h2><p>Już <strong>1 mm kamienia</strong> może zwiększyć zużycie paliwa o około 10%, bo ciepło trudniej przenika do wody.</p><h2>Jak usunąć kamień kotłowy?</h2><ul><li>Chemiczne odkamienianie dobranym preparatem</li><li>Płukanie i pasywacja powierzchni</li><li>Wdrożenie kondycjonowania, by kamień nie wracał</li></ul><p class="note">Information gain: w realizacji Fako po wdrożeniu programu KCAQUA cykl czyszczenia wydłużył się z 3 do 12 miesięcy (dane przykładowe).</p></div></section><section class="section alt reveal"><div class="wrap narrow faq"><div class="section-head"><h2>Najczęstsze pytania</h2></div><details><summary>Jak często należy odkamieniać kocioł?</summary><div class="faq-a"><p>Zależy od jakości wody, obciążenia i historii osadów. Przy prawidłowym kondycjonowaniu potrzeba czyszczeń wyraźnie maleje.</p></div></details><details><summary>Czy można kondycjonować wodę bez wyłączania kotła?</summary><div class="faq-a"><p>Tak, samo kondycjonowanie prowadzimy w trakcie pracy. Odkamienianie planujemy zależnie od stanu układu.</p></div></details><details><summary>Po czym poznać, że w kotle narasta kamień?</summary><div class="faq-a"><p>Typowe objawy to rosnące zużycie paliwa, gorsza wymiana ciepła, częstsze alarmy, osady w wodzie i problemy z utrzymaniem stabilnych parametrów.</p></div></details><details><summary>Czy 1 mm kamienia naprawdę ma znaczenie?</summary><div class="faq-a"><p>Tak. Nawet cienka warstwa osadu działa jak izolacja cieplna. Kocioł musi zużyć więcej paliwa, aby przekazać tę samą ilość energii do wody.</p></div></details><details><summary>Jak zapobiec powrotowi kamienia po czyszczeniu?</summary><div class="faq-a"><p>Po odkamienianiu warto wdrożyć stałą kontrolę twardości, przewodności i pH oraz dobrać program KCAQUA do pracy konkretnej kotłowni.</p></div></details></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/odkamienianie/">Odkamienianie kotłów parowych</a></li><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li><li><a href="/case-study/kociol-parowy-fako/">Case study: kocioł Fako</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -2054,7 +2031,7 @@ PAGES["/baza-wiedzy/pojedynczy-wpis-blogowy-2/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose"><h2>Dlaczego biofilm jest groźny?</h2><p>Biofilm izoluje powierzchnie wymiany ciepła i chroni mikroorganizmy przed działaniem chemii. Może też sprzyjać rozwojowi bakterii Legionella.</p><h2>Jak usunąć i kontrolować biofilm?</h2><ul><li>Dozowanie biocydów (np. w ramach programu KCAQUA 305)</li><li>Kontrola parametrów obiegu i przewodności</li><li>Okresowe czyszczenie układu</li></ul></div></section><section class="section alt reveal"><div class="wrap narrow faq"><div class="section-head"><h2>Najczęstsze pytania</h2></div><details><summary>Jak chronić wieżę przed Legionellą?</summary><div class="faq-a"><p>Podstawą jest kontrola biofilmu, właściwy biocyd, regularny monitoring wody i utrzymanie czystości powierzchni kontaktu z wodą.</p></div></details><details><summary>Czy sam biocyd wystarczy do usunięcia biofilmu?</summary><div class="faq-a"><p>Nie zawsze. Biofilm może chronić mikroorganizmy przed chemią, dlatego często potrzebna jest korekta programu, czyszczenie i kontrola parametrów obiegu.</p></div></details><details><summary>Jakie objawy wskazują na biofilm w układzie chłodniczym?</summary><div class="faq-a"><p>Najczęściej widać spadek wydajności chłodzenia, śliski osad, wzrost zużycia wody, nieprzyjemny zapach i większą podatność instalacji na korozję.</p></div></details><details><summary>Czy biofilm wpływa na koszty energii?</summary><div class="faq-a"><p>Tak. Warstwa biologiczna pogarsza wymianę ciepła, więc układ musi pracować ciężej, aby utrzymać wymaganą temperaturę procesu.</p></div></details><details><summary>Jak często trzeba kontrolować wodę w wieży chłodniczej?</summary><div class="faq-a"><p>Częstotliwość zależy od obciążenia i jakości wody. W praktyce warto kontrolować przewodność, pH, biologię i skuteczność programu chemicznego w stałym harmonogramie.</p></div></details></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/ochrona-wiez-chlodniczych/">Ochrona wież chłodniczych</a></li><li><a href="/uklady-chlodnicze/odkamienianie/">Odkamienianie układów chłodniczych</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -2085,7 +2062,7 @@ PAGES["/baza-wiedzy/pojedynczy-wpis-blogowy-3/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose"><h2>Jak działa antyskalant?</h2><p>Antyskalant utrzymuje sole twardości w roztworze, zapobiegając ich krystalizacji na powierzchni membrany i spadkowi wydajności stacji RO.</p><h2>Dlaczego chlor i chlorki są groźne dla membran?</h2><p>Degradują strukturę membrany. Dlatego ważna jest ich kontrola, nasz preparat potrafi wiązać te gazy.</p></div></section><section class="section alt reveal"><div class="wrap narrow faq"><div class="section-head"><h2>Najczęstsze pytania</h2></div><details><summary>Jak dobrać antyskalant do mojej wody?</summary><div class="faq-a"><p>Na podstawie analizy wody surowej, odzysku instalacji RO i parametrów pracy membran. Najlepiej zacząć od badania wody.</p></div></details><details><summary>Po czym poznać, że membrany RO są zagrożone osadem?</summary><div class="faq-a"><p>Sygnałem jest spadek wydajności, wzrost różnicy ciśnień, pogorszenie jakości permeatu i częstsza potrzeba płukania chemicznego.</p></div></details><details><summary>Czy antyskalant zastępuje prawidłową filtrację wstępną?</summary><div class="faq-a"><p>Nie. Antyskalant chroni przed wytrącaniem soli, ale filtracja, kontrola żelaza, chloru i zawiesiny nadal są kluczowe dla żywotności membran.</p></div></details><details><summary>Jak często trzeba kontrolować dawkę antyskalantu?</summary><div class="faq-a"><p>Dawkę warto weryfikować przy zmianie jakości wody, odzysku, przepływu lub ciśnienia. Stała kontrola ogranicza ryzyko przewymiarowania i niedozowania.</p></div></details><details><summary>Czy pomagacie dobrać chemię do istniejącej stacji RO?</summary><div class="faq-a"><p>Tak. Analizujemy wodę, parametry pracy i historię awarii. Na tej podstawie dobieramy antyskalant oraz zalecenia dla obsługi stacji.</p></div></details></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/membrany-ro/">Membrany RO, oferta</a></li><li><a href="/uslugi/analiza-wody/">Analiza wody</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -2106,22 +2083,22 @@ PAGES["/baza-wiedzy/wieze-chlodnicze/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Artykuły w tej kategorii</h2></div><div class="post-grid"><a class="post-card" href="/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/"><div class="post-thumb" aria-hidden="true" style="--post-img:url('/assets/blog/blog-biofilm-cleaning.png')"></div><div class="post-body"><span class="post-cat">Wieże chłodnicze</span><h3>Biofilm w układzie chłodniczym, jak usunąć osady biologiczne?</h3><p>Kontrola mikroorganizmów w obiegu chłodzącym.</p><span class="post-meta">7 min</span></div></a></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/">Układy chłodnicze, oferta</a></li><li><a href="/uklady-chlodnicze/skraplacze-amoniakalne/">Skraplacze amoniakalne</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
 
 PAGES["/branze/"] = {
     "body_class": "has-dark-hero branches-hub-page",
-    "title": "Kondycjonowanie wody dla branż przemysłowych | Kabi-Chemie",
+    "title": "Kondycjonowanie wody dla branż przemysłowych | KABI CHEMIE",
     "h1": "Znamy procesy. Dobieramy technologię do branży.",
-    "meta": "Jedna podstrona branżowa Kabi-Chemie: zakłady mięsne, mleczarnie, chłodnie, przemysł ciężki i producenci żywności. Technologie KCAQUA, analiza wody, oszczędności i kalkulator.",
+    "meta": "Jedna podstrona branżowa KABI CHEMIE: zakłady mięsne, mleczarnie, chłodnie, przemysł ciężki i producenci żywności. Technologie KCAQUA, analiza wody, oszczędności i kalkulator.",
     "image": "/assets/industries/industry-branches-collage.jpg",
     "og_image": "/assets/industries/industry-branches-collage.jpg",
     "jsonld": [{
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": "Branże obsługiwane przez Kabi-Chemie",
+        "name": "Branże obsługiwane przez KABI CHEMIE",
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Zakłady mięsne i drobiarskie", "url": "https://kondycjonowanie-wody.pl/branze/#zaklady-miesne"},
             {"@type": "ListItem", "position": 2, "name": "Mleczarnie i przetwórstwo mleka", "url": "https://kondycjonowanie-wody.pl/branze/#mleczarnie"},
@@ -2131,7 +2108,7 @@ PAGES["/branze/"] = {
         ]
     }],
     "sections": [custom("""
-<section class="branches-hero" aria-label="Branże obsługiwane przez Kabi-Chemie">
+<section class="branches-hero" aria-label="Branże obsługiwane przez KABI CHEMIE">
   <div class="branches-hero__image" aria-hidden="true">
     <video autoplay muted loop playsinline preload="metadata" poster="/assets/industries/industry-branches-collage.jpg">
       <source src="/assets/industries/hero-branze.mp4" type="video/mp4">
@@ -2141,7 +2118,7 @@ PAGES["/branze/"] = {
   <div class="wrap branches-hero__inner">
     <p class="branches-kicker">Branże, instalacje, procesy</p>
     <h1><span>Znamy procesy.</span> <span>Dobieramy technologię do branży.</span></h1>
-    <p class="branches-hero__lead">Kotły parowe, chłodnictwo, mycie, woda technologiczna i odzysk energii prowadzimy pod kontrolą inżynierów Kabi-Chemie. Dlatego nie sprzedajemy jednego schematu, tylko program dopasowany do tego, jak realnie pracuje zakład.</p>
+    <p class="branches-hero__lead">Kotły parowe, chłodnictwo, mycie, woda technologiczna i odzysk energii prowadzimy pod kontrolą inżynierów KABI CHEMIE. Dlatego nie sprzedajemy jednego schematu, tylko program dopasowany do tego, jak realnie pracuje zakład.</p>
     <div class="branches-hero__actions">
       <a class="btn btn-primary" href="#zaklady-miesne">Zobacz branże</a>
       <a class="branches-link" href="/kalkulator-oszczednosci/#kalkulator">Policz potencjał oszczędności</a>
@@ -2153,56 +2130,6 @@ PAGES["/branze/"] = {
       <li><a href="#przemysl-ciezki">Przemysł ciężki <span aria-hidden="true">↘</span></a></li>
       <li><a href="#producenci-zywnosci">Producenci żywności <span aria-hidden="true">↘</span></a></li>
     </ul>
-  </div>
-</section>
-
-<section class="branches-proof reveal" aria-label="Dlaczego zakłady wybierają Kabi-Chemie" data-scroll-fly>
-  <div class="wrap branches-proof__inner">
-    <div class="branches-proof__head">
-      <div data-fly="left">
-        <p class="branches-proof__eyebrow">Proces decyzji</p>
-        <h2 class="branches-proof__intro"><span>Technologia, pomiar,</span> <span>dane i raport.</span></h2>
-      </div>
-      <p class="branches-proof__lead" data-fly="right" data-fly-delay="0.04">Cztery obszary, które porządkują rozmowę o wodzie z utrzymaniem ruchu, produkcją i zarządem, bez zgadywania i dobierania chemii w ciemno.</p>
-    </div>
-    <div class="branches-proof__flow">
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">01</span></span>
-        <strong>Autorska technologia KCAQUA</strong>
-        <span>programy dla wody kotłowej, chłodniczej, RO i instalacji procesowych</span>
-      </article>
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">02</span></span>
-        <strong>Decyzje na podstawie pomiarów</strong>
-        <span>sprawdzamy pH, twardość, przewodność, żelazo, TDS, osady i odsalanie</span>
-      </article>
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">03</span></span>
-        <strong>Dane do oszczędności i certyfikatów</strong>
-        <span>liczymy wodę, ścieki, energię i dane potrzebne do rozmowy o efekcie energetycznym</span>
-      </article>
-      <article>
-        <span class="branches-proof__top"><span class="branches-proof__num">04</span></span>
-        <strong>Raport dla utrzymania ruchu i zarządu</strong>
-        <span>pokazujemy problem, rekomendację, ryzyko i możliwy efekt finansowy w liczbach</span>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="branches-method reveal" aria-labelledby="branches-method-title" data-scroll-fly>
-  <div class="wrap branches-method__grid">
-    <div data-fly="left">
-      <p class="branches-kicker">Jak dobieramy program</p>
-      <h2 id="branches-method-title"><span>Najpierw proces,</span> <span>potem chemia.</span></h2>
-      <p>Ta sama nazwa preparatu nie rozwiązuje dwóch różnych problemów. Inaczej pracuje kocioł w zakładzie mięsnym, inaczej skraplacz w chłodni, a inaczej obieg w przemyśle ciężkim. Dlatego zaczynamy od technologii zakładu i miejsc, w których woda generuje koszt.</p>
-    </div>
-    <ol class="branches-method__steps">
-      <li data-fly="right"><strong>Rozpoznajemy obieg</strong><span>para, chłód, RO, mycie, CIP, woda uzupełniająca, ścieki technologiczne</span></li>
-      <li data-fly="right" data-fly-delay="0.04"><strong>Sprawdzamy parametry</strong><span>analiza wody, osady, korozja, przewodność, odsalanie, dawki i praca automatyki</span></li>
-      <li data-fly="right" data-fly-delay="0.08"><strong>Dobieramy KCAQUA</strong><span>preparat, dozowanie, limity pracy i harmonogram kontroli</span></li>
-      <li data-fly="right" data-fly-delay="0.12"><strong>Liczymy efekt</strong><span>woda, ścieki, energia, paliwo, czyszczenia, awarie i czas pracy instalacji</span></li>
-    </ol>
   </div>
 </section>
 
@@ -2353,7 +2280,7 @@ PAGES["/branze/zaklady-miesne-i-drobiarskie/"] = {
         "serviceType": "Kondycjonowanie wody przemysłowej dla przetwórstwa mięsa i drobiu",
         "provider": {
             "@type": "Organization",
-            "name": "Kabi-Chemie",
+            "name": "KABI CHEMIE",
             "url": "https://kondycjonowanie-wody.pl/"
         },
         "areaServed": "Polska",
@@ -2469,7 +2396,7 @@ PAGES["/branze/zaklady-miesne-i-drobiarskie/"] = {
   <div class="wrap meat-outcome__inner">
     <div>
       <h2 id="meat-outcome-title">Efekt, którego szuka zakład: mniej ryzyka i mniej kosztów ukrytych.</h2>
-      <p>Kabi-Chemie łączy chemię KCAQUA, pomiar, serwis i raportowanie. Dzięki temu decyzja o programie nie opiera się na obietnicy, tylko na stanie instalacji i parametrach wody.</p>
+      <p>KABI CHEMIE łączy chemię KCAQUA, pomiar, serwis i raportowanie. Dzięki temu decyzja o programie nie opiera się na obietnicy, tylko na stanie instalacji i parametrach wody.</p>
     </div>
     <ul class="meat-outcome__list">
       <li>mniej kamienia w kotle i wymiennikach</li>
@@ -2520,7 +2447,7 @@ PAGES["/case-study/"] = {
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Realizacje</h2></div><div class="card-grid"><a class="card" href="/case-study/kociol-parowy-fako/"><h3>Kocioł parowy Fako</h3><p>Chemiczne odkamienianie i kondycjonowanie wody kotłowej.</p><span class="card-link">Zobacz efekty →</span></a><a class="card" href="/case-study/skraplacz-bac-kcaqua/"><h3>Skraplacz BAC, KCAQUA 305</h3><p>Optymalizacja pracy skraplacza wyparnego.</p><span class="card-link">Zobacz efekty →</span></a><a class="card" href="/case-study/skraplacz-evapco-przetworstwo-rybne/"><h3>Skraplacz Evapco, przetwórstwo rybne</h3><p>Czyszczenie chemiczne i odzysk wydajności chłodzenia.</p><span class="card-link">Zobacz efekty →</span></a><a class="card" href="/case-study/warsztaty-amoniakalne-2024/"><h3>Warsztaty Amoniakalne 2024</h3><p>Nasza relacja i prelekcje o kondycjonowaniu wody.</p><span class="card-link">Przeczytaj →</span></a></div></div></section><section class="section bluf reveal"><div class="wrap narrow">
       <p class="bluf-text">Dane liczbowe w poszczególnych realizacjach są przykładowe, do potwierdzenia i autoryzacji przez klientów przed publikacją.</p></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -2587,7 +2514,7 @@ PAGES["/case-study/kociol-parowy-fako/"] = {
       <div class="consult-final__copy">
         <p class="consult-kicker">Podobna instalacja?</p>
         <h2>Sprawdź kondycję swojej kotłowni.</h2>
-        <p>Inżynier Kabi-Chemie oceni wodę i instalację, a następnie zaproponuje konkretny plan działania.</p>
+        <p>Inżynier KABI CHEMIE oceni wodę i instalację, a następnie zaproponuje konkretny plan działania.</p>
       </div>
       <div class="consult-final__actions">
         <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
@@ -2660,7 +2587,7 @@ PAGES["/case-study/skraplacz-bac-kcaqua/"] = {
       <div class="consult-final__copy">
         <p class="consult-kicker">Podobna instalacja?</p>
         <h2>Policz, ile wody może oszczędzić Twój skraplacz.</h2>
-        <p>Inżynier Kabi-Chemie oceni układ chłodniczy i zaproponuje program dobrany do Twojej wody.</p>
+        <p>Inżynier KABI CHEMIE oceni układ chłodniczy i zaproponuje program dobrany do Twojej wody.</p>
       </div>
       <div class="consult-final__actions">
         <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
@@ -2733,7 +2660,7 @@ PAGES["/case-study/skraplacz-evapco-przetworstwo-rybne/"] = {
       <div class="consult-final__copy">
         <p class="consult-kicker">Podobna instalacja?</p>
         <h2>Odzyskaj wydajność chłodzenia bez wymiany urządzeń.</h2>
-        <p>Inżynier Kabi-Chemie oceni skraplacz i dobierze bezpieczny sposób czyszczenia oraz ochrony.</p>
+        <p>Inżynier KABI CHEMIE oceni skraplacz i dobierze bezpieczny sposób czyszczenia oraz ochrony.</p>
       </div>
       <div class="consult-final__actions">
         <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
@@ -2761,20 +2688,20 @@ PAGES["/case-study/warsztaty-amoniakalne-2024/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose"><h2>Dlaczego tam jesteśmy</h2><p>Warsztaty Amoniakalne to miejsce wymiany wiedzy między inżynierami i służbami utrzymania ruchu. Prezentujemy tam praktyczne podejście do kondycjonowania wody w skraplaczach natryskowo-wyparnych.</p><p class="note">Element budujący E-E-A-T: potwierdza nasze doświadczenie i obecność w środowisku branżowym.</p></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/skraplacze-amoniakalne/">Skraplacze amoniakalne</a></li><li><a href="/baza-wiedzy/korozja/">Biała korozja na ocynku, baza wiedzy</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
 
 PAGES["/faq/"] = {
     "body_class": 'has-dark-hero firm-page firm-faq-page',
-    "jsonld": [{'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': 'Czym zajmuje się Kabi-Chemie?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Kabi-Chemie projektuje programy kondycjonowania wody przemysłowej dla kotłów parowych, układów chłodniczych, skraplaczy wyparnych i instalacji RO.'}}, {'@type': 'Question', 'name': 'Czym jest technologia KCAQUA?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'KCAQUA to autorska technologia chemiczna Kabi-Chemie, która łączy preparaty, dozowanie, monitoring i raportowanie efektów w instalacjach przemysłowych.'}}, {'@type': 'Question', 'name': 'Czy pierwsza konsultacja jest bezpłatna?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Tak. Pierwsza rozmowa techniczna i wstępne rozpoznanie problemu są bezpłatne i nie zobowiązują do zakupu chemii ani usługi.'}}, {'@type': 'Question', 'name': 'Jak wygląda audyt techniczny?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Inżynier analizuje typ instalacji, parametry wody, koszty mediów, sposób dozowania chemii i miejsca, w których zakład traci wodę, energię lub stabilność pracy.'}}, {'@type': 'Question', 'name': 'Czy Kabi-Chemie obsługuje zakłady w całej Polsce?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Tak. Firma działa z Siedlec i oddziału w Toruniu, a wdrożenia realizuje w zakładach przemysłowych w różnych regionach Polski.'}}, {'@type': 'Question', 'name': 'Czy KCAQUA może zastąpić dotychczasową chemię?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'W wielu instalacjach tak, ale decyzję poprzedza analiza wody, warunków pracy i celu technicznego. Nie zmieniamy programu bez diagnozy.'}}, {'@type': 'Question', 'name': 'Kiedy widać efekty wdrożenia?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Część efektów, na przykład stabilizacja parametrów, może być widoczna szybko. Usuwanie osadów, ograniczenie strat i potwierdzenie oszczędności wymaga pomiarów w czasie.'}}, {'@type': 'Question', 'name': 'Czy przygotowujecie raport dla zarządu?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Tak. Po audycie i wdrożeniu możemy przygotować podsumowanie techniczne z danymi o wodzie, energii, ściekach, osadach i ryzykach eksploatacyjnych.'}}]}],
+    "jsonld": [{'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': 'Czym zajmuje się KABI CHEMIE?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'KABI CHEMIE projektuje programy kondycjonowania wody przemysłowej dla kotłów parowych, układów chłodniczych, skraplaczy wyparnych i instalacji RO.'}}, {'@type': 'Question', 'name': 'Czym jest technologia KCAQUA?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'KCAQUA to autorska technologia chemiczna KABI CHEMIE, która łączy preparaty, dozowanie, monitoring i raportowanie efektów w instalacjach przemysłowych.'}}, {'@type': 'Question', 'name': 'Czy pierwsza konsultacja jest bezpłatna?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Tak. Pierwsza rozmowa techniczna i wstępne rozpoznanie problemu są bezpłatne i nie zobowiązują do zakupu chemii ani usługi.'}}, {'@type': 'Question', 'name': 'Jak wygląda audyt techniczny?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Inżynier analizuje typ instalacji, parametry wody, koszty mediów, sposób dozowania chemii i miejsca, w których zakład traci wodę, energię lub stabilność pracy.'}}, {'@type': 'Question', 'name': 'Czy KABI CHEMIE obsługuje zakłady w całej Polsce?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Tak. Firma działa z Siedlec i oddziału w Toruniu, a wdrożenia realizuje w zakładach przemysłowych w różnych regionach Polski.'}}, {'@type': 'Question', 'name': 'Czy KCAQUA może zastąpić dotychczasową chemię?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'W wielu instalacjach tak, ale decyzję poprzedza analiza wody, warunków pracy i celu technicznego. Nie zmieniamy programu bez diagnozy.'}}, {'@type': 'Question', 'name': 'Kiedy widać efekty wdrożenia?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Część efektów, na przykład stabilizacja parametrów, może być widoczna szybko. Usuwanie osadów, ograniczenie strat i potwierdzenie oszczędności wymaga pomiarów w czasie.'}}, {'@type': 'Question', 'name': 'Czy przygotowujecie raport dla zarządu?', 'acceptedAnswer': {'@type': 'Answer', 'text': 'Tak. Po audycie i wdrożeniu możemy przygotować podsumowanie techniczne z danymi o wodzie, energii, ściekach, osadach i ryzykach eksploatacyjnych.'}}]}],
     "sections": [custom("""
 <section class="firm-hero firm-hero--faq" style="--firm-bg:url('/assets/blog/blog-water-reduction.png')" id="top">
   <div class="firm-hero__shade" aria-hidden="true"></div>
   <div class="wrap firm-hero__inner">
     <div class="firm-hero__copy reveal-left">
-      <p class="firm-kicker">FAQ Kabi-Chemie</p>
+      <p class="firm-kicker">FAQ KABI CHEMIE</p>
       <h1>Najczęstsze pytania o kondycjonowanie wody przemysłowej.</h1>
       <p>Odpowiadamy prostym językiem na pytania, które najczęściej pojawiają się przed audytem, zmianą chemii, wdrożeniem KCAQUA lub kontaktem z naszym inżynierem.</p>
       <div class="firm-actions">
@@ -2798,8 +2725,8 @@ PAGES["/faq/"] = {
       <h2>KCAQUA, producent chemii i sposób pracy.</h2>
     </div>
     <div class="firm-faq__list">
-      <details open class="reveal"><summary>Czym zajmuje się Kabi-Chemie?</summary><div><p>Kabi-Chemie projektuje programy kondycjonowania wody przemysłowej dla kotłów parowych, układów chłodniczych, skraplaczy wyparnych i instalacji RO.</p></div></details>
-      <details class="reveal"><summary>Czym jest technologia KCAQUA?</summary><div><p>KCAQUA to autorska technologia chemiczna Kabi-Chemie, która łączy preparaty, dozowanie, monitoring i raportowanie efektów w instalacjach przemysłowych.</p></div></details>
+      <details open class="reveal"><summary>Czym zajmuje się KABI CHEMIE?</summary><div><p>KABI CHEMIE projektuje programy kondycjonowania wody przemysłowej dla kotłów parowych, układów chłodniczych, skraplaczy wyparnych i instalacji RO.</p></div></details>
+      <details class="reveal"><summary>Czym jest technologia KCAQUA?</summary><div><p>KCAQUA to autorska technologia chemiczna KABI CHEMIE, która łączy preparaty, dozowanie, monitoring i raportowanie efektów w instalacjach przemysłowych.</p></div></details>
       <details class="reveal"><summary>Czy KCAQUA może zastąpić dotychczasową chemię?</summary><div><p>W wielu instalacjach tak, ale decyzję poprzedza analiza wody, warunków pracy i celu technicznego. Nie zmieniamy programu bez diagnozy.</p></div></details>
     </div>
   </div>
@@ -2840,7 +2767,7 @@ PAGES["/faq/"] = {
       <h2>Co przygotować przed rozmową z inżynierem.</h2>
     </div>
     <div class="firm-faq__list">
-      <details open class="reveal"><summary>Czy Kabi-Chemie obsługuje zakłady w całej Polsce?</summary><div><p>Tak. Firma działa z Siedlec i oddziału w Toruniu, a wdrożenia realizuje w zakładach przemysłowych w różnych regionach Polski.</p></div></details>
+      <details open class="reveal"><summary>Czy KABI CHEMIE obsługuje zakłady w całej Polsce?</summary><div><p>Tak. Firma działa z Siedlec i oddziału w Toruniu, a wdrożenia realizuje w zakładach przemysłowych w różnych regionach Polski.</p></div></details>
       <details class="reveal"><summary>Czy przygotowujecie raport dla zarządu?</summary><div><p>Tak. Po audycie i wdrożeniu możemy przygotować podsumowanie techniczne z danymi o wodzie, energii, ściekach, osadach i ryzykach eksploatacyjnych.</p></div></details>
       <details class="reveal"><summary>Co jeśli nie wiem, jaki temat wybrać w formularzu?</summary><div><p>Zostaw domyślne „Zapytanie o darmową konsultację”. Formularz od razu przygotuje profesjonalną wiadomość do osoby technicznej.</p></div></details>
     </div>
@@ -2853,7 +2780,7 @@ PAGES["/faq/"] = {
       <span class="consult-final__mark" aria-hidden="true"></span>
       <div class="consult-final__copy">
         <p class="consult-kicker">Nie znalazłeś odpowiedzi?</p>
-        <h2>Zadaj pytanie bezpośrednio inżynierowi Kabi-Chemie.</h2>
+        <h2>Zadaj pytanie bezpośrednio inżynierowi KABI CHEMIE.</h2>
         <p>Wystarczy jedno zdanie o instalacji. Oddzwonimy i doprecyzujemy szczegóły techniczne.</p>
       </div>
       <div class="consult-final__actions">
@@ -2927,7 +2854,7 @@ PAGES["/kotly-parowe/"] = {
       <div class="consult-final__copy">
         <p class="consult-kicker">Zacznij od diagnozy</p>
         <h2>Sprawdź kondycję swojej kotłowni.</h2>
-        <p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p>
+        <p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p>
       </div>
       <div class="consult-final__actions">
         <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
@@ -3025,7 +2952,7 @@ PAGES["/kotly-parowe/ochrona-antykorozyjna/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Jak chronimy układ parowy</h2></div><div class="feature-grid"><div class="feature"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Inhibitory korozji</h3><p>Tworzą warstwę ochronną na powierzchniach metalu.</p></div><div class="feature"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></div><h3>Wiązanie tlenu</h3><p>Usuwamy tlen rozpuszczony, główny sprawca korozji tlenowej.</p></div><div class="feature"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 8a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-8V3"/><path d="M7.5 14h9"/></svg></div><h3>Korekta pH</h3><p>Utrzymujemy pH w zakresie bezpiecznym dla stali.</p></div></div></div></section><section class="section reveal"><div class="wrap narrow prose"><h2>Warstwa magnetytowa, naturalna ochrona</h2><p>Prawidłowo prowadzony układ buduje na stali ochronną warstwę magnetytu. Naszym zadaniem jest ją utrzymać, a nie zniszczyć agresywną chemią.</p></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li><li><a href="/baza-wiedzy/korozja/">Korozja tlenowa, baza wiedzy</a></li><li><a href="/ochrona-antykorozyjna/pasywacja-stali/">Pasywacja stali</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -3046,7 +2973,7 @@ PAGES["/kotly-parowe/odkamienianie/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose"><h2>Po co odkamieniać kocioł?</h2><p>Kamień działa jak izolator. Im grubsza warstwa, tym więcej paliwa potrzeba do wytworzenia pary i tym większe ryzyko przegrzań i pęknięć.</p></div></section><section class="section alt reveal"><div class="wrap"><div class="section-head"><h2>Przebieg odkamieniania</h2></div><ol class="steps"><li><div class="step-num">1</div><div><h3>Ocena stanu i wody</h3><p>Określamy rodzaj i grubość osadu.</p></div></li><li><div class="step-num">2</div><div><h3>Czyszczenie chemiczne</h3><p>Dobrany preparat rozpuszcza kamień.</p></div></li><li><div class="step-num">3</div><div><h3>Płukanie i pasywacja</h3><p>Zabezpieczamy oczyszczone powierzchnie.</p></div></li><li><div class="step-num">4</div><div><h3>Kondycjonowanie</h3><p>Wdrażamy program, by kamień nie wracał.</p></div></li></ol></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/kotly-parowe/kondycjonowanie-wody-kotlowej/">Kondycjonowanie wody kotłowej</a></li><li><a href="/case-study/kociol-parowy-fako/">Case study: kocioł parowy Fako</a></li><li><a href="/ochrona-antykorozyjna/chemiczne-czyszczenie/">Chemiczne czyszczenie instalacji</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -3111,7 +3038,7 @@ PAGES["/membrany-ro/"] = {
       <div class="consult-final__copy">
         <p class="consult-kicker">Zacznij od diagnozy</p>
         <h2>Sprawdź ochronę membran RO.</h2>
-        <p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p>
+        <p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p>
       </div>
       <div class="consult-final__actions">
         <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
@@ -3138,7 +3065,7 @@ PAGES["/ochrona-antykorozyjna/chemiczne-czyszczenie/"] = {
     </figure>
   </div>
 </section><section class="section alt reveal"><div class="wrap"><div class="section-head"><h2>Przebieg czyszczenia chemicznego</h2></div><ol class="steps"><li><div class="step-num">1</div><div><h3>Diagnoza</h3><p>Identyfikujemy osad i dobieramy bezpieczny preparat.</p></div></li><li><div class="step-num">2</div><div><h3>Czyszczenie</h3><p>Rozpuszczamy osady w obiegu zamkniętym.</p></div></li><li><div class="step-num">3</div><div><h3>Neutralizacja i pasywacja</h3><p>Zabezpieczamy oczyszczone powierzchnie.</p></div></li></ol></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/odkamienianie-instalacji/">Odkamienianie instalacji</a></li><li><a href="/ochrona-antykorozyjna/pasywacja-stali/">Pasywacja stali</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -3159,7 +3086,7 @@ PAGES["/ochrona-antykorozyjna/pasywacja-stali/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose"><h2>Czym jest pasywacja</h2><p>Pasywacja to chemiczne wytworzenie lub odtworzenie warstwy ochronnej na powierzchni stali. Dla instalacji po montażu lub spawaniu to kluczowy krok wydłużający żywotność.</p></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/ochrona-antykorozyjna/chemiczne-czyszczenie/">Chemiczne czyszczenie instalacji</a></li><li><a href="/baza-wiedzy/korozja/">Pasywacja stali, baza wiedzy</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -3173,25 +3100,25 @@ PAGES["/polityka-prywatnosci/"] = {
   <div class="solution-hero__shade" aria-hidden="true"></div>
   <div class="wrap solution-hero__inner">
     <div class="solution-hero__copy">
-      <p class="solution-kicker"><span></span>Kabi-Chemie / ochrona danych</p>
+      <p class="solution-kicker"><span></span>KABI CHEMIE / ochrona danych</p>
       <h1>Polityka prywatności.</h1>
-      <p class="solution-hero__lead">Jasne zasady ochrony danych osobowych, zapytań B2B i informacji technicznych przekazywanych Kabi-Chemie.</p>
+      <p class="solution-hero__lead">Jasne zasady ochrony danych osobowych, zapytań B2B i informacji technicznych przekazywanych KABI CHEMIE.</p>
     </div>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose">
-<p class="note">Wersja obowiązująca od 2 lipca 2026 r. Dokument opisuje, jak Kabi-Chemie przetwarza dane osób korzystających ze strony, wysyłających formularz, dzwoniących, piszących e-mail lub przekazujących informacje techniczne dotyczące instalacji przemysłowej.</p>
+<p class="note">Wersja obowiązująca od 2 lipca 2026 r. Dokument opisuje, jak KABI CHEMIE przetwarza dane osób korzystających ze strony, wysyłających formularz, dzwoniących, piszących e-mail lub przekazujących informacje techniczne dotyczące instalacji przemysłowej.</p>
 
 <h2>1. Administrator danych</h2>
-<p>Administratorem danych osobowych jest Kabi-Chemie, Żabokliki-Kolonia, ul. Stocka 10, 08-110 Siedlce, NIP: 8212519774, dalej jako Administrator lub Kabi-Chemie.</p>
+<p>Administratorem danych osobowych jest KABI CHEMIE, Żabokliki-Kolonia, ul. Stocka 10, 08-110 Siedlce, NIP: 8212519774, dalej jako Administrator lub KABI CHEMIE.</p>
 <p>W sprawach dotyczących ochrony danych można skontaktować się z nami mailowo: <a href="mailto:info@kondycjonowanie-wody.pl">info@kondycjonowanie-wody.pl</a>, telefonicznie: <a href="tel:+48662792875">+48 662 792 875</a> albo pisemnie na adres siedziby.</p>
 
 <h2>2. Zakres danych</h2>
 <p>Przetwarzamy tylko dane, które są potrzebne do obsługi strony, kontaktu i zapytań biznesowych. Mogą to być w szczególności: imię i nazwisko, nazwa firmy, stanowisko lub dział, numer telefonu, adres e-mail, treść wiadomości, dane przekazane podczas rozmowy, informacje o instalacji, załączone materiały techniczne, adres IP oraz podstawowe logi serwera.</p>
 <p>Nie prosimy o przekazywanie danych szczególnych kategorii, danych prywatnych pracowników, numerów dokumentów, danych medycznych ani innych informacji, które nie są potrzebne do rozmowy o instalacji. Jeżeli takie dane zostaną przesłane, możemy je pominąć, ograniczyć ich zakres albo poprosić o przekazanie zapytania bez tych informacji.</p>
-<p>Jeżeli osoba kontaktująca się działa w imieniu firmy lub przekazuje dane współpracownika, przyjmujemy, że robi to w ramach spraw zawodowych i ma podstawę do przekazania tych danych Kabi-Chemie.</p>
+<p>Jeżeli osoba kontaktująca się działa w imieniu firmy lub przekazuje dane współpracownika, przyjmujemy, że robi to w ramach spraw zawodowych i ma podstawę do przekazania tych danych KABI CHEMIE.</p>
 
 <h2>3. Cele i podstawy prawne przetwarzania</h2>
-<p>Dane przetwarzamy wyłącznie wtedy, gdy mamy do tego podstawę prawną. Najczęściej jest to obsługa zapytania, przygotowanie oferty, realizacja umowy, obowiązek prawny albo prawnie uzasadniony interes Kabi-Chemie.</p>
+<p>Dane przetwarzamy wyłącznie wtedy, gdy mamy do tego podstawę prawną. Najczęściej jest to obsługa zapytania, przygotowanie oferty, realizacja umowy, obowiązek prawny albo prawnie uzasadniony interes KABI CHEMIE.</p>
 <div class="table-wrap"><table>
   <thead><tr><th>Cel</th><th>Podstawa prawna</th></tr></thead>
   <tbody>
@@ -3236,10 +3163,10 @@ PAGES["/polityka-prywatnosci/"] = {
 
 <h2>12. Bezpieczeństwo danych</h2>
 <p>Stosujemy środki organizacyjne i techniczne odpowiednie do charakteru danych oraz ryzyka związanego z ich przetwarzaniem. Obejmują one w szczególności ograniczenie dostępu do danych, kontrolę uprawnień, zabezpieczenia usług poczty i hostingu oraz korzystanie z dostawców zapewniających odpowiedni poziom ochrony.</p>
-<p>Informacje techniczne dotyczące instalacji, procesów produkcyjnych lub warunków pracy zakładu traktujemy jako informacje przekazane w celu obsługi zapytania. Dostęp do nich mają wyłącznie osoby i podmioty, które potrzebują ich do przygotowania odpowiedzi, oferty, audytu, serwisu lub zabezpieczenia interesów Kabi-Chemie.</p>
+<p>Informacje techniczne dotyczące instalacji, procesów produkcyjnych lub warunków pracy zakładu traktujemy jako informacje przekazane w celu obsługi zapytania. Dostęp do nich mają wyłącznie osoby i podmioty, które potrzebują ich do przygotowania odpowiedzi, oferty, audytu, serwisu lub zabezpieczenia interesów KABI CHEMIE.</p>
 
 <h2>13. Zmiany polityki</h2>
-<p>Polityka prywatności może być aktualizowana, jeżeli zmienią się przepisy, zakres działania strony, używane narzędzia, sposób obsługi zapytań lub organizacja pracy Kabi-Chemie. Aktualna wersja dokumentu jest zawsze publikowana na tej stronie.</p>
+<p>Polityka prywatności może być aktualizowana, jeżeli zmienią się przepisy, zakres działania strony, używane narzędzia, sposób obsługi zapytań lub organizacja pracy KABI CHEMIE. Aktualna wersja dokumentu jest zawsze publikowana na tej stronie.</p>
 </div></section>""")],
 }
 
@@ -3304,7 +3231,7 @@ PAGES["/uklady-chlodnicze/"] = {
       <div class="consult-final__copy">
         <p class="consult-kicker">Zacznij od diagnozy</p>
         <h2>Policz potencjał oszczędności układu chłodniczego.</h2>
-        <p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p>
+        <p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p>
       </div>
       <div class="consult-final__actions">
         <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
@@ -3331,7 +3258,7 @@ PAGES["/uklady-chlodnicze/ochrona-wiez-chlodniczych/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap"><div class="section-head"><h2>Co kontrolujemy w wieży</h2></div><div class="feature-grid"><div class="feature"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 6-13 14-14 .5 8-4 14-12 14-1 0-2 0-2-3Z"/><path d="M9 15c2-2 4-3 7-4"/></svg></div><h3>Biofilm i mikroorganizmy</h3><p>Ograniczamy rozwój bakterii i glonów w obiegu.</p></div><div class="feature"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Korozja</h3><p>Chronimy metal inhibitorami korozji.</p></div><div class="feature"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></div><h3>Kamień</h3><p>Antyskalant zapobiega wytrącaniu twardości.</p></div></div></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/odkamienianie/">Odkamienianie układów chłodniczych</a></li><li><a href="/uklady-chlodnicze/skraplacze-amoniakalne/">Skraplacze amoniakalne</a></li><li><a href="/baza-wiedzy/wieze-chlodnicze/">Wieże chłodnicze, baza wiedzy</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -3352,7 +3279,7 @@ PAGES["/uklady-chlodnicze/odkamienianie/"] = {
     </figure>
   </div>
 </section><section class="section alt reveal"><div class="wrap"><div class="section-head"><h2>Jak odkamieniamy układ chłodniczy</h2></div><ol class="steps"><li><div class="step-num">1</div><div><h3>Diagnoza</h3><p>Oceniamy rodzaj i grubość osadu oraz jakość wody.</p></div></li><li><div class="step-num">2</div><div><h3>Czyszczenie chemiczne</h3><p>Rozpuszczamy kamień bez demontażu układu.</p></div></li><li><div class="step-num">3</div><div><h3>Kondycjonowanie</h3><p>Wdrażamy program, by osad nie narastał ponownie.</p></div></li></ol></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/ochrona-wiez-chlodniczych/">Ochrona wież chłodniczych</a></li><li><a href="/case-study/skraplacz-evapco-przetworstwo-rybne/">Case study: skraplacz Evapco</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -3373,7 +3300,7 @@ PAGES["/uklady-chlodnicze/skraplacze-amoniakalne/"] = {
     </figure>
   </div>
 </section><section class="section reveal"><div class="wrap narrow prose"><h2>Specyfika skraplaczy amoniakalnych</h2><p>Wężownice ocynkowane są narażone na tzw. białą rdzę i osady kamienia, które ograniczają wymianę ciepła. Program KCAQUA 305 chroni powierzchnie i stabilizuje pracę układu.</p></div></section><section class="section related reveal"><div class="wrap"><h2>Powiązane strony</h2><ul class="related-list"><li><a href="/uklady-chlodnicze/ochrona-wiez-chlodniczych/">Ochrona wież chłodniczych</a></li><li><a href="/case-study/skraplacz-bac-kcaqua/">Case study: skraplacz BAC</a></li><li><a href="/baza-wiedzy/korozja/">Biała korozja, baza wiedzy</a></li></ul></div></section><section class="cta-band reveal"><div class="wrap cta-inner">
-      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+      <div><h2>Sprawdź, ile zaoszczędzi Twój zakład</h2><p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
       <div class="cta-actions"><a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a><a class="btn btn-ghost-light" href="/kontakt/">Kontakt</a></div>
     </div></section>""")],
 }
@@ -3439,7 +3366,7 @@ PAGES["/uslugi/"] = {
   <div class="wrap solution-cta__inner"><div>
     <p class="solution-kicker"><span></span>Następny krok</p>
     <h2>Sprawdź, ile zaoszczędzi Twój zakład.</h2>
-    <p>Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań.</p></div>
+    <p>Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań.</p></div>
     <div class="solution-cta__actions">
       <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatną konsultację</a>
       <a class="solution-phone-link" href="tel:+48662792875"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg><span>Zadzwoń: +48 662 792 875</span></a>
@@ -3495,7 +3422,7 @@ PAGES["/uslugi/serwis-urzadzen/"] = {
   <span class="consult-watermark consult-watermark--light" aria-hidden="true"></span>
   <div class="wrap consult-value">
     <div class="consult-value__intro">
-      <p class="consult-kicker">Dlaczego Kabi-Chemie</p>
+      <p class="consult-kicker">Dlaczego KABI CHEMIE</p>
       <h2>Jeden zespół od chemii i automatyki.</h2>
       <p class="consult-value__lead">Nie musisz koordynować trzech firm. Za program i urządzenia odpowiada jeden partner.</p>
     </div>
@@ -3529,7 +3456,7 @@ PAGES["/warunki-wspolpracy/"] = {
     <div class="firm-hero__copy reveal-left">
       <p class="firm-kicker">Model współpracy</p>
       <h1>Najpierw diagnoza. Potem program chemiczny.</h1>
-      <p>Współpraca z Kabi-Chemie jest poukładana tak, aby dział techniczny, produkcja i zarząd widzieli cel, zakres prac, odpowiedzialność oraz sposób mierzenia efektów.</p>
+      <p>Współpraca z KABI CHEMIE jest poukładana tak, aby dział techniczny, produkcja i zarząd widzieli cel, zakres prac, odpowiedzialność oraz sposób mierzenia efektów.</p>
       <div class="firm-actions">
         <a class="btn btn-primary" href="/kontakt/">Porozmawiaj z inżynierem</a>
         <a class="btn btn-ghost-light" href="/kalkulator-oszczednosci/">Policz potencjał oszczędności</a>
@@ -3569,7 +3496,7 @@ PAGES["/warunki-wspolpracy/"] = {
     <dl class="firm-commitments__list">
       <div class="reveal"><dt>Zakres</dt><dd>Audyt, rekomendacja, dostawa chemii, dozowanie, monitoring i serwis ustalamy przed startem prac.</dd></div>
       <div class="reveal"><dt>Decyzja</dt><dd>Po rozpoznaniu otrzymujesz jasną informację, czy instalacja ma realny potencjał techniczny i kosztowy.</dd></div>
-      <div class="reveal"><dt>Odpowiedzialność</dt><dd>Za program KCAQUA odpowiada zespół Kabi-Chemie, a nie przypadkowy zestaw produktów od kilku dostawców.</dd></div>
+      <div class="reveal"><dt>Odpowiedzialność</dt><dd>Za program KCAQUA odpowiada zespół KABI CHEMIE, a nie przypadkowy zestaw produktów od kilku dostawców.</dd></div>
       <div class="reveal"><dt>Raportowanie</dt><dd>Efekty omawiamy w danych, które można pokazać utrzymaniu ruchu, produkcji i zarządowi.</dd></div>
     </dl>
   </div>
@@ -3616,15 +3543,15 @@ PAGES["/o-firmie/"] = {
   <div class="firm-hero__shade" aria-hidden="true"></div>
   <div class="wrap firm-hero__inner">
     <div class="firm-hero__copy reveal-left">
-      <p class="firm-kicker">Misja firmy Kabi-Chemie</p>
+      <p class="firm-kicker">Misja firmy KABI CHEMIE</p>
       <h1>Producent chemii KCAQUA do kondycjonowania wody przemysłowej.</h1>
-      <p>Kabi-Chemie pomaga zakładom przemysłowym ograniczać zużycie wody, energii i chemii przez lepsze prowadzenie kotłów parowych, układów chłodniczych, skraplaczy wyparnych i instalacji RO.</p>
+      <p>KABI CHEMIE pomaga zakładom przemysłowym ograniczać zużycie wody, energii i chemii przez lepsze prowadzenie kotłów parowych, układów chłodniczych, skraplaczy wyparnych i instalacji RO.</p>
       <div class="firm-actions">
         <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów bezpłatny audyt</a>
         <a class="btn btn-ghost-light" href="/warunki-wspolpracy/">Poznaj model współpracy</a>
       </div>
     </div>
-    <div class="firm-hero__signals reveal-right" aria-label="Najważniejsze informacje o Kabi-Chemie">
+    <div class="firm-hero__signals reveal-right" aria-label="Najważniejsze informacje o KABI CHEMIE">
       <div><strong>KCAQUA</strong><span>autorska technologia chemiczna, dozowanie i monitoring</span></div>
       <div><strong>Siedlce i Toruń</strong><span>zespół techniczny obsługujący zakłady w całej Polsce</span></div>
       <div><strong>Wynik w danych</strong><span>raportujemy parametry wody, energii, osadów i kosztów</span></div>
@@ -3640,7 +3567,7 @@ PAGES["/o-firmie/"] = {
       <h2>Przemysł potrzebuje kontroli nad wodą.</h2>
     </div>
     <div class="firm-manifest__text" data-fly="right">
-      <p>Założyliśmy Kabi-Chemie, bo w wielu zakładach woda była traktowana jak koszt stały, a nie jak obszar realnej optymalizacji. W kotłowniach, skraplaczach i obiegach chłodniczych codziennie powstają straty, które da się policzyć i ograniczyć.</p>
+      <p>Założyliśmy KABI CHEMIE, bo w wielu zakładach woda była traktowana jak koszt stały, a nie jak obszar realnej optymalizacji. W kotłowniach, skraplaczach i obiegach chłodniczych codziennie powstają straty, które da się policzyć i ograniczyć.</p>
       <p>Naszą odpowiedzią jest KCAQUA, czyli program chemiczny prowadzony razem z audytem, analizą parametrów, automatyką dozowania i raportowaniem efektów. Klient widzi nie tylko preparat, ale też powód jego zastosowania i wpływ na instalację.</p>
     </div>
   </div>
@@ -3686,7 +3613,7 @@ PAGES["/o-firmie/"] = {
       <p class="firm-kicker">Zasięg i lokalizacja</p>
       <h2>Siedlce i Toruń obsługują zakłady w całej Polsce.</h2>
     </div>
-    <div class="firm-geo__map" data-fly="right" aria-label="Lokalizacje Kabi-Chemie">
+    <div class="firm-geo__map" data-fly="right" aria-label="Lokalizacje KABI CHEMIE">
       <span style="--x:32%;--y:56%"><strong>Siedlce</strong><em>siedziba główna</em></span>
       <span style="--x:50%;--y:37%"><strong>Toruń</strong><em>oddział techniczny</em></span>
       <span style="--x:63%;--y:61%"><strong>Polska</strong><em>zakłady przemysłowe</em></span>

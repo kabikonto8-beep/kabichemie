@@ -1,14 +1,38 @@
-/* Kabi-Chemie — drobna interaktywność (bez zależności) */
+/* KABI CHEMIE — drobna interaktywność (bez zależności) */
 (function () {
   "use strict";
 
   // --- menu mobilne ---
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("primary-nav");
+  var mobileNavMq = window.matchMedia("(max-width: 1160px)");
+  var setMobileNavOpen = function (open) {
+    if (!toggle || !nav) return;
+    nav.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    document.documentElement.classList.toggle("nav-open", open && mobileNavMq.matches);
+  };
   if (toggle && nav) {
     toggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      setMobileNavOpen(!nav.classList.contains("open"));
+    });
+    nav.addEventListener("click", function (event) {
+      var link = event.target.closest("a");
+      if (!link || !mobileNavMq.matches) return;
+      var topLevelSubmenu = link.parentElement && link.parentElement.classList.contains("has-sub");
+      if (topLevelSubmenu && !link.parentElement.classList.contains("open")) return;
+      if (!topLevelSubmenu || link.closest(".nav-panel")) setMobileNavOpen(false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape" || !nav.classList.contains("open")) return;
+      setMobileNavOpen(false);
+      toggle.focus();
+    });
+    window.addEventListener("resize", function () {
+      if (!mobileNavMq.matches && nav.classList.contains("open")) setMobileNavOpen(false);
+    });
+    window.addEventListener("pageshow", function () {
+      if (!nav.classList.contains("open")) document.documentElement.classList.remove("nav-open");
     });
   }
 
@@ -625,7 +649,7 @@
   });
 
   // --- animowany akordeon kart w sekcji "Czym się zajmujemy" ---
-  // --- animowana rolka cytatow Kabi-Chemie ---
+  // --- animowana rolka cytatow KABI CHEMIE ---
   document.querySelectorAll("[data-expert-reel]").forEach(function (reel) {
     var panels = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-panel]"));
     var images = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-image]"));
@@ -713,6 +737,35 @@
       setActive(activeIndex + offset);
       start();
     };
+
+    // Na ekranach dotykowych zmiana cytatu dziala tak samo naturalnie jak rolka zdjec.
+    var swipeStartX = 0;
+    var swipeStartY = 0;
+    var swipeActive = false;
+    reel.addEventListener("touchstart", function (event) {
+      if (event.touches.length !== 1) return;
+      swipeStartX = event.touches[0].clientX;
+      swipeStartY = event.touches[0].clientY;
+      swipeActive = true;
+      stop();
+    }, { passive: true });
+    reel.addEventListener("touchend", function (event) {
+      if (!swipeActive || !event.changedTouches.length) return;
+      swipeActive = false;
+      var deltaX = event.changedTouches[0].clientX - swipeStartX;
+      var deltaY = event.changedTouches[0].clientY - swipeStartY;
+      if (Math.abs(deltaX) >= 48 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+        var direction = deltaX < 0 ? 1 : -1;
+        if (window.getComputedStyle(reel).direction === "rtl") direction *= -1;
+        move(direction);
+        return;
+      }
+      start();
+    }, { passive: true });
+    reel.addEventListener("touchcancel", function () {
+      swipeActive = false;
+      start();
+    }, { passive: true });
 
     if (prev) prev.addEventListener("click", function () { move(-1); });
     if (next) next.addEventListener("click", function () { move(1); });

@@ -1,5 +1,5 @@
 /* ===================================================================
-   Kabi-Chemie: case studies, pages firmowe i kontakt
+   KABI CHEMIE: case studies, pages firmowe i kontakt
    Jedna warstwa redakcyjna: duża fotografia, dane i spokojny rytm.
    =================================================================== */
 
@@ -2423,18 +2423,21 @@
 
 .case-index-hero__scope-icon svg{width:18px;height:18px}
 
-.case-index-editorial-page .company-hero__media{
+.case-index-editorial-page .company-hero__media,
+.knowledge-index-hero .company-hero__media{
   filter:saturate(.74) contrast(1.08) brightness(.72);
   transform:scale(1.02);
 }
 
-.case-index-editorial-page .company-hero__shade{
+.case-index-editorial-page .company-hero__shade,
+.knowledge-index-hero .company-hero__shade{
   background:
     linear-gradient(90deg,rgba(1,10,18,.98) 0%,rgba(3,20,33,.92) 38%,rgba(3,20,33,.5) 68%,rgba(1,10,18,.84) 100%),
     linear-gradient(180deg,rgba(2,12,21,.48) 0%,rgba(2,14,24,.2) 42%,rgba(1,10,18,.95) 100%);
 }
 
-.case-index-editorial-page .company-hero::after{
+.case-index-editorial-page .company-hero::after,
+.knowledge-index-hero::after{
   content:"";
   position:absolute;
   right:clamp(-110px,2vw,40px);
@@ -2449,6 +2452,17 @@
   animation:none;
   pointer-events:none;
 }
+
+.knowledge-index-hero{
+  --cc-navy:#061827;
+  --cc-cyan:#79d9f3;
+}
+
+.knowledge-index-hero h1,
+.knowledge-index-hero p,
+.knowledge-index-hero a,
+.knowledge-index-hero span,
+.knowledge-index-hero strong{letter-spacing:0}
 
 @media(max-width:900px){
   .case-index-hero .company-hero__inner{
@@ -2473,7 +2487,8 @@
     padding-top:20px;
   }
 
-  .case-index-editorial-page .company-hero::after{
+  .case-index-editorial-page .company-hero::after,
+  .knowledge-index-hero::after{
     right:-170px;
     bottom:-140px;
     width:430px;
@@ -4423,7 +4438,7 @@ body.case-warsztaty-editorial-page :is(.reveal,.reveal-left,.reveal-right).in-vi
 }
 
 /* ===================================================================
-   O firmie: uporządkowany system wizualny Kabi-Chemie
+   O firmie: uporządkowany system wizualny KABI CHEMIE
    =================================================================== */
 
 .company-about-editorial-page .company-hero__shade{
@@ -4879,16 +4894,40 @@ body.case-warsztaty-editorial-page :is(.reveal,.reveal-left,.reveal-right).in-vi
 }
 
 .company-overview-link::after{
-  content:"↗";
+  content:"";
+  width:16px;
+  height:16px;
+  flex:0 0 16px;
+  background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M7%2017%2017%207M7%207h10v10'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M7%2017%2017%207M7%207h10v10'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
   color:var(--cc-cyan);
-  font-size:16px;
   transition:transform .2s ease;
 }
+.case-story-page--fako .fako-result__number .ui-arrow{--ui-arrow-size:1.75rem}
 
 .company-overview-link:hover,
 .company-overview-link:focus-visible{color:var(--cc-cyan);text-decoration:none}
 .company-overview-link:hover::after,
 .company-overview-link:focus-visible::after{transform:translate(3px,-3px)}
+html[dir="rtl"] .company-overview-link::after{transform:scaleX(-1)}
+html[dir="rtl"] .company-overview-link:hover::after,
+html[dir="rtl"] .company-overview-link:focus-visible::after{transform:translate(-3px,-3px) scaleX(-1)}
+
+@media(min-width:761px){
+  .company-overview-link::after{
+    content:"↗";
+    width:auto;
+    height:auto;
+    flex:0 0 auto;
+    background:none;
+    -webkit-mask:none;
+    mask:none;
+    font-size:16px;
+    font-weight:800;
+    line-height:1;
+  }
+}
 
 .company-overview-hero--model .company-overview-hero__media{background-position:66% center}
 .company-overview-hero--faq .company-overview-hero__media{background-position:68% center}
@@ -5019,6 +5058,30 @@ body.case-warsztaty-editorial-page :is(.reveal,.reveal-left,.reveal-right).in-vi
 .company-reference-ledger__intro{position:sticky;top:116px;max-width:510px}
 .company-reference-ledger__intro>p{color:var(--cc-copy)}
 .company-reference-ledger__list{border-top:1px solid #bdd4dc}
+
+/* Puste kafelki placeholder - referencje w przygotowaniu (kolor strony, nie zielone) */
+.company-reference-placeholder-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(178px,1fr));
+  gap:clamp(14px,1.4vw,20px);
+}
+.company-reference-placeholder{
+  display:grid;
+  place-items:center;
+  aspect-ratio:1/1;
+  padding:1rem;
+  border:1px solid #cddbe3;
+  border-radius:16px;
+  background:linear-gradient(180deg,#fbfdfe,#eef4f8);
+}
+.company-reference-placeholder span{
+  color:var(--cc-copy);
+  font-size:.8rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  text-align:center;
+  opacity:.72;
+}
 
 .company-reference-entry{
   display:grid;
@@ -5631,3 +5694,37 @@ body.case-warsztaty-editorial-page :is(.reveal,.reveal-left,.reveal-right).in-vi
   ) h2>span,
   .case-story-page--fako .fako-diagnosis .fako-section__intro h2>span{white-space:normal}
 }
+
+/* Mobile containment for case studies, company pages and contact. */
+@media(max-width:700px){
+  :where(.case-story-page,.company-editorial-page,.contact-editorial-page) :where(
+    .case-story-hero__inner,.case-story-hero__copy,.company-hero__inner,.company-hero__copy,
+    .contact-editorial-hero__inner,.contact-editorial-main__grid,[class*="__grid"],[class*="__inner"]
+  ){min-width:0;max-width:100%}
+  :where(.case-story-page,.company-editorial-page,.contact-editorial-page) :where(h1,h2,h3,p,a,span,strong,li,summary,label){
+    max-width:100%;overflow-wrap:anywhere
+  }
+  .case-story-page--fako :where(.fako-hero__copy,.fako-section__intro,.fako-brandmark){min-width:0;max-width:100%}
+  html[lang="de"] :where(.case-story-page,.company-editorial-page,.contact-editorial-page) :where(h1,h2,h3,p,a,span,strong,li,summary,label){
+    hyphens:auto;word-break:normal
+  }
+  .contact-editorial-details h2 span{white-space:normal}
+  html[dir="rtl"] :is(.case-story-text-link,.company-text-link,.company-inline-link):hover .ui-arrow,
+  html[dir="rtl"] :is(.case-story-text-link,.company-text-link,.company-inline-link):focus-visible .ui-arrow{transform:translate(-3px,-3px)}
+}
+
+/* Dlugie tlumaczenia zachowuja redakcyjne podzialy, ale nie sa ucinane. */
+.company-commitment blockquote span,
+.contact-editorial-details h2 span{white-space:normal}
+
+html:is([lang="en"],[lang="de"]) :is(
+  .company-stories__intro,
+  .case-story-section__intro,
+  .case-story-method__head,
+  .case-story-fieldnote__intro,
+  .case-story-faq__intro,
+  .fako-section__intro,
+  .fako-method__head,
+  .fako-results__head,
+  .fako-faq__intro
+) h2>span{white-space:normal!important}

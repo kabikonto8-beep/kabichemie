@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'www');
-const port = 8124;
+const port = Number(process.env.PORT || 8124);
 
 function getContentType(filePath) {
   switch (path.extname(filePath).toLowerCase()) {
@@ -17,6 +17,7 @@ function getContentType(filePath) {
     case '.jpg':
     case '.jpeg': return 'image/jpeg';
     case '.png': return 'image/png';
+    case '.webp': return 'image/webp';
     case '.ico': return 'image/x-icon';
     case '.xml': return 'application/xml; charset=utf-8';
     case '.txt': return 'text/plain; charset=utf-8';

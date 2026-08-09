@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Spójny system podstron rozwiązań Kabi-Chemie."""
+"""Spójny system podstron rozwiązań KABI CHEMIE."""
 
 
 def _join(items):
@@ -306,7 +306,7 @@ def _render_kcaqua(config):
     </div>
     <div class="solution-cta__actions">
       <a class="btn btn-primary" href="{config['cta_primary_href']}">{config['cta_primary_label']}</a>
-      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">
+      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">
         <span class="solution-phone-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg>
         </span>
@@ -551,7 +551,7 @@ def _render_ro(config):
     </div>
     <div class="solution-cta__actions">
       <a class="btn btn-primary" href="/bezplatna-konsultacja/">Umów konsultację RO</a>
-      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">
+      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">
         <span class="solution-phone-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg>
         </span>
@@ -797,7 +797,7 @@ def _render_descaling(config):
     </div>
     <div class="solution-cta__actions">
       <a class="btn btn-primary" href="/kontakt/#kontakt-form">Wyślij zapytanie techniczne</a>
-      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">
+      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">
         <span class="solution-phone-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg>
         </span>
@@ -1016,7 +1016,7 @@ def _render_service(config):
     </div>
     <div class="solution-cta__actions">
       <a class="btn btn-primary" href="/kontakt/#kontakt-form">Wyślij zgłoszenie serwisowe</a>
-      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">
+      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">
         <span class="solution-phone-link__icon" aria-hidden="true">{icon('phone')}</span>
         <span>Zadzwoń: +48 662 792 875</span>
       </a>
@@ -1252,7 +1252,7 @@ def _render_solution(config):
     </div>
     <div class="solution-cta__actions">
       <a class="btn btn-primary" href="{config['cta_primary_href']}">{config['cta_primary_label']}</a>
-      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">
+      <a class="solution-phone-link" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">
         <span class="solution-phone-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg>
         </span>
@@ -1270,7 +1270,7 @@ SOLUTIONS = [
         "slug": "boilers",
         "layout": "editorial",
         "sequence": ("diagnosis", "results", "method", "data"),
-        "title": "Kondycjonowanie wody w kotłach parowych | Kabi-Chemie",
+        "title": "Kondycjonowanie wody w kotłach parowych | KABI CHEMIE",
         "meta": "Programy kondycjonowania wody dla kotłów parowych. Kontrola kamienia, korozji i odsalania, dobór chemii KCAQUA, automatyka oraz monitoring efektów.",
         "image": "/assets/visuals-v2/hero-boilers-v2.jpg",
         "image_position": "62% center",
@@ -1361,7 +1361,7 @@ SOLUTIONS = [
         "style": "boilers",
         "layout": "editorial",
         "sequence": ("diagnosis", "results", "method", "data"),
-        "title": "Skraplacze wyparne i kondycjonowanie wody | Kabi-Chemie",
+        "title": "Skraplacze wyparne i kondycjonowanie wody | KABI CHEMIE",
         "meta": "Kondycjonowanie wody w skraplaczach wyparnych i obiegach chłodniczych. Ochrona przed kamieniem, korozją i biofilmem, kontrola odsalania oraz monitoring.",
         "image": "/assets/visuals-v2/hero-cooling-v2.jpg",
         "image_position": "64% center",
@@ -1451,7 +1451,7 @@ SOLUTIONS = [
         "slug": "kcaqua",
         "layout": "kcaqua",
         "sequence": ("diagnosis", "method", "data", "results"),
-        "title": "Technologia KCAQUA do wody kotłowej | Kabi-Chemie",
+        "title": "Technologia KCAQUA do wody kotłowej | KABI CHEMIE",
         "meta": "Technologia KCAQUA łączy dobór chemii, automatykę dozowania, kontrolę parametrów i monitoring wody kotłowej. Program dopasowany do konkretnej instalacji.",
         "image": "/assets/visuals-v2/hero-kcaqua-v2.jpg",
         "image_position": "66% center",
@@ -1534,7 +1534,7 @@ SOLUTIONS = [
         "style": "boilers",
         "layout": "editorial",
         "sequence": ("diagnosis", "results", "method", "data"),
-        "title": "Białe certyfikaty dla przemysłu | Kabi-Chemie",
+        "title": "Białe certyfikaty dla przemysłu | KABI CHEMIE",
         "meta": "Wstępna kwalifikacja inwestycji, audyt efektywności energetycznej i wsparcie procesu uzyskania białych certyfikatów dla modernizacji przemysłowych.",
         "image": "/assets/visuals-v2/hero-white-certificates-v2.jpg",
         "image_position": "67% center",
@@ -1611,7 +1611,7 @@ SOLUTIONS = [
             ("Kiedy należy rozpocząć procedurę?", "Co do zasady przed rozpoczęciem przedsięwzięcia. Moment zawarcia umowy, złożenia zamówienia lub rozpoczęcia prac może mieć znaczenie, dlatego harmonogram trzeba zweryfikować przed podjęciem zobowiązań."),
             ("Czy każda modernizacja ograniczająca energię kwalifikuje się do systemu?", "Nie. Projekt musi spełniać warunki wynikające z przepisów i aktualnych zasad systemu, a oszczędność powinna być potwierdzona audytem. Wstępna kwalifikacja pozwala ocenić to przed przygotowaniem pełnej dokumentacji."),
             ("Czy program chemiczny lub modernizacja instalacji wodnej może być podstawą wniosku?", "Może, jeżeli planowane działanie prowadzi do mierzalnej oszczędności energii finalnej i spełnia warunki systemu. Każdy przypadek wymaga osobnej oceny zakresu, punktu odniesienia i sposobu potwierdzenia efektu."),
-            ("Czy Kabi-Chemie gwarantuje wydanie świadectwa?", "Nie. O wydaniu świadectwa decyduje Prezes URE. Naszą rolą jest rzetelna kwalifikacja techniczna, przygotowanie obliczeń i dokumentacji oraz wsparcie klienta w przebiegu postępowania."),
+            ("Czy KABI CHEMIE gwarantuje wydanie świadectwa?", "Nie. O wydaniu świadectwa decyduje Prezes URE. Naszą rolą jest rzetelna kwalifikacja techniczna, przygotowanie obliczeń i dokumentacji oraz wsparcie klienta w przebiegu postępowania."),
         ],
         "cta_kicker": "Zanim rozpoczną się prace",
         "cta_title": "Oceńmy potencjał projektu przed decyzją o inwestycji.",
@@ -1624,7 +1624,7 @@ SOLUTIONS = [
         "slug": "ro",
         "layout": "ro",
         "sequence": ("diagnosis", "data", "method", "results"),
-        "title": "Ochrona membran RO i dobór antyskalantu | Kabi-Chemie",
+        "title": "Ochrona membran RO i dobór antyskalantu | KABI CHEMIE",
         "meta": "Ochrona przemysłowych membran RO przed skalowaniem, foulingiem i utlenianiem. Analiza wody, dobór antyskalantu, dozowanie, monitoring i wsparcie CIP.",
         "image": "/assets/visuals-v2/hero-ro-v2.jpg",
         "image_position": "65% center",
@@ -1706,7 +1706,7 @@ SOLUTIONS = [
         "slug": "service",
         "layout": "field",
         "sequence": ("diagnosis", "results", "method", "data"),
-        "title": "Serwis i automatyka uzdatniania wody | Kabi-Chemie",
+        "title": "Serwis i automatyka uzdatniania wody | KABI CHEMIE",
         "meta": "Serwis stacji uzdatniania wody, pomp dozujących, sond i sterowników. Diagnostyka, kalibracja, naprawa, uruchomienie oraz protokół z zaleceniami.",
         "image": "/assets/visuals-v2/hero-service-v2.jpg",
         "image_position": "68% center",
@@ -1788,7 +1788,7 @@ SOLUTIONS = [
         "slug": "descaling",
         "layout": "evidence",
         "sequence": ("method", "diagnosis", "results", "data"),
-        "title": "Odkamienianie instalacji przemysłowych | Kabi-Chemie",
+        "title": "Odkamienianie instalacji przemysłowych | KABI CHEMIE",
         "meta": "Kontrolowane odkamienianie wymienników, rurociągów i obiegów przemysłowych. Rozpoznanie osadu, dobór procesu, płukanie, neutralizacja i zalecenia eksploatacyjne.",
         "image": "/assets/visuals-v2/hero-descaling-v2.jpg",
         "image_position": "center center",
@@ -1871,7 +1871,7 @@ SOLUTIONS = [
         "style": "boilers",
         "layout": "editorial",
         "sequence": ("diagnosis", "results", "method", "data"),
-        "title": "Ochrona antykorozyjna instalacji przemysłowych | Kabi-Chemie",
+        "title": "Ochrona antykorozyjna instalacji przemysłowych | KABI CHEMIE",
         "meta": "Programy ochrony antykorozyjnej dla instalacji przemysłowych. Diagnoza mechanizmu korozji, inhibitory, pasywacja, kontrola wody i monitoring efektów.",
         "image": "/assets/visuals-v2/hero-corrosion-v2.jpg",
         "image_position": "center center",
@@ -1962,7 +1962,7 @@ SOLUTIONS = [
         "style": "boilers",
         "layout": "editorial",
         "sequence": ("diagnosis", "results", "method", "data"),
-        "title": "Analiza wody przemysłowej | Kabi-Chemie",
+        "title": "Analiza wody przemysłowej | KABI CHEMIE",
         "meta": "Analiza wody kotłowej, chłodniczej i technologicznej. Pomiar parametrów, interpretacja wyników oraz raport z rekomendacją dalszych działań.",
         "image": "/assets/impact/impact-02-effluent-control.jpeg",
         "image_position": "center center",
@@ -2053,79 +2053,83 @@ SOLUTIONS = [
         "style": "boilers",
         "layout": "editorial",
         "sequence": ("diagnosis", "method", "results", "data"),
-        "title": "Kondycjonowanie wody w autoklawach i pasteryzatorach | Kabi-Chemie",
-        "meta": "Ochrona obiegów wodnych autoklawów i pasteryzatorów przed kamieniem i korozją. Analiza wody, dozowanie, monitoring oraz serwis Kabi-Chemie.",
+        "title": "Chemiczne czyszczenie autoklawów i wózków technologicznych | KABI CHEMIE",
+        "meta": "Skuteczne chemiczne czyszczenie autoklawów i wózków technologicznych. Usuwamy przypalenia, tłuszcze i osady technologiczne bez uszkadzania powierzchni.",
         "image": "/assets/visuals-v2/hero-autoclaves-pasteurizers-v1.webp",
         "image_position": "center center",
-        "kicker": "Rozwiązania / Autoklawy i pasteryzatory",
-        "h1_html": "Autoklawy i pasteryzatory.",
-        "lead": "Stabilizujemy wymianę ciepła, chroniąc obiegi wodne przed kamieniem, korozją i niekontrolowanym zużyciem preparatu.",
-        "primary_label": "Sprawdź obieg wodny",
+        "kicker": "Rozwiązania / Czyszczenie autoklawów i wózków",
+        "h1_html": "Chemiczne czyszczenie autoklawów i wózków technologicznych.",
+        "lead": "Skuteczne usuwanie przypaleń, tłuszczów i osadów technologicznych bez uszkadzania powierzchni.",
+        "primary_label": "Umów bezpłatną konsultację",
         "primary_href": "/bezplatna-konsultacja/",
-        "secondary_label": "Zleć analizę wody",
-        "secondary_href": "/uslugi/analiza-wody/",
+        "secondary_label": "Zobacz proces",
+        "secondary_href": "#proces",
         "signals": [],
-        "issues_kicker": "Diagnoza instalacji",
-        "issues_title": "Osad i korozja zmieniają czas cyklu.",
-        "issues_intro": "Sprawdzamy obieg w płaszczu urządzenia, instalację zasilającą i chłodzącą oraz sposób dozowania. Dzięki temu oddzielamy problem wody od problemu samego procesu technologicznego.",
+        "issues_kicker": "Diagnoza",
+        "issues_title": "Czy te problemy występują również w Twoim zakładzie?",
+        "issues_intro": "Autoklawy oraz wózki technologiczne pracują w wyjątkowo wymagających warunkach. Wysoka temperatura, tłuszcze, białka oraz pozostałości procesowe powodują powstawanie trudnych do usunięcia osadów, które pogarszają higienę, wydłużają proces mycia i mogą negatywnie wpływać na bezpieczeństwo produkcji.",
         "issues": [
-            ("Kamień na powierzchniach wymiany ciepła", "Osad ogranicza przekazywanie energii. Grzanie lub chłodzenie może trwać dłużej, mimo że urządzenie pracuje z tymi samymi nastawami.", "Powtarzalność"),
-            ("Zmienna jakość wody uzupełniającej", "Twardość, zasolenie i pH zmieniają ryzyko wytrącania osadu oraz wpływają na stabilność programu chemicznego.", "Parametry wody"),
-            ("Korozja płaszcza i rurociągów", "Tlen, chlorki i niewłaściwy odczyn przyspieszają zużycie elementów obiegu oraz zwiększają ryzyko nieszczelności.", "Trwałość"),
-            ("Dozowanie bez kontroli obciążenia", "Stała dawka nie zawsze odpowiada liczbie cykli, uzupełnieniom i zrzutom wody. To utrudnia kontrolę zużycia preparatu.", "Koszt mediów"),
+            ("Trudne do usunięcia przypalenia", "Osady powstające podczas sterylizacji są odporne na standardowe mycie i z czasem narastają.", "Przypalenia"),
+            ("Tłuszcze i białka", "Nagromadzone zanieczyszczenia pogarszają higienę procesu oraz utrudniają utrzymanie urządzeń w czystości.", "Higiena"),
+            ("Osady technologiczne", "Wieloletnie zabrudzenia ograniczają estetykę oraz mogą wpływać na komfort pracy personelu.", "Eksploatacja"),
+            ("Wydłużony czas mycia", "Ręczne usuwanie zabrudzeń jest czasochłonne i generuje dodatkowe koszty.", "Czas i koszt"),
+            ("Konieczność wymiany wyposażenia", "Silnie zabrudzone wózki często kwalifikowane są do wymiany, mimo że mogą zostać skutecznie odnowione.", "Trwałość"),
         ],
-        "process_kicker": "Program dla obiegu wodnego",
-        "process_title": '<span class="solution-title-line">Od danych urządzenia</span><span class="solution-title-line">do stabilnych parametrów.</span>',
-        "process_intro": "Zakres dobieramy do konstrukcji urządzenia i sposobu pracy zakładu. Każdy etap kończy się konkretną decyzją techniczną.",
-        "process_entry": "Schemat obiegu, próbka wody i dane cyklu",
-        "process_exit": "Nastawy, monitoring i plan kontroli",
-        "process_stages": ["Rozpoznajemy", "Mierzymy", "Dobieramy", "Prowadzimy"],
-        "process_results": ["Zakres instalacji", "Punkt odniesienia", "Program i nastawy", "Raport i korekta"],
+        "process_kicker": "Dlaczego KABI CHEMIE",
+        "process_title": '<span class="solution-title-line">Dlaczego nasze rozwiązanie</span><span class="solution-title-line">działa skuteczniej?</span>',
+        "process_intro": "Technologia KABI CHEMIE została opracowana z myślą o skutecznym chemicznym usuwaniu nawet wieloletnich zanieczyszczeń oraz przywracaniu pełnej funkcjonalności urządzeń. Stosujemy specjalistyczne preparaty i opracowaną procedurę czyszczenia, która rozpuszcza przypalenia, tłuszcze i osady technologiczne bez agresywnego czyszczenia mechanicznego.",
+        "process_entry": "Ocena stopnia i rodzaju zabrudzenia",
+        "process_exit": "Przywrócona czystość i funkcjonalność",
+        "process_stages": ["Oceniamy", "Dobieramy", "Namaczamy", "Usuwamy", "Kontrolujemy"],
+        "process_results": ["Zakres prac", "Program czyszczenia", "Rozpuszczony osad", "Czysta powierzchnia", "Potwierdzony efekt"],
         "process": [
-            ("Bilans obiegu", "Ustalamy źródło wody, materiały, objętość, temperatury, liczbę cykli, uzupełnienia oraz miejsca zrzutu."),
-            ("Analiza wody i osadu", "Badamy parametry związane z kamieniem i korozją, a wyniki porównujemy ze stanem powierzchni oraz historią pracy."),
-            ("Program chemiczny i dozowanie", "Dobieramy funkcje preparatu KCAQUA, dawkę, punkt podania i sposób sterowania odpowiedni dla obciążenia urządzenia."),
-            ("Monitoring efektu", "Śledzimy parametry, zużycie mediów i obserwacje eksploatacyjne. Nastawy korygujemy na podstawie trendu, nie pojedynczego wyniku."),
+            ("Audyt i ocena zabrudzeń", "Oceniamy stopień oraz rodzaj zabrudzenia powierzchni i ustalamy zakres prac."),
+            ("Dobór programu chemicznego", "Dobieramy odpowiednie preparaty i parametry procesu do rodzaju osadu."),
+            ("Chemiczne namaczanie", "Kontrolowane namaczanie rozpuszcza przypalenia, tłuszcze i osady technologiczne."),
+            ("Usuwanie rozpuszczonych osadów", "Usuwamy rozpuszczone zanieczyszczenia z powierzchni urządzeń i wózków."),
+            ("Kontrola efektów końcowych", "Oceniamy efekt końcowy i potwierdzamy przywrócenie czystości urządzeń."),
         ],
-        "outcomes_kicker": "Efekt dla produkcji",
-        "outcomes_title": "Stabilniejszy proces, mniej interwencji.",
-        "outcomes_intro": "Prawidłowo prowadzony obieg wodny wspiera powtarzalność cykli i ogranicza obciążenie utrzymania ruchu.",
+        "outcomes_kicker": "Korzyści biznesowe",
+        "outcomes_title": "Co zyskuje Twój zakład?",
+        "outcomes_intro": "Regeneracja i utrzymanie czystości wyposażenia przekłada się na wymierne korzyści eksploatacyjne.",
         "outcomes_href": "/bezplatna-konsultacja/",
-        "outcomes_link": "Sprawdź potencjał swojej instalacji",
+        "outcomes_link": "Umów bezpłatną konsultację",
         "outcomes": [
-            ("Powtarzalne grzanie i chłodzenie", "Czyste powierzchnie wymiany ciepła pomagają utrzymać przewidywalny przebieg kolejnych cykli."),
-            ("Mniejsze zużycie energii", "Ograniczenie warstwy osadu poprawia warunki przekazywania ciepła między obiegiem a urządzeniem."),
-            ("Lepsza ochrona instalacji", "Kontrola pH, zasolenia i korozji wspiera trwałość płaszcza, wymienników oraz rurociągów."),
-            ("Czytelne zasady obsługi", "Ustalone punkty pomiarowe, wartości docelowe i reakcje na odchylenia porządkują codzienną kontrolę."),
+            ("Przywrócenie czystości urządzeń", "Usunięcie nawet wieloletnich osadów technologicznych."),
+            ("Wydłużenie żywotności wyposażenia", "Możliwość dalszego użytkowania wózków zamiast ich wymiany."),
+            ("Krótszy czas codziennego mycia", "Czyste powierzchnie znacznie łatwiej utrzymać w odpowiednim stanie."),
+            ("Wyższy poziom higieny", "Dokładniejsze usunięcie zanieczyszczeń ogranicza ryzyko ich ponownego narastania."),
+            ("Niższe koszty eksploatacji", "Regeneracja wyposażenia jest znacznie tańsza niż zakup nowych elementów."),
         ],
-        "data_kicker": "Zakres audytu",
-        "data_title": "Dane, które opisują rzeczywistą pracę obiegu.",
-        "data_intro": "Na pierwszą rozmowę wystarczy podstawowy opis urządzenia. Brakujące pomiary i dokumentację porządkujemy wspólnie.",
+        "data_kicker": "Efekty",
+        "data_title": "Co skutecznie usuwamy?",
+        "data_intro": "Na podstawie realizowanych procesów skutecznie usuwamy najczęstsze i najtrudniejsze zanieczyszczenia technologiczne.",
         "data_rows": [
-            ("Woda i materiały", "Źródło wody, twardość, pH, przewodność, chlorki oraz materiały płaszcza, wymiennika i rurociągów."),
-            ("Temperatura i czas", "Temperatury grzania i chłodzenia, czas cyklu, liczba cykli oraz zmienność obciążenia w ciągu doby."),
-            ("Przepływ i uzupełnienia", "Objętość obiegu, ilość wody uzupełniającej, zrzuty, przepływy i sposób odbioru ciepła."),
-            ("Dozowanie i kontrola", "Pompy, punkty podania, stężenie preparatu, miejsca poboru prób oraz obecny rytm pomiarów."),
+            ("Przypalenia", "Zwęglone pozostałości powstające podczas sterylizacji i obróbki termicznej."),
+            ("Tłuszcze", "Nagromadzone tłuszcze utrudniające utrzymanie higieny powierzchni."),
+            ("Osady białkowe", "Przywierające pozostałości białkowe z procesów technologicznych."),
+            ("Osady technologiczne", "Trwałe naloty eksploatacyjne na wózkach i w komorach urządzeń."),
+            ("Wieloletnie zabrudzenia", "Zastarzałe zabrudzenia eksploatacyjne, których nie usuwa standardowe mycie."),
         ],
-        "data_icons": ["circuit", "calendar", "gauge", "dosing"],
+        "data_icons": ["diagnose", "dosing", "bio", "crystal", "priority"],
         "related": [
             ("Usługa", "Analiza wody przemysłowej", "/uslugi/analiza-wody/"),
             ("Technologia", "Program KCAQUA", "/kotly-parowe/kondycjonowanie-wody-kotlowej/"),
             ("Wsparcie", "Serwis i automatyka", "/uslugi/serwis-urzadzen/"),
         ],
-        "faq_title": "Pytania o wodę w autoklawach i pasteryzatorach.",
-        "faq_intro": "Konkretnie o zakresie programu, pomiarach, postoju i odpowiedzialności za proces.",
+        "faq_title": "Pytania o czyszczenie autoklawów i wózków technologicznych.",
+        "faq_intro": "Konkretnie o zakresie prac, preparatach, bezpieczeństwie powierzchni i przebiegu usługi.",
         "faq": [
-            ("Jaki obszar instalacji obejmuje program Kabi-Chemie?", "Zajmujemy się obiegiem wodnym współpracującym z autoklawem lub pasteryzatorem: wodą uzupełniającą, płaszczem, wymiennikiem, rurociągami, dozowaniem i kontrolą parametrów. Zakres potwierdzamy po poznaniu schematu urządzenia."),
-            ("Czy program wygląda tak samo dla autoklawu i pasteryzatora?", "Nie. Dobór zależy od materiałów, temperatur, sposobu grzania i chłodzenia, pojemności obiegu, liczby cykli oraz jakości wody. Dlatego zaczynamy od danych urządzenia i analizy próbki."),
-            ("Czy Kabi-Chemie odpowiada za walidację procesu termicznego?", "Nie. Odpowiadamy za kondycjonowanie i kontrolę obiegu wodnego. Parametry technologiczne produktu, walidacja procesu i wymagania jakościowe pozostają po stronie producenta urządzenia oraz zakładu."),
-            ("Czy wdrożenie wymaga zatrzymania produkcji?", "Audyt, pobór próbek i uruchomienie dozowania zwykle można zaplanować bez długiego postoju. Jeżeli potrzebne jest czyszczenie chemiczne, zakres i termin ustalamy osobno z utrzymaniem ruchu."),
-            ("Jakie dane przygotować przed pierwszą rozmową?", "Wystarczy typ i model urządzenia, schemat obiegu, źródło wody, temperatury, liczba cykli oraz opis objawu. Jeżeli masz wyniki badań, zdjęcia osadu lub dane o dozowaniu, przyspieszą wstępną ocenę."),
+            ("Czy czyszczenie chemiczne uszkadza powierzchnie urządzeń?", "Nie. Dobieramy preparaty i parametry procesu do rodzaju osadu oraz materiału powierzchni. Zanieczyszczenia rozpuszczamy chemicznie, bez agresywnego czyszczenia mechanicznego."),
+            ("Jakie zabrudzenia usuwacie najczęściej?", "Przypalenia po sterylizacji, tłuszcze, osady białkowe oraz trwałe naloty technologiczne. Skutecznie usuwamy również wieloletnie zabrudzenia, których nie usuwa standardowe mycie."),
+            ("Czy da się odnowić silnie zabrudzone wózki zamiast ich wymiany?", "W wielu przypadkach tak. Regeneracja przywraca czystość i funkcjonalność wyposażenia, a jej koszt jest zwykle znacznie niższy niż zakup nowych elementów."),
+            ("Jak wygląda przebieg usługi?", "Zaczynamy od audytu i oceny zabrudzeń, dobieramy program chemiczny, prowadzimy namaczanie i usuwanie osadów, a na końcu kontrolujemy efekt i potwierdzamy przywrócenie czystości."),
+            ("Co przygotować przed pierwszą rozmową?", "Wystarczy typ urządzenia, rodzaj zabrudzenia i krótki opis problemu. Jeżeli masz zdjęcia powierzchni, przyspieszą wstępną ocenę zakresu prac."),
         ],
         "cta_kicker": "Pierwszy krok",
-        "cta_title": "Sprawdźmy obieg wodny Twojego urządzenia.",
-        "cta_text": "Prześlij model urządzenia, podstawowe parametry i opis problemu. Inżynier wskaże potrzebne pomiary oraz rozsądny kolejny krok.",
-        "cta_primary_label": "Umów konsultację techniczną",
+        "cta_title": "Przywróć pełną czystość autoklawów i wózków technologicznych.",
+        "cta_text": "Sprawdź, jak skutecznie można usunąć wieloletnie osady i ograniczyć koszty związane z utrzymaniem wyposażenia.",
+        "cta_primary_label": "Umów bezpłatną konsultację",
         "cta_primary_href": "/bezplatna-konsultacja/",
     },
 ]
