@@ -1,0 +1,1623 @@
+{
+  "articles": [
+    {
+      "audience": "Utrzymanie ruchu i decyzje techniczne.",
+      "category": "kotly-parowe",
+      "excerpt": "mechanizm powstawania kamienia i jego wpływ na koszty pracy kotła.",
+      "faq": [
+        {
+          "a": "Zależy od jakości wody, obciążenia i historii osadów. Przy prawidłowym kondycjonowaniu potrzeba czyszczeń wyraźnie maleje.",
+          "q": "Jak często należy odkamieniać kocioł?"
+        },
+        {
+          "a": "Tak, samo kondycjonowanie prowadzimy w trakcie pracy. Odkamienianie planujemy zależnie od stanu układu.",
+          "q": "Czy można kondycjonować wodę bez wyłączania kotła?"
+        },
+        {
+          "a": "Typowe objawy to rosnące zużycie paliwa, gorsza wymiana ciepła, częstsze alarmy, osady w wodzie i problemy z utrzymaniem stabilnych parametrów.",
+          "q": "Po czym poznać, że w kotle narasta kamień?"
+        },
+        {
+          "a": "Tak. Nawet cienka warstwa osadu działa jak izolacja cieplna. Kocioł musi zużyć więcej paliwa, aby przekazać tę samą ilość energii do wody.",
+          "q": "Czy 1 mm kamienia naprawdę ma znaczenie?"
+        },
+        {
+          "a": "Po odkamienianiu warto wdrożyć stałą kontrolę twardości, przewodności i pH oraz dobrać program KCAQUA do pracy konkretnej kotłowni.",
+          "q": "Jak zapobiec powrotowi kamienia po czyszczeniu?"
+        }
+      ],
+      "feature_stats": [
+        {
+          "label": "więcej paliwa już przy 1 mm kamienia",
+          "value": "+10%"
+        },
+        {
+          "label": "dłuższy cykl między czyszczeniami (Fako)",
+          "value": "3 → 12 mies."
+        }
+      ],
+      "image": "/assets/blog/blog-boiler-scale.png",
+      "lead": "Kamień kotłowy to osad soli twardości na gorących powierzchniach kotła. Działa jak izolator, podnosi zużycie paliwa i grozi przegrzaniem rur.",
+      "list_title": "Kamień kotłowy: jak cienki osad podnosi koszty pracy kotła.",
+      "prose": "<h2>Jak powstaje kamień kotłowy?</h2><p>Podgrzewana woda traci zdolność utrzymania rozpuszczonych soli wapnia i magnezu. Wytrącają się one na najgorętszych powierzchniach, tworząc twardą skorupę.</p><h2>Jak kamień wpływa na rachunki za paliwo?</h2><p>Już <strong>1 mm kamienia</strong> może zwiększyć zużycie paliwa o około 10%, bo ciepło trudniej przenika do wody.</p><h2>Jak usunąć kamień kotłowy?</h2><ul><li>Chemiczne odkamienianie dobranym preparatem</li><li>Płukanie i pasywacja powierzchni</li><li>Wdrożenie kondycjonowania, by kamień nie wracał</li></ul><p class=\"note\">Information gain: w realizacji Fako po wdrożeniu programu KCAQUA cykl czyszczenia wydłużył się z 3 do 12 miesięcy (dane przykładowe).</p>",
+      "read": "8 min",
+      "related": [
+        {
+          "kicker": "Rozwiązania",
+          "title": "Odkamienianie kotłów parowych",
+          "url": "/kotly-parowe/odkamienianie/"
+        },
+        {
+          "kicker": "Rozwiązania",
+          "title": "Kondycjonowanie wody kotłowej",
+          "url": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"
+        },
+        {
+          "kicker": "Case study",
+          "title": "Kocioł parowy Fako",
+          "url": "/case-study/kociol-parowy-fako/"
+        }
+      ],
+      "short": "Kamień kotłowy",
+      "slug": "kamien-kotlowy",
+      "title": "Co to jest kamień kotłowy i dlaczego niszczy kotły parowe?",
+      "topic": "Kotły parowe"
+    },
+    {
+      "audience": "Utrzymanie ruchu i chłodnictwo przemysłowe.",
+      "category": "wieze-chlodnicze",
+      "excerpt": "jak rozpoznać problem, zanim spadnie sprawność skraplacza.",
+      "faq": [
+        {
+          "a": "Podstawą jest kontrola biofilmu, właściwy biocyd, regularny monitoring wody i utrzymanie czystości powierzchni kontaktu z wodą.",
+          "q": "Jak chronić wieżę przed Legionellą?"
+        },
+        {
+          "a": "Nie zawsze. Biofilm może chronić mikroorganizmy przed chemią, dlatego często potrzebna jest korekta programu, czyszczenie i kontrola parametrów obiegu.",
+          "q": "Czy sam biocyd wystarczy do usunięcia biofilmu?"
+        },
+        {
+          "a": "Najczęściej widać spadek wydajności chłodzenia, śliski osad, wzrost zużycia wody, nieprzyjemny zapach i większą podatność instalacji na korozję.",
+          "q": "Jakie objawy wskazują na biofilm w układzie chłodniczym?"
+        },
+        {
+          "a": "Tak. Warstwa biologiczna pogarsza wymianę ciepła, więc układ musi pracować ciężej, aby utrzymać wymaganą temperaturę procesu.",
+          "q": "Czy biofilm wpływa na koszty energii?"
+        },
+        {
+          "a": "Częstotliwość zależy od obciążenia i jakości wody. W praktyce warto kontrolować przewodność, pH, biologię i skuteczność programu chemicznego w stałym harmonogramie.",
+          "q": "Jak często trzeba kontrolować wodę w wieży chłodniczej?"
+        }
+      ],
+      "image": "/assets/blog/blog-biofilm-cleaning.png",
+      "lead": "Biofilm to warstwa mikroorganizmów na powierzchniach układu chłodniczego. Pogarsza wymianę ciepła, sprzyja korozji i bywa siedliskiem bakterii.",
+      "list_title": "Biofilm w układzie chłodniczym: jak rozpoznać i usunąć osady.",
+      "prose": "<h2>Dlaczego biofilm jest groźny?</h2><p>Biofilm izoluje powierzchnie wymiany ciepła i chroni mikroorganizmy przed działaniem chemii. Może też sprzyjać rozwojowi bakterii Legionella.</p><h2>Jak usunąć i kontrolować biofilm?</h2><ul><li>Dozowanie biocydów (np. w ramach programu KCAQUA 305)</li><li>Kontrola parametrów obiegu i przewodności</li><li>Okresowe czyszczenie układu</li></ul>",
+      "read": "7 min",
+      "related": [
+        {
+          "kicker": "Rozwiązania",
+          "title": "Ochrona wież chłodniczych",
+          "url": "/uklady-chlodnicze/ochrona-wiez-chlodniczych/"
+        },
+        {
+          "kicker": "Rozwiązania",
+          "title": "Odkamienianie układów chłodniczych",
+          "url": "/uklady-chlodnicze/odkamienianie/"
+        },
+        {
+          "kicker": "Case study",
+          "title": "Skraplacz BAC + KCAQUA 305",
+          "url": "/case-study/skraplacz-bac-kcaqua/"
+        }
+      ],
+      "short": "Biofilm w układzie chłodniczym",
+      "slug": "biofilm-w-ukladzie-chlodniczym",
+      "title": "Biofilm w układzie chłodniczym: jak rozpoznać i usunąć osady?",
+      "topic": "Chłodnictwo przemysłowe"
+    },
+    {
+      "audience": "Operatorzy stacji RO i utrzymanie ruchu.",
+      "category": "membrany-ro",
+      "excerpt": "kiedy realnie chroni membranę, a kiedy maskuje problem z jakością wody.",
+      "faq": [
+        {
+          "a": "Na podstawie analizy wody surowej, odzysku instalacji RO i parametrów pracy membran. Najlepiej zacząć od badania wody.",
+          "q": "Jak dobrać antyskalant do mojej wody?"
+        },
+        {
+          "a": "Sygnałem jest spadek wydajności, wzrost różnicy ciśnień, pogorszenie jakości permeatu i częstsza potrzeba płukania chemicznego.",
+          "q": "Po czym poznać, że membrany RO są zagrożone osadem?"
+        },
+        {
+          "a": "Nie. Antyskalant chroni przed wytrącaniem soli, ale filtracja, kontrola żelaza, chloru i zawiesiny nadal są kluczowe dla żywotności membran.",
+          "q": "Czy antyskalant zastępuje prawidłową filtrację wstępną?"
+        },
+        {
+          "a": "Dawkę warto weryfikować przy zmianie jakości wody, odzysku, przepływu lub ciśnienia. Stała kontrola ogranicza ryzyko przewymiarowania i niedozowania.",
+          "q": "Jak często trzeba kontrolować dawkę antyskalantu?"
+        },
+        {
+          "a": "Tak. Analizujemy wodę, parametry pracy i historię awarii. Na tej podstawie dobieramy antyskalant oraz zalecenia dla obsługi stacji.",
+          "q": "Czy pomagacie dobrać chemię do istniejącej stacji RO?"
+        }
+      ],
+      "image": "/assets/blog/blog-ro-antiscalant.png",
+      "lead": "Antyskalant to preparat zapobiegający wytrącaniu soli na membranach odwróconej osmozy. Chroni membrany przed kamieniem i wydłuża ich żywotność.",
+      "list_title": "Antyskalant RO: kiedy naprawdę chroni membranę.",
+      "prose": "<h2>Jak działa antyskalant?</h2><p>Antyskalant utrzymuje sole twardości w roztworze, zapobiegając ich krystalizacji na powierzchni membrany i spadkowi wydajności stacji RO.</p><h2>Dlaczego chlor i chlorki są groźne dla membran?</h2><p>Degradują strukturę membrany. Dlatego ważna jest ich kontrola, nasz preparat potrafi wiązać te gazy.</p>",
+      "read": "6 min",
+      "related": [
+        {
+          "kicker": "Rozwiązania",
+          "title": "Membrany RO",
+          "url": "/membrany-ro/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        }
+      ],
+      "short": "Antyskalant do membran RO",
+      "slug": "antyskalant-ro",
+      "title": "Antyskalant do membran RO: kiedy naprawdę chroni membranę?",
+      "topic": "Membrany RO"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Odsalanie kotła: jak ustawić cykle koncentracji. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-kotly-parowe.jpg",
+      "lead": "Artykuł testowy 01 (Kotły parowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Odsalanie kotła: jak ustawić cykle koncentracji.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Kotły parowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Odsalanie kotła: jak ustawić cykle koncentracji.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 01",
+      "slug": "artykul-testowy-01",
+      "title": "Odsalanie kotła: jak ustawić cykle koncentracji.",
+      "topic": "Kotły parowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Odmulanie i odszlamianie: praktyczny harmonogram. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-kotly-parowe.jpg",
+      "lead": "Artykuł testowy 02 (Kotły parowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Odmulanie i odszlamianie: praktyczny harmonogram.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Kotły parowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Odmulanie i odszlamianie: praktyczny harmonogram.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 02",
+      "slug": "artykul-testowy-02",
+      "title": "Odmulanie i odszlamianie: praktyczny harmonogram.",
+      "topic": "Kotły parowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Korozja kondensatu i aminy neutralizujące. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-kotly-parowe.jpg",
+      "lead": "Artykuł testowy 03 (Kotły parowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Korozja kondensatu i aminy neutralizujące.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Kotły parowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Korozja kondensatu i aminy neutralizujące.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 03",
+      "slug": "artykul-testowy-03",
+      "title": "Korozja kondensatu i aminy neutralizujące.",
+      "topic": "Kotły parowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Tlen w wodzie zasilającej i odgazowanie termiczne. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-kotly-parowe.jpg",
+      "lead": "Artykuł testowy 04 (Kotły parowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Tlen w wodzie zasilającej i odgazowanie termiczne.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Kotły parowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Tlen w wodzie zasilającej i odgazowanie termiczne.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 04",
+      "slug": "artykul-testowy-04",
+      "title": "Tlen w wodzie zasilającej i odgazowanie termiczne.",
+      "topic": "Kotły parowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Cykle zagęszczania w wieży chłodniczej. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-wieze-chlodnicze.jpg",
+      "lead": "Artykuł testowy 05 (Chłodnictwo przemysłowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Cykle zagęszczania w wieży chłodniczej.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Chłodnictwo przemysłowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Cykle zagęszczania w wieży chłodniczej.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 05",
+      "slug": "artykul-testowy-05",
+      "title": "Cykle zagęszczania w wieży chłodniczej.",
+      "topic": "Chłodnictwo przemysłowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Legionella w obiegu: kontrola i dezynfekcja. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-wieze-chlodnicze.jpg",
+      "lead": "Artykuł testowy 06 (Chłodnictwo przemysłowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Legionella w obiegu: kontrola i dezynfekcja.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Chłodnictwo przemysłowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Legionella w obiegu: kontrola i dezynfekcja.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 06",
+      "slug": "artykul-testowy-06",
+      "title": "Legionella w obiegu: kontrola i dezynfekcja.",
+      "topic": "Chłodnictwo przemysłowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Biocydy utleniające i nieutleniające. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-wieze-chlodnicze.jpg",
+      "lead": "Artykuł testowy 07 (Chłodnictwo przemysłowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Biocydy utleniające i nieutleniające.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Chłodnictwo przemysłowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Biocydy utleniające i nieutleniające.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 07",
+      "slug": "artykul-testowy-07",
+      "title": "Biocydy utleniające i nieutleniające.",
+      "topic": "Chłodnictwo przemysłowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Biała rdza na ocynku skraplacza wyparnego. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-wieze-chlodnicze.jpg",
+      "lead": "Artykuł testowy 08 (Chłodnictwo przemysłowe). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Biała rdza na ocynku skraplacza wyparnego.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Chłodnictwo przemysłowe”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Biała rdza na ocynku skraplacza wyparnego.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 08",
+      "slug": "artykul-testowy-08",
+      "title": "Biała rdza na ocynku skraplacza wyparnego.",
+      "topic": "Chłodnictwo przemysłowe"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Fouling organiczny membran i płukanie CIP. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-membrany-ro-v2.webp",
+      "lead": "Artykuł testowy 09 (Membrany RO). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Fouling organiczny membran i płukanie CIP.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Membrany RO”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Fouling organiczny membran i płukanie CIP.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 09",
+      "slug": "artykul-testowy-09",
+      "title": "Fouling organiczny membran i płukanie CIP.",
+      "topic": "Membrany RO"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Indeks SDI a praca stacji RO. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-membrany-ro-v2.webp",
+      "lead": "Artykuł testowy 10 (Membrany RO). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Indeks SDI a praca stacji RO.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Membrany RO”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Indeks SDI a praca stacji RO.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 10",
+      "slug": "artykul-testowy-10",
+      "title": "Indeks SDI a praca stacji RO.",
+      "topic": "Membrany RO"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Krzemionka na membranach i granice odzysku. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-membrany-ro-v2.webp",
+      "lead": "Artykuł testowy 11 (Membrany RO). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Krzemionka na membranach i granice odzysku.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Membrany RO”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Krzemionka na membranach i granice odzysku.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 11",
+      "slug": "artykul-testowy-11",
+      "title": "Krzemionka na membranach i granice odzysku.",
+      "topic": "Membrany RO"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Dobór antyskalantu do wody twardej. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-membrany-ro-v2.webp",
+      "lead": "Artykuł testowy 12 (Membrany RO). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Dobór antyskalantu do wody twardej.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Membrany RO”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Dobór antyskalantu do wody twardej.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 12",
+      "slug": "artykul-testowy-12",
+      "title": "Dobór antyskalantu do wody twardej.",
+      "topic": "Membrany RO"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Korozja wżerowa stali w instalacjach. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-korozja.jpg",
+      "lead": "Artykuł testowy 13 (Korozja i ochrona). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Korozja wżerowa stali w instalacjach.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Korozja i ochrona”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Korozja wżerowa stali w instalacjach.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 13",
+      "slug": "artykul-testowy-13",
+      "title": "Korozja wżerowa stali w instalacjach.",
+      "topic": "Korozja i ochrona"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Pasywacja stali po montażu i spawaniu. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-korozja.jpg",
+      "lead": "Artykuł testowy 14 (Korozja i ochrona). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Pasywacja stali po montażu i spawaniu.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Korozja i ochrona”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Pasywacja stali po montażu i spawaniu.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 14",
+      "slug": "artykul-testowy-14",
+      "title": "Pasywacja stali po montażu i spawaniu.",
+      "topic": "Korozja i ochrona"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Warstwa magnetytu jako ochrona kotła. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-korozja.jpg",
+      "lead": "Artykuł testowy 15 (Korozja i ochrona). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Warstwa magnetytu jako ochrona kotła.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Korozja i ochrona”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Warstwa magnetytu jako ochrona kotła.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 15",
+      "slug": "artykul-testowy-15",
+      "title": "Warstwa magnetytu jako ochrona kotła.",
+      "topic": "Korozja i ochrona"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Inhibitory filmujące a anodowe. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-korozja.jpg",
+      "lead": "Artykuł testowy 16 (Korozja i ochrona). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Inhibitory filmujące a anodowe.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Korozja i ochrona”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Inhibitory filmujące a anodowe.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 16",
+      "slug": "artykul-testowy-16",
+      "title": "Inhibitory filmujące a anodowe.",
+      "topic": "Korozja i ochrona"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Twardość ogólna, węglanowa i niewęglanowa. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-parametry-wody.jpg",
+      "lead": "Artykuł testowy 17 (Parametry wody). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Twardość ogólna, węglanowa i niewęglanowa.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Parametry wody”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Twardość ogólna, węglanowa i niewęglanowa.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 17",
+      "slug": "artykul-testowy-17",
+      "title": "Twardość ogólna, węglanowa i niewęglanowa.",
+      "topic": "Parametry wody"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: Przewodność jako wskaźnik zasolenia wody. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-parametry-wody.jpg",
+      "lead": "Artykuł testowy 18 (Parametry wody). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "Przewodność jako wskaźnik zasolenia wody.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Parametry wody”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>Przewodność jako wskaźnik zasolenia wody.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 18",
+      "slug": "artykul-testowy-18",
+      "title": "Przewodność jako wskaźnik zasolenia wody.",
+      "topic": "Parametry wody"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: pH i zasadowość w wodzie technologicznej. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-parametry-wody.jpg",
+      "lead": "Artykuł testowy 19 (Parametry wody). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "pH i zasadowość w wodzie technologicznej.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Parametry wody”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>pH i zasadowość w wodzie technologicznej.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 19",
+      "slug": "artykul-testowy-19",
+      "title": "pH i zasadowość w wodzie technologicznej.",
+      "topic": "Parametry wody"
+    },
+    {
+      "audience": "Materiał testowy (placeholder).",
+      "faq": [
+        {
+          "a": "To materiał testowy dotyczący tematu: TDS a koszty ścieków i odsalania. Treść jest przykładowa i służy do testów bazy wiedzy.",
+          "q": "Czego dotyczy ten artykuł?"
+        },
+        {
+          "a": "Tak. Umów bezpłatną konsultację z inżynierem KABI CHEMIE, aby omówić swoją instalację.",
+          "q": "Czy mogę uzyskać konsultację techniczną?"
+        }
+      ],
+      "image": "/assets/blog/blog-parametry-wody.jpg",
+      "lead": "Artykuł testowy 20 (Parametry wody). Treść przykładowa (placeholder) do testów listy i wyszukiwarki w bazie wiedzy — do zastąpienia realnym materiałem.",
+      "list_title": "TDS a koszty ścieków i odsalania.",
+      "prose": "<h2>Wprowadzenie</h2><p>To jest artykuł testowy z obszaru „Parametry wody”. Treść ma charakter przykładowy i służy do sprawdzenia układu listy, stron artykułów oraz wyszukiwarki w bazie wiedzy.</p><h2>Zakres</h2><p><strong>TDS a koszty ścieków i odsalania.</strong> Poniższy tekst jest wypełnieniem (placeholder) i należy go zastąpić realną treścią przed publikacją.</p><ul><li>Punkt testowy 1</li><li>Punkt testowy 2</li><li>Punkt testowy 3</li></ul>",
+      "read": "5 min",
+      "related": [
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Więcej artykułów",
+          "url": "/baza-wiedzy/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Konsultacja",
+          "title": "Umów bezpłatną konsultację",
+          "url": "/bezplatna-konsultacja/"
+        }
+      ],
+      "short": "Test 20",
+      "slug": "artykul-testowy-20",
+      "title": "TDS a koszty ścieków i odsalania.",
+      "topic": "Parametry wody"
+    }
+  ],
+  "case_studies": [
+    {
+      "challenge_intro": "W kotłowni nie wystarczyło jednorazowe czyszczenie. Trzeba było jednocześnie obniżyć twardość wody, uporządkować przewodność i wdrożyć dozowanie reagujące na rzeczywistą pracę kotła.",
+      "challenge_title": "Kamień nie był osobnym problemem. Był widocznym objawem utraty kontroli nad wodą.",
+      "cta_text": "Wystarczy opis problemu i podstawowe dane. Inżynier pomoże zdecydować, czy najpierw potrzebne są pomiary, czyszczenie czy zmiana programu.",
+      "cta_title": "Zacznijmy od tego, co dzieje się w Twojej kotłowni.",
+      "faq": [
+        {
+          "a": "Zakres zależy od stanu instalacji i technologii czyszczenia. Najpierw oceniamy osad, materiał oraz warunki pracy, a dopiero potem ustalamy bezpieczny termin i przebieg prac.",
+          "q": "Czy odkamienianie kotła oznacza długi postój?"
+        },
+        {
+          "a": "Tak, jeśli nie zmieni się jakość wody i sposób prowadzenia kotła. Dlatego czyszczenie łączymy z programem KCAQUA, kontrolą parametrów i monitoringiem dozowania.",
+          "q": "Czy po czyszczeniu kamień może wrócić?"
+        },
+        {
+          "a": "Porównujemy dane z okresu przed i po wdrożeniu, uwzględniając obciążenie kotła, produkcję pary, jakość paliwa oraz zmiany w procesie. Sam spadek rachunku nie wystarcza do rzetelnego wniosku.",
+          "q": "Jak potwierdzacie wpływ na paliwo?"
+        }
+      ],
+      "faq_intro": "Poniżej odpowiadamy konkretnie, bez obietnic, których nie można potwierdzić w danych.",
+      "faq_title": "Pytania, które pojawiają się przy podobnej kotłowni.",
+      "field_intro": "Dla kotłowni nie przygotowujemy jedynie receptury. Ustalamy, co mierzyć, kiedy reagować i jak pokazać wynik technice oraz zarządowi.",
+      "field_notes": [
+        {
+          "text": "Twardość, przewodność, pH i dane eksploatacyjne są mierzone w stałym układzie odniesienia.",
+          "title": "Parametry zamiast domysłów"
+        },
+        {
+          "text": "Dozowanie i odsalanie nie opierają się na jednorazowym ustawieniu, lecz na bieżącej obserwacji.",
+          "title": "Dawka dopasowana do pracy kotła"
+        },
+        {
+          "text": "Porównujemy trend parametrów z paliwem, wodą i wymaganiami utrzymania ruchu.",
+          "title": "Raport gotowy do decyzji"
+        }
+      ],
+      "field_title": "Efekt utrzymuje się wtedy, gdy instalacja ma ustalony rytm kontroli.",
+      "h1": "Fako: <span>mniej paliwa</span> po odzyskaniu wymiany ciepła.",
+      "image": "/assets/visuals-v2/case-fako-v2.jpg",
+      "image_position": "center center",
+      "issues": [
+        {
+          "tag": "Woda zasilająca",
+          "text": "Twardość 8°n sprzyjała szybkiemu narastaniu osadu na powierzchniach grzewczych.",
+          "title": "Twarda woda zasilająca"
+        },
+        {
+          "tag": "Prowadzenie kotła",
+          "text": "Przewodność na poziomie 4200 µS zwiększała ryzyko osadów i utrudniała kontrolę odsalania.",
+          "title": "Zbyt wysoka przewodność"
+        },
+        {
+          "tag": "Dostępność",
+          "text": "Krótkie cykle między czyszczeniami obciążały utrzymanie ruchu i utrudniały planowanie pracy.",
+          "title": "Częste czyszczenie"
+        }
+      ],
+      "kicker": "Case study / Kotłownia parowa",
+      "lead": "Osad i częste czyszczenie ujawniły problem z jakością wody. Odkamieniliśmy kocioł, skorygowaliśmy parametry i uruchomiliśmy KCAQUA 303, aby utrzymać efekt w codziennej pracy.",
+      "metrics": [
+        {
+          "after": "spadek po odzyskaniu wymiany ciepła",
+          "before": "poziom bazowy",
+          "count": 32,
+          "label": "zużycie paliwa",
+          "prefix": "−",
+          "suffix": "%"
+        },
+        {
+          "after": "bezpieczniejszy zakres pracy",
+          "before": "parametr utrudniał prowadzenie kotła",
+          "label": "przewodność wody",
+          "value": "4200 → 2800 µS"
+        },
+        {
+          "after": "dłuższa, stabilniejsza praca",
+          "before": "częste interwencje",
+          "label": "cykl między czyszczeniami",
+          "value": "3 → 12 mies."
+        }
+      ],
+      "overview": [
+        {
+          "label": "Diagnoza",
+          "text": "Twarda woda, przewodność 4200 µS i czyszczenie średnio co 3 miesiące."
+        },
+        {
+          "label": "Działanie",
+          "text": "Odkamienianie, korekta parametrów oraz wdrożenie programu KCAQUA 303."
+        },
+        {
+          "label": "Cel",
+          "text": "Ograniczyć straty paliwa i ustabilizować pracę bez skracania ochrony kotła."
+        }
+      ],
+      "path": "/case-study/kociol-parowy-fako/",
+      "process": [
+        {
+          "text": "Sprawdziliśmy twardość, przewodność, pH oraz stan powierzchni grzewczych.",
+          "title": "Analiza wody i oględziny"
+        },
+        {
+          "text": "Dobrany proces rozpuścił osad bez demontażu układu i przywrócił powierzchnię wymiany ciepła.",
+          "title": "Chemiczne odkamienianie"
+        },
+        {
+          "text": "Ustaliliśmy dawkę, kontrolę parametrów i sposób reagowania na odchylenia.",
+          "title": "Uruchomienie KCAQUA 303"
+        },
+        {
+          "text": "Porównujemy parametry wody, zużycie mediów i odstępy między czyszczeniami.",
+          "title": "Monitoring po wdrożeniu"
+        }
+      ],
+      "process_intro": "Każdy etap miał konkretną funkcję: usunąć przyczynę strat, ustawić warunki ochrony i potwierdzić, że parametry pozostają stabilne.",
+      "process_title": "Nie zatrzymaliśmy się na usunięciu osadu.",
+      "related": [
+        {
+          "kicker": "Rozwiązanie",
+          "title": "Kondycjonowanie wody kotłowej",
+          "url": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"
+        },
+        {
+          "kicker": "Usługa",
+          "title": "Odkamienianie kotłów parowych",
+          "url": "/kotly-parowe/odkamienianie/"
+        },
+        {
+          "kicker": "Narzędzie",
+          "title": "Sprawdź potencjał odzyskania kosztów",
+          "url": "/kalkulator-oszczednosci/"
+        }
+      ],
+      "result_kicker": "W przedstawionym przykładzie",
+      "result_label": "zużycia paliwa po odzyskaniu wymiany ciepła",
+      "result_note": "Wynik wymaga zawsze potwierdzenia pomiarami konkretnej instalacji.",
+      "result_value": "−32%",
+      "results_intro": "W poniższym przykładzie widać kierunek zmian po wdrożeniu. Dane są materiałem ilustracyjnym i wymagają autoryzacji klienta przed publikacją jako wynik referencyjny.",
+      "results_note": "Wartości mają charakter przykładowy. Rzeczywisty efekt zależy od paliwa, obciążenia, stanu kotła i jakości wody.",
+      "results_title": "Mniej strat zaczyna się od wartości, które można porównać.",
+      "signals": [
+        "Kocioł parowy Fako",
+        "Odkamienianie chemiczne",
+        "KCAQUA 303 i monitoring"
+      ],
+      "slug": "fako"
+    },
+    {
+      "challenge_intro": "Kamień, korozja i mikrobiologia wpływają na siebie nawzajem. Odpowiedź musiała objąć cały obieg, od jakości wody po automatyczne odsalanie.",
+      "challenge_title": "Układ chłodniczy potrzebował jednego programu, a nie kilku niepołączonych działań.",
+      "cta_text": "Nie musisz mieć pełnej dokumentacji. W rozmowie ustalimy, które parametry pozwolą sensownie ocenić skraplacz.",
+      "cta_title": "Sprawdźmy, gdzie układ chłodniczy traci wodę i wydajność.",
+      "faq": [
+        {
+          "a": "Wszystkie trzy zjawiska wpływają na stan powierzchni i jakość wody. Skuteczny program dobieramy tak, aby ograniczać je równocześnie, bez przenoszenia problemu w inne miejsce obiegu.",
+          "q": "Dlaczego kamień, korozja i mikrobiologia powinny być prowadzone razem?"
+        },
+        {
+          "a": "Tylko wtedy, gdy mieści się w bezpiecznym zakresie dla wody i urządzenia. Najpierw ustalamy limity przewodności oraz ryzyko osadów, a potem stopniowo optymalizujemy pracę układu.",
+          "q": "Czy mniejsze odsalanie zawsze oznacza oszczędność?"
+        },
+        {
+          "a": "Stabilizacja podstawowych parametrów może nastąpić szybko. Rzetelna ocena zużycia wody i pracy chłodzenia wymaga serii danych porównywalnych pod względem obciążenia i warunków pogodowych.",
+          "q": "Kiedy można ocenić wynik programu?"
+        }
+      ],
+      "faq_intro": "Dobre wdrożenie zaczyna się od ustalenia, które dane są potrzebne i w jaki sposób będą oceniane.",
+      "faq_title": "Najważniejsze pytania przed zmianą programu dla skraplacza.",
+      "field_intro": "Program obejmuje chemię, automatyczne dozowanie oraz dane do podejmowania codziennych decyzji o obiegu.",
+      "field_notes": [
+        {
+          "text": "Woda uzupełniająca, obiegowa i odsalanie są analizowane jako jeden układ zależności.",
+          "title": "Jedna mapa parametrów"
+        },
+        {
+          "text": "Sondy i pompy są narzędziem kontroli, a nie dodatkiem działającym bez potwierdzenia pomiaru.",
+          "title": "Automatyka po kalibracji"
+        },
+        {
+          "text": "Efekt weryfikujemy na trendach, nie po pojedynczym dniu o innym obciążeniu lub pogodzie.",
+          "title": "Ocena w czasie"
+        }
+      ],
+      "field_title": "W chłodnictwie wynik nie może zależeć od pamięci operatora.",
+      "h1": "Skraplacz BAC. Mniej wody, stabilna praca.",
+      "image": "/assets/visuals-v2/case-bac-v2.jpg",
+      "image_position": "center center",
+      "issues": [
+        {
+          "tag": "Wydajność",
+          "text": "Nawet cienka warstwa osadu ogranicza chłodzenie i może podnosić temperaturę skraplania.",
+          "title": "Osady na powierzchniach wymiany"
+        },
+        {
+          "tag": "Koszt mediów",
+          "text": "Niewłaściwe odsalanie zwiększa pobór wody i ilość ścieków bez poprawy pracy układu.",
+          "title": "Rosnące zużycie wody"
+        },
+        {
+          "tag": "Powtarzalność",
+          "text": "Oddzielne działania dla chemii i automatyki utrudniają ocenę, co rzeczywiście poprawia pracę skraplacza.",
+          "title": "Brak wspólnej kontroli"
+        }
+      ],
+      "kicker": "Case study / Chłodnictwo przemysłowe",
+      "lead": "Osady ograniczały wymianę ciepła, a zużycie wody uzupełniającej rosło. Program KCAQUA 305 połączył ochronę przed kamieniem, korozją i mikrobiologią z kontrolą odsalania.",
+      "metrics": [
+        {
+          "after": "mniejszy pobór po stabilizacji odsalania",
+          "before": "poziom bazowy",
+          "count": 40,
+          "label": "woda uzupełniająca",
+          "prefix": "−",
+          "suffix": "%"
+        },
+        {
+          "after": "program ochrony i regularne pomiary",
+          "before": "narastająca warstwa",
+          "label": "osady na wymienniku",
+          "value": "Pod kontrolą"
+        },
+        {
+          "after": "powtarzalny zakres parametrów",
+          "before": "wahania wydajności",
+          "label": "praca układu",
+          "value": "Stabilna"
+        }
+      ],
+      "overview": [
+        {
+          "label": "Punkt wyjścia",
+          "text": "Osad na powierzchniach wymiany ciepła i rosnący pobór wody uzupełniającej."
+        },
+        {
+          "label": "Zakres",
+          "text": "Program KCAQUA 305, kalibracja dozowania oraz kontrola przewodności."
+        },
+        {
+          "label": "Cel",
+          "text": "Stabilna praca chłodzenia przy mniejszej liczbie niepotrzebnych zrzutów."
+        }
+      ],
+      "path": "/case-study/skraplacz-bac-kcaqua/",
+      "process": [
+        {
+          "text": "Sprawdziliśmy wodę uzupełniającą, parametry obiegowe, sposób odsalania oraz historię osadów.",
+          "title": "Ocena obiegu"
+        },
+        {
+          "text": "Ustaliliśmy funkcje KCAQUA 305, dawkę i wartości potrzebne do bezpiecznej pracy układu.",
+          "title": "Dobór programu"
+        },
+        {
+          "text": "Zweryfikowaliśmy działanie pomp, sondy przewodności i progów odsalania.",
+          "title": "Kalibracja automatyki"
+        },
+        {
+          "text": "Monitorujemy zmiany parametrów i korygujemy program wraz z obciążeniem skraplacza.",
+          "title": "Nadzór sezonowy"
+        }
+      ],
+      "process_intro": "Program został dopasowany do jakości wody, materiałów instalacji i zmiennego obciążenia chłodzenia.",
+      "process_title": "KCAQUA 305 uporządkowała chemię i decyzje eksploatacyjne.",
+      "related": [
+        {
+          "kicker": "Rozwiązanie",
+          "title": "Skraplacze wyparne bez kamienia i biofilmu",
+          "url": "/uklady-chlodnicze/"
+        },
+        {
+          "kicker": "Usługa",
+          "title": "Ochrona wież chłodniczych",
+          "url": "/uklady-chlodnicze/ochrona-wiez-chlodniczych/"
+        },
+        {
+          "kicker": "Realizacja",
+          "title": "Skraplacz Evapco w przetwórstwie rybnym",
+          "url": "/case-study/skraplacz-evapco-przetworstwo-rybne/"
+        }
+      ],
+      "result_kicker": "W przedstawionym przykładzie",
+      "result_label": "zużycia wody uzupełniającej po uporządkowaniu odsalania",
+      "result_note": "Efekt każdorazowo wymaga odniesienia do jakości wody i obciążenia układu.",
+      "result_value": "−40%",
+      "results_intro": "Przykład pokazuje, jakie zmiany weryfikujemy po wdrożeniu programu. Ostateczne wartości wynikają zawsze z pomiarów konkretnego skraplacza.",
+      "results_note": "Dane liczbowe są przykładowe i przed publikacją wymagają autoryzacji klienta.",
+      "results_title": "Mniej strat wody. Większa kontrola obiegu.",
+      "signals": [
+        "Skraplacz wyparny BAC",
+        "KCAQUA 305",
+        "Dozowanie i przewodność"
+      ],
+      "slug": "bac"
+    },
+    {
+      "challenge_intro": "Nie wystarczyło usunąć widocznego osadu. Trzeba było ocenić materiał, rodzaj kamienia oraz warunki, w których czyszczenie może przebiec bez ryzyka dla instalacji.",
+      "challenge_title": "<span>Ciągłość chłodzenia.</span><span>Bezpieczna decyzja.</span>",
+      "cta_text": "Opisz typ skraplacza, objawy i warunki pracy. Inżynier pomoże określić, od jakich pomiarów oraz oględzin zacząć.",
+      "cta_title": "Sprawdźmy, czy wydajność można odzyskać bez wymiany urządzenia.",
+      "faq": [
+        {
+          "a": "Nie zawsze. Możliwość czyszczenia bez demontażu zależy od budowy instalacji, rodzaju osadu, materiałów i dostępu do obiegu. Każdy przypadek oceniamy przed rozpoczęciem prac.",
+          "q": "Czy czyszczenie chemiczne zawsze wymaga demontażu skraplacza?"
+        },
+        {
+          "a": "Po czyszczeniu dobieramy program kondycjonowania i ustalamy zakres kontroli wody. Dzięki temu ograniczamy warunki, które sprzyjały tworzeniu osadu przed interwencją.",
+          "q": "Jak zabezpieczacie instalację po usunięciu kamienia?"
+        },
+        {
+          "a": "Tak. Zakres i harmonogram ustalamy po ocenie ryzyka oraz dostępnych okien serwisowych. W zakładach o ciągłej produkcji szczególnie ważne jest etapowanie i wcześniejsze przygotowanie procesu.",
+          "q": "Czy można zaplanować prace tak, aby ograniczyć wpływ na produkcję?"
+        }
+      ],
+      "faq_intro": "Bezpieczne czyszczenie wymaga oceny instalacji, a nie tylko wyboru preparatu.",
+      "faq_title": "<span>Przed czyszczeniem.</span><span>Co warto ustalić?</span>",
+      "field_intro": "Wspólnie z zespołem zakładu ustalamy parametry, punkty kontroli i sposoby reagowania, zanim osad znów zacznie ograniczać chłodzenie.",
+      "field_notes": [
+        {
+          "text": "Dobór programu uwzględnia jakość wody uzupełniającej, materiały i warunki pracy skraplacza.",
+          "title": "Woda dopasowana do instalacji"
+        },
+        {
+          "text": "Proces chemiczny poprzedza ocena osadu i ryzyk, a po nim wykonujemy płukanie oraz kontrolę efektu.",
+          "title": "Czyszczenie bez zgadywania"
+        },
+        {
+          "text": "Stały monitoring pozwala korygować program, gdy zmienia się obciążenie lub sezon pracy układu.",
+          "title": "Nadzór w trakcie produkcji"
+        }
+      ],
+      "field_title": "<span>Efekt po czyszczeniu.</span><span>Ochrona na stałe.</span>",
+      "h1": "Evapco. Sprawność bez wymiany urządzenia.",
+      "image": "/assets/visuals-v2/case-evapco-v2.jpg",
+      "image_position": "center center",
+      "issues": [
+        {
+          "tag": "Wymiana ciepła",
+          "text": "Osad ograniczał powierzchnię wymiany ciepła i obniżał skuteczność skraplacza.",
+          "title": "Twardy kamień na wężownicy"
+        },
+        {
+          "tag": "Zużycie energii",
+          "text": "Aby utrzymać temperatury, instalacja pracowała w coraz mniej korzystnym zakresie.",
+          "title": "Rosnące obciążenie układu"
+        },
+        {
+          "tag": "Ciągłość pracy",
+          "text": "Pogorszenie chłodzenia w zakładzie spożywczym zwiększa ryzyko zakłóceń procesu.",
+          "title": "Ryzyko dla produkcji"
+        }
+      ],
+      "kicker": "Case study / Przetwórstwo rybne",
+      "lead": "Twardy kamień na wężownicy ograniczał wymianę ciepła i zwiększał ryzyko zakłóceń produkcji. Przeprowadziliśmy czyszczenie chemiczne bez demontażu, a następnie ustawiliśmy stały program ochrony układu.",
+      "metrics": [
+        {
+          "after": "odsłonięte i przygotowane do pracy",
+          "before": "twardy osad na wężownicy",
+          "label": "powierzchnie wymiany",
+          "value": "Oczyszczone"
+        },
+        {
+          "after": "sprawdzana w warunkach procesu",
+          "before": "ograniczona przez kamień",
+          "label": "wydajność chłodzenia",
+          "value": "Odzyskana"
+        },
+        {
+          "after": "dozowanie i monitoring parametrów",
+          "before": "brak spójnego programu",
+          "label": "ochrona obiegu",
+          "value": "Stała"
+        }
+      ],
+      "overview": [
+        {
+          "label": "Punkt wyjścia",
+          "text": "Twardy osad na wężownicy ograniczał wymianę ciepła w układzie pracującym dla produkcji spożywczej."
+        },
+        {
+          "label": "Zakres",
+          "text": "Oględziny, dobór czyszczenia chemicznego i wdrożenie programu kondycjonowania."
+        },
+        {
+          "label": "Cel",
+          "text": "Przywrócić powierzchnie wymiany ciepła bez niepotrzebnej wymiany urządzenia."
+        }
+      ],
+      "path": "/case-study/skraplacz-evapco-przetworstwo-rybne/",
+      "process": [
+        {
+          "text": "Oceniliśmy stan wężownicy, rodzaj osadu i parametry wody chłodzącej.",
+          "title": "Oględziny i analiza wody"
+        },
+        {
+          "text": "Ustaliliśmy preparat, czas kontaktu oraz sposób płukania odpowiedni dla materiału instalacji.",
+          "title": "Próba i dobór procesu"
+        },
+        {
+          "text": "Proces usunął osad bez demontażu urządzenia i odsłonił powierzchnie wymiany ciepła.",
+          "title": "Czyszczenie chemiczne"
+        },
+        {
+          "text": "Dozowanie i monitoring pomagają ograniczać warunki sprzyjające ponownemu odkładaniu kamienia.",
+          "title": "Program na kolejny okres"
+        }
+      ],
+      "process_intro": "Kolejność działań była ważna: najpierw diagnoza i bezpieczny proces chemiczny, potem sposób, który ogranicza powrót osadu.",
+      "process_title": "<span>Czysta powierzchnia.</span><span>Stała ochrona.</span>",
+      "related": [
+        {
+          "kicker": "Rozwiązanie",
+          "title": "Kondycjonowanie układów chłodniczych",
+          "url": "/uklady-chlodnicze/"
+        },
+        {
+          "kicker": "Usługa",
+          "title": "Odkamienianie układów chłodniczych",
+          "url": "/uklady-chlodnicze/odkamienianie/"
+        },
+        {
+          "kicker": "Branże",
+          "title": "Woda w przemyśle spożywczym",
+          "url": "/branze/"
+        }
+      ],
+      "result_kicker": "Efekt prac",
+      "result_label": "wydajność chłodzenia po usunięciu osadu",
+      "result_note": "Zakres i rezultat czyszczenia zawsze oceniamy względem stanu konkretnej instalacji.",
+      "result_value": "Odzyskana",
+      "results_intro": "Po czyszczeniu weryfikujemy działanie układu, reakcję parametrów wody oraz to, czy program ochrony jest gotowy do pracy w zmiennym obciążeniu produkcji.",
+      "results_note": "Opis przedstawia przebieg prac. Parametry liczbowe publikujemy wyłącznie po potwierdzeniu pomiarami i zgodzie klienta.",
+      "results_title": "Sprawność potwierdzamy pracą układu, nie wyglądem.",
+      "signals": [
+        "Skraplacz Evapco",
+        "Czyszczenie bez demontażu",
+        "Stała ochrona obiegu"
+      ],
+      "slug": "evapco"
+    }
+  ],
+  "categories": [
+    {
+      "facts": [
+        {
+          "label": "Zakres",
+          "value": "Kamień, kondensat, odsalanie i ochrona kotła."
+        },
+        {
+          "label": "Dla kogo",
+          "value": "Kotłownie, utrzymanie ruchu i energetyka zakładowa."
+        },
+        {
+          "label": "Następny krok",
+          "value": "Umów konsultację techniczną."
+        }
+      ],
+      "h1": "Kotły parowe i para wodna - Artykuły eksperckie",
+      "hub_blurb": "kamień, kondensat, odsalanie i ochrona przed korozją.",
+      "image": "/assets/blog/blog-kotly-parowe.jpg",
+      "kicker": "Baza wiedzy · Kotły parowe",
+      "lead": "Wszystko o kondycjonowaniu wody w kotłach parowych, jak zapobiegać awariom, usuwać kamień i oszczędzać paliwo.",
+      "related": [
+        {
+          "kicker": "Rozwiązania",
+          "title": "Kotły parowe",
+          "url": "/kotly-parowe/"
+        },
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Parametry wody",
+          "url": "/baza-wiedzy/parametry-wody/"
+        },
+        {
+          "kicker": "Case study",
+          "title": "Kocioł parowy Fako",
+          "url": "/case-study/kociol-parowy-fako/"
+        }
+      ],
+      "slug": "kotly-parowe",
+      "stream_title": "Kamień, para i stabilna praca kotłowni.",
+      "title": "Kotły parowe i para"
+    },
+    {
+      "facts": [
+        {
+          "label": "Zakres",
+          "value": "Biofilm, biocydy, odkamienianie i zużycie wody."
+        },
+        {
+          "label": "Dla kogo",
+          "value": "Chłodnictwo przemysłowe i utrzymanie ruchu."
+        },
+        {
+          "label": "Następny krok",
+          "value": "Umów konsultację techniczną."
+        }
+      ],
+      "h1": "Wieże chłodnicze i obiegi chłodzące - Baza wiedzy",
+      "hub_blurb": "biofilm, biocydy, odkamienianie i zużycie wody.",
+      "image": "/assets/blog/blog-wieze-chlodnicze.jpg",
+      "kicker": "Baza wiedzy · Wieże chłodnicze",
+      "lead": "Optymalizacja pracy wież chłodniczych i obiegów, biofilm, biocydy i usuwanie kamienia ze skraplaczy.",
+      "related": [
+        {
+          "kicker": "Rozwiązania",
+          "title": "Układy chłodnicze",
+          "url": "/uklady-chlodnicze/"
+        },
+        {
+          "kicker": "Rozwiązania",
+          "title": "Skraplacze amoniakalne",
+          "url": "/uklady-chlodnicze/skraplacze-amoniakalne/"
+        },
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Korozja i ochrona",
+          "url": "/baza-wiedzy/korozja/"
+        }
+      ],
+      "slug": "wieze-chlodnicze",
+      "stream_title": "Czysty obieg i stabilne chłodzenie.",
+      "title": "Wieże chłodnicze i skraplacze"
+    },
+    {
+      "facts": [
+        {
+          "label": "Zakres",
+          "value": "Inhibitory, pasywacja i rodzaje korozji."
+        },
+        {
+          "label": "Dla kogo",
+          "value": "Utrzymanie ruchu i służby techniczne."
+        },
+        {
+          "label": "Następny krok",
+          "value": "Umów konsultację techniczną."
+        }
+      ],
+      "h1": "Korozja w instalacjach przemysłowych - Zapobieganie",
+      "hub_blurb": "inhibitory, pasywacja, rodzaje korozji i objawy w instalacji.",
+      "image": "/assets/blog/blog-korozja.jpg",
+      "kicker": "Baza wiedzy · Korozja i ochrona",
+      "lead": "Jak chronić instalacje przemysłowe przed korozją, inhibitory, pasywacja stali i rodzaje korozji.",
+      "related": [
+        {
+          "kicker": "Rozwiązania",
+          "title": "Ochrona antykorozyjna",
+          "url": "/ochrona-antykorozyjna/"
+        },
+        {
+          "kicker": "Rozwiązania",
+          "title": "Pasywacja stali",
+          "url": "/ochrona-antykorozyjna/pasywacja-stali/"
+        },
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Kotły parowe",
+          "url": "/baza-wiedzy/kotly-parowe/"
+        }
+      ],
+      "slug": "korozja",
+      "stream_title": "Objawy, przyczyny i ochrona metalu.",
+      "title": "Korozja i ochrona metalu"
+    },
+    {
+      "facts": [
+        {
+          "label": "Zakres",
+          "value": "pH, przewodność, twardość, TDS i odsalanie."
+        },
+        {
+          "label": "Dla kogo",
+          "value": "Technolodzy i utrzymanie ruchu."
+        },
+        {
+          "label": "Następny krok",
+          "value": "Umów analizę wody."
+        }
+      ],
+      "h1": "Przewodność i pH wody przemysłowej - Poradniki",
+      "hub_blurb": "pH, przewodność, twardość, TDS, ścieki i energia.",
+      "image": "/assets/blog/blog-parametry-wody.jpg",
+      "kicker": "Baza wiedzy · Parametry wody",
+      "lead": "Zrozum parametry wody w przemyśle, wpływ pH, twardości i przewodności na pracę kotłów i układów chłodniczych.",
+      "related": [
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Rozwiązania",
+          "title": "Kondycjonowanie wody kotłowej",
+          "url": "/kotly-parowe/kondycjonowanie-wody-kotlowej/"
+        },
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Kotły parowe",
+          "url": "/baza-wiedzy/kotly-parowe/"
+        }
+      ],
+      "slug": "parametry-wody",
+      "stream_title": "Parametry, które decydują o kosztach.",
+      "title": "Parametry wody i oszczędności"
+    },
+    {
+      "facts": [
+        {
+          "label": "Zakres",
+          "value": "Antyskalanty, fouling, płukanie i wydajność."
+        },
+        {
+          "label": "Dla kogo",
+          "value": "Operatorzy stacji RO i utrzymanie ruchu."
+        },
+        {
+          "label": "Następny krok",
+          "value": "Umów konsultację techniczną."
+        }
+      ],
+      "h1": "Membrany RO pod kontrolą.",
+      "hub_blurb": "antyskalanty, fouling, płukanie i ochrona wydajności.",
+      "image": "/assets/blog/blog-membrany-ro-v2.webp",
+      "kicker": "Baza wiedzy · Membrany RO",
+      "lead": "Jak chronić membrany przed osadem i foulingiem, utrzymać stabilny odzysk oraz planować CIP na podstawie danych z instalacji.",
+      "related": [
+        {
+          "kicker": "Rozwiązania",
+          "title": "Membrany RO",
+          "url": "/membrany-ro/"
+        },
+        {
+          "kicker": "Usługi",
+          "title": "Analiza wody",
+          "url": "/uslugi/analiza-wody/"
+        },
+        {
+          "kicker": "Baza wiedzy",
+          "title": "Parametry wody",
+          "url": "/baza-wiedzy/parametry-wody/"
+        }
+      ],
+      "slug": "membrany-ro",
+      "stream_title": "Ochrona membran i stabilny odzysk.",
+      "title": "Membrany RO"
+    }
+  ],
+  "hub": {
+    "facts": [
+      {
+        "label": "Tematy",
+        "value": "Kotły, chłodnictwo, RO i korozja"
+      },
+      {
+        "label": "Dla kogo",
+        "value": "Technika i utrzymanie ruchu"
+      },
+      {
+        "label": "Cel",
+        "value": "Decyzje oparte na danych"
+      }
+    ],
+    "h1": "Praktyczna wiedza o wodzie przemysłowej.",
+    "image": "/assets/blog/blog-baza-wiedzy.jpg",
+    "kicker": "Baza wiedzy KABI CHEMIE",
+    "lead": "Artykuły o kamieniu, korozji, biofilmie, membranach RO i parametrach wody. Konkretne przyczyny, pomiary i działania dla zakładu przemysłowego."
+  },
+  "wersja": 1,
+  "zrodlo": "export_snapshot.py — wygenerowane z bazy kabi"
+}

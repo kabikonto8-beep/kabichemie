@@ -1,20 +1,45 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
-Generator statycznej strony Kabi-Chemie (kondycjonowanie-wody.pl).
+Generator statycznej strony KABI CHEMIE (kondycjonowanie-wody.pl).
 Wczytuje dane SEO z _seo.json + treści sekcji z content.py i renderuje
 czyste pliki HTML do katalogu www/. Bez zależności runtime - wynik to
 zwykły HTML+CSS, który otworzysz/wyhostujesz gdziekolwiek.
 
 Uruchomienie:  py -X utf8 build.py
 """
-import os, re, json, html, shutil
+import os, re, sys, json, html, shutil
 from datetime import date
 import content as C
+import knowledge_pages
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, 'www')
 DOMAIN = 'https://kondycjonowanie-wody.pl'
-ASSET_VERSION = '20260731-kb-pager-domino-v266'
+ASSET_VERSION = '20260806-mobile-v276'
+
+# Panel redakcyjny (Ctrl+Alt+A) — NARZĘDZIE LOKALNE, domyślnie WYŁĄCZONE.
+# Wchodzi do stron tylko przy jawnym KABI_ADMIN=1, więc produkcyjny build
+# nie zawiera nawet odwołania do skryptu. Sam panel dodatkowo odmawia
+# uruchomienia poza localhost.
+ADMIN_PANEL = os.environ.get('KABI_ADMIN') == '1'
+
+
+def _admin_panel_tag():
+    """Znacznik <script> panelu z tokenem opartym o mtime pliku.
+
+    Wspólny ASSET_VERSION zmienia się rzadko, więc po edycji panelu przeglądarka
+    serwowała starą wersję z cache. Token z czasu modyfikacji zmienia adres
+    dokładnie wtedy, gdy zmienia się plik — i nigdy w produkcji, bo tam
+    tego znacznika w ogóle nie ma.
+    """
+    if not ADMIN_PANEL:
+        return ''
+    zrodlo = os.path.join(ROOT, 'src', 'assets', 'admin-panel.js')
+    token = int(os.path.getmtime(zrodlo)) if os.path.exists(zrodlo) else 0
+    return f'\n<script src="/assets/admin-panel.js?v={token}" defer></script>'
+
+
+ADMIN_PANEL_TAG = _admin_panel_tag()
 BUILD_DATE = os.environ.get('KABI_BUILD_DATE') or date.today().isoformat()
 CANONICAL_HOST = 'kondycjonowanie-wody.pl'
 CANONICAL_SCHEME = 'https'
@@ -109,20 +134,31 @@ EXCLUDED_PATHS = {
     '/branze/zaklady-miesne-i-drobiarskie/',
 }
 
+# Publiczne podglady techniczne zostaja dostepne pod URL-em, ale nie powinny
+# konkurowac w indeksie z gotowymi stronami eksperckimi.
+NOINDEX_PATHS = {
+    '/404/',
+    '/autor/',
+    *(f'/baza-wiedzy/artykul-testowy-{index:02d}/' for index in range(1, 21)),
+}
+
 # Adresy, które prowadzą do innej strony (ta sama usługa pod inną nazwą).
 # Serwer robi 301 (.htaccess), a plik HTML przekierowuje lokalnie i u hostingów bez mod_rewrite.
 REDIRECTS = {
     '/uslugi/audyt-techniczny/': '/bezplatna-konsultacja/',
-    # Baza wiedzy: kategorie zlikwidowane, artykuły przeniesione na płaskie adresy.
+    # Baza wiedzy: artykuły mają płaskie adresy, więc stare zagnieżdżone
+    # (z warstwą kategorii w ścieżce) przekierowujemy na nowe.
+    # Same kategorie mają z powrotem własne strony — generuje je
+    # knowledge_pages.install_knowledge_pages na podstawie tabeli kabi.categories.
     '/baza-wiedzy/kotly-parowe/kamien-kotlowy/': '/baza-wiedzy/kamien-kotlowy/',
     '/baza-wiedzy/wieze-chlodnicze/biofilm-w-ukladzie-chlodniczym/': '/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/',
     '/baza-wiedzy/membrany-ro/antyskalant-ro/': '/baza-wiedzy/antyskalant-ro/',
-    '/baza-wiedzy/kotly-parowe/': '/baza-wiedzy/',
-    '/baza-wiedzy/wieze-chlodnicze/': '/baza-wiedzy/',
-    '/baza-wiedzy/korozja/': '/baza-wiedzy/',
-    '/baza-wiedzy/parametry-wody/': '/baza-wiedzy/',
-    '/baza-wiedzy/membrany-ro/': '/baza-wiedzy/',
 }
+
+# Kategorie bazy wiedzy, które nie mają ani jednego artykułu, przekierowujemy
+# na hub zamiast publikować pustą stronę. Lista wylicza się z danych, więc
+# reaguje sama na dodanie i usunięcie artykułu — nie trzeba jej pilnować ręcznie.
+REDIRECTS.update(knowledge_pages.empty_category_redirects())
 
 # ---------------------------------------------------------------- utilities
 def esc(s):
@@ -191,6 +227,31 @@ def svg_dimensions(text):
         return int(float(viewbox.group(1))), int(float(viewbox.group(2)))
     return None
 
+def webp_dimensions(data):
+    if len(data) < 20 or data[:4] != b'RIFF' or data[8:12] != b'WEBP':
+        return None
+    offset = 12
+    while offset + 8 <= len(data):
+        kind = data[offset:offset + 4]
+        size = int.from_bytes(data[offset + 4:offset + 8], 'little')
+        chunk = data[offset + 8:offset + 8 + size]
+        if kind == b'VP8X' and len(chunk) >= 10:
+            width = 1 + int.from_bytes(chunk[4:7], 'little')
+            height = 1 + int.from_bytes(chunk[7:10], 'little')
+            return width, height
+        if kind == b'VP8L' and len(chunk) >= 5 and chunk[0] == 0x2f:
+            width = 1 + chunk[1] + ((chunk[2] & 0x3f) << 8)
+            height = 1 + (chunk[2] >> 6) + (chunk[3] << 2) + ((chunk[4] & 0x0f) << 10)
+            return width, height
+        if kind == b'VP8 ' and len(chunk) >= 10:
+            marker = chunk.find(b'\x9d\x01\x2a')
+            if marker >= 0 and marker + 7 <= len(chunk):
+                width = int.from_bytes(chunk[marker + 3:marker + 5], 'little') & 0x3fff
+                height = int.from_bytes(chunk[marker + 5:marker + 7], 'little') & 0x3fff
+                return width, height
+        offset += 8 + size + (size % 2)
+    return None
+
 IMAGE_DIM_CACHE = {}
 def image_dimensions(src):
     fp = local_asset_path(src)
@@ -202,17 +263,31 @@ def image_dimensions(src):
     try:
         ext = os.path.splitext(fp)[1].lower()
         with open(fp, 'rb') as f:
-            data = f.read() if ext in ('.jpg', '.jpeg') else f.read(8192 if ext == '.svg' else 4096)
+            data = f.read() if ext in ('.jpg', '.jpeg') else f.read(65536 if ext == '.webp' else (8192 if ext == '.svg' else 4096))
         if ext == '.png':
             dims = png_dimensions(data)
         elif ext in ('.jpg', '.jpeg'):
             dims = jpeg_dimensions(data)
         elif ext == '.svg':
             dims = svg_dimensions(data.decode('utf-8', errors='ignore'))
+        elif ext == '.webp':
+            dims = webp_dimensions(data)
     except OSError:
         dims = None
     IMAGE_DIM_CACHE[fp] = dims
     return dims
+
+def image_mime_type(src):
+    ext = os.path.splitext(str(src or '').split('?', 1)[0])[1].lower()
+    return {
+        '.avif': 'image/avif',
+        '.gif': 'image/gif',
+        '.jpeg': 'image/jpeg',
+        '.jpg': 'image/jpeg',
+        '.png': 'image/png',
+        '.svg': 'image/svg+xml',
+        '.webp': 'image/webp',
+    }.get(ext)
 
 def parse_attrs(tag):
     return {m.group(1).lower(): m.group(2) for m in re.finditer(r'([:\w-]+)\s*=\s*"([^"]*)"', tag)}
@@ -260,6 +335,40 @@ def enhance_media_attributes(htmltext):
 
     return re.sub(r'<img\b[^>]*>', repl, htmltext)
 
+
+UI_ARROW_NAMES = {
+    '↗': 'up-right',
+    '→': 'right',
+    '↘': 'down-right',
+    '↓': 'down',
+}
+
+
+def enhance_ui_arrows(htmltext):
+    """Oznacza glify kierunkowe używane przez stabilizację wyłącznie na mobile."""
+    arrow_pattern = re.compile(
+        r'<(?P<tag>span|i)(?P<attrs>[^>]*\baria-hidden="true"[^>]*)>'
+        r'(?P<glyph>[↗→↘↓])</(?P=tag)>'
+    )
+
+    def add_arrow_class(match):
+        tag = match.group('tag')
+        attrs = match.group('attrs')
+        glyph = match.group('glyph')
+        arrow_class = f'ui-arrow ui-arrow--{UI_ARROW_NAMES[glyph]}'
+        if re.search(r'\bclass="', attrs):
+            attrs = re.sub(
+                r'\bclass="([^"]*)"',
+                lambda item: f'class="{item.group(1)} {arrow_class}"',
+                attrs,
+                count=1,
+            )
+        else:
+            attrs = f' class="{arrow_class}"{attrs}'
+        return f'<{tag}{attrs}>{glyph}</{tag}>'
+
+    return arrow_pattern.sub(add_arrow_class, htmltext)
+
 def org_id():
     return DOMAIN + '/#organization'
 
@@ -269,12 +378,18 @@ def website_id():
 def page_id(path):
     return DOMAIN + path + '#webpage'
 
+def article_id(path):
+    return DOMAIN + path + '#article'
+
 def service_id(path):
     return DOMAIN + path + '#service'
 
+def breadcrumb_id(path):
+    return DOMAIN + path + '#breadcrumb'
+
 def topic_entities(path):
     topics = [
-        {"@type": "Thing", "name": "Kabi-Chemie"},
+        {"@type": "Thing", "name": "KABI CHEMIE"},
         {"@type": "Thing", "name": "KCAQUA"},
         {"@type": "Thing", "name": "kondycjonowanie wody przemysłowej"},
     ]
@@ -365,20 +480,30 @@ def organization_schema():
         })
     return {
         "@context": "https://schema.org",
-        "@type": ["Organization", "LocalBusiness"],
+        "@type": ["Organization", "ProfessionalService"],
         "@id": org_id(),
         "name": C.SITE['name'],
         "url": DOMAIN + "/",
         "legalName": C.SITE['company'],
         "taxID": C.SITE['nip'],
-        "logo": DOMAIN + "/assets/kabi-logo-old-color.png",
+        "vatID": "PL" + C.SITE['nip'],
+        "email": C.SITE['email'],
+        "telephone": C.SITE['phone_raw'],
+        "foundingDate": "2022",
+        "logo": {
+            "@type": "ImageObject",
+            "url": DOMAIN + "/assets/kabi-logo-old-color.png",
+            "width": 456,
+            "height": 90,
+        },
         "image": DOMAIN + "/assets/og-default.svg",
         "description": C.SITE['tagline'],
         "slogan": "Woda pod kontrolą. Wynik w liczbach.",
         "knowsAbout": CORE_EXPERTISE,
         "areaServed": {"@type": "Country", "name": "Polska"},
         "address": {"@type": "PostalAddress", "postalCode": C.SITE['postal_code'],
-                    "addressLocality": C.SITE['city'], "streetAddress": C.SITE['street'],
+                    "addressLocality": C.SITE['city'], "addressRegion": "mazowieckie",
+                    "streetAddress": C.SITE['street'],
                     "addressCountry": "PL"},
         "contactPoint": [
             {"@type": "ContactPoint", "contactType": "sales",
@@ -398,7 +523,7 @@ def website_schema():
         "@id": website_id(),
         "name": C.SITE['name'],
         "url": DOMAIN + "/",
-        "inLanguage": "pl-PL",
+        "inLanguage": ["pl-PL", "en", "de", "ar"],
         "publisher": {"@id": org_id()},
     }
 
@@ -415,20 +540,38 @@ def webpage_schema(path, title, meta, page, image_url):
         "isPartOf": {"@id": website_id()},
         "publisher": {"@id": org_id()},
         "about": topic_entities(path),
+        "mainContentOfPage": {"@type": "WebPageElement", "cssSelector": "#main"},
         "primaryImageOfPage": {"@type": "ImageObject", "url": image_url},
         "dateModified": BUILD_DATE,
     }
+    if path != '/':
+        obj["breadcrumb"] = {"@id": breadcrumb_id(path)}
     if kind in ('BlogPosting', 'Article'):
+        page_node = {
+            "@type": "WebPage",
+            "@id": page_id(path),
+            "url": DOMAIN + path,
+            "name": clean_text(title),
+            "description": clean_text(meta),
+            "inLanguage": "pl-PL",
+            "isPartOf": {"@id": website_id()},
+            "publisher": {"@id": org_id()},
+            "mainContentOfPage": obj.pop("mainContentOfPage"),
+            "primaryImageOfPage": obj.pop("primaryImageOfPage"),
+        }
+        if "breadcrumb" in obj:
+            page_node["breadcrumb"] = obj.pop("breadcrumb")
+        obj["@id"] = article_id(path)
         obj.update({
             "headline": clean_text(title),
             "image": image_url,
             "author": {"@id": org_id()},
-            "mainEntityOfPage": {"@id": page_id(path)},
+            "mainEntityOfPage": page_node,
         })
         if path.startswith('/case-study/'):
-            obj["articleSection"] = "Case study Kabi-Chemie"
+            obj["articleSection"] = "Case study KABI CHEMIE"
         elif path.startswith('/baza-wiedzy/'):
-            obj["articleSection"] = "Baza wiedzy Kabi-Chemie"
+            obj["articleSection"] = "Baza wiedzy KABI CHEMIE"
     return obj
 
 def service_schema(path, title, meta):
@@ -473,7 +616,7 @@ def page_art_caption(path):
         return 'ochrona metalu, pasywacja i kontrola korozji'
     if 'uslugi' in path:
         return 'audyt, analiza i serwis prowadzone przez inżyniera'
-    return 'kondycjonowanie wody przemysłowej Kabi-Chemie'
+    return 'kondycjonowanie wody przemysłowej KABI CHEMIE'
 
 def page_kicker(path):
     if 'baza-wiedzy' in path:
@@ -492,7 +635,7 @@ def page_kicker(path):
         return 'Usługi · diagnostyka i serwis'
     if 'branze' in path:
         return 'Branże · przemysł i produkcja'
-    return 'Kabi-Chemie · water treatment'
+    return 'KABI CHEMIE · water treatment'
 
 def path_of(url):
     """Z pełnego URL -> ścieżka zaczynająca się od / i kończąca / (lub /404/)."""
@@ -555,8 +698,19 @@ def render_head(path, page):
     og_path = page.get('og_image') or page.get('image') or page_art_for(path)
     og_img = (DOMAIN + og_path) if og_path else DOMAIN + '/assets/og-default.svg'
     og_alt = page_art_caption(path)
+    og_dims = image_dimensions(og_path)
+    og_type = image_mime_type(og_path)
+    og_details = ''
+    if og_type:
+        og_details += f'<meta property="og:image:type" content="{esc(og_type)}">\n'
+    if og_dims:
+        og_details += f'<meta property="og:image:width" content="{og_dims[0]}">\n'
+        og_details += f'<meta property="og:image:height" content="{og_dims[1]}">\n'
     preload_image = page.get('preload_image')
     jsonld = list(page.get('jsonld', []))
+    robots = ('noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+              if path in NOINDEX_PATHS else
+              'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1')
 
     # BreadcrumbList
     trail = breadcrumb_trail(path)
@@ -565,6 +719,7 @@ def render_head(path, page):
         jsonld.append({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
+            "@id": breadcrumb_id(path),
             "itemListElement": [
                 {"@type": "ListItem", "position": i + 1, "name": lbl,
                  "item": DOMAIN + href} for i, (lbl, href) in enumerate(full)
@@ -585,8 +740,8 @@ def render_head(path, page):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(canonical)}">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="robots" content="{esc(robots)}">
+<meta name="googlebot" content="{esc(robots)}">
 <meta name="author" content="{esc(C.SITE['name'])}">
 <meta name="publisher" content="{esc(C.SITE['name'])}">
 <meta name="application-name" content="{esc(C.SITE['name'])}">
@@ -601,15 +756,19 @@ def render_head(path, page):
 <meta property="og:url" content="{esc(canonical)}">
 <meta property="og:image" content="{esc(og_img)}">
 <meta property="og:image:alt" content="{esc(og_alt)}">
-<meta name="twitter:card" content="summary_large_image">
+{og_details}<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(title)}">
 <meta name="twitter:description" content="{esc(desc)}">
 <meta name="twitter:image" content="{esc(og_img)}">
+<meta name="twitter:image:alt" content="{esc(og_alt)}">
 <link rel="alternate" hreflang="pl-PL" href="{esc(canonical)}">
+<link rel="alternate" hreflang="en" href="{esc(DOMAIN + '/en' + path)}">
+<link rel="alternate" hreflang="de" href="{esc(DOMAIN + '/de' + path)}">
+<link rel="alternate" hreflang="ar" href="{esc(DOMAIN + '/ar' + path)}">
 <link rel="alternate" hreflang="x-default" href="{esc(canonical)}">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
-<link rel="alternate" type="text/markdown" href="/llms.txt" title="Kabi-Chemie dla agentów AI">
+<link rel="alternate" type="text/markdown" href="/llms.txt" title="KABI CHEMIE dla agentów AI">
 <link rel="preload" href="/assets/style.css?v={ASSET_VERSION}" as="style">
 {('<link rel="preload" href="' + esc(preload_image) + '" as="image" fetchpriority="high">') if preload_image else ''}
 <link rel="stylesheet" href="/assets/style.css?v={ASSET_VERSION}">
@@ -625,12 +784,13 @@ def render_header(path):
     items = ''
     for it in C.NAV:
         href = it['href']
-        active = ' aria-current="page"' if (href != '/' and path.startswith(href)) else ''
+        active = ' aria-current="page"' if (path == href or (href != '/' and path.startswith(href))) else ''
+        item_class = it.get('class', '')
         if it.get('children') or it.get('groups'):
             def nav_links(entries):
                 return ''.join(
                     f'<li><a href="{c["href"]}"><img class="nav-panel__item-logo" '
-                    'src="/assets/logo-mark.png" alt="" aria-hidden="true">'
+                    'src="/assets/logo-mark.png" alt="" aria-hidden="true" decoding="async" width="279" height="276">'
                     f'<span class="nav-panel__link-label">{esc(c["label"])}</span>'
                     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/>'
                     '<path d="m13 6 6 6-6 6"/></svg></a></li>'
@@ -658,15 +818,16 @@ def render_header(path):
                 '<div class="nav-panel__services-head">'
                 f'<span class="nav-panel__section-title">{esc(it["label"])}</span>'
                 '</div>')
+            submenu_class = f'has-sub {item_class}'.strip()
             items += (
-                f'<li class="has-sub"><a href="{href}"{active} aria-haspopup="true" '
+                f'<li class="{submenu_class}"><a href="{href}"{active} aria-haspopup="true" '
                 f'aria-expanded="false" aria-controls="{panel_id}">{esc(it["label"])}'
                 '<span class="caret" aria-hidden="true"></span></a>'
                 f'<div class="nav-panel" id="{panel_id}">'
                 '<div class="nav-panel__main">'
                 '<div class="nav-panel__identity">'
                 '<div class="nav-panel__lockup" aria-hidden="true">'
-                '<img class="nav-panel__lockup-logo" src="/assets/kabi-logo-old-light.png" width="456" height="90" alt="">'
+                '<img class="nav-panel__lockup-logo" src="/assets/kabi-logo-old-light.png" width="456" height="90" alt="" decoding="async">'
                 '</div>'
                 '</div>'
                 '<div class="nav-panel__services">'
@@ -675,12 +836,35 @@ def render_header(path):
                 '</div>'
                 '</div></div></li>')
         else:
-            items += f'<li><a href="{href}"{active}>{esc(it["label"])}</a></li>'
+            class_attr = f' class="{item_class}"' if item_class else ''
+            label_html = esc(it["label"])
+            if item_class == 'nav-calculator-item':
+                label_html = (
+                    '<svg class="nav-calculator-icon" viewBox="0 0 24 24" aria-hidden="true">'
+                    '<rect width="16" height="20" x="4" y="2" rx="2"/>'
+                    '<path d="M8 6h8"/><path d="M8 14h.01M12 14h.01M16 14h.01"/>'
+                    '<path d="M8 18h.01M12 18h.01M16 18h.01"/></svg>'
+                    f'<span>{label_html}</span>'
+                )
+            items += f'<li{class_attr}><a href="{href}"{active}>{label_html}</a></li>'
+    language_switch = f'''<details class="language-switch">
+        <summary class="language-switch__summary" aria-label="Wybierz język">
+          <svg class="language-switch__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+          <span class="language-switch__code">PL</span>
+          <span class="language-switch__caret" aria-hidden="true"></span>
+        </summary>
+        <ul class="language-switch__menu" aria-label="Dostępne języki">
+          <li><a href="{path}" lang="pl" hreflang="pl" aria-current="page"><span>PL</span><strong>Polski</strong></a></li>
+          <li><a href="/en{path}" lang="en" hreflang="en"><span>EN</span><strong>English</strong></a></li>
+          <li><a href="/de{path}" lang="de" hreflang="de"><span>DE</span><strong>Deutsch</strong></a></li>
+          <li><a href="/ar{path}" lang="ar" dir="rtl" hreflang="ar"><span>AR</span><strong>العربية</strong></a></li>
+        </ul>
+      </details>'''
     return f"""<a class="skip" href="#main">Przejdź do treści</a>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="/" aria-label="Kabi-Chemie - Water Treatment">
-      <img class="brand-logo" src="/assets/kabi-logo-old-light.png" width="456" height="90" alt="" aria-hidden="true">
+    <a class="brand" href="/" aria-label="KABI CHEMIE - Water Treatment">
+      <img class="brand-logo" src="/assets/kabi-logo-old-light.png" width="456" height="90" alt="" aria-hidden="true" decoding="async">
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -692,6 +876,7 @@ def render_header(path):
           <span>Umów darmowy audyt</span>
         </a>
       </div>
+      {language_switch}
     </nav>
   </div>
 </header>
@@ -718,16 +903,17 @@ def render_footer():
     return f"""<footer class="site-footer">
   <div class="wrap footer-grid">
     <div class="fcol fbrand">
-      <span class="fbrand-logo" role="img" aria-label="Kabi-Chemie - Water Treatment">
+      <span class="fbrand-logo" role="img" aria-label="KABI CHEMIE - Water Treatment">
         <img class="fbrand-logo__image" src="/assets/kabi-logo-old-light.png" width="456" height="90" alt="" aria-hidden="true">
       </span>
       <div class="footer-socials" aria-label="Media społecznościowe">
         <span class="footer-social-icon" role="img" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.2" cy="6.3" r="1.65"></circle><path d="M4.7 9.7h3v9.6h-3zM10.4 9.7h2.9V11c.8-1.1 1.9-1.7 3.3-1.7 2.4 0 3.7 1.5 3.7 4.5v5.5h-3v-5.1c0-1.5-.5-2.4-1.8-2.4-1.4 0-2.1 1-2.1 2.8v4.7h-3z"></path></svg></span>
-        <span class="footer-social-icon" role="img" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.9 20v-7h2.4l.4-2.8h-2.8V8.6c0-.8.3-1.5 1.5-1.5h1.5V4.6c-.7-.1-1.5-.2-2.4-.2-2.5 0-4.1 1.5-4.1 4.1v1.7H8V13h2.4v7z"></path></svg></span>
         <span class="footer-social-icon" role="img" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a2.8 2.8 0 0 0-2-2C17.2 5.7 12 5.7 12 5.7s-5.2 0-7 .5a2.8 2.8 0 0 0-2 2A28 28 0 0 0 2.6 12 28 28 0 0 0 3 15.8a2.8 2.8 0 0 0 2 2c1.8.5 7 .5 7 .5s5.2 0 7-.5a2.8 2.8 0 0 0 2-2 28 28 0 0 0 .4-3.8 28 28 0 0 0-.4-3.8ZM10 15.1V8.9l5.4 3.1z"></path></svg></span>
       </div>
     </div>
-    {cols}
+    <div class="footer-links">
+      {cols}
+    </div>
     <div class="footer-offices" aria-label="Dane kontaktowe KABI CHEMIE">
       <address class="footer-location">
         <strong>KABI CHEMIE</strong>
@@ -744,7 +930,7 @@ def render_footer():
     <p class="footer-credit">Created with passion by <a href="https://www.handybiz.pl/" target="_blank" rel="noopener noreferrer">Handybiz</a>.</p>
   </div>
 </footer>
-<script src="/assets/main.js?v={ASSET_VERSION}" defer></script>
+<script src="/assets/main.js?v={ASSET_VERSION}" defer></script>{ADMIN_PANEL_TAG}
 </body>
 </html>"""
 
@@ -753,8 +939,8 @@ def finalize_homepage_html(htmltext):
     """Naprawia tekst wyłącznie na stronie głównej, bez zmian na podstronach."""
     replacements = {
         'Przejdź do treści': 'Przejdź do treści',
-        'Kabichemie — strona główna': 'Kabichemie, strona główna',
-        'Kabichemie — Water Treatment': 'Kabichemie Water Treatment',
+        'KABI CHEMIE — strona główna': 'KABI CHEMIE, strona główna',
+        'KABI CHEMIE — Water Treatment': 'KABI CHEMIE Water Treatment',
         'Menu główne': 'Menu główne',
         'Umów darmowy audyt': 'Umów darmowy audyt',
         'KCAQUA · WATER PERFORMANCE SYSTEM': 'KCAQUA · WATER PERFORMANCE SYSTEM',
@@ -888,7 +1074,7 @@ def s_hero(d):
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="wrap hero-inner-v">
     <div class="hero-editorial__stage">
-      <div class="hero-editorial__brand" aria-label="Kabi-Chemie">
+      <div class="hero-editorial__brand" aria-label="KABI CHEMIE">
         <strong>KABI</strong><span>CHEMIE</span>
       </div>
       <div class="hero-editorial__lower">
@@ -1166,7 +1352,7 @@ def build_page(path):
         if rel:
             sections.append({'type': 'related', 'items': rel})
         sections.append({'type': 'cta', 'title': 'Porozmawiajmy o Twojej instalacji',
-                         'text': 'Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie.',
+                         'text': 'Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE.',
                          'button': ('Umów konsultację', '/bezplatna-konsultacja/')})
 
     # zapewnij H1 w pierwszym hero
@@ -1217,6 +1403,7 @@ def build_page(path):
     if path == '/':
         htmltext = finalize_homepage_html(htmltext)
     htmltext = enhance_media_attributes(htmltext)
+    htmltext = enhance_ui_arrows(htmltext)
     write(path, htmltext)
     return title
 
@@ -1274,7 +1461,7 @@ def sitemap_changefreq(path):
 def write_llms(paths):
     key_sections = [
         ("Najważniejsze strony", [
-            ("/", "Kim jest Kabi-Chemie i w czym specjalizuje się firma."),
+            ("/", "Kim jest KABI CHEMIE i w czym specjalizuje się firma."),
             ("/uslugi/", "Zakres usług: audyt, analiza wody, serwis i dobór programu chemicznego."),
             ("/kotly-parowe/", "Rozwiązania dla kotłów parowych i wody kotłowej."),
             ("/uklady-chlodnicze/", "Rozwiązania dla wież chłodniczych, skraplaczy i obiegów chłodzenia."),
@@ -1290,11 +1477,11 @@ def write_llms(paths):
         ]),
     ]
     lines = [
-        "# Kabi-Chemie",
+        "# KABI CHEMIE",
         "",
-        "> Kabi-Chemie to polski producent autorskiej chemii KCAQUA do kondycjonowania wody przemysłowej. Firma pomaga zakładom produkcyjnym ograniczać kamień, korozję, biofilm, zużycie wody, energii i ścieków w kotłach parowych, układach chłodniczych, skraplaczach wyparnych oraz systemach RO.",
+        "> KABI CHEMIE to polski producent autorskiej chemii KCAQUA do kondycjonowania wody przemysłowej. Firma pomaga zakładom produkcyjnym ograniczać kamień, korozję, biofilm, zużycie wody, energii i ścieków w kotłach parowych, układach chłodniczych, skraplaczach wyparnych oraz systemach RO.",
         "",
-        "Kabi-Chemie pracuje dla przemysłu, utrzymania ruchu, energetyki zakładowej, chłodnictwa przemysłowego, przetwórstwa spożywczego i firm produkcyjnych. Kluczowe korzyści dla klienta to niższe koszty mediów, stabilniejsza praca instalacji, mniej awarii, dłuższe cykle między czyszczeniami i czytelny raport techniczny dla decyzji zakupowej.",
+        "KABI CHEMIE pracuje dla przemysłu, utrzymania ruchu, energetyki zakładowej, chłodnictwa przemysłowego, przetwórstwa spożywczego i firm produkcyjnych. Kluczowe korzyści dla klienta to niższe koszty mediów, stabilniejsza praca instalacji, mniej awarii, dłuższe cykle między czyszczeniami i czytelny raport techniczny dla decyzji zakupowej.",
         "",
         "Firma działa w Polsce. Główna lokalizacja: Siedlce, oddział techniczny: Toruń.",
         "",
@@ -1326,7 +1513,7 @@ def write_llms(paths):
         f.write('\n'.join(lines))
 
     full = [
-        "# Kabi-Chemie, pełny indeks dla agentów AI",
+        "# KABI CHEMIE, pełny indeks dla agentów AI",
         "",
         "Poniżej znajduje się lista publicznych podstron serwisu z krótkim opisem semantycznym. Nie zawiera danych poufnych ani wewnętrznych.",
         "",
@@ -1345,7 +1532,7 @@ def write_llms(paths):
         "",
         "## Firma i oferta w jednym zdaniu",
         "",
-        "Kabi-Chemie projektuje, wdraża i serwisuje programy chemiczne KCAQUA dla przemysłowych instalacji wodnych, aby ograniczać kamień, korozję, biofilm oraz koszty wody, energii i ścieków.",
+        "KABI CHEMIE projektuje, wdraża i serwisuje programy chemiczne KCAQUA dla przemysłowych instalacji wodnych, aby ograniczać kamień, korozję, biofilm oraz koszty wody, energii i ścieków.",
         "",
     ])
     with open(os.path.join(OUT, 'llms-full.txt'), 'w', encoding='utf-8') as f:
@@ -1378,7 +1565,7 @@ def write_sitemap(paths):
         f.write(xml)
     with open(os.path.join(OUT, 'robots.txt'), 'w', encoding='utf-8') as f:
         f.write(
-            '# Kabi-Chemie, publiczny serwis ofertowy i ekspercki.\n'
+            '# KABI CHEMIE, publiczny serwis ofertowy i ekspercki.\n'
             '# Strona ma być widoczna dla wyszukiwarek oraz agentów AI korzystających z publicznie dostępnych treści.\n'
             'User-agent: *\n'
             'Allow: /\n\n'
@@ -1407,7 +1594,7 @@ def write_server_hints():
         f'RewriteRule ^{src.strip("/")}/?$ {dst} [R=301,L]\n'
         for src, dst in sorted(REDIRECTS.items())
     )
-    htaccess = f"""# Kabi-Chemie, SEO technical layer.
+    htaccess = f"""# KABI CHEMIE, SEO technical layer.
 RewriteEngine On
 
 # Canonical host and HTTPS. Keep one indexable version of every URL.
@@ -1423,8 +1610,11 @@ AddType application/xml .xml
 
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
-  Header set X-Robots-Tag "index, follow"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self' mailto:; img-src 'self' data:; media-src 'self'; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; upgrade-insecure-requests"
 
   <FilesMatch "\\.(css|js|png|jpg|jpeg|svg|webp|mp4)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
@@ -1440,8 +1630,11 @@ AddType application/xml .xml
 
     headers = """/*
   X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
-  X-Robots-Tag: index, follow
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self' mailto:; img-src 'self' data:; media-src 'self'; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
@@ -1465,14 +1658,61 @@ AddType application/xml .xml
     with open(os.path.join(OUT, '_headers'), 'w', encoding='utf-8') as f:
         f.write(headers)
 
+# ---------------------------------------------------------------- SYNCHRONIZACJA WSPÓLNEGO NAGŁÓWKA
+def sync_generated_headers():
+    """Aktualizuje nagłówek bez przebudowy treści istniejących podstron."""
+    header_pattern = re.compile(
+        r'<a class="skip" href="#main">.*?</header>', re.DOTALL)
+    asset_pattern = re.compile(
+        r'(/assets/(?:style|solution-pages|company-case-pages)\.css|/assets/main\.js)\?v=[^"\']+')
+    changed = 0
+    redirects = 0
+
+    for directory, _, files in os.walk(OUT):
+        for filename in files:
+            if filename not in ('index.html', '404.html'):
+                continue
+            filepath = os.path.join(directory, filename)
+            relative = os.path.relpath(filepath, OUT).replace(os.sep, '/')
+            if relative == 'index.html':
+                path = '/'
+            elif relative == '404.html':
+                path = '/404/'
+            elif relative.endswith('/index.html'):
+                path = '/' + relative[:-len('index.html')]
+            else:
+                continue
+
+            with open(filepath, 'r', encoding='utf-8') as source:
+                page_html = source.read()
+            page_html, replacements = header_pattern.subn(render_header(path).strip(), page_html, count=1)
+            page_html = asset_pattern.sub(lambda match: f'{match.group(1)}?v={ASSET_VERSION}', page_html)
+            with open(filepath, 'w', encoding='utf-8', newline='') as target:
+                target.write(page_html)
+            if replacements == 1:
+                changed += 1
+            else:
+                redirects += 1
+
+    print(f'OK: zaktualizowano nagłówek w {changed} plikach HTML; pominięto {redirects} przekierowań')
+
+
 # ---------------------------------------------------------------- MAIN
 def main():
     # czyszczenie odporne na blokady plików (Windows / otwarty podgląd)
     shutil.rmtree(OUT, ignore_errors=True)
     os.makedirs(OUT, exist_ok=True)
     # assets
+    # Skrypt panelu redakcyjnego kopiujemy WYŁĄCZNIE przy KABI_ADMIN=1.
+    # Bez tego wykluczenia trafiłby do produkcyjnego www/ mimo że żadna
+    # strona go nie ładuje — a wtedy „lokalne narzędzie" byłoby publiczne.
+    pomin = (lambda katalog, nazwy: [] if ADMIN_PANEL
+             else [n for n in nazwy if n == 'admin-panel.js'])
     shutil.copytree(os.path.join(ROOT, 'src', 'assets'),
-                    os.path.join(OUT, 'assets'), dirs_exist_ok=True)
+                    os.path.join(OUT, 'assets'), dirs_exist_ok=True, ignore=pomin)
+    if ADMIN_PANEL:
+        print('UWAGA: build z panelem redakcyjnym (KABI_ADMIN=1) — '
+              'to wydanie DEWELOPERSKIE, nie wgrywaj go na produkcję.')
 
     paths = list(SEO.keys())
     # dodatkowe strony zdefiniowane tylko w content (gdyby były)
@@ -1494,14 +1734,17 @@ def main():
     if os.path.exists(out_file('/404/')):
         shutil.copyfile(out_file('/404/'), os.path.join(OUT, '404.html'))
 
-    indexable = [p for p in paths if p not in REDIRECTS]
+    indexable = [p for p in paths if p not in REDIRECTS and p not in NOINDEX_PATHS]
     write_sitemap(indexable)
     write_llms(indexable)
     write_server_hints()
     print(f'OK: wygenerowano {count} stron -> {OUT}')
 
 if __name__ == '__main__':
-    main()
+    if '--headers-only' in sys.argv:
+        sync_generated_headers()
+    else:
+        main()
 
 
 

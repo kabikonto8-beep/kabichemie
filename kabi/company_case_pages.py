@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Editorial system for Kabi-Chemie case studies and company pages."""
+"""Editorial system for KABI CHEMIE case studies and company pages."""
+
+import content_source
 
 
 def _join(items):
@@ -218,7 +220,7 @@ def _render_fako_case(config):
     </div>
     <div class="fako-cta__actions">
       <a class="btn btn-primary" href="/kontakt/">Wyślij zapytanie techniczne</a>
-      <a class="fako-phone" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">{_case_icon('phone')}<span>+48 662 792 875</span></a>
+      <a class="fako-phone" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">{_case_icon('phone')}<span>+48 662 792 875</span></a>
     </div>
   </div>
 </section>
@@ -416,7 +418,7 @@ def _render_case(config):
     </div>
     <div class="case-story-cta__actions">
       <a class="btn btn-primary" href="/kontakt/">Napisz do inżyniera</a>
-      <a class="case-story-phone" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">
+      <a class="case-story-phone" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z"/></svg>
         <span>+48 662 792 875</span>
       </a>
@@ -426,197 +428,9 @@ def _render_case(config):
 """
 
 
-CASE_STUDIES = [
-    {
-        "slug": "fako",
-        "path": "/case-study/kociol-parowy-fako/",
-        "image": "/assets/visuals-v2/case-fako-v2.jpg",
-        "image_position": "center center",
-        "kicker": "Case study / Kotłownia parowa",
-        "h1": "Fako: <span>mniej paliwa</span> po odzyskaniu wymiany ciepła.",
-        "lead": "Osad i częste czyszczenie ujawniły problem z jakością wody. Odkamieniliśmy kocioł, skorygowaliśmy parametry i uruchomiliśmy KCAQUA 303, aby utrzymać efekt w codziennej pracy.",
-        "signals": ["Kocioł parowy Fako", "Odkamienianie chemiczne", "KCAQUA 303 i monitoring"],
-        "result_kicker": "W przedstawionym przykładzie",
-        "result_value": "−32%",
-        "result_label": "zużycia paliwa po odzyskaniu wymiany ciepła",
-        "result_note": "Wynik wymaga zawsze potwierdzenia pomiarami konkretnej instalacji.",
-        "overview": [
-            ("Diagnoza", "Twarda woda, przewodność 4200 µS i czyszczenie średnio co 3 miesiące."),
-            ("Działanie", "Odkamienianie, korekta parametrów oraz wdrożenie programu KCAQUA 303."),
-            ("Cel", "Ograniczyć straty paliwa i ustabilizować pracę bez skracania ochrony kotła."),
-        ],
-        "challenge_title": "Kamień nie był osobnym problemem. Był widocznym objawem utraty kontroli nad wodą.",
-        "challenge_intro": "W kotłowni nie wystarczyło jednorazowe czyszczenie. Trzeba było jednocześnie obniżyć twardość wody, uporządkować przewodność i wdrożyć dozowanie reagujące na rzeczywistą pracę kotła.",
-        "issues": [
-            ("Twarda woda zasilająca", "Twardość 8°n sprzyjała szybkiemu narastaniu osadu na powierzchniach grzewczych.", "Woda zasilająca"),
-            ("Zbyt wysoka przewodność", "Przewodność na poziomie 4200 µS zwiększała ryzyko osadów i utrudniała kontrolę odsalania.", "Prowadzenie kotła"),
-            ("Częste czyszczenie", "Krótkie cykle między czyszczeniami obciążały utrzymanie ruchu i utrudniały planowanie pracy.", "Dostępność"),
-        ],
-        "process_title": "Nie zatrzymaliśmy się na usunięciu osadu.",
-        "process_intro": "Każdy etap miał konkretną funkcję: usunąć przyczynę strat, ustawić warunki ochrony i potwierdzić, że parametry pozostają stabilne.",
-        "process": [
-            ("Analiza wody i oględziny", "Sprawdziliśmy twardość, przewodność, pH oraz stan powierzchni grzewczych."),
-            ("Chemiczne odkamienianie", "Dobrany proces rozpuścił osad bez demontażu układu i przywrócił powierzchnię wymiany ciepła."),
-            ("Uruchomienie KCAQUA 303", "Ustaliliśmy dawkę, kontrolę parametrów i sposób reagowania na odchylenia."),
-            ("Monitoring po wdrożeniu", "Porównujemy parametry wody, zużycie mediów i odstępy między czyszczeniami."),
-        ],
-        "results_title": "Mniej strat zaczyna się od wartości, które można porównać.",
-        "results_intro": "W poniższym przykładzie widać kierunek zmian po wdrożeniu. Dane są materiałem ilustracyjnym i wymagają autoryzacji klienta przed publikacją jako wynik referencyjny.",
-        "results_note": "Wartości mają charakter przykładowy. Rzeczywisty efekt zależy od paliwa, obciążenia, stanu kotła i jakości wody.",
-        "metrics": [
-            {"count": 32, "prefix": "−", "suffix": "%", "label": "zużycie paliwa", "before": "poziom bazowy", "after": "spadek po odzyskaniu wymiany ciepła"},
-            {"value": "4200 → 2800 µS", "label": "przewodność wody", "before": "parametr utrudniał prowadzenie kotła", "after": "bezpieczniejszy zakres pracy"},
-            {"value": "3 → 12 mies.", "label": "cykl między czyszczeniami", "before": "częste interwencje", "after": "dłuższa, stabilniejsza praca"},
-        ],
-        "field_title": "Efekt utrzymuje się wtedy, gdy instalacja ma ustalony rytm kontroli.",
-        "field_intro": "Dla kotłowni nie przygotowujemy jedynie receptury. Ustalamy, co mierzyć, kiedy reagować i jak pokazać wynik technice oraz zarządowi.",
-        "field_notes": [
-            ("Parametry zamiast domysłów", "Twardość, przewodność, pH i dane eksploatacyjne są mierzone w stałym układzie odniesienia."),
-            ("Dawka dopasowana do pracy kotła", "Dozowanie i odsalanie nie opierają się na jednorazowym ustawieniu, lecz na bieżącej obserwacji."),
-            ("Raport gotowy do decyzji", "Porównujemy trend parametrów z paliwem, wodą i wymaganiami utrzymania ruchu."),
-        ],
-        "related": [
-            ("Rozwiązanie", "Kondycjonowanie wody kotłowej", "/kotly-parowe/kondycjonowanie-wody-kotlowej/"),
-            ("Usługa", "Odkamienianie kotłów parowych", "/kotly-parowe/odkamienianie/"),
-            ("Narzędzie", "Sprawdź potencjał odzyskania kosztów", "/kalkulator-oszczednosci/"),
-        ],
-        "faq_title": "Pytania, które pojawiają się przy podobnej kotłowni.",
-        "faq_intro": "Poniżej odpowiadamy konkretnie, bez obietnic, których nie można potwierdzić w danych.",
-        "faq": [
-            ("Czy odkamienianie kotła oznacza długi postój?", "Zakres zależy od stanu instalacji i technologii czyszczenia. Najpierw oceniamy osad, materiał oraz warunki pracy, a dopiero potem ustalamy bezpieczny termin i przebieg prac."),
-            ("Czy po czyszczeniu kamień może wrócić?", "Tak, jeśli nie zmieni się jakość wody i sposób prowadzenia kotła. Dlatego czyszczenie łączymy z programem KCAQUA, kontrolą parametrów i monitoringiem dozowania."),
-            ("Jak potwierdzacie wpływ na paliwo?", "Porównujemy dane z okresu przed i po wdrożeniu, uwzględniając obciążenie kotła, produkcję pary, jakość paliwa oraz zmiany w procesie. Sam spadek rachunku nie wystarcza do rzetelnego wniosku."),
-        ],
-        "cta_title": "Zacznijmy od tego, co dzieje się w Twojej kotłowni.",
-        "cta_text": "Wystarczy opis problemu i podstawowe dane. Inżynier pomoże zdecydować, czy najpierw potrzebne są pomiary, czyszczenie czy zmiana programu.",
-    },
-    {
-        "slug": "bac",
-        "path": "/case-study/skraplacz-bac-kcaqua/",
-        "image": "/assets/visuals-v2/case-bac-v2.jpg",
-        "image_position": "center center",
-        "kicker": "Case study / Chłodnictwo przemysłowe",
-        "h1": "Skraplacz BAC. Mniej wody, stabilna praca.",
-        "lead": "Osady ograniczały wymianę ciepła, a zużycie wody uzupełniającej rosło. Program KCAQUA 305 połączył ochronę przed kamieniem, korozją i mikrobiologią z kontrolą odsalania.",
-        "signals": ["Skraplacz wyparny BAC", "KCAQUA 305", "Dozowanie i przewodność"],
-        "result_kicker": "W przedstawionym przykładzie",
-        "result_value": "−40%",
-        "result_label": "zużycia wody uzupełniającej po uporządkowaniu odsalania",
-        "result_note": "Efekt każdorazowo wymaga odniesienia do jakości wody i obciążenia układu.",
-        "overview": [
-            ("Punkt wyjścia", "Osad na powierzchniach wymiany ciepła i rosnący pobór wody uzupełniającej."),
-            ("Zakres", "Program KCAQUA 305, kalibracja dozowania oraz kontrola przewodności."),
-            ("Cel", "Stabilna praca chłodzenia przy mniejszej liczbie niepotrzebnych zrzutów."),
-        ],
-        "challenge_title": "Układ chłodniczy potrzebował jednego programu, a nie kilku niepołączonych działań.",
-        "challenge_intro": "Kamień, korozja i mikrobiologia wpływają na siebie nawzajem. Odpowiedź musiała objąć cały obieg, od jakości wody po automatyczne odsalanie.",
-        "issues": [
-            ("Osady na powierzchniach wymiany", "Nawet cienka warstwa osadu ogranicza chłodzenie i może podnosić temperaturę skraplania.", "Wydajność"),
-            ("Rosnące zużycie wody", "Niewłaściwe odsalanie zwiększa pobór wody i ilość ścieków bez poprawy pracy układu.", "Koszt mediów"),
-            ("Brak wspólnej kontroli", "Oddzielne działania dla chemii i automatyki utrudniają ocenę, co rzeczywiście poprawia pracę skraplacza.", "Powtarzalność"),
-        ],
-        "process_title": "KCAQUA 305 uporządkowała chemię i decyzje eksploatacyjne.",
-        "process_intro": "Program został dopasowany do jakości wody, materiałów instalacji i zmiennego obciążenia chłodzenia.",
-        "process": [
-            ("Ocena obiegu", "Sprawdziliśmy wodę uzupełniającą, parametry obiegowe, sposób odsalania oraz historię osadów."),
-            ("Dobór programu", "Ustaliliśmy funkcje KCAQUA 305, dawkę i wartości potrzebne do bezpiecznej pracy układu."),
-            ("Kalibracja automatyki", "Zweryfikowaliśmy działanie pomp, sondy przewodności i progów odsalania."),
-            ("Nadzór sezonowy", "Monitorujemy zmiany parametrów i korygujemy program wraz z obciążeniem skraplacza."),
-        ],
-        "results_title": "Mniej strat wody. Większa kontrola obiegu.",
-        "results_intro": "Przykład pokazuje, jakie zmiany weryfikujemy po wdrożeniu programu. Ostateczne wartości wynikają zawsze z pomiarów konkretnego skraplacza.",
-        "results_note": "Dane liczbowe są przykładowe i przed publikacją wymagają autoryzacji klienta.",
-        "metrics": [
-            {"count": 40, "prefix": "−", "suffix": "%", "label": "woda uzupełniająca", "before": "poziom bazowy", "after": "mniejszy pobór po stabilizacji odsalania"},
-            {"value": "Pod kontrolą", "label": "osady na wymienniku", "before": "narastająca warstwa", "after": "program ochrony i regularne pomiary"},
-            {"value": "Stabilna", "label": "praca układu", "before": "wahania wydajności", "after": "powtarzalny zakres parametrów"},
-        ],
-        "field_title": "W chłodnictwie wynik nie może zależeć od pamięci operatora.",
-        "field_intro": "Program obejmuje chemię, automatyczne dozowanie oraz dane do podejmowania codziennych decyzji o obiegu.",
-        "field_notes": [
-            ("Jedna mapa parametrów", "Woda uzupełniająca, obiegowa i odsalanie są analizowane jako jeden układ zależności."),
-            ("Automatyka po kalibracji", "Sondy i pompy są narzędziem kontroli, a nie dodatkiem działającym bez potwierdzenia pomiaru."),
-            ("Ocena w czasie", "Efekt weryfikujemy na trendach, nie po pojedynczym dniu o innym obciążeniu lub pogodzie."),
-        ],
-        "related": [
-            ("Rozwiązanie", "Skraplacze wyparne bez kamienia i biofilmu", "/uklady-chlodnicze/"),
-            ("Usługa", "Ochrona wież chłodniczych", "/uklady-chlodnicze/ochrona-wiez-chlodniczych/"),
-            ("Realizacja", "Skraplacz Evapco w przetwórstwie rybnym", "/case-study/skraplacz-evapco-przetworstwo-rybne/"),
-        ],
-        "faq_title": "Najważniejsze pytania przed zmianą programu dla skraplacza.",
-        "faq_intro": "Dobre wdrożenie zaczyna się od ustalenia, które dane są potrzebne i w jaki sposób będą oceniane.",
-        "faq": [
-            ("Dlaczego kamień, korozja i mikrobiologia powinny być prowadzone razem?", "Wszystkie trzy zjawiska wpływają na stan powierzchni i jakość wody. Skuteczny program dobieramy tak, aby ograniczać je równocześnie, bez przenoszenia problemu w inne miejsce obiegu."),
-            ("Czy mniejsze odsalanie zawsze oznacza oszczędność?", "Tylko wtedy, gdy mieści się w bezpiecznym zakresie dla wody i urządzenia. Najpierw ustalamy limity przewodności oraz ryzyko osadów, a potem stopniowo optymalizujemy pracę układu."),
-            ("Kiedy można ocenić wynik programu?", "Stabilizacja podstawowych parametrów może nastąpić szybko. Rzetelna ocena zużycia wody i pracy chłodzenia wymaga serii danych porównywalnych pod względem obciążenia i warunków pogodowych."),
-        ],
-        "cta_title": "Sprawdźmy, gdzie układ chłodniczy traci wodę i wydajność.",
-        "cta_text": "Nie musisz mieć pełnej dokumentacji. W rozmowie ustalimy, które parametry pozwolą sensownie ocenić skraplacz.",
-    },
-    {
-        "slug": "evapco",
-        "path": "/case-study/skraplacz-evapco-przetworstwo-rybne/",
-        "image": "/assets/visuals-v2/case-evapco-v2.jpg",
-        "image_position": "center center",
-        "kicker": "Case study / Przetwórstwo rybne",
-        "h1": "Evapco. Sprawność bez wymiany urządzenia.",
-        "lead": "Twardy kamień na wężownicy ograniczał wymianę ciepła i zwiększał ryzyko zakłóceń produkcji. Przeprowadziliśmy czyszczenie chemiczne bez demontażu, a następnie ustawiliśmy stały program ochrony układu.",
-        "signals": ["Skraplacz Evapco", "Czyszczenie bez demontażu", "Stała ochrona obiegu"],
-        "result_kicker": "Efekt prac",
-        "result_value": "Odzyskana",
-        "result_label": "wydajność chłodzenia po usunięciu osadu",
-        "result_note": "Zakres i rezultat czyszczenia zawsze oceniamy względem stanu konkretnej instalacji.",
-        "overview": [
-            ("Punkt wyjścia", "Twardy osad na wężownicy ograniczał wymianę ciepła w układzie pracującym dla produkcji spożywczej."),
-            ("Zakres", "Oględziny, dobór czyszczenia chemicznego i wdrożenie programu kondycjonowania."),
-            ("Cel", "Przywrócić powierzchnie wymiany ciepła bez niepotrzebnej wymiany urządzenia."),
-        ],
-        "challenge_title": "<span>Ciągłość chłodzenia.</span><span>Bezpieczna decyzja.</span>",
-        "challenge_intro": "Nie wystarczyło usunąć widocznego osadu. Trzeba było ocenić materiał, rodzaj kamienia oraz warunki, w których czyszczenie może przebiec bez ryzyka dla instalacji.",
-        "issues": [
-            ("Twardy kamień na wężownicy", "Osad ograniczał powierzchnię wymiany ciepła i obniżał skuteczność skraplacza.", "Wymiana ciepła"),
-            ("Rosnące obciążenie układu", "Aby utrzymać temperatury, instalacja pracowała w coraz mniej korzystnym zakresie.", "Zużycie energii"),
-            ("Ryzyko dla produkcji", "Pogorszenie chłodzenia w zakładzie spożywczym zwiększa ryzyko zakłóceń procesu.", "Ciągłość pracy"),
-        ],
-        "process_title": "<span>Czysta powierzchnia.</span><span>Stała ochrona.</span>",
-        "process_intro": "Kolejność działań była ważna: najpierw diagnoza i bezpieczny proces chemiczny, potem sposób, który ogranicza powrót osadu.",
-        "process": [
-            ("Oględziny i analiza wody", "Oceniliśmy stan wężownicy, rodzaj osadu i parametry wody chłodzącej."),
-            ("Próba i dobór procesu", "Ustaliliśmy preparat, czas kontaktu oraz sposób płukania odpowiedni dla materiału instalacji."),
-            ("Czyszczenie chemiczne", "Proces usunął osad bez demontażu urządzenia i odsłonił powierzchnie wymiany ciepła."),
-            ("Program na kolejny okres", "Dozowanie i monitoring pomagają ograniczać warunki sprzyjające ponownemu odkładaniu kamienia."),
-        ],
-        "results_title": "Sprawność potwierdzamy pracą układu, nie wyglądem.",
-        "results_intro": "Po czyszczeniu weryfikujemy działanie układu, reakcję parametrów wody oraz to, czy program ochrony jest gotowy do pracy w zmiennym obciążeniu produkcji.",
-        "results_note": "Opis przedstawia przebieg prac. Parametry liczbowe publikujemy wyłącznie po potwierdzeniu pomiarami i zgodzie klienta.",
-        "metrics": [
-            {"value": "Oczyszczone", "label": "powierzchnie wymiany", "before": "twardy osad na wężownicy", "after": "odsłonięte i przygotowane do pracy"},
-            {"value": "Odzyskana", "label": "wydajność chłodzenia", "before": "ograniczona przez kamień", "after": "sprawdzana w warunkach procesu"},
-            {"value": "Stała", "label": "ochrona obiegu", "before": "brak spójnego programu", "after": "dozowanie i monitoring parametrów"},
-        ],
-        "field_title": "<span>Efekt po czyszczeniu.</span><span>Ochrona na stałe.</span>",
-        "field_intro": "Wspólnie z zespołem zakładu ustalamy parametry, punkty kontroli i sposoby reagowania, zanim osad znów zacznie ograniczać chłodzenie.",
-        "field_notes": [
-            ("Woda dopasowana do instalacji", "Dobór programu uwzględnia jakość wody uzupełniającej, materiały i warunki pracy skraplacza."),
-            ("Czyszczenie bez zgadywania", "Proces chemiczny poprzedza ocena osadu i ryzyk, a po nim wykonujemy płukanie oraz kontrolę efektu."),
-            ("Nadzór w trakcie produkcji", "Stały monitoring pozwala korygować program, gdy zmienia się obciążenie lub sezon pracy układu."),
-        ],
-        "related": [
-            ("Rozwiązanie", "Kondycjonowanie układów chłodniczych", "/uklady-chlodnicze/"),
-            ("Usługa", "Odkamienianie układów chłodniczych", "/uklady-chlodnicze/odkamienianie/"),
-            ("Branże", "Woda w przemyśle spożywczym", "/branze/"),
-        ],
-        "faq_title": "<span>Przed czyszczeniem.</span><span>Co warto ustalić?</span>",
-        "faq_intro": "Bezpieczne czyszczenie wymaga oceny instalacji, a nie tylko wyboru preparatu.",
-        "faq": [
-            ("Czy czyszczenie chemiczne zawsze wymaga demontażu skraplacza?", "Nie zawsze. Możliwość czyszczenia bez demontażu zależy od budowy instalacji, rodzaju osadu, materiałów i dostępu do obiegu. Każdy przypadek oceniamy przed rozpoczęciem prac."),
-            ("Jak zabezpieczacie instalację po usunięciu kamienia?", "Po czyszczeniu dobieramy program kondycjonowania i ustalamy zakres kontroli wody. Dzięki temu ograniczamy warunki, które sprzyjały tworzeniu osadu przed interwencją."),
-            ("Czy można zaplanować prace tak, aby ograniczyć wpływ na produkcję?", "Tak. Zakres i harmonogram ustalamy po ocenie ryzyka oraz dostępnych okien serwisowych. W zakładach o ciągłej produkcji szczególnie ważne jest etapowanie i wcześniejsze przygotowanie procesu."),
-        ],
-        "cta_title": "Sprawdźmy, czy wydajność można odzyskać bez wymiany urządzenia.",
-        "cta_text": "Opisz typ skraplacza, objawy i warunki pracy. Inżynier pomoże określić, od jakich pomiarów oraz oględzin zacząć.",
-    },
-]
+# Zrodlem prawdy jest content/snapshot.json — generowany z Postgresa przez
+# builder/export_snapshot.py. Wczesniej dane byly literalem w tym pliku.
+CASE_STUDIES = content_source.case_studies()
 
 
 def _company_hero(config):
@@ -741,14 +555,14 @@ def _render_about():
   <img class="company-about-hero__brandmark" src="/assets/kabi-sygnet.svg" alt="" aria-hidden="true">
   <div class="wrap company-hero__inner company-about-hero__inner">
     <div class="company-hero__copy company-about-hero__copy">
-      <p class="company-kicker"><span></span>Kabi-Chemie · technologia KCAQUA</p>
+      <p class="company-kicker"><span></span>KABI CHEMIE · technologia KCAQUA</p>
       <h1><span class="company-about-hero__title-line">Woda przemysłowa</span><span class="company-about-hero__title-line company-about-hero__title-line--accent">pod kontrolą.</span></h1>
       <p class="company-hero__lead">Łączymy analizę wody, chemię KCAQUA, dozowanie i stały nadzór. Pomagamy ograniczać zużycie wody i energii, chronić instalacje oraz szybciej reagować na odchylenia.</p>
       <div class="company-hero__actions">
         <a class="btn btn-primary" href="/warunki-wspolpracy/">Poznaj sposób współpracy</a>
         <a class="company-text-link" href="/kontakt/">Porozmawiaj z inżynierem <span aria-hidden="true">↗</span></a>
       </div>
-      <ul class="company-about-hero__scope" aria-label="Zakres działania Kabi-Chemie">
+      <ul class="company-about-hero__scope" aria-label="Zakres działania KABI CHEMIE">
         <li>
           <span class="company-about-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 7.1 6.5 9.9 6.5 13.3a5.5 5.5 0 0 0 11 0C17.5 9.9 15 7.1 12 3Z"/><circle cx="17.5" cy="17.5" r="3"/><path d="m19.8 19.8 1.5 1.5"/></svg></span>
           <strong>Diagnoza</strong><em>Woda, obciążenie i miejsca strat.</em>
@@ -803,7 +617,7 @@ def _render_about():
 <section class="company-evidence">
   <div class="wrap company-evidence__grid">
     <div class="company-evidence__media" aria-hidden="true">
-      <img src="/assets/visuals-v2/company-diagnostics-v3.webp" alt="" width="1680" height="945" loading="lazy" decoding="async">
+      <img src="/assets/visuals-v2/company-diagnostics-v3.webp" alt="Inżynier analizujący dane pracy przemysłowej instalacji wodnej" width="1680" height="945" loading="lazy" decoding="async">
     </div>
     <div class="company-evidence__copy reveal-right">
       <p class="company-kicker company-kicker--dark"><span></span>Decyzja oparta na danych</p>
@@ -914,7 +728,7 @@ def _render_model():
     </header>
     <div class="company-responsibility__columns reveal-right">
       <section>
-        <span>Po stronie Kabi-Chemie</span>
+        <span>Po stronie KABI CHEMIE</span>
         <ul><li>diagnoza i dobór programu,</li><li>parametry dozowania i kontroli,</li><li>interpretacja wyników i korekty,</li><li>czytelny raport z rekomendacją.</li></ul>
       </section>
       <section>
@@ -981,19 +795,13 @@ def _render_references():
       <p>Każdą realizację pokazujemy w tym samym układzie. Dzięki temu łatwo ocenić, czy odpowiada warunkom Państwa instalacji.</p>
       <a class="company-inline-link" href="/case-study/">Zobacz wszystkie case studies <span aria-hidden="true">↗</span></a>
     </header>
-    <div class="company-reference-ledger__list">
-      <a class="company-reference-entry reveal" href="/case-study/kociol-parowy-fako/">
-        <span class="company-reference-entry__media"><img src="/assets/visuals-v2/case-fako-v2.jpg" alt="Instalacja kotła parowego w zakładzie przemysłowym" loading="lazy"></span>
-        <span class="company-reference-entry__copy"><small>01 / Kotłownia parowa</small><strong>FAKO. Czysta powierzchnia wymiany i stabilna praca kotła.</strong><em>Diagnoza, czyszczenie, program ochrony</em></span><i aria-hidden="true">↗</i>
-      </a>
-      <a class="company-reference-entry reveal" href="/case-study/skraplacz-bac-kcaqua/">
-        <span class="company-reference-entry__media"><img src="/assets/visuals-v2/case-bac-v2.jpg" alt="Skraplacz wyparny w instalacji chłodniczej" loading="lazy"></span>
-        <span class="company-reference-entry__copy"><small>02 / Chłodnictwo przemysłowe</small><strong>BAC. Mniejszy pobór wody po korekcie programu i odsalania.</strong><em>KCAQUA 305, dozowanie, przewodność</em></span><i aria-hidden="true">↗</i>
-      </a>
-      <a class="company-reference-entry reveal" href="/case-study/skraplacz-evapco-przetworstwo-rybne/">
-        <span class="company-reference-entry__media"><img src="/assets/visuals-v2/case-evapco-v2.jpg" alt="Przemysłowy skraplacz Evapco" loading="lazy"></span>
-        <span class="company-reference-entry__copy"><small>03 / Przetwórstwo spożywcze</small><strong>Evapco. Przywrócone chłodzenie bez wymiany urządzenia.</strong><em>Czyszczenie chemiczne, stała ochrona obiegu</em></span><i aria-hidden="true">↗</i>
-      </a>
+    <div class="company-reference-placeholder-grid" aria-label="Referencje w przygotowaniu">
+      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
+      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
+      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
+      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
+      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
+      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
     </div>
   </div>
 </section>
@@ -1031,13 +839,13 @@ COMPANY_FAQ = [
         [
             ("Jak wygląda audyt techniczny?", "Zakres ustalamy do instalacji. Może obejmować analizę wody, oględziny urządzeń, ocenę dozowania, danych z automatyki i kosztów mediów. Wynik przekładamy na konkretne działania."),
             ("Czy KCAQUA zastępuje dotychczasową chemię?", "W wielu instalacjach tak, ale nie podejmujemy tej decyzji bez analizy warunków pracy. Program dobieramy do jakości wody, materiałów, obciążenia i celu technicznego."),
-            ("Kiedy można ocenić efekt wdrożenia?", "Część zmian w parametrach wody jest widoczna szybko. Potwierdzenie wpływu na wodę, energię lub trwałość instalacji wymaga porównywalnych danych zbieranych w czasie."),
+            ("Kiedy można ocenić efekt wdrożenia?", "Parametry wody zmieniają się natychmiast, a oszczędności wody można zauważyć już w ciągu 24 godzin od rozpoczęcia dozowania. Odkamienianie jest procesem rozłożonym w czasie i może trwać nawet kilka miesięcy, w zależności od stanu instalacji."),
         ],
     ),
     (
         "Instalacje przemysłowe",
         [
-            ("Jakie instalacje obsługuje Kabi-Chemie?", "Pracujemy przy kotłach parowych, skraplaczach wyparnych, wieżach chłodniczych, obiegach technologicznych, wymiennikach i instalacjach odwróconej osmozy."),
+            ("Jakie instalacje obsługuje KABI CHEMIE?", "Pracujemy przy kotłach parowych, skraplaczach wyparnych, wieżach chłodniczych, obiegach technologicznych, wymiennikach i instalacjach odwróconej osmozy."),
             ("Czy cienka warstwa kamienia ma znaczenie?", "Tak. Nawet cienki osad ogranicza wymianę ciepła, może podnosić zużycie energii i przyspieszać ryzyko przegrzań lub problemów serwisowych. Skala efektu zależy od konkretnej instalacji."),
             ("Czy program chemiczny może ograniczyć zużycie wody?", "Może, jeżeli instalacja pozwala bezpiecznie utrzymać korzystniejsze parametry pracy. Najpierw sprawdzamy jakość wody i limity urządzenia, a dopiero później optymalizujemy odsalanie lub zrzuty."),
         ],
@@ -1045,7 +853,7 @@ COMPANY_FAQ = [
     (
         "Zakres i decyzja",
         [
-            ("Czy obsługujecie zakłady w całej Polsce?", "Tak. Kabi-Chemie realizuje audyty, wdrożenia i opiekę techniczną w zakładach przemysłowych w całej Polsce. Zakres oraz termin wizyty ustalamy po wstępnym rozpoznaniu instalacji."),
+            ("Czy obsługujecie zakłady w całej Polsce?", "Tak. KABI CHEMIE realizuje audyty, wdrożenia i opiekę techniczną w zakładach przemysłowych w całej Polsce. Zakres oraz termin wizyty ustalamy po wstępnym rozpoznaniu instalacji."),
             ("Czy współpraca musi zaczynać się od pełnego audytu?", "Nie. Pierwszym krokiem może być krótka rozmowa, ocena dostępnych danych albo analiza wody. Pełny audyt proponujemy wtedy, gdy jest potrzebny do bezpiecznej decyzji."),
             ("Co otrzymujemy po rozpoznaniu instalacji?", "Wskazujemy źródła ryzyka, rekomendowany zakres działań, potrzebne pomiary i sposób oceny efektu. Jeżeli nie widzimy uzasadnienia dla wdrożenia, mówimy o tym wprost."),
         ],
@@ -1122,20 +930,20 @@ def _render_contact(site):
   <div class="contact-editorial-hero__shade" aria-hidden="true"></div>
   <div class="wrap contact-editorial-hero__inner">
     <div class="contact-editorial-hero__copy">
-      <p class="company-kicker"><span></span>Kontakt z Kabi-Chemie</p>
+      <p class="company-kicker"><span></span>Kontakt z KABI CHEMIE</p>
       <h1>Porozmawiajmy o <span>Państwa instalacji.</span></h1>
       <p>Proszę krótko opisać instalację. Nasz inżynier uporządkuje temat i wskaże rozsądny kolejny krok.</p>
       <div class="contact-editorial-hero__actions">
         <a class="btn btn-primary" href="#kontakt-form">Napisz do nas</a>
-        <a class="contact-editorial-hero__call" href="tel:{site['phone_raw']}" aria-label="Zadzwoń do biura Kabi-Chemie pod numer {site['phone']}">{_icon("phone")}<span>Zadzwoń do biura</span></a>
+        <a class="contact-editorial-hero__call" href="tel:{site['phone_raw']}" aria-label="Zadzwoń do biura KABI CHEMIE pod numer {site['phone']}">{_icon("phone")}<span>Zadzwoń do biura</span></a>
       </div>
     </div>
-    <aside class="contact-editorial-directory" aria-label="Dane kontaktowe Kabi-Chemie">
+    <aside class="contact-editorial-directory" aria-label="Dane kontaktowe KABI CHEMIE">
       <p class="contact-editorial-directory__label">Dane kontaktowe</p>
       <address class="contact-editorial-office">
         <div class="contact-editorial-office__heading">
           <span class="contact-editorial-office__icon">{_icon("pin")}</span>
-          <strong>Kabi-Chemie</strong>
+          <strong>KABI CHEMIE</strong>
         </div>
         <p>{site['postal_code']} {site['city']}<br>{site['street']}<br><span>NIP: {site['nip']}</span></p>
         <div class="contact-editorial-office__links">
@@ -1225,7 +1033,7 @@ def _render_case_index():
 """ + _company_final(
         "Podobna instalacja",
         "Sprawdź, ile zaoszczędzi Twój zakład.",
-        "Bezpłatna konsultacja techniczna z inżynierem Kabi-Chemie, bez zobowiązań. Opisz instalację, a wskażemy właściwy punkt odniesienia.",
+        "Bezpłatna konsultacja techniczna z inżynierem KABI CHEMIE, bez zobowiązań. Opisz instalację, a wskażemy właściwy punkt odniesienia.",
         "Umów bezpłatną konsultację",
         "/bezplatna-konsultacja/",
     )
@@ -1414,7 +1222,7 @@ def _render_warsztaty():
     </div>
     <div class="ammonia-cta__actions">
       <a class="btn btn-primary" href="/kontakt/">Wyślij zapytanie techniczne</a>
-      <a class="ammonia-phone" href="tel:+48662792875" aria-label="Zadzwoń do Kabi-Chemie: +48 662 792 875">{_case_icon('phone')}<span>+48 662 792 875</span></a>
+      <a class="ammonia-phone" href="tel:+48662792875" aria-label="Zadzwoń do KABI CHEMIE: +48 662 792 875">{_case_icon('phone')}<span>+48 662 792 875</span></a>
     </div>
   </div>
 </section>
@@ -1454,8 +1262,8 @@ def install_company_case_pages(pages, custom, site):
     }
 
     pages["/o-firmie/"] = {
-        "title": "Kabi-Chemie - kontrola wody przemysłowej z KCAQUA",
-        "meta": "Kabi-Chemie łączy analizę wody, chemię KCAQUA, dozowanie i nadzór, aby ograniczać zużycie mediów i chronić instalacje przemysłowe.",
+        "title": "KABI CHEMIE - kontrola wody przemysłowej z KCAQUA",
+        "meta": "KABI CHEMIE łączy analizę wody, chemię KCAQUA, dozowanie i nadzór, aby ograniczać zużycie mediów i chronić instalacje przemysłowe.",
         "h1": "Woda przemysłowa pod kontrolą.",
         "og_image": "/assets/visuals-v2/company-mission-v2.jpg",
         "body_class": "has-dark-hero company-editorial-page company-about-editorial-page",
@@ -1463,24 +1271,24 @@ def install_company_case_pages(pages, custom, site):
         "sections": [custom(_render_about())],
     }
     pages["/warunki-wspolpracy/"] = {
-        "title": "Model współpracy Kabi-Chemie | Od diagnozy do wyniku",
-        "meta": "Poznaj model współpracy Kabi-Chemie: od rozmowy technicznej i diagnozy, przez program KCAQUA, po monitoring danych z instalacji.",
+        "title": "Model współpracy KABI CHEMIE | Od diagnozy do wyniku",
+        "meta": "Poznaj model współpracy KABI CHEMIE: od rozmowy technicznej i diagnozy, przez program KCAQUA, po monitoring danych z instalacji.",
         "h1": "Od diagnozy do wyniku.",
         "og_image": "/assets/visuals-v2/company-collaboration-v2.jpg",
         "body_class": "has-dark-hero company-editorial-page company-model-editorial-page",
         "sections": [custom(_render_model())],
     }
     pages["/referencje/"] = {
-        "title": "Referencje Kabi-Chemie | Wyniki z instalacji przemysłowych",
-        "meta": "Wybrane realizacje Kabi-Chemie dla kotłów parowych, skraplaczy wyparnych i instalacji RO. Poznaj zakres prac i wyniki potwierdzone danymi.",
+        "title": "Referencje KABI CHEMIE | Wyniki z instalacji przemysłowych",
+        "meta": "Wybrane realizacje KABI CHEMIE dla kotłów parowych, skraplaczy wyparnych i instalacji RO. Poznaj zakres prac i wyniki potwierdzone danymi.",
         "h1": "Wdrożenia potwierdzone danymi z instalacji.",
         "og_image": "/assets/visuals-v2/company-references-v2.jpg",
         "body_class": "has-dark-hero company-editorial-page company-references-editorial-page",
         "sections": [custom(_render_references())],
     }
     pages["/faq/"] = {
-        "title": "FAQ Kabi-Chemie | Audyt, KCAQUA i współpraca",
-        "meta": "Konkretne odpowiedzi o audycie technicznym, programie KCAQUA, instalacjach przemysłowych, wdrożeniu i opiece Kabi-Chemie.",
+        "title": "FAQ KABI CHEMIE | Audyt, KCAQUA i współpraca",
+        "meta": "Konkretne odpowiedzi o audycie technicznym, programie KCAQUA, instalacjach przemysłowych, wdrożeniu i opiece KABI CHEMIE.",
         "h1": "Odpowiedzi przed pierwszą rozmową.",
         "og_image": "/assets/visuals-v2/company-faq-v2.jpg",
         "body_class": "has-dark-hero company-editorial-page company-faq-editorial-page",
@@ -1488,8 +1296,8 @@ def install_company_case_pages(pages, custom, site):
         "sections": [custom(faq_html)],
     }
     pages["/kontakt/"] = {
-        "title": "Kontakt z Kabi-Chemie | Rozmowa z inżynierem",
-        "meta": "Skontaktuj się z inżynierem Kabi-Chemie. Opisz instalację, problem z wodą lub zadzwoń, aby ustalić kolejny krok.",
+        "title": "Kontakt z KABI CHEMIE | Rozmowa z inżynierem",
+        "meta": "Skontaktuj się z inżynierem KABI CHEMIE. Opisz instalację, problem z wodą lub zadzwoń, aby ustalić kolejny krok.",
         "h1": "Porozmawiajmy o Twojej instalacji.",
         "og_image": "/assets/visuals-v2/contact-v2.jpg",
         "body_class": "has-dark-hero contact-editorial-page",
