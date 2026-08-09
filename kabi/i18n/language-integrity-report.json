@@ -1,0 +1,1736 @@
+{
+  "catalog_strings": 2383,
+  "languages": {
+    "en": {
+      "mapping_issues": [],
+      "compact_text_review": [
+        {
+          "page": "en/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 82,
+          "source": "Czy program chemiczny lub modernizacja instalacji wodnej może być podstawą wniosku?",
+          "text": "Can a chemical treatment programme or water-system upgrade support an application?"
+        },
+        {
+          "page": "en/case-study/skraplacz-bac-kcaqua/index.html",
+          "tag": "summary",
+          "length": 76,
+          "source": "Dlaczego kamień, korozja i mikrobiologia powinny być prowadzone razem?",
+          "text": "Why should scale, corrosion and microbiological control be managed together?"
+        },
+        {
+          "page": "en/index.html",
+          "tag": "summary",
+          "length": 75,
+          "source": "Czym różni się technologia KCAQUA od standardowej chemii kotłowej?",
+          "text": "How does KCAQUA technology differ from conventional boiler-water treatment?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 72,
+          "source": "Które dane mają największy wpływ na wynik dla skraplacza wyparnego?",
+          "text": "Which data have the greatest impact on the evaporative-condenser result?"
+        },
+        {
+          "page": "en/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 70,
+          "source": "Kiedy sama korekta programu chemicznego nie wystarczy?",
+          "text": "When is adjusting the chemical treatment programme alone insufficient?"
+        },
+        {
+          "page": "en/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 69,
+          "source": "Czy czyszczenie chemiczne zawsze wymaga demontażu skraplacza?",
+          "text": "Does chemical cleaning always require the condenser to be dismantled?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 69,
+          "source": "Czy kalkulator uwzględnia zmienne obciążenie instalacji w ciągu roku?",
+          "text": "Does the calculator account for changes in system load over the year?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 69,
+          "source": "Czy wynik można wykorzystać przy planowaniu białego certyfikatu?",
+          "text": "Can the result be used when planning a white-certificate application?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 67,
+          "source": "Jakie dane przygotować do weryfikacji wyniku z inżynierem?",
+          "text": "What data should be prepared to review the result with an engineer?"
+        },
+        {
+          "page": "en/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 66,
+          "source": "Czy pomagacie dobrać chemię do istniejącej stacji RO?",
+          "text": "Can you help select treatment chemicals for an existing RO system?"
+        },
+        {
+          "page": "en/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 65,
+          "source": "Czy można kondycjonować wodę bez wyłączania kotła?",
+          "text": "Can boiler water be conditioned without shutting down the boiler?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 65,
+          "source": "Kiedy kalkulację należy potwierdzić pomiarem lub audytem?",
+          "text": "When should a calculation be verified by measurement or an audit?"
+        },
+        {
+          "page": "en/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 64,
+          "source": "Dlaczego jakość wody wpływa na wydajność skraplacza wyparnego?",
+          "text": "Why does water quality affect evaporative-condenser performance?"
+        },
+        {
+          "page": "en/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 64,
+          "source": "Czym KCAQUA różni się od uniwersalnego preparatu z katalogu?",
+          "text": "How does KCAQUA differ from a general-purpose treatment product?"
+        },
+        {
+          "page": "en/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 63,
+          "source": "Czy można zaplanować prace tak, aby ograniczyć wpływ na produkcję?",
+          "text": "Can the work be scheduled to minimize its impact on production?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 63,
+          "source": "Które dane mają największy wpływ na wynik dla kotła parowego?",
+          "text": "Which data have the greatest impact on the steam-boiler result?"
+        },
+        {
+          "page": "en/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 62,
+          "source": "Jaki obszar instalacji obejmuje program KABI CHEMIE?",
+          "text": "Which part of the system does the KABI CHEMIE programme cover?"
+        },
+        {
+          "page": "en/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 62,
+          "source": "Czy KABI CHEMIE odpowiada za walidację procesu termicznego?",
+          "text": "Is KABI CHEMIE responsible for validating the thermal process?"
+        },
+        {
+          "page": "en/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 62,
+          "source": "Jak rozpoznać, że kamień podnosi już koszt pary?",
+          "text": "How can you tell that scale is already increasing steam costs?"
+        },
+        {
+          "page": "en/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 62,
+          "source": "Czy antyskalant rozwiąże każdy problem ze spadkiem wydajności?",
+          "text": "Can an antiscalant resolve every cause of reduced performance?"
+        },
+        {
+          "page": "en/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Czy program wygląda tak samo dla autoklawu i pasteryzatora?",
+          "text": "Is the programme the same for an autoclave and a pasteurizer?"
+        },
+        {
+          "page": "en/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Czy KABI CHEMIE gwarantuje wydanie świadectwa?",
+          "text": "Does KABI CHEMIE guarantee that a certificate will be issued?"
+        },
+        {
+          "page": "en/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Które parametry warto obserwować podczas normalnej pracy?",
+          "text": "Which parameters should be monitored during normal operation?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Czy KCAQUA zastępuje dotychczasową chemię?",
+          "text": "Does KCAQUA replace the treatment chemicals currently in use?"
+        },
+        {
+          "page": "en/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Czy KCAQUA zastępuje obecnie stosowaną chemię?",
+          "text": "Does KCAQUA replace the treatment chemicals currently in use?"
+        },
+        {
+          "page": "en/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Czy wdrożenie wymaga zatrzymania chłodzenia?",
+          "text": "Does implementation require the cooling system to be stopped?"
+        },
+        {
+          "page": "en/uslugi/analiza-wody/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Jak pobrać próbkę, aby wynik był wiarygodny?",
+          "text": "How should a sample be collected to obtain a reliable result?"
+        },
+        {
+          "page": "en/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 60,
+          "source": "Od czego zaczyna się dobór programu dla kotła parowego?",
+          "text": "Where does steam-boiler treatment programme selection begin?"
+        },
+        {
+          "page": "en/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Jakie dane przygotować przed pierwszą rozmową?",
+          "text": "What data should be prepared before the initial discussion?"
+        },
+        {
+          "page": "en/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Po czym poznać, że w kotle narasta kamień?",
+          "text": "How can you tell that scale is building up inside a boiler?"
+        },
+        {
+          "page": "en/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Czy inhibitor korozji wystarczy bez wcześniejszego czyszczenia?",
+          "text": "Is a corrosion inhibitor sufficient without prior cleaning?"
+        },
+        {
+          "page": "en/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Jakie informacje warto podać przy zgłoszeniu awarii?",
+          "text": "What information should be provided when reporting a fault?"
+        },
+        {
+          "page": "en/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Po czym poznać, że membrany RO są zagrożone osadem?",
+          "text": "How can you tell that RO membranes are at risk of scaling?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Jak wiarygodnie określić grubość kamienia lub osadu?",
+          "text": "How can scale or deposit thickness be determined reliably?"
+        },
+        {
+          "page": "en/uslugi/analiza-wody/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Czy trzeba mieć własne laboratorium lub wcześniejsze wyniki?",
+          "text": "Do I need an in-house laboratory or previous test results?"
+        },
+        {
+          "page": "en/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Jak zapobiec powrotowi kamienia po czyszczeniu?",
+          "text": "How can scale be prevented from returning after cleaning?"
+        },
+        {
+          "page": "en/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Jak ograniczyć zużycie wody w skraplaczu wyparnym?",
+          "text": "How can water use in an evaporative condenser be reduced?"
+        },
+        {
+          "page": "en/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Jak chronić wieżę przed Legionellą?",
+          "text": "How can a cooling tower be protected against Legionella?"
+        },
+        {
+          "page": "en/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Czy możecie ocenić obecny program chemiczny?",
+          "text": "Can you assess the current chemical treatment programme?"
+        },
+        {
+          "page": "en/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Kiedy rozmowa nie wystarczy i potrzebny jest audyt?",
+          "text": "When is a discussion insufficient and an audit required?"
+        },
+        {
+          "page": "en/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Czy każda modernizacja ograniczająca energię kwalifikuje się do systemu?",
+          "text": "Does every energy-saving upgrade qualify for the scheme?"
+        },
+        {
+          "page": "en/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Jak ograniczyć odsalanie bez pogorszenia bezpieczeństwa?",
+          "text": "How can blowdown be reduced without compromising safety?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 55,
+          "source": "Czy obsługujecie zakłady w całej Polsce?",
+          "text": "Do you support industrial facilities throughout Poland?"
+        },
+        {
+          "page": "en/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 55,
+          "source": "Czy jeden program może kontrolować kamień, korozję i biofilm?",
+          "text": "Can one programme control scale, corrosion and biofilm?"
+        },
+        {
+          "page": "en/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Czy zwiększenie odsalania zawsze poprawia bezpieczeństwo instalacji?",
+          "text": "Does increasing blowdown always improve system safety?"
+        },
+        {
+          "page": "en/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Co dokładnie obejmuje wynik rocznych oszczędności?",
+          "text": "What exactly is included in the annual-savings result?"
+        },
+        {
+          "page": "en/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Jak często należy kontrolować program ochronny?",
+          "text": "How often should the protection programme be reviewed?"
+        },
+        {
+          "page": "en/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Czy serwisujecie urządzenia różnych producentów?",
+          "text": "Do you service equipment from different manufacturers?"
+        },
+        {
+          "page": "en/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 53,
+          "source": "Od czego rozpocząć ocenę własnego układu chłodniczego?",
+          "text": "Where should an assessment of a cooling system begin?"
+        },
+        {
+          "page": "en/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Co sprawdzacie przy chłodni albo skraplaczu?",
+          "text": "What do you inspect in a cooling tower or condenser?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Czy program chemiczny może ograniczyć zużycie wody?",
+          "text": "Can a chemical treatment programme reduce water use?"
+        },
+        {
+          "page": "en/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Czy wdrożenie wymaga postoju kotłowni?",
+          "text": "Does implementation require a boiler-house shutdown?"
+        },
+        {
+          "page": "en/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Jak dobrać antyskalant do mojej wody?",
+          "text": "How should an antiscalant be selected for my water?"
+        },
+        {
+          "page": "en/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Jakie objawy wskazują na biofilm w układzie chłodniczym?",
+          "text": "What symptoms indicate biofilm in a cooling system?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Kiedy można ocenić efekt wdrożenia?",
+          "text": "When can the effects of implementation be assessed?"
+        },
+        {
+          "page": "en/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Czy wdrożenie wymaga zatrzymania produkcji?",
+          "text": "Does implementation require a production shutdown?"
+        },
+        {
+          "page": "en/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Czy antyskalant zastępuje prawidłową filtrację wstępną?",
+          "text": "Does an antiscalant replace proper pre-filtration?"
+        },
+        {
+          "page": "en/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Jak zabezpieczacie instalację po usunięciu kamienia?",
+          "text": "How do you protect the system after scale removal?"
+        },
+        {
+          "page": "en/odkamienianie-instalacji/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Skąd wiadomo, jaki preparat zastosować?",
+          "text": "How is the appropriate treatment product selected?"
+        },
+        {
+          "page": "en/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Jak często trzeba kontrolować dawkę antyskalantu?",
+          "text": "How often should the antiscalant dose be checked?"
+        },
+        {
+          "page": "en/case-study/kociol-parowy-fako/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Jak potwierdzacie wpływ na paliwo?",
+          "text": "How do you verify the impact on fuel consumption?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Czy współpraca musi zaczynać się od pełnego audytu?",
+          "text": "Does cooperation have to begin with a full audit?"
+        },
+        {
+          "page": "en/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Jak odróżnić skalowanie od biofoulingu?",
+          "text": "How can scaling be distinguished from biofouling?"
+        },
+        {
+          "page": "en/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Czy obsługujecie skraplacze amoniakalne BAC i EVAPCO?",
+          "text": "Do you service BAC and EVAPCO ammonia condensers?"
+        },
+        {
+          "page": "en/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Czy po wizycie otrzymamy protokół?",
+          "text": "Will we receive a service report after the visit?"
+        },
+        {
+          "page": "en/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Czy można ustalić stały harmonogram przeglądów?",
+          "text": "Can a regular inspection schedule be established?"
+        },
+        {
+          "page": "en/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 48,
+          "source": "Czy sam biocyd wystarczy do usunięcia biofilmu?",
+          "text": "Is a biocide alone sufficient to remove biofilm?"
+        },
+        {
+          "page": "en/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Jak często trzeba kontrolować wodę w wieży chłodniczej?",
+          "text": "How often should cooling-tower water be tested?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Co otrzymujemy po rozpoznaniu instalacji?",
+          "text": "What do we receive after the system assessment?"
+        },
+        {
+          "page": "en/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Po czym poznać, że program działa?",
+          "text": "How can you tell that the programme is working?"
+        },
+        {
+          "page": "en/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Czy serwis obejmuje pompy dozujące i sondy?",
+          "text": "Does the service cover dosing pumps and probes?"
+        },
+        {
+          "page": "en/case-study/kociol-parowy-fako/index.html",
+          "tag": "summary",
+          "length": 46,
+          "source": "Czy odkamienianie kotła oznacza długi postój?",
+          "text": "Does boiler descaling require a long shutdown?"
+        },
+        {
+          "page": "en/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Jakie dane techniczne najbardziej przyspieszają diagnozę?",
+          "text": "Which technical data help speed up diagnosis?"
+        },
+        {
+          "page": "en/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Co jeśli znam tylko objaw, a nie znam przyczyny?",
+          "text": "What if I know the symptom but not the cause?"
+        },
+        {
+          "page": "en/case-study/skraplacz-bac-kcaqua/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Kiedy można ocenić wynik programu?",
+          "text": "When can the programme's results be assessed?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Co warto przygotować przed kontaktem?",
+          "text": "What should be prepared before contacting us?"
+        },
+        {
+          "page": "en/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Czy konsultacja techniczna jest bezpłatna?",
+          "text": "Is the technical consultation free of charge?"
+        },
+        {
+          "page": "en/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Co sprawdzacie przy kotłowni parowej?",
+          "text": "What do you inspect in a steam-boiler house?"
+        },
+        {
+          "page": "en/faq/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Kiedy najlepiej zadzwonić zamiast pisać?",
+          "text": "When is it better to call rather than write?"
+        },
+        {
+          "page": "en/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Co zakład otrzymuje po audycie?",
+          "text": "What does the plant receive after the audit?"
+        },
+        {
+          "page": "en/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Jak ustalacie przyczynę korozji?",
+          "text": "How do you determine the cause of corrosion?"
+        },
+        {
+          "page": "en/odkamienianie-instalacji/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Co dzieje się z roztworem po czyszczeniu?",
+          "text": "What happens to the solution after cleaning?"
+        },
+        {
+          "page": "en/uslugi/analiza-wody/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Co dzieje się po otrzymaniu wyników?",
+          "text": "What happens after the results are received?"
+        }
+      ]
+    },
+    "de": {
+      "mapping_issues": [],
+      "compact_text_review": [
+        {
+          "page": "de/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 115,
+          "source": "Czy program chemiczny lub modernizacja instalacji wodnej może być podstawą wniosku?",
+          "text": "Kann ein chemisches Behandlungsprogramm oder die Modernisierung einer Wasseranlage Grundlage für einen Antrag sein?"
+        },
+        {
+          "page": "de/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 95,
+          "source": "Czy można zaplanować prace tak, aby ograniczyć wpływ na produkcję?",
+          "text": "Können die Arbeiten so geplant werden, dass die Produktion möglichst wenig beeinträchtigt wird?"
+        },
+        {
+          "page": "de/index.html",
+          "tag": "summary",
+          "length": 91,
+          "source": "Czym różni się technologia KCAQUA od standardowej chemii kotłowej?",
+          "text": "Wie unterscheidet sich die KCAQUA-Technologie von der herkömmlichen Kesselwasserbehandlung?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 91,
+          "source": "Czy wynik można wykorzystać przy planowaniu białego certyfikatu?",
+          "text": "Kann das Ergebnis bei der Planung eines Antrags auf ein weißes Zertifikat verwendet werden?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 86,
+          "source": "Które dane mają największy wpływ na wynik dla skraplacza wyparnego?",
+          "text": "Welche Daten beeinflussen das Ergebnis für einen Verdunstungskondensator am stärksten?"
+        },
+        {
+          "page": "de/case-study/skraplacz-bac-kcaqua/index.html",
+          "tag": "summary",
+          "length": 85,
+          "source": "Dlaczego kamień, korozja i mikrobiologia powinny być prowadzone razem?",
+          "text": "Warum sollten Kesselstein, Korrosion und Mikrobiologie gemeinsam kontrolliert werden?"
+        },
+        {
+          "page": "de/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 83,
+          "source": "Jak ograniczyć odsalanie bez pogorszenia bezpieczeństwa?",
+          "text": "Wie lässt sich die Abschlämmung reduzieren, ohne die Sicherheit zu beeinträchtigen?"
+        },
+        {
+          "page": "de/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 81,
+          "source": "Dlaczego jakość wody wpływa na wydajność skraplacza wyparnego?",
+          "text": "Warum beeinflusst die Wasserqualität die Leistung eines Verdunstungskondensators?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 81,
+          "source": "Jak wiarygodnie określić grubość kamienia lub osadu?",
+          "text": "Wie lässt sich die Dicke von Kesselstein oder Ablagerungen zuverlässig bestimmen?"
+        },
+        {
+          "page": "de/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 80,
+          "source": "Czy pomagacie dobrać chemię do istniejącej stacji RO?",
+          "text": "Unterstützen Sie bei der Auswahl der Wasserchemie für eine bestehende RO-Anlage?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 80,
+          "source": "Jakie dane przygotować do weryfikacji wyniku z inżynierem?",
+          "text": "Welche Daten werden benötigt, um das Ergebnis mit einem Ingenieur zu überprüfen?"
+        },
+        {
+          "page": "de/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 79,
+          "source": "Po czym poznać, że membrany RO są zagrożone osadem?",
+          "text": "Woran lässt sich erkennen, dass RO-Membranen durch Ablagerungen gefährdet sind?"
+        },
+        {
+          "page": "de/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 79,
+          "source": "Kiedy sama korekta programu chemicznego nie wystarczy?",
+          "text": "Wann reicht die Anpassung des chemischen Behandlungsprogramms allein nicht aus?"
+        },
+        {
+          "page": "de/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 77,
+          "source": "Czy KABI CHEMIE odpowiada za walidację procesu termicznego?",
+          "text": "Ist KABI CHEMIE für die Validierung des thermischen Prozesses verantwortlich?"
+        },
+        {
+          "page": "de/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 77,
+          "source": "Jak zapobiec powrotowi kamienia po czyszczeniu?",
+          "text": "Wie lässt sich eine erneute Kesselsteinbildung nach der Reinigung verhindern?"
+        },
+        {
+          "page": "de/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 77,
+          "source": "Jak ograniczyć zużycie wody w skraplaczu wyparnym?",
+          "text": "Wie lässt sich der Wasserverbrauch eines Verdunstungskondensators reduzieren?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 76,
+          "source": "Kiedy kalkulację należy potwierdzić pomiarem lub audytem?",
+          "text": "Wann sollte eine Berechnung durch Messungen oder ein Audit überprüft werden?"
+        },
+        {
+          "page": "de/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 75,
+          "source": "Od czego zaczyna się dobór programu dla kotła parowego?",
+          "text": "Womit beginnt die Auswahl eines Behandlungsprogramms für einen Dampfkessel?"
+        },
+        {
+          "page": "de/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 75,
+          "source": "Jak rozpoznać, że kamień podnosi już koszt pary?",
+          "text": "Woran lässt sich erkennen, dass Kesselstein die Dampfkosten bereits erhöht?"
+        },
+        {
+          "page": "de/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 74,
+          "source": "Czy czyszczenie chemiczne zawsze wymaga demontażu skraplacza?",
+          "text": "Muss ein Verflüssiger für die chemische Reinigung immer demontiert werden?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 74,
+          "source": "Które dane mają największy wpływ na wynik dla kotła parowego?",
+          "text": "Welche Daten beeinflussen das Ergebnis für einen Dampfkessel am stärksten?"
+        },
+        {
+          "page": "de/uslugi/analiza-wody/index.html",
+          "tag": "summary",
+          "length": 73,
+          "source": "Jak pobrać próbkę, aby wynik był wiarygodny?",
+          "text": "Wie muss eine Probe entnommen werden, damit das Ergebnis zuverlässig ist?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 72,
+          "source": "Czy kalkulator uwzględnia zmienne obciążenie instalacji w ciągu roku?",
+          "text": "Berücksichtigt der Rechner Lastschwankungen der Anlage im Jahresverlauf?"
+        },
+        {
+          "page": "de/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 72,
+          "source": "Jakie informacje warto podać przy zgłoszeniu awarii?",
+          "text": "Welche Informationen sollten bei einer Störungsmeldung angegeben werden?"
+        },
+        {
+          "page": "de/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 69,
+          "source": "Czym KCAQUA różni się od uniwersalnego preparatu z katalogu?",
+          "text": "Wie unterscheidet sich KCAQUA von einem universellen Standardprodukt?"
+        },
+        {
+          "page": "de/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 68,
+          "source": "Czy każda modernizacja ograniczająca energię kwalifikuje się do systemu?",
+          "text": "Ist jede energiesparende Modernisierung für das System qualifiziert?"
+        },
+        {
+          "page": "de/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 68,
+          "source": "Czy antyskalant rozwiąże każdy problem ze spadkiem wydajności?",
+          "text": "Kann ein Antiscalant jede Ursache für einen Leistungsabfall beheben?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 67,
+          "source": "Czy program chemiczny może ograniczyć zużycie wody?",
+          "text": "Kann ein chemisches Behandlungsprogramm den Wasserverbrauch senken?"
+        },
+        {
+          "page": "de/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 67,
+          "source": "Czy jeden program może kontrolować kamień, korozję i biofilm?",
+          "text": "Kann ein Programm Kesselstein, Korrosion und Biofilm kontrollieren?"
+        },
+        {
+          "page": "de/uslugi/analiza-wody/index.html",
+          "tag": "summary",
+          "length": 67,
+          "source": "Czy trzeba mieć własne laboratorium lub wcześniejsze wyniki?",
+          "text": "Sind ein eigenes Labor oder frühere Analyseergebnisse erforderlich?"
+        },
+        {
+          "page": "de/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 66,
+          "source": "Czy można kondycjonować wodę bez wyłączania kotła?",
+          "text": "Kann Kesselwasser ohne Abschaltung des Kessels aufbereitet werden?"
+        },
+        {
+          "page": "de/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 66,
+          "source": "Po czym poznać, że w kotle narasta kamień?",
+          "text": "Woran lässt sich erkennen, dass sich im Kessel Kesselstein bildet?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 66,
+          "source": "Co jeśli znam tylko objaw, a nie znam przyczyny?",
+          "text": "Was ist, wenn nur das Symptom, aber nicht die Ursache bekannt ist?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 66,
+          "source": "Kiedy rozmowa nie wystarczy i potrzebny jest audyt?",
+          "text": "Wann reicht ein Gespräch nicht aus und ein Audit ist erforderlich?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 65,
+          "source": "Jakie dane techniczne najbardziej przyspieszają diagnozę?",
+          "text": "Welche technischen Daten beschleunigen die Diagnose am stärksten?"
+        },
+        {
+          "page": "de/case-study/kociol-parowy-fako/index.html",
+          "tag": "summary",
+          "length": 65,
+          "source": "Jak potwierdzacie wpływ na paliwo?",
+          "text": "Wie weisen Sie die Auswirkungen auf den Brennstoffverbrauch nach?"
+        },
+        {
+          "page": "de/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 64,
+          "source": "Jak często trzeba kontrolować dawkę antyskalantu?",
+          "text": "Wie häufig sollte die Antiscalant-Dosierung kontrolliert werden?"
+        },
+        {
+          "page": "de/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 64,
+          "source": "Jak zabezpieczacie instalację po usunięciu kamienia?",
+          "text": "Wie schützen Sie die Anlage nach der Entfernung von Kesselstein?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 64,
+          "source": "Czy cienka warstwa kamienia ma znaczenie?",
+          "text": "Beeinträchtigt bereits eine dünne Kesselsteinschicht die Anlage?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 63,
+          "source": "Czy możecie ocenić obecny program chemiczny?",
+          "text": "Können Sie das aktuelle chemische Behandlungsprogramm bewerten?"
+        },
+        {
+          "page": "de/case-study/kociol-parowy-fako/index.html",
+          "tag": "summary",
+          "length": 63,
+          "source": "Czy odkamienianie kotła oznacza długi postój?",
+          "text": "Erfordert die Entkalkung eines Kessels einen langen Stillstand?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 63,
+          "source": "Czy współpraca musi zaczynać się od pełnego audytu?",
+          "text": "Muss die Zusammenarbeit mit einem vollständigen Audit beginnen?"
+        },
+        {
+          "page": "de/index.html",
+          "tag": "summary",
+          "length": 63,
+          "source": "Ile można zaoszczędzić dzięki technologii KCAQUA?",
+          "text": "Wie hoch kann die Einsparung durch die KCAQUA-Technologie sein?"
+        },
+        {
+          "page": "de/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 62,
+          "source": "Czy zwiększenie odsalania zawsze poprawia bezpieczeństwo instalacji?",
+          "text": "Erhöht eine stärkere Abschlämmung immer die Anlagensicherheit?"
+        },
+        {
+          "page": "de/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Jakie dane przygotować przed pierwszą rozmową?",
+          "text": "Welche Daten sollten vor dem Erstgespräch vorbereitet werden?"
+        },
+        {
+          "page": "de/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Jak dobrać antyskalant do mojej wody?",
+          "text": "Wie wird der passende Antiscalant für mein Wasser ausgewählt?"
+        },
+        {
+          "page": "de/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Jak często trzeba kontrolować wodę w wieży chłodniczej?",
+          "text": "Wie häufig sollte das Wasser im Kühlturm kontrolliert werden?"
+        },
+        {
+          "page": "de/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 60,
+          "source": "Jaki obszar instalacji obejmuje program KABI CHEMIE?",
+          "text": "Welchen Anlagenbereich umfasst das Programm von KABI CHEMIE?"
+        },
+        {
+          "page": "de/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 60,
+          "source": "Od czego rozpocząć ocenę własnego układu chłodniczego?",
+          "text": "Womit sollte die Bewertung des eigenen Kühlsystems beginnen?"
+        },
+        {
+          "page": "de/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 60,
+          "source": "Czy inhibitor korozji wystarczy bez wcześniejszego czyszczenia?",
+          "text": "Reicht ein Korrosionsinhibitor ohne vorherige Reinigung aus?"
+        },
+        {
+          "page": "de/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Czy program wygląda tak samo dla autoklawu i pasteryzatora?",
+          "text": "Ist das Programm für Autoklav und Pasteurisierer identisch?"
+        },
+        {
+          "page": "de/case-study/skraplacz-bac-kcaqua/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Czy mniejsze odsalanie zawsze oznacza oszczędność?",
+          "text": "Bedeutet eine geringere Abschlämmung immer eine Einsparung?"
+        },
+        {
+          "page": "de/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Które parametry warto obserwować podczas normalnej pracy?",
+          "text": "Welche Parameter sollten im Normalbetrieb überwacht werden?"
+        },
+        {
+          "page": "de/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Dlaczego oszczędność wody oznacza również oszczędność energii?",
+          "text": "Warum bedeutet Wassereinsparung zugleich Energieeinsparung?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 59,
+          "source": "Co dokładnie obejmuje wynik rocznych oszczędności?",
+          "text": "Was genau umfasst das Ergebnis der jährlichen Einsparungen?"
+        },
+        {
+          "page": "de/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Czy KCAQUA zastępuje obecnie stosowaną chemię?",
+          "text": "Ersetzt KCAQUA die derzeit eingesetzten Wasserchemikalien?"
+        },
+        {
+          "page": "de/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Czy wdrożenie wymaga postoju kotłowni?",
+          "text": "Erfordert die Umsetzung einen Stillstand des Kesselhauses?"
+        },
+        {
+          "page": "de/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Jak dobierana jest dawka preparatu?",
+          "text": "Wie wird die Dosierung des Behandlungsprodukts festgelegt?"
+        },
+        {
+          "page": "de/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Czy KCAQUA może pracować z istniejącymi pompami dozującymi?",
+          "text": "Kann KCAQUA mit vorhandenen Dosierpumpen betrieben werden?"
+        },
+        {
+          "page": "de/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Czy wdrożenie wymaga zatrzymania chłodzenia?",
+          "text": "Muss das Kühlsystem für die Umsetzung abgeschaltet werden?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Czy pomagacie ocenić potencjał oszczędności?",
+          "text": "Unterstützen Sie bei der Bewertung des Einsparpotenzials?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Czy KCAQUA zastępuje dotychczasową chemię?",
+          "text": "Ersetzt KCAQUA die bisher eingesetzten Wasserchemikalien?"
+        },
+        {
+          "page": "de/odkamienianie-instalacji/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Jak ograniczyć ponowne narastanie kamienia?",
+          "text": "Wie lässt sich eine erneute Kesselsteinbildung begrenzen?"
+        },
+        {
+          "page": "de/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Czy antyskalant zastępuje prawidłową filtrację wstępną?",
+          "text": "Ersetzt ein Antiscalant eine fachgerechte Vorfiltration?"
+        },
+        {
+          "page": "de/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 55,
+          "source": "Czy KABI CHEMIE gwarantuje wydanie świadectwa?",
+          "text": "Garantiert KABI CHEMIE die Ausstellung des Zertifikats?"
+        },
+        {
+          "page": "de/case-study/kociol-parowy-fako/index.html",
+          "tag": "summary",
+          "length": 55,
+          "source": "Czy po czyszczeniu kamień może wrócić?",
+          "text": "Kann sich nach der Reinigung erneut Kesselstein bilden?"
+        },
+        {
+          "page": "de/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Czy sam biocyd wystarczy do usunięcia biofilmu?",
+          "text": "Reicht ein Biozid allein aus, um Biofilm zu entfernen?"
+        },
+        {
+          "page": "de/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Jakie objawy wskazują na biofilm w układzie chłodniczym?",
+          "text": "Welche Anzeichen deuten auf Biofilm im Kühlsystem hin?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Co warto przygotować przed kontaktem?",
+          "text": "Was sollte vor der Kontaktaufnahme vorbereitet werden?"
+        },
+        {
+          "page": "de/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Jak często należy kontrolować program ochronny?",
+          "text": "Wie häufig sollte das Schutzprogramm überprüft werden?"
+        },
+        {
+          "page": "de/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 53,
+          "source": "Jak chronić wieżę przed Legionellą?",
+          "text": "Wie lässt sich ein Kühlturm vor Legionellen schützen?"
+        },
+        {
+          "page": "de/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 53,
+          "source": "Jak często trzeba kontrolować parametry?",
+          "text": "Wie häufig sollten die Parameter kontrolliert werden?"
+        },
+        {
+          "page": "de/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 53,
+          "source": "Jak odróżnić skalowanie od biofoulingu?",
+          "text": "Wie lassen sich Scaling und Biofouling unterscheiden?"
+        },
+        {
+          "page": "de/odkamienianie-instalacji/index.html",
+          "tag": "summary",
+          "length": 53,
+          "source": "Skąd wiadomo, jaki preparat zastosować?",
+          "text": "Wie wird das geeignete Behandlungsprodukt ausgewählt?"
+        },
+        {
+          "page": "de/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 53,
+          "source": "Czy obsługujecie skraplacze amoniakalne BAC i EVAPCO?",
+          "text": "Betreuen Sie Ammoniakverflüssiger von BAC und EVAPCO?"
+        },
+        {
+          "page": "de/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Czy wdrożenie wymaga zatrzymania produkcji?",
+          "text": "Erfordert die Umsetzung einen Produktionsstillstand?"
+        },
+        {
+          "page": "de/case-study/skraplacz-bac-kcaqua/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Kiedy można ocenić wynik programu?",
+          "text": "Wann lässt sich das Ergebnis des Programms bewerten?"
+        },
+        {
+          "page": "de/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Czy 1 mm kamienia naprawdę ma znaczenie?",
+          "text": "Beeinträchtigt bereits 1 mm Kesselstein die Anlage?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Co sprawdzacie przy chłodni albo skraplaczu?",
+          "text": "Was prüfen Sie an einem Kühlturm oder Verflüssiger?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Kiedy można ocenić efekt wdrożenia?",
+          "text": "Wann lässt sich die Wirkung der Umsetzung bewerten?"
+        },
+        {
+          "page": "de/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Kiedy wykonać mycie CIP?",
+          "text": "Wann sollte eine CIP-Reinigung durchgeführt werden?"
+        },
+        {
+          "page": "de/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Po czym poznać, że program działa?",
+          "text": "Woran lässt sich erkennen, dass das Programm wirkt?"
+        },
+        {
+          "page": "de/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Dlaczego wynik może różnić się od audytu?",
+          "text": "Warum kann das Ergebnis von einem Audit abweichen?"
+        },
+        {
+          "page": "de/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Które parametry warto śledzić codziennie?",
+          "text": "Welche Parameter sollten täglich überwacht werden?"
+        },
+        {
+          "page": "de/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Jak kontrolujecie ryzyko mikrobiologiczne?",
+          "text": "Wie kontrollieren Sie das mikrobiologische Risiko?"
+        },
+        {
+          "page": "de/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Czy po wizycie otrzymamy protokół?",
+          "text": "Erhalten wir nach dem Termin ein Serviceprotokoll?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Kiedy najlepiej zadzwonić zamiast pisać?",
+          "text": "Wann ist ein Anruf sinnvoller als eine Nachricht?"
+        },
+        {
+          "page": "de/odkamienianie-instalacji/index.html",
+          "tag": "summary",
+          "length": 48,
+          "source": "Co dzieje się z roztworem po czyszczeniu?",
+          "text": "Was geschieht nach der Reinigung mit der Lösung?"
+        },
+        {
+          "page": "de/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Czy można ustalić stały harmonogram przeglądów?",
+          "text": "Kann ein fester Wartungsplan vereinbart werden?"
+        },
+        {
+          "page": "de/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 46,
+          "source": "Jak dobierana jest dawka antyskalantu?",
+          "text": "Wie wird die Antiscalant-Dosierung festgelegt?"
+        },
+        {
+          "page": "de/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Jak często należy odkamieniać kocioł?",
+          "text": "Wie häufig sollte ein Kessel entkalkt werden?"
+        },
+        {
+          "page": "de/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Kiedy należy rozpocząć procedurę?",
+          "text": "Wann sollte das Verfahren eingeleitet werden?"
+        },
+        {
+          "page": "de/faq/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Czy obsługujecie zakłady w całej Polsce?",
+          "text": "Betreuen Sie Industriebetriebe in ganz Polen?"
+        },
+        {
+          "page": "de/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Jak potwierdzacie efekt programu?",
+          "text": "Wie überprüfen Sie die Wirkung des Programms?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Czy muszę mieć wyniki analizy wody?",
+          "text": "Benötige ich Ergebnisse einer Wasseranalyse?"
+        },
+        {
+          "page": "de/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Jak szybko ktoś się ze mną skontaktuje?",
+          "text": "Wie schnell wird sich jemand bei mir melden?"
+        },
+        {
+          "page": "de/ochrona-antykorozyjna/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Jak ustalacie przyczynę korozji?",
+          "text": "Wie ermitteln Sie die Ursache der Korrosion?"
+        },
+        {
+          "page": "de/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Czy serwis obejmuje pompy dozujące i sondy?",
+          "text": "Umfasst der Service Dosierpumpen und Sonden?"
+        }
+      ]
+    },
+    "ar": {
+      "mapping_issues": [],
+      "compact_text_review": [
+        {
+          "page": "ar/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 86,
+          "source": "Czy program chemiczny lub modernizacja instalacji wodnej może być podstawą wniosku?",
+          "text": "هل يمكن أن يشكل برنامج المعالجة الكيميائية أو تحديث منظومة المياه أساسًا لتقديم الطلب؟"
+        },
+        {
+          "page": "ar/case-study/skraplacz-bac-kcaqua/index.html",
+          "tag": "summary",
+          "length": 81,
+          "source": "Dlaczego kamień, korozja i mikrobiologia powinny być prowadzone razem?",
+          "text": "لماذا يجب التعامل مع الترسّبات الكلسية والتآكل والنشاط الميكروبي ضمن برنامج واحد؟"
+        },
+        {
+          "page": "ar/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 74,
+          "source": "Jak rozpoznać, że kamień podnosi już koszt pary?",
+          "text": "كيف يمكن معرفة أن الترسّبات الكلسية بدأت بالفعل في رفع تكلفة إنتاج البخار؟"
+        },
+        {
+          "page": "ar/index.html",
+          "tag": "summary",
+          "length": 72,
+          "source": "Czym różni się technologia KCAQUA od standardowej chemii kotłowej?",
+          "text": "ما الفرق بين تقنية KCAQUA والمعالجة الكيميائية التقليدية لمياه الغلايات؟"
+        },
+        {
+          "page": "ar/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 72,
+          "source": "Czy jeden program może kontrolować kamień, korozję i biofilm?",
+          "text": "هل يمكن لبرنامج واحد التحكم في الترسّبات الكلسية والتآكل والغشاء الحيوي؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 64,
+          "source": "Po czym poznać, że membrany RO są zagrożone osadem?",
+          "text": "كيف يمكن معرفة أن أغشية التناضح العكسي (RO) معرضة لخطر الترسبات؟"
+        },
+        {
+          "page": "ar/faq/index.html",
+          "tag": "summary",
+          "length": 64,
+          "source": "Czy cienka warstwa kamienia ma znaczenie?",
+          "text": "هل تؤثر طبقة رقيقة من الترسّبات الكلسية فعلًا في كفاءة المنظومة؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 63,
+          "source": "Czy 1 mm kamienia naprawdę ma znaczenie?",
+          "text": "هل تؤثر طبقة ترسّبات كلسية بسماكة 1 مم فعلًا في كفاءة المنظومة؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 61,
+          "source": "Czy pomagacie dobrać chemię do istniejącej stacji RO?",
+          "text": "هل تساعدون في اختيار مواد المعالجة الكيميائية لمحطة RO قائمة؟"
+        },
+        {
+          "page": "ar/faq/index.html",
+          "tag": "summary",
+          "length": 60,
+          "source": "Czy KCAQUA zastępuje dotychczasową chemię?",
+          "text": "هل تحل KCAQUA محل مواد المعالجة الكيميائية المستخدمة حاليًا؟"
+        },
+        {
+          "page": "ar/index.html",
+          "tag": "summary",
+          "length": 60,
+          "source": "Czy KCAQUA zastępuje obecnie stosowaną chemię?",
+          "text": "هل تحل KCAQUA محل مواد المعالجة الكيميائية المستخدمة حاليًا؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Które dane mają największy wpływ na wynik dla kotła parowego?",
+          "text": "ما البيانات الأكثر تأثيرًا في نتيجة حساب الغلاية البخارية؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Czy wynik można wykorzystać przy planowaniu białego certyfikatu?",
+          "text": "هل يمكن استخدام النتيجة في التخطيط للحصول على شهادة بيضاء؟"
+        },
+        {
+          "page": "ar/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 58,
+          "source": "Czym KCAQUA różni się od uniwersalnego preparatu z katalogu?",
+          "text": "ما الفرق بين KCAQUA ومنتج معالجة كيميائية عام من الكتالوج؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Jakie objawy wskazują na biofilm w układzie chłodniczym?",
+          "text": "ما الأعراض التي تشير إلى وجود غشاء حيوي في دائرة التبريد؟"
+        },
+        {
+          "page": "ar/case-study/kociol-parowy-fako/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Czy odkamienianie kotła oznacza długi postój?",
+          "text": "هل تعني إزالة الترسّبات الكلسية من الغلاية توقفًا طويلًا؟"
+        },
+        {
+          "page": "ar/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Kiedy sama korekta programu chemicznego nie wystarczy?",
+          "text": "متى لا يكون تصحيح برنامج المعالجة الكيميائية وحده كافيًا؟"
+        },
+        {
+          "page": "ar/faq/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Czy program chemiczny może ograniczyć zużycie wody?",
+          "text": "هل يمكن لبرنامج المعالجة الكيميائية تقليل استهلاك المياه؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Które dane mają największy wpływ na wynik dla skraplacza wyparnego?",
+          "text": "ما البيانات الأكثر تأثيرًا في نتيجة حساب المكثف التبخيري؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Czy kalkulator uwzględnia zmienne obciążenie instalacji w ciągu roku?",
+          "text": "هل تأخذ الحاسبة تغير حمل المنظومة خلال العام في الاعتبار؟"
+        },
+        {
+          "page": "ar/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 57,
+          "source": "Czy antyskalant rozwiąże każdy problem ze spadkiem wydajności?",
+          "text": "هل يمكن لمانع الترسّب معالجة جميع أسباب انخفاض الإنتاجية؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Po czym poznać, że w kotle narasta kamień?",
+          "text": "كيف يمكن معرفة أن الترسّبات الكلسية تتراكم داخل الغلاية؟"
+        },
+        {
+          "page": "ar/faq/index.html",
+          "tag": "summary",
+          "length": 56,
+          "source": "Czy obsługujecie zakłady w całej Polsce?",
+          "text": "هل تقدمون خدماتكم للمنشآت الصناعية في جميع أنحاء بولندا؟"
+        },
+        {
+          "page": "ar/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 55,
+          "source": "Czy KABI CHEMIE odpowiada za walidację procesu termicznego?",
+          "text": "هل تتولى KABI CHEMIE التحقق من صلاحية العملية الحرارية؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 55,
+          "source": "Jak wiarygodnie określić grubość kamienia lub osadu?",
+          "text": "كيف يمكن تحديد سماكة الترسّبات الكلسية أو الرواسب بدقة؟"
+        },
+        {
+          "page": "ar/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Czy zwiększenie odsalania zawsze poprawia bezpieczeństwo instalacji?",
+          "text": "هل تؤدي زيادة التصريف دائمًا إلى تحسين سلامة المنظومة؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Jakie dane przygotować do weryfikacji wyniku z inżynierem?",
+          "text": "ما البيانات التي يجب تجهيزها لمراجعة النتيجة مع مهندس؟"
+        },
+        {
+          "page": "ar/membrany-ro/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Jak odróżnić skalowanie od biofoulingu?",
+          "text": "كيف يمكن التمييز بين الترسّبات الكلسية والتلوث الحيوي؟"
+        },
+        {
+          "page": "ar/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 54,
+          "source": "Czy serwisujecie urządzenia różnych producentów?",
+          "text": "هل تقدمون خدمات الصيانة لمعدات من شركات مصنّعة مختلفة؟"
+        },
+        {
+          "page": "ar/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 53,
+          "source": "Czy można zaplanować prace tak, aby ograniczyć wpływ na produkcję?",
+          "text": "هل يمكن تخطيط الأعمال بطريقة تقلل تأثيرها في الإنتاج؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Czy sam biocyd wystarczy do usunięcia biofilmu?",
+          "text": "هل تكفي المبيدات الحيوية وحدها لإزالة الغشاء الحيوي؟"
+        },
+        {
+          "page": "ar/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Jakie dane techniczne najbardziej przyspieszają diagnozę?",
+          "text": "ما البيانات الفنية التي تسرّع التشخيص أكثر من غيرها؟"
+        },
+        {
+          "page": "ar/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 52,
+          "source": "Jak ograniczyć odsalanie bez pogorszenia bezpieczeństwa?",
+          "text": "كيف يمكن خفض التصريف من دون الإخلال بسلامة المنظومة؟"
+        },
+        {
+          "page": "ar/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Jaki obszar instalacji obejmuje program KABI CHEMIE?",
+          "text": "ما الجزء من المنظومة الذي يشمله برنامج KABI CHEMIE؟"
+        },
+        {
+          "page": "ar/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Czy program wygląda tak samo dla autoklawu i pasteryzatora?",
+          "text": "هل يكون البرنامج متطابقًا للأوتوكلاف وجهاز البسترة؟"
+        },
+        {
+          "page": "ar/autoklawy-i-pasteryzatory/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Jakie dane przygotować przed pierwszą rozmową?",
+          "text": "ما البيانات التي ينبغي تجهيزها قبل المحادثة الأولى؟"
+        },
+        {
+          "page": "ar/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Jak zabezpieczacie instalację po usunięciu kamienia?",
+          "text": "كيف تتم حماية المنظومة بعد إزالة الترسّبات الكلسية؟"
+        },
+        {
+          "page": "ar/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Które parametry warto obserwować podczas normalnej pracy?",
+          "text": "ما المعايير التي يجب مراقبتها أثناء التشغيل العادي؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 51,
+          "source": "Kiedy kalkulację należy potwierdzić pomiarem lub audytem?",
+          "text": "متى ينبغي التحقق من الحساب بالقياس أو بإجراء تدقيق؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Jak chronić wieżę przed Legionellą?",
+          "text": "كيف يمكن حماية برج التبريد من بكتيريا الليجيونيلا؟"
+        },
+        {
+          "page": "ar/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Czy możecie ocenić obecny program chemiczny?",
+          "text": "هل يمكنكم تقييم برنامج المعالجة الكيميائية الحالي؟"
+        },
+        {
+          "page": "ar/biale-certyfikaty/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Czy każda modernizacja ograniczająca energię kwalifikuje się do systemu?",
+          "text": "هل يتأهل كل تحديث يخفض استهلاك الطاقة لهذا النظام؟"
+        },
+        {
+          "page": "ar/kotly-parowe/index.html",
+          "tag": "summary",
+          "length": 50,
+          "source": "Od czego zaczyna się dobór programu dla kotła parowego?",
+          "text": "من أين يبدأ اختيار برنامج معالجة الغلاية البخارية؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Czy antyskalant zastępuje prawidłową filtrację wstępną?",
+          "text": "هل يغني مانع الترسّب عن المعالجة الأولية الصحيحة؟"
+        },
+        {
+          "page": "ar/uslugi/serwis-urzadzen/index.html",
+          "tag": "summary",
+          "length": 49,
+          "source": "Jakie informacje warto podać przy zgłoszeniu awarii?",
+          "text": "ما المعلومات التي يجب تقديمها عند الإبلاغ عن عطل؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 48,
+          "source": "Jak często należy odkamieniać kocioł?",
+          "text": "كم مرة ينبغي إزالة الترسّبات الكلسية من الغلاية؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/kamien-kotlowy/index.html",
+          "tag": "summary",
+          "length": 48,
+          "source": "Jak zapobiec powrotowi kamienia po czyszczeniu?",
+          "text": "كيف يمكن منع عودة الترسّبات الكلسية بعد التنظيف؟"
+        },
+        {
+          "page": "ar/case-study/warsztaty-amoniakalne-2024/index.html",
+          "tag": "summary",
+          "length": 48,
+          "source": "Dlaczego jakość wody wpływa na wydajność skraplacza wyparnego?",
+          "text": "لماذا تؤثر جودة المياه في كفاءة المكثف التبخيري؟"
+        },
+        {
+          "page": "ar/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 48,
+          "source": "Czy KCAQUA może pracować z istniejącymi pompami dozującymi?",
+          "text": "هل يمكن استخدام KCAQUA مع مضخات الجرعات القائمة؟"
+        },
+        {
+          "page": "ar/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 48,
+          "source": "Czy obsługujecie skraplacze amoniakalne BAC i EVAPCO?",
+          "text": "هل تقدمون خدمات لمكثفات الأمونيا من BAC وEVAPCO؟"
+        },
+        {
+          "page": "ar/baza-wiedzy/antyskalant-ro/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Jak dobrać antyskalant do mojej wody?",
+          "text": "كيف يتم اختيار مانع الترسّب المناسب للمياه لدي؟"
+        },
+        {
+          "page": "ar/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Kiedy rozmowa nie wystarczy i potrzebny jest audyt?",
+          "text": "متى لا تكفي المحادثة وتكون هناك حاجة إلى تدقيق؟"
+        },
+        {
+          "page": "ar/case-study/skraplacz-evapco-przetworstwo-rybne/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Czy czyszczenie chemiczne zawsze wymaga demontażu skraplacza?",
+          "text": "هل يتطلب التنظيف الكيميائي دائمًا تفكيك المكثف؟"
+        },
+        {
+          "page": "ar/faq/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Jakie instalacje obsługuje KABI CHEMIE?",
+          "text": "ما المنظومات التي تقدم KABI CHEMIE خدماتها لها؟"
+        },
+        {
+          "page": "ar/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Dlaczego oszczędność wody oznacza również oszczędność energii?",
+          "text": "لماذا يؤدي توفير المياه أيضًا إلى توفير الطاقة؟"
+        },
+        {
+          "page": "ar/kalkulator-oszczednosci/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Co dokładnie obejmuje wynik rocznych oszczędności?",
+          "text": "ما الذي تتضمنه نتيجة الوفورات السنوية بالتحديد؟"
+        },
+        {
+          "page": "ar/uklady-chlodnicze/index.html",
+          "tag": "summary",
+          "length": 47,
+          "source": "Jak ograniczyć zużycie wody w skraplaczu wyparnym?",
+          "text": "كيف يمكن خفض استهلاك المياه في المكثف التبخيري؟"
+        },
+        {
+          "page": "ar/case-study/kociol-parowy-fako/index.html",
+          "tag": "summary",
+          "length": 46,
+          "source": "Czy po czyszczeniu kamień może wrócić?",
+          "text": "هل يمكن أن تعود الترسّبات الكلسية بعد التنظيف؟"
+        },
+        {
+          "page": "ar/index.html",
+          "tag": "summary",
+          "length": 46,
+          "source": "Ile można zaoszczędzić dzięki technologii KCAQUA?",
+          "text": "ما مقدار التوفير الممكن باستخدام تقنية KCAQUA؟"
+        },
+        {
+          "page": "ar/faq/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Kiedy najlepiej zadzwonić zamiast pisać?",
+          "text": "متى يكون الاتصال الهاتفي أفضل من إرسال رسالة؟"
+        },
+        {
+          "page": "ar/uslugi/analiza-wody/index.html",
+          "tag": "summary",
+          "length": 45,
+          "source": "Jak pobrać próbkę, aby wynik był wiarygodny?",
+          "text": "كيف ينبغي أخذ العينة للحصول على نتيجة موثوقة؟"
+        },
+        {
+          "page": "ar/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Co jeśli znam tylko objaw, a nie znam przyczyny?",
+          "text": "ماذا لو كنت أعرف العَرَض فقط ولا أعرف السبب؟"
+        },
+        {
+          "page": "ar/bezplatna-konsultacja/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Czy konsultacja obejmuje membrany RO?",
+          "text": "هل تشمل الاستشارة أغشية التناضح العكسي (RO)؟"
+        },
+        {
+          "page": "ar/kotly-parowe/kondycjonowanie-wody-kotlowej/index.html",
+          "tag": "summary",
+          "length": 44,
+          "source": "Jak dobierana jest dawka preparatu?",
+          "text": "كيف يتم تحديد جرعة مادة المعالجة الكيميائية؟"
+        }
+      ]
+    }
+  },
+  "arabic_bidi_issues": []
+}

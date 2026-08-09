@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "errors": [],
+  "stats": {
+    "en": {
+      "pages": 69,
+      "selector_pages": 60,
+      "untranslated": [],
+      "broken_links": [],
+      "json_errors": []
+    },
+    "de": {
+      "pages": 69,
+      "selector_pages": 60,
+      "untranslated": [],
+      "broken_links": [],
+      "json_errors": []
+    },
+    "ar": {
+      "pages": 69,
+      "selector_pages": 60,
+      "untranslated": [],
+      "broken_links": [],
+      "json_errors": []
+    }
+  }
+}

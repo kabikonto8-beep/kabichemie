@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "errors": [],
+  "languages": {
+    "en": {
+      "catalog_strings": 2384,
+      "mapping_entries": 2464,
+      "error_count": 0,
+      "missing": [],
+      "empty": [],
+      "markers": [],
+      "number_mismatches": [],
+      "protected_missing": [],
+      "mutated_domains": [],
+      "suspicious_arabic": [],
+      "latin_only_arabic": []
+    },
+    "de": {
+      "catalog_strings": 2384,
+      "mapping_entries": 2462,
+      "error_count": 0,
+      "missing": [],
+      "empty": [],
+      "markers": [],
+      "number_mismatches": [],
+      "protected_missing": [],
+      "mutated_domains": [],
+      "suspicious_arabic": [],
+      "latin_only_arabic": []
+    },
+    "ar": {
+      "catalog_strings": 2384,
+      "mapping_entries": 2462,
+      "error_count": 0,
+      "missing": [],
+      "empty": [],
+      "markers": [],
+      "number_mismatches": [],
+      "protected_missing": [],
+      "mutated_domains": [],
+      "suspicious_arabic": [],
+      "latin_only_arabic": []
+    }
+  }
+}
