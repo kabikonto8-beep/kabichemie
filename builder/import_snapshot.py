@@ -32,7 +32,7 @@ CATEGORY_COLUMNS = [
 ]
 ARTICLE_COLUMNS = [
     "slug", "category_id", "title", "list_title", "short", "topic",
-    "excerpt", "lead", "audience", "read_time", "image", "prose",
+    "excerpt", "lead", "audience", "read_time", "image", "prose", "html",
     "feature_stats", "faq", "related",
 ]
 CASE_COLUMNS = [

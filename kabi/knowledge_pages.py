@@ -286,6 +286,13 @@ def render_category(cat):
 
 
 def render_article(a):
+    # Artykuł może przynieść własny HTML całej treści — wtedy nie składamy
+    # układu z pól, tylko wstawiamy go w całości. Nagłówek, stopka i sekcja
+    # <head> nadal pochodzą z build.py, więc strona zostaje częścią serwisu.
+    wlasny = (a.get("html") or "").strip()
+    if wlasny:
+        return wlasny
+
     facts = [
         ("Czas czytania", a["read"]),
         ("Dla kogo", a.get("audience", "Utrzymanie ruchu i decyzje techniczne.")),

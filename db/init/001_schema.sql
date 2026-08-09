@@ -86,6 +86,11 @@ CREATE TABLE kabi.articles (
 
   prose         text    NOT NULL,   -- treść artykułu jako HTML (h2/p/ul/…)
 
+  -- Własny HTML CAŁEJ treści strony. Gdy wypełniony, generator pomija układ
+  -- składany z pól (hero, prose, FAQ, powiązania) i wstawia to, co tu jest.
+  -- Dzięki temu artykuł może wyjść poza schemat, nie tracąc reszty serwisu.
+  html          text,
+
   -- [{"value": "+10%", "label": "więcej paliwa już przy 1 mm kamienia"}]
   -- NULL, a nie '[]' — rozróżnienie „pola nie ma" od „jest, ale puste"
   -- jest potrzebne, żeby eksport odtwarzał wejście bajt w bajt.
