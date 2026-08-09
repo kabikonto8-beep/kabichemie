@@ -1,0 +1,132 @@
+name: kabichemie
+
+services:
+  # ---------------------------------------------------------------- baza treści
+  db:
+    image: postgres:17-alpine
+    container_name: kabi-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-kabi}
+      POSTGRES_USER: ${POSTGRES_USER:-kabi}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?ustaw POSTGRES_PASSWORD w .env}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+      # Polskie sortowanie nie idzie przez locale systemowe (obraz alpine ich nie ma),
+      # tylko przez kolację ICU zakładaną w 001_schema.sql — patrz kabi.pl.
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      # skrypty z init/ wykonują się TYLKO przy pustym wolumenie
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kabi} -d ${POSTGRES_DB:-kabi}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------- panel do bazy
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: kabi-pgadmin
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@kabi.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:?ustaw PGADMIN_PASSWORD w .env}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_DISABLE_POSTFIX: "True"
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./db/pgadmin-servers.json:/pgadmin4/servers.json:ro
+
+  # ---------------------------------------------------------------- generator strony
+  # Uruchamiany na żądanie, nie wstaje razem z `docker compose up`:
+  #   docker compose run --rm builder            → pełny build www/
+  #   docker compose run --rm builder <polecenie>
+  builder:
+    build:
+      context: ./builder
+    container_name: kabi-builder
+    profiles: ["tools"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-kabi}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-kabi}
+      PYTHONUTF8: "1"
+    volumes:
+      - ./kabi:/site
+      - ./builder:/builder:ro
+    working_dir: /site
+
+  # ------------------------------------------------- API panelu redakcyjnego
+  # Most między panelem w przeglądarce a Postgresem. BEZ UWIERZYTELNIANIA —
+  # narzędzie wyłącznie lokalne. Portu NIE publikujemy na hoście: ruch idzie
+  # wyłącznie przez nginxa (/api/), żeby panel działał z tego samego origin
+  # i nie łamał CSP `connect-src 'self'`.
+  admin-api:
+    build:
+      context: ./builder
+    container_name: kabi-admin-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-kabi}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-kabi}
+      PYTHONUTF8: "1"
+      # Build wywoływany z panelu (/api/publish) musi zostawić panel w www/,
+      # inaczej pierwsza publikacja usuwałaby narzędzie, którym ją wywołano.
+      KABI_ADMIN: "1"
+    volumes:
+      - ./kabi:/site
+      - ./builder:/builder:ro
+    working_dir: /site
+    command: ["python", "/builder/admin_api.py"]
+
+  # ---------------------------------------------------------------- tłumaczenia
+  # Ciężki obraz (argostranslate + NLLB przez ctranslate2), uruchamiany tylko
+  # gdy pojawi się nowa treść do przetłumaczenia:
+  #   docker compose run --rm translator python /builder/setup_translation.py
+  #   docker compose run --rm translator python localize_site.py generate
+  translator:
+    build:
+      context: ./builder
+      dockerfile: Dockerfile.translator
+    container_name: kabi-translator
+    profiles: ["tools"]
+    environment:
+      PYTHONUTF8: "1"
+      HF_HOME: /models/huggingface
+      ARGOS_PACKAGES_DIR: /models/argos
+    volumes:
+      - ./kabi:/site
+      - ./builder:/builder:ro
+      # Modele przeżywają usunięcie kontenera — pobieramy je raz
+      - translator-models:/models
+    working_dir: /site
+
+  # ---------------------------------------------------------------- podgląd www/
+  web:
+    image: nginx:alpine
+    container_name: kabi-web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8124}:80"
+    volumes:
+      # Montujemy katalog NADRZĘDNY, nie ./kabi/www — build.py kasuje www/
+      # przez rmtree i tworzy od nowa, co zrywa bind mount wskazujący
+      # bezpośrednio na www/ (kontener zostaje przy usuniętym inode).
+      - ./kabi:/site:ro
+      - ./db/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+volumes:
+  db-data:
+  pgadmin-data:
+  translator-models:

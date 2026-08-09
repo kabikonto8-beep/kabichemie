@@ -12,3 +12,14 @@ kabi/preview-server.err
 # Local Claude settings (machine-specific)
 .claude/settings.local.json
 **/.claude/settings.local.json
+
+# Docker — hasła i dane lokalne
+.env
+
+# Zrzuty bazy
+db/dump/*.sql
+db/dump/*.dump
+
+# Modele NLLB do tłumaczeń (setki MB, trzymane lokalnie)
+kabi/i18n/nllb-200-distilled-600M/
+kabi/i18n/nllb-ct2-int8/

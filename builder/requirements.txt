@@ -1,0 +1,5 @@
+# Sterownik Postgresa (wersja binarna — bez kompilacji w obrazie)
+psycopg[binary]==3.2.3
+
+# Parser HTML używany przez _validate.py i localize_site.py
+lxml==5.3.0

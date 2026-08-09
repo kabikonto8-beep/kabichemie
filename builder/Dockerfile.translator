@@ -1,0 +1,31 @@
+# Silnik tłumaczeń — obraz CELOWO oddzielony od `builder`.
+#
+# Codzienny build (eksport z bazy + build.py) ma zostać lekki i szybki, a te
+# zależności to setki megabajtów. Ten obraz uruchamiamy tylko wtedy, gdy
+# trzeba przetłumaczyć nowe treści:
+#
+#   docker compose run --rm translator python /builder/setup_translation.py
+#   docker compose run --rm translator python localize_site.py generate
+#
+# Ścieżki tłumaczeń w localize_site.py:
+#   EN, DE  → argostranslate (pakiety językowe pl→en, en→de)
+#   AR      → lokalny model NLLB przez ctranslate2 (int8)
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONUTF8=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    HF_HOME=/models/huggingface \
+    ARGOS_PACKAGES_DIR=/models/argos
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libxml2 libxslt1.1 \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY requirements-translator.txt /tmp/requirements.txt
+# torch tylko w wariancie CPU — wariant domyślny ciągnie sterowniki CUDA (kilka GB)
+RUN pip install --no-cache-dir \
+        --extra-index-url https://download.pytorch.org/whl/cpu \
+        -r /tmp/requirements.txt
+
+WORKDIR /site

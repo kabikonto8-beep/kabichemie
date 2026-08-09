@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "KABI CHEMIE — treść",
+      "Group": "Serwery",
+      "Host": "db",
+      "Port": 5432,
+      "MaintenanceDB": "kabi",
+      "Username": "kabi",
+      "SSLMode": "prefer",
+      "Comment": "Baza treści: kabi.articles, kabi.categories, kabi.case_studies"
+    }
+  }
+}
