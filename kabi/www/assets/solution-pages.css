@@ -1,5 +1,5 @@
 /* ===================================================================
-   Kabi-Chemie: główne podstrony rozwiązań
+   KABI CHEMIE: główne podstrony rozwiązań
    Pełnoekranowa fotografia, techniczna hierarchia i spokojny ruch.
    =================================================================== */
 
@@ -966,9 +966,16 @@
   }
   .solution-hero h1{font-size:40px;line-height:1.04}
   .solution-hero__lead{margin-top:21px;font-size:16px;line-height:1.55}
-  .solution-hero__actions{align-items:flex-start;gap:17px;margin-top:25px}
+  .solution-hero__actions{display:grid;width:100%;align-items:stretch;gap:10px;margin-top:25px}
   .solution-hero__actions .btn{width:100%;justify-content:center}
-  .solution-text-link{font-size:14px}
+  .solution-hero__actions .solution-text-link{
+    width:100%;min-height:48px;justify-content:center;padding:11px 18px;
+    border:1px solid rgba(191,232,247,.42);border-radius:6px;
+    background:rgba(3,18,29,.38);font-size:14px
+  }
+  .solution-hero__actions .solution-text-link:hover,
+  .solution-hero__actions .solution-text-link:focus-visible{background:rgba(10,75,101,.48)}
+  .solution-page .solution-hero::after{display:none}
   .solution-hero__signals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px;margin-top:27px;padding-top:15px}
   .solution-hero__signals li{font-size:12px}
   .solution-section{padding:78px 0}
@@ -4656,13 +4663,18 @@
 
 .solution-page--service .service-loop__item+.service-loop__item{padding-left:clamp(28px,3vw,48px)}
 .solution-page--service .service-loop__item:not(:last-child)::after{
-  content:"\2192";
+  content:"";
   position:absolute;
   top:51px;
   right:18px;
+  width:20px;
+  height:20px;
+  background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M5%2012h14M13%206l6%206-6%206'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M5%2012h14M13%206l6%206-6%206'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
   color:#7aa8b8;
-  font-size:20px;
 }
+html[dir="rtl"] .solution-page--service .service-loop__item:not(:last-child)::after{right:auto;left:18px;transform:scaleX(-1)}
 
 .solution-page--service .service-icon--loop{width:44px;height:44px;margin-bottom:31px;color:#087da6}
 .solution-page--service .service-loop__item h3{margin:0;color:var(--service-ink);font-size:22px;line-height:1.28}
@@ -5071,4 +5083,26 @@
       linear-gradient(90deg,rgba(2,9,17,.9),rgba(3,16,27,.52)),
       linear-gradient(180deg,rgba(2,9,17,.36) 0%,rgba(2,9,17,.18) 34%,rgba(2,9,17,.94) 100%);
   }
+}
+
+/* Mobile containment shared by every solution template. */
+@media(max-width:700px){
+  .solution-page :where(
+    .solution-hero__inner,.solution-hero__copy,.solution-diagnosis__grid,.solution-method>.wrap,
+    .solution-results__grid,.solution-data__grid,.solution-related>.wrap,.solution-faq__grid,
+    .solution-cta__inner,.solution-issues,.solution-process-list,.solution-outcomes,.solution-data__list
+  ){min-width:0;max-width:100%}
+  .solution-page :where(.solution-diagnosis__grid,.solution-results__grid,.solution-data__grid,.solution-faq__grid){
+    width:100%;grid-template-columns:minmax(0,1fr)!important
+  }
+  .solution-page :where(.solution-issue,.solution-process-list li,.solution-outcome,.solution-data__list li){
+    width:100%;min-width:0
+  }
+  .solution-page :where(h1,h2,h3,p,a,span,strong,li,summary){max-width:100%;overflow-wrap:anywhere}
+  .solution-page--boilers .solution-process__result .ui-arrow{--ui-arrow-size:1.15rem}
+  .solution-page .solution-hero__media{width:100%}
+  .solution-page :where(.solution-cta__mark,[class*="engraving"],[class*="brandmark"]){max-width:88vw}
+  html[lang="de"] .solution-page :where(h1,h2,h3,p,a,span,strong,li,summary){hyphens:auto;word-break:normal}
+  html[dir="rtl"] :is(.solution-text-link,.solution-inline-link):hover .ui-arrow,
+  html[dir="rtl"] :is(.solution-text-link,.solution-inline-link):focus-visible .ui-arrow{transform:translate(-3px,-3px)}
 }

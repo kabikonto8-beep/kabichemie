@@ -1,4 +1,4 @@
-/* Kabi-Chemie — drobna interaktywność (bez zależności) */
+/* KABI CHEMIE — drobna interaktywność (bez zależności) */
 (function () {
   "use strict";
 
@@ -602,7 +602,7 @@
   });
 
   // --- animowany akordeon kart w sekcji "Czym się zajmujemy" ---
-  // --- animowana rolka cytatow Kabi-Chemie ---
+  // --- animowana rolka cytatow KABI CHEMIE ---
   document.querySelectorAll("[data-expert-reel]").forEach(function (reel) {
     var panels = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-panel]"));
     var images = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-image]"));
@@ -921,7 +921,7 @@
       "białych certyfikatów": "Chcemy sprawdzić, czy planowane działania mogą kwalifikować się do białych certyfikatów i jak przygotować dane do oceny.",
       "doboru najlepszego rozwiązania": "Nie mamy jeszcze pewności, który kierunek będzie najlepszy, dlatego prosimy o krótką diagnozę i rekomendację kolejnego kroku."
     };
-    var details = topicDetails[topicValue] || "Chcemy omówić sytuację z inżynierem KABI-CHEMIE i ustalić najlepszy kolejny krok.";
+    var details = topicDetails[topicValue] || "Chcemy omówić sytuację z inżynierem KABI CHEMIE i ustalić najlepszy kolejny krok.";
     var contactLines = [];
     if (identityValue) contactLines.push("Firma / osoba kontaktowa: " + identityValue);
     if (phoneValue) contactLines.push("Telefon: " + phoneValue);
