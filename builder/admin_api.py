@@ -37,18 +37,28 @@ from psycopg.types.json import Jsonb
 PORT = int(os.environ.get("ADMIN_API_PORT", "8125"))
 DATABASE_URL = os.environ["DATABASE_URL"]
 
+# Python kładzie na sys.path katalog SKRYPTU (/builder), nie katalog roboczy.
+# Bez tego podgląd nie zaimportuje knowledge_pages ani content_schema.
+if "/site" not in sys.path:
+    sys.path.insert(0, "/site")
+
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 # Kolumny, które panel może zapisywać. Reszta (id, znaczniki czasu) jest
 # pilnowana przez bazę i celowo poza zasięgiem panelu.
 EDITABLE = [
     "slug", "category_id", "title", "list_title", "short", "topic",
-    "excerpt", "lead", "audience", "read_time", "image", "prose",
+    "excerpt", "lead", "audience", "read_time", "image", "prose", "html",
     "feature_stats", "faq", "related", "published", "sort_order",
 ]
 JSON_COLUMNS = {"feature_stats", "faq", "related"}
+# Pola wymagane przy układzie składanym z pól. Artykuł z własnym HTML-em
+# (kolumna `html`) potrzebuje tylko tego, czym żyje lista bazy wiedzy
+# i adres strony — `prose` jest wtedy nieużywany.
 REQUIRED = ["slug", "title", "list_title", "short", "topic",
             "lead", "audience", "read_time", "prose"]
+REQUIRED_HTML = ["slug", "title", "list_title", "short", "topic",
+                 "lead", "audience", "read_time"]
 
 
 class Blad(Exception):
@@ -65,7 +75,8 @@ def polacz():
 
 
 def sprawdz(dane, nowy):
-    braki = [k for k in REQUIRED if not str(dane.get(k) or "").strip()] if nowy else []
+    wymagane = REQUIRED_HTML if str(dane.get("html") or "").strip() else REQUIRED
+    braki = [k for k in wymagane if not str(dane.get(k) or "").strip()] if nowy else []
     if braki:
         raise Blad(400, "Brakuje wymaganych pól: %s" % ", ".join(braki))
 
@@ -106,6 +117,57 @@ def schema():
         "json": sorted(JSON_COLUMNS),
         "slug_wzorzec": SLUG_RE.pattern,
     }
+
+
+WWW = "/site/www"
+MIRRORY = ("en", "de", "ar")
+
+
+def adresy():
+    """Adresy stron serwisu — do wyboru w polu „powiązane odnośniki”.
+
+    Czytamy z wygenerowanego www/, a nie z bazy, bo powiązania mogą wskazywać
+    na dowolną stronę serwisu, nie tylko na artykuł. Pomijamy mirrory językowe
+    (odnośnik ma prowadzić do wersji polskiej) oraz strony przekierowań,
+    bo linkowanie do nich jest błędem.
+    """
+    wynik = []
+    for katalog, _, pliki in os.walk(WWW):
+        if "index.html" not in pliki:
+            continue
+        wzgledny = os.path.relpath(katalog, WWW).replace(os.sep, "/")
+        if wzgledny == ".":
+            adres = "/"
+        else:
+            if wzgledny.split("/")[0] in MIRRORY or wzgledny.split("/")[0] == "404":
+                continue
+            adres = "/" + wzgledny + "/"
+
+        with open(os.path.join(katalog, "index.html"), encoding="utf-8") as fh:
+            poczatek = fh.read(6000)
+        if 'http-equiv="refresh"' in poczatek:
+            continue
+
+        dopasowanie = re.search(r"<title>(.*?)</title>", poczatek, re.S)
+        etykieta = dopasowanie.group(1).strip() if dopasowanie else adres
+        # Tytuły niosą ogon w stylu „ | kondycjonowanie-wody.pl” — do listy
+        # rozwijanej liczy się sama nazwa strony.
+        etykieta = re.split(r"\s+[|–-]\s+", etykieta)[0][:70]
+        wynik.append({"url": adres, "etykieta": etykieta})
+    return sorted(wynik, key=lambda p: p["url"])
+
+
+def etykiety():
+    """Etykiety (kickery) już używane w powiązanych odnośnikach."""
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("""
+            SELECT r->>'kicker' AS etykieta, count(*) AS ile
+            FROM kabi.articles, jsonb_array_elements(related) r
+            WHERE published AND r->>'kicker' <> ''
+            GROUP BY 1
+            ORDER BY 2 DESC, 1
+        """)
+        return [w["etykieta"] for w in cur.fetchall()]
 
 
 def categories():
@@ -182,6 +244,83 @@ def delete(slug):
     return {"komunikat": "Artykuł usunięty."}
 
 
+# Podglądowi nie wolno animować wejścia: bez main.js elementy .reveal zostają
+# z opacity:0 i strona wygląda na pustą. Wyłączamy też przewijanie kotwic.
+PODGLAD_STYL = """
+  .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+  html { scroll-behavior: auto; }
+  body { margin: 0; }
+"""
+
+PODGLAD_SZKIELET = """<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/solution-pages.css">
+<link rel="stylesheet" href="/assets/company-case-pages.css">
+<style>%s</style>
+</head>
+<body class="%s">
+%s
+</body>
+</html>"""
+
+# Wartości zastępcze, żeby podgląd działał już przy w połowie wypełnionym
+# formularzu — renderer sięga po te klucze bezwarunkowo.
+PODGLAD_DOMYSLNE = {
+    "title": "(tytuł artykułu)",
+    "lead": "(lead — pierwszy akapit pod nagłówkiem)",
+    "prose": "<p>(treść artykułu)</p>",
+    "read": "— min",
+    "audience": "(dla kogo)",
+    "faq": [],
+    "related": [],
+}
+
+
+def preview(dane):
+    """Renderuje szkic tym samym kodem, którym buduje się stronę.
+
+    Świadomie NIE odtwarzamy wyglądu w JavaScripcie — podgląd ma pokazywać
+    to, co naprawdę wyjdzie z build.py, razem z produkcyjnym CSS-em.
+    """
+    import knowledge_pages
+    from content_schema import from_snapshot
+
+    szkic = dict(PODGLAD_DOMYSLNE)
+    for klucz, wartosc in (dane or {}).items():
+        if wartosc not in (None, ""):
+            szkic[klucz] = wartosc
+    # kolumna w bazie nazywa się read_time, renderer oczekuje "read"
+    if "read_time" in szkic:
+        szkic["read"] = szkic.pop("read_time") or PODGLAD_DOMYSLNE["read"]
+
+    # Puste wiersze list z panelu odrzucamy, żeby konwersja nie wywaliła się
+    # na brakujących kluczach.
+    for pole, klucze in (("faq", ("q", "a")), ("related", ("kicker", "title", "url")),
+                         ("feature_stats", ("value", "label"))):
+        if isinstance(szkic.get(pole), list):
+            szkic[pole] = [w for w in szkic[pole]
+                           if isinstance(w, dict) and all(k in w for k in klucze)]
+
+    try:
+        artykul = from_snapshot(szkic)
+        tresc = knowledge_pages.render_article(artykul)
+    except Exception as exc:
+        tresc = ('<div style="padding:40px;font:14px system-ui;color:#b00">'
+                 '<strong>Nie mogę wyrenderować podglądu.</strong><br>%s</div>'
+                 % html_escape(str(exc)))
+
+    return {"html": PODGLAD_SZKIELET % (PODGLAD_STYL, knowledge_pages.BODY_CLASS, tresc)}
+
+
+def html_escape(tekst):
+    return (tekst.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+
 def publish():
     """Eksport treści z bazy + przebudowa www/ (bez mirrorów językowych)."""
     wynik = subprocess.run(
@@ -230,12 +369,18 @@ class Handler(BaseHTTPRequestHandler):
                 return self._odpowiedz(200, schema())
             if sciezka == "/api/categories" and metoda == "GET":
                 return self._odpowiedz(200, categories())
+            if sciezka == "/api/adresy" and metoda == "GET":
+                return self._odpowiedz(200, adresy())
+            if sciezka == "/api/etykiety" and metoda == "GET":
+                return self._odpowiedz(200, etykiety())
             if sciezka == "/api/articles" and metoda == "GET":
                 return self._odpowiedz(200, articles())
             if sciezka == "/api/articles" and metoda == "POST":
                 return self._odpowiedz(201, create(self._cialo()))
             if sciezka == "/api/publish" and metoda == "POST":
                 return self._odpowiedz(200, publish())
+            if sciezka == "/api/preview" and metoda == "POST":
+                return self._odpowiedz(200, preview(self._cialo()))
 
             if sciezka.startswith("/api/articles/"):
                 slug = sciezka[len("/api/articles/"):]

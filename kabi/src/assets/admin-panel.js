@@ -36,19 +36,29 @@
     { k: "title", label: "Tytuł (H1 i <title>)", typ: "text" },
     { k: "list_title", label: "Tytuł na liście", typ: "text" },
     { k: "short", label: "Etykieta w breadcrumbach", typ: "text" },
-    { k: "topic", label: "Nadtemat", typ: "text", pomoc: "np. Kotły parowe" },
+    { k: "topic", label: "Nadtemat", typ: "lista",
+      pomoc: "Widoczny nad tytułem i na liście artykułów." },
     { k: "lead", label: "Lead (idzie też w meta description)", typ: "textarea" },
     { k: "excerpt", label: "Zajawka na liście", typ: "text" },
     { k: "audience", label: "Dla kogo", typ: "text" },
     { k: "read_time", label: "Czas czytania", typ: "text", pomoc: "np. 6 min" },
     { k: "image", label: "Grafika", typ: "text", pomoc: "Pusto = grafika huba" },
-    { k: "prose", label: "Treść artykułu (HTML)", typ: "kod" }
+    { k: "prose", label: "Treść artykułu (HTML)", typ: "kod",
+      pomoc: "Wstawiana w standardowy układ: hero, treść, FAQ, powiązania." },
+    { k: "html", label: "Własny HTML całej strony", typ: "kod",
+      pomoc: "Wypełnione = zastępuje cały układ powyżej. Pozwala wyjść poza schemat. " +
+             "Nagłówek i stopka serwisu zostają." }
   ];
 
   // Pola listowe: kolumna → kolumny wiersza
   var LISTY = [
     { k: "faq", label: "FAQ", kolumny: [["q", "Pytanie"], ["a", "Odpowiedź"]] },
-    { k: "related", label: "Powiązane odnośniki", kolumny: [["kicker", "Etykieta"], ["title", "Tytuł"], ["url", "Adres"]] },
+    // Wszystkie trzy pola są listami — etykieta z już używanych, tytuł
+    // i adres z istniejących stron serwisu, wzajemnie zsynchronizowane.
+    { k: "related", label: "Powiązane odnośniki",
+      kolumny: [["kicker", "Etykieta", "etykiety"],
+                ["title", "Tytuł", "tytuly-stron"],
+                ["url", "Adres", "adresy"]] },
     { k: "feature_stats", label: "Liczby w hero", kolumny: [["value", "Wartość"], ["label", "Opis"]] }
   ];
 
@@ -57,6 +67,23 @@
     "*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}" +
     ".tlo{position:fixed;inset:0;background:rgba(4,18,28,.62);backdrop-filter:blur(3px);z-index:2147483000;display:flex;align-items:stretch;justify-content:center;padding:24px}" +
     ".okno{background:#0e1c26;color:#e8f1f6;border:1px solid #1d3a4d;border-radius:14px;width:min(1180px,100%);display:grid;grid-template-columns:290px 1fr;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}" +
+    ".okno.z-podgladem{width:min(1720px,100%);grid-template-columns:250px minmax(360px,1fr) minmax(420px,1.05fr)}" +
+    ".podglad{display:none;flex-direction:column;min-height:0;border-left:1px solid rgba(255,255,255,.08);background:#060d13}" +
+    ".okno.z-podgladem .podglad{display:flex}" +
+    ".podglad__pasek{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:8px;font-size:12px;color:#9fc0d2}" +
+    ".podglad__stan{margin-left:auto;font-size:11px;color:#7f95a3}" +
+    ".podglad__stan.pracuje{color:#7fc4e8}" +
+    ".podglad iframe{flex:1;width:100%;border:0;background:#0b1a24}" +
+    ".szer{display:flex;gap:4px}" +
+    ".szer button{padding:3px 8px;font-size:11px;font-weight:600}" +
+    ".szer button.akt{background:#1c6fa0;border-color:#3f9dd0}" +
+    // Maksymalizacja: chowamy listę i formularz, podgląd zajmuje całe okno,
+    // a tło traci margines, żeby podgląd sięgał krawędzi ekranu.
+    ".okno.podglad-max{width:100%;grid-template-columns:1fr;border-radius:0;border:0}" +
+    ".okno.podglad-max .lewa,.okno.podglad-max .prawa{display:none}" +
+    ".okno.podglad-max .podglad{display:flex;border-left:0}" +
+    ".tlo.bez-marginesu{padding:0}" +
+    ".podglad__max{padding:3px 9px;font-size:11px;font-weight:600}" +
     ".lewa{background:#0a151d;border-right:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;min-height:0}" +
     ".naglowek{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:8px}" +
     ".naglowek h2{margin:0;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#7fc4e8;font-weight:700}" +
@@ -85,6 +112,7 @@
     "button:disabled{opacity:.5;cursor:not-allowed}" +
     ".wiersz{display:grid;gap:6px;margin-bottom:6px;align-items:start}" +
     ".wiersz textarea{min-height:52px}" +
+    ".wiersz select{min-width:0}" +
     ".sekcja{border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:12px}" +
     ".sekcja h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#7fc4e8}" +
     ".komunikat{padding:8px 12px;border-radius:8px;font-size:12.5px;line-height:1.45}" +
@@ -94,7 +122,8 @@
     ".dwie{display:grid;grid-template-columns:1fr 1fr;gap:12px}" +
     "pre{white-space:pre-wrap;word-break:break-word;margin:0;font-size:11.5px;max-height:180px;overflow:auto}";
 
-  var host, root, stan = { lista: [], kategorie: [], biezacy: null, zmiany: {} };
+  var host, root, stan = { lista: [], kategorie: [], adresy: [], etykiety: [],
+                           biezacy: null, artykul: null, zmiany: {} };
 
   // ------------------------------------------------------------------ API
   function api(sciezka, opcje) {
@@ -145,6 +174,7 @@
       '  <div class="prawa">' +
       '    <div class="pasek">' +
       '      <span class="adres rosnie"></span>' +
+      '      <button class="podglad-wl">Podgląd</button>' +
       '      <button class="zapisz glowny">Zapisz</button>' +
       '      <button class="publikuj">Zapisz i przebuduj</button>' +
       '      <button class="usun grozny">Usuń</button>' +
@@ -152,11 +182,41 @@
       '    </div>' +
       '    <div class="form"></div>' +
       '  </div>' +
+      '  <div class="podglad">' +
+      '    <div class="podglad__pasek">' +
+      '      <span>Podgląd strony</span>' +
+      '      <span class="szer">' +
+      '        <button data-szer="100%" class="akt">desktop</button>' +
+      '        <button data-szer="768px">tablet</button>' +
+      '        <button data-szer="390px">telefon</button>' +
+      '      </span>' +
+      '      <button class="podglad__max" title="Pełny ekran (Escape wraca)">⤢ Pełny ekran</button>' +
+      '      <span class="podglad__stan"></span>' +
+      '    </div>' +
+      '    <iframe title="Podgląd artykułu" sandbox="allow-same-origin"></iframe>' +
+      '  </div>' +
       '</div>';
     root.appendChild(tlo);
 
     tlo.addEventListener("mousedown", function (e) { if (e.target === tlo) zamknij(); });
     el(".zamknij").addEventListener("click", zamknij);
+    el(".podglad-wl").addEventListener("click", przelaczPodglad);
+    el(".podglad__max").addEventListener("click", function () { przelaczMax(); });
+
+    // Wyjście z trybu pełnoekranowego klawiszem przeglądarki musi cofnąć
+    // także nasz układ — inaczej panel zostałby zmaksymalizowany w oknie.
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement && maksymalny()) przelaczMax(false);
+    });
+    root.querySelectorAll(".szer button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        root.querySelectorAll(".szer button").forEach(function (x) { x.classList.remove("akt"); });
+        b.classList.add("akt");
+        var ramka = el(".podglad iframe");
+        ramka.style.width = b.dataset.szer;
+        ramka.style.margin = b.dataset.szer === "100%" ? "0" : "0 auto";
+      });
+    });
     el(".nowy").addEventListener("click", function () { wczytaj(null); });
     el(".zapisz").addEventListener("click", function () { zapisz(false); });
     el(".publikuj").addEventListener("click", function () { zapisz(true); });
@@ -184,7 +244,69 @@
       });
   }
 
+  /** Wartości, które już występują w bazie — lista do wyboru zamiast wpisywania. */
+  function istniejaceWartosci(kolumna) {
+    var zbior = {};
+    stan.lista.forEach(function (a) {
+      if (a[kolumna]) zbior[a[kolumna]] = true;
+    });
+    return Object.keys(zbior).sort(function (x, y) { return x.localeCompare(y, "pl"); });
+  }
+
+  function poleListy(def, wartosc) {
+    // Wartownik bez znakow specjalnych — wczesniej byl tu bajt zerowy,
+    // przez ktory select.value nigdy nie dopasowywal opcji.
+    var NOWY = "__nowy__";
+    var pole = document.createElement("div");
+    pole.dataset.kolumna = def.k;
+    pole.innerHTML = "<label></label><select></select>" +
+      '<input type="text" style="display:none;margin-top:6px" placeholder="nazwa nowego nadtematu">' +
+      (def.pomoc ? '<div class="pomoc"></div>' : "");
+    pole.querySelector("label").textContent = def.label;
+    if (def.pomoc) pole.querySelector(".pomoc").textContent = def.pomoc;
+
+    var select = pole.querySelector("select");
+    var wpis = pole.querySelector("input");
+    var wartosci = istniejaceWartosci(def.k);
+    // Wartość edytowanego wpisu może nie występować nigdzie indziej —
+    // bez tego wypadłaby z listy i zapis po cichu by ją zmienił.
+    if (wartosc && wartosci.indexOf(wartosc) === -1) wartosci.unshift(wartosc);
+
+    select.innerHTML = '<option value="">(wybierz)</option>';
+    wartosci.forEach(function (v) {
+      var opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = v;
+      if (v === wartosc) opt.selected = true;
+      select.appendChild(opt);
+    });
+    var nowy = document.createElement("option");
+    nowy.value = NOWY;
+    nowy.textContent = "+ nowy nadtemat…";
+    select.appendChild(nowy);
+
+    select.addEventListener("change", function () {
+      if (select.value === NOWY) {
+        wpis.style.display = "";
+        wpis.value = "";
+        wpis.focus();
+        stan.zmiany[def.k] = "";
+      } else {
+        wpis.style.display = "none";
+        stan.zmiany[def.k] = select.value;
+      }
+      zaplanujPodglad();
+    });
+    wpis.addEventListener("input", function () {
+      stan.zmiany[def.k] = wpis.value;
+      zaplanujPodglad();
+    });
+    return pole;
+  }
+
   function poleTekstowe(def, wartosc) {
+    if (def.typ === "lista") return poleListy(def, wartosc);
+
     var pole = document.createElement("div");
     pole.dataset.kolumna = def.k;
     var kontrolka = def.typ === "text"
@@ -199,6 +321,7 @@
     wej.addEventListener("input", function () {
       stan.zmiany[def.k] = wej.value;
       if (def.k === "slug") odswiezAdres();
+      zaplanujPodglad();
     });
     return pole;
   }
@@ -222,35 +345,204 @@
         if (!pusty) dane.push(obiekt);
       });
       stan.zmiany[def.k] = dane;
+      zaplanujPodglad();
+    }
+
+    /** Lista rozwijana z opcjami; dopuszcza wartosc spoza listy. */
+    function listaWyboru(nazwaPola, opcje, biezaca, pustyNapis) {
+      var sel = document.createElement("select");
+      sel.dataset.pole = nazwaPola;
+      sel.innerHTML = '<option value="">' + pustyNapis + "</option>";
+
+      var znane = opcje.some(function (o) { return o.wartosc === biezaca; });
+      if (biezaca && !znane) {
+        // Zapisana wartosc moze juz nie istniec w serwisie. Pokazujemy ja
+        // oznaczona, zamiast po cichu wyczyscic powiazanie.
+        var obca = document.createElement("option");
+        obca.value = biezaca;
+        obca.textContent = biezaca + "  \u2190 nie istnieje";
+        obca.selected = true;
+        sel.appendChild(obca);
+      }
+      opcje.forEach(function (o) {
+        var opt = document.createElement("option");
+        opt.value = o.wartosc;
+        opt.textContent = o.etykieta;
+        if (o.wartosc === biezaca) opt.selected = true;
+        sel.appendChild(opt);
+      });
+      return sel;
     }
 
     function dodajWiersz(dane) {
       var w = document.createElement("div");
       w.className = "wiersz";
-      w.style.gridTemplateColumns = def.kolumny.map(function () { return "1fr"; }).join(" ") + " auto";
+      w.style.gridTemplateColumns =
+        def.kolumny.map(function () { return "1fr"; }).join(" ") + " auto";
+
       def.kolumny.forEach(function (kol) {
-        var ta = document.createElement("textarea");
-        ta.dataset.pole = kol[0];
-        ta.placeholder = kol[1];
-        ta.value = (dane && dane[kol[0]]) || "";
-        ta.addEventListener("input", zbierz);
-        w.appendChild(ta);
+        var biezaca = (dane && dane[kol[0]]) || "";
+        var rodzaj = kol[2];
+        var kontrolka;
+
+        if (rodzaj === "adresy") {
+          kontrolka = listaWyboru(kol[0], stan.adresy.map(function (a) {
+            return { wartosc: a.url, etykieta: a.etykieta + "  \u2014  " + a.url };
+          }), biezaca, "(wybierz stron\u0119)");
+
+        } else if (rodzaj === "tytuly-stron") {
+          kontrolka = listaWyboru(kol[0], stan.adresy.map(function (a) {
+            return { wartosc: a.etykieta, etykieta: a.etykieta };
+          }), biezaca, "(wybierz tytu\u0142)");
+
+        } else if (rodzaj === "etykiety") {
+          kontrolka = listaWyboru(kol[0], stan.etykiety.map(function (e) {
+            return { wartosc: e, etykieta: e };
+          }), biezaca, "(wybierz etykiet\u0119)");
+
+        } else {
+          kontrolka = document.createElement("textarea");
+          kontrolka.dataset.pole = kol[0];
+          kontrolka.placeholder = kol[1];
+          kontrolka.value = biezaca;
+        }
+
+        kontrolka.addEventListener(
+          kontrolka.tagName === "SELECT" ? "change" : "input",
+          function () {
+            // Adres i tytul opisuja te sama strone, wiec trzymamy je zgodne:
+            // wybor po jednej stronie ustawia druga.
+            if (rodzaj === "adresy") {
+              var pasujaca = stan.adresy.filter(function (a) {
+                return a.url === kontrolka.value;
+              })[0];
+              var poleTytulu = w.querySelector('[data-pole="title"]');
+              if (poleTytulu && pasujaca) poleTytulu.value = pasujaca.etykieta;
+            } else if (rodzaj === "tytuly-stron") {
+              var poUrl = stan.adresy.filter(function (a) {
+                return a.etykieta === kontrolka.value;
+              })[0];
+              var poleUrl = w.querySelector('[data-pole="url"]');
+              if (poleUrl && poUrl) poleUrl.value = poUrl.url;
+            }
+            zbierz();
+          }
+        );
+        w.appendChild(kontrolka);
       });
+
       var kasuj = document.createElement("button");
-      kasuj.textContent = "×";
-      kasuj.title = "Usuń wiersz";
+      kasuj.textContent = "\u00d7";
+      kasuj.title = "Usu\u0144 wiersz";
       kasuj.addEventListener("click", function () { w.remove(); zbierz(); });
       w.appendChild(kasuj);
       wiersze.appendChild(w);
     }
 
-    (wartosc || []).forEach(dodajWiersz);
-    sekcja.querySelector(".dodaj").addEventListener("click", function () { dodajWiersz(null); zbierz(); });
+    (wartosc || []).forEach(function (d) { dodajWiersz(d); });
+    sekcja.querySelector(".dodaj").addEventListener("click", function () {
+      dodajWiersz(null);
+      zbierz();
+    });
     return sekcja;
   }
 
+  // ------------------------------------------------------------- podgląd
+  var podgladTimer = null, podgladOstatni = "";
+
+  function szkic() {
+    // Formularz trzyma tylko ZMIANY, więc przy edycji istniejącego wpisu
+    // trzeba je nałożyć na wczytany artykuł — inaczej podgląd gubiłby pola,
+    // których użytkownik nie dotknął.
+    var out = {};
+    if (stan.artykul) {
+      Object.keys(stan.artykul).forEach(function (k) { out[k] = stan.artykul[k]; });
+    }
+    Object.keys(stan.zmiany).forEach(function (k) { out[k] = stan.zmiany[k]; });
+    return out;
+  }
+
+  function podgladWlaczony() {
+    return el(".okno").classList.contains("z-podgladem");
+  }
+
+  function przelaczPodglad() {
+    var okno = el(".okno");
+    okno.classList.toggle("z-podgladem");
+    el(".podglad-wl").classList.toggle("glowny", podgladWlaczony());
+    if (podgladWlaczony()) odswiezPodglad();
+  }
+
+  function maksymalny() {
+    return el(".okno").classList.contains("podglad-max");
+  }
+
+  function przelaczMax(wlacz) {
+    var okno = el(".okno");
+    var doWlaczenia = wlacz === undefined ? !maksymalny() : wlacz;
+
+    okno.classList.toggle("podglad-max", doWlaczenia);
+    el(".tlo").classList.toggle("bez-marginesu", doWlaczenia);
+    el(".podglad__max").textContent = doWlaczenia ? "⤡ Zmniejsz" : "⤢ Pełny ekran";
+
+    // Maksymalizacja bez włączonego podglądu nie miałaby czego pokazać.
+    if (doWlaczenia && !podgladWlaczony()) przelaczPodglad();
+
+    // Tryb pełnoekranowy przeglądarki bierzemy na documentElement, a nie na
+    // hoście panelu — nakładka i tak jest position:fixed, więc pokryje ekran,
+    // a nie musimy walczyć ze stylowaniem :host(:fullscreen).
+    try {
+      if (doWlaczenia && !document.fullscreenElement) {
+        var p = document.documentElement.requestFullscreen();
+        // Odmowa (brak gestu, polityka przeglądarki) nie jest błędem —
+        // układ i tak jest już zmaksymalizowany w oknie.
+        if (p && p.catch) p.catch(function () {});
+      } else if (!doWlaczenia && document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    } catch (e) { /* przeglądarka bez Fullscreen API */ }
+  }
+
+  function stanPodgladu(tekst, pracuje) {
+    var pole = el(".podglad__stan");
+    pole.textContent = tekst;
+    pole.className = "podglad__stan" + (pracuje ? " pracuje" : "");
+  }
+
+  function zaplanujPodglad() {
+    if (!podgladWlaczony()) return;
+    clearTimeout(podgladTimer);
+    stanPodgladu("składam…", true);
+    podgladTimer = setTimeout(odswiezPodglad, 350);
+  }
+
+  function odswiezPodglad() {
+    var dane = szkic();
+    var odcisk = JSON.stringify(dane);
+    if (odcisk === podgladOstatni) { stanPodgladu("aktualny", false); return; }
+    podgladOstatni = odcisk;
+
+    api("preview", { metoda: "POST", dane: dane }).then(function (w) {
+      var ramka = el(".podglad iframe");
+      // Zachowujemy pozycję przewijania — bez tego każde naciśnięcie klawisza
+      // odrzucałoby podgląd na początek strony.
+      var y = 0;
+      try { y = ramka.contentWindow.scrollY || 0; } catch (e) { /* inny origin */ }
+      ramka.onload = function () {
+        try { ramka.contentWindow.scrollTo(0, y); } catch (e) { /* j.w. */ }
+      };
+      ramka.srcdoc = w.html;
+      stanPodgladu("aktualny", false);
+    }).catch(function (e) {
+      stanPodgladu("błąd: " + e.message, false);
+    });
+  }
+
   function odswiezAdres() {
-    var slug = (stan.zmiany.slug != null ? stan.zmiany.slug : "").trim();
+    // Czytamy ze szkicu, a nie z samych zmian — inaczej po wczytaniu
+    // istniejącego artykułu pasek twierdziłby, że to nowy wpis, dopóki
+    // użytkownik nie dotknie pola slug.
+    var slug = (szkic().slug || "").trim();
     var poprawny = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug);
     el(".adres").textContent = slug
       ? "/baza-wiedzy/" + slug + "/" + (poprawny ? "" : "  ← niepoprawny slug")
@@ -301,6 +593,8 @@
     dodatki.querySelector(".kol").addEventListener("input", function (e) {
       stan.zmiany.sort_order = parseInt(e.target.value, 10) || 0;
     });
+    // published i sort_order nie zmieniają wyglądu strony artykułu,
+    // więc celowo nie odświeżają podglądu.
     form.appendChild(dodatki);
 
     el(".usun").style.display = artykul ? "" : "none";
@@ -310,16 +604,21 @@
   // ------------------------------------------------------------- operacje
   function wczytaj(slug) {
     stan.zmiany = {};
+    stan.artykul = null;
     stan.biezacy = slug;
+    podgladOstatni = "";
     if (!slug) {
       rysujFormularz(null);
       rysujListe();
+      zaplanujPodglad();
       return;
     }
     api("articles/" + slug).then(function (a) {
-      stan.zmiany = { category_id: a.category_id, published: a.published, sort_order: a.sort_order };
+      stan.artykul = a;
+      stan.zmiany = {};
       rysujFormularz(a);
       rysujListe();
+      odswiezPodglad();
     }).catch(function (e) { komunikat(e.message, true); });
   }
 
@@ -366,11 +665,15 @@
   }
 
   function odswiezListe() {
-    return Promise.all([api("articles"), api("categories")]).then(function (wyniki) {
-      stan.lista = wyniki[0];
-      stan.kategorie = wyniki[1];
-      rysujListe();
-    });
+    return Promise.all([api("articles"), api("categories"),
+                        api("adresy"), api("etykiety")])
+      .then(function (wyniki) {
+        stan.lista = wyniki[0];
+        stan.kategorie = wyniki[1];
+        stan.adresy = wyniki[2];
+        stan.etykiety = wyniki[3];
+        rysujListe();
+      });
   }
 
   // ---------------------------------------------------------------- skrót
@@ -410,7 +713,11 @@
     }
 
     if (e.key === "Escape" && otwarty()) {
-      zamknij();
+      // Escape schodzi o jeden poziom: najpierw wyjście z pełnego ekranu,
+      // dopiero potem zamknięcie panelu. Inaczej jedno naciśnięcie gubiłoby
+      // niezapisany formularz.
+      if (maksymalny()) przelaczMax(false);
+      else zamknij();
       return;
     }
 
