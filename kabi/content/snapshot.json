@@ -1633,6 +1633,7 @@
     "kicker": "Baza wiedzy KABI CHEMIE",
     "lead": "Artykuły o kamieniu, korozji, biofilmie, membranach RO i parametrach wody. Konkretne przyczyny, pomiary i działania dla zakładu przemysłowego."
   },
+  "referencje": [],
   "wersja": 1,
   "zrodlo": "export_snapshot.py — wygenerowane z bazy kabi"
 }
