@@ -157,6 +157,36 @@ def adresy():
     return sorted(wynik, key=lambda p: p["url"])
 
 
+GRAFIKI_ROZSZERZENIA = (".jpg", ".jpeg", ".png", ".webp", ".svg", ".gif")
+GRAFIKI_POMIJANE = ("favicon", "logo", "sygnet", "og-default")
+
+
+def grafiki():
+    """Grafiki, które redaktor może wstawić w treść artykułu.
+
+    Czytamy z src/assets, a nie z www/assets — to jest źródło, które build
+    kopiuje. Pomijamy logotypy i ikony interfejsu: w treści artykułu nie mają
+    zastosowania, a zaśmiecałyby wybór.
+    """
+    korzen = "/site/src/assets"
+    wynik = []
+    for katalog, _, pliki in os.walk(korzen):
+        for nazwa in pliki:
+            if not nazwa.lower().endswith(GRAFIKI_ROZSZERZENIA):
+                continue
+            if any(pomin in nazwa.lower() for pomin in GRAFIKI_POMIJANE):
+                continue
+            pelna = os.path.join(katalog, nazwa)
+            wzgledna = os.path.relpath(pelna, korzen).replace(os.sep, "/")
+            wynik.append({
+                "url": "/assets/" + wzgledna,
+                "nazwa": os.path.splitext(nazwa)[0].replace("-", " ").replace("_", " "),
+                "grupa": wzgledna.split("/")[0] if "/" in wzgledna else "inne",
+                "rozmiar_kb": round(os.path.getsize(pelna) / 1024),
+            })
+    return sorted(wynik, key=lambda g: (g["grupa"], g["url"]))
+
+
 def etykiety():
     """Etykiety (kickery) już używane w powiązanych odnośnikach."""
     with polacz() as conn, conn.cursor() as cur:
@@ -258,15 +288,29 @@ PODGLAD_SZKIELET = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="/">
-<link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/assets/solution-pages.css">
-<link rel="stylesheet" href="/assets/company-case-pages.css">
-<style>%s</style>
+<link rel="stylesheet" href="/assets/style.css?v=%(wersja)s">
+<link rel="stylesheet" href="/assets/solution-pages.css?v=%(wersja)s">
+<link rel="stylesheet" href="/assets/company-case-pages.css?v=%(wersja)s">
+<style>%(styl)s</style>
 </head>
-<body class="%s">
-%s
+<body class="%(klasy)s">
+%(tresc)s
 </body>
 </html>"""
+
+
+def wersja_stylow():
+    """Znacznik zmiany arkuszy — inaczej podgląd pokazuje CSS z cache'u.
+
+    nginx trzyma /assets/ przez godzinę, więc bez tego poprawka w style.css
+    nie jest widoczna w podglądzie do czasu twardego odświeżenia.
+    """
+    najnowszy = 0
+    for nazwa in ("style.css", "solution-pages.css", "company-case-pages.css"):
+        sciezka = os.path.join("/site/www/assets", nazwa)
+        if os.path.exists(sciezka):
+            najnowszy = max(najnowszy, os.path.getmtime(sciezka))
+    return int(najnowszy)
 
 # Wartości zastępcze, żeby podgląd działał już przy w połowie wypełnionym
 # formularzu — renderer sięga po te klucze bezwarunkowo.
@@ -314,7 +358,12 @@ def preview(dane):
                  '<strong>Nie mogę wyrenderować podglądu.</strong><br>%s</div>'
                  % html_escape(str(exc)))
 
-    return {"html": PODGLAD_SZKIELET % (PODGLAD_STYL, knowledge_pages.BODY_CLASS, tresc)}
+    return {"html": PODGLAD_SZKIELET % {
+        "wersja": wersja_stylow(),
+        "styl": PODGLAD_STYL,
+        "klasy": knowledge_pages.BODY_CLASS,
+        "tresc": tresc,
+    }}
 
 
 def html_escape(tekst):
@@ -373,6 +422,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._odpowiedz(200, adresy())
             if sciezka == "/api/etykiety" and metoda == "GET":
                 return self._odpowiedz(200, etykiety())
+            if sciezka == "/api/grafiki" and metoda == "GET":
+                return self._odpowiedz(200, grafiki())
             if sciezka == "/api/articles" and metoda == "GET":
                 return self._odpowiedz(200, articles())
             if sciezka == "/api/articles" and metoda == "POST":

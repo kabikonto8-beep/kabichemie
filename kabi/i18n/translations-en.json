@@ -1963,6 +1963,7 @@
   "Temperatury grzania i chłodzenia, czas cyklu, liczba cykli oraz zmienność obciążenia w ciągu doby.": "Heating and cooling temperatures, cycle duration, number of cycles and load variation throughout the day.",
   "Temperatury, obciążenie, podejście temperaturowe, ciśnienie skraplania i sezonowość pracy.": "Temperatures, load, temperature approach, condensation pressure and seasonality of operation.",
   "Temperatury, wymiana ciepła oraz zużycie pary, paliwa lub chłodu.": "Temperatures, heat exchange and steam, fuel or cooling consumption.",
+  "test": "test",
   "Test 01": "Test 01",
   "Test 02": "Test 02",
   "Test 03": "Test 03",

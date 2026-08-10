@@ -43,8 +43,9 @@
     { k: "audience", label: "Dla kogo", typ: "text" },
     { k: "read_time", label: "Czas czytania", typ: "text", pomoc: "np. 6 min" },
     { k: "image", label: "Grafika", typ: "text", pomoc: "Pusto = grafika huba" },
-    { k: "prose", label: "Treść artykułu (HTML)", typ: "kod",
-      pomoc: "Wstawiana w standardowy układ: hero, treść, FAQ, powiązania." },
+    { k: "prose", label: "Treść artykułu", typ: "redaktor",
+      pomoc: "Enter zaczyna nowy akapit (z odstępem). Shift+Enter łamie wiersz " +
+             "wewnątrz akapitu, bez odstępu." },
     { k: "html", label: "Własny HTML całej strony", typ: "kod",
       pomoc: "Wypełnione = zastępuje cały układ powyżej. Pozwala wyjść poza schemat. " +
              "Nagłówek i stopka serwisu zostają." }
@@ -110,6 +111,47 @@
     "button.glowny{background:#1c6fa0;border-color:#3f9dd0}" +
     "button.grozny{background:#5c2320;border-color:#a3564d}" +
     "button:disabled{opacity:.5;cursor:not-allowed}" +
+    ".red{border:1px solid rgba(255,255,255,.14);border-radius:8px;overflow:hidden}" +
+    ".red__pasek{display:flex;flex-wrap:wrap;gap:3px;padding:6px;background:#0a1620;border-bottom:1px solid rgba(255,255,255,.10)}" +
+    ".red__pasek button{padding:4px 9px;font-size:12px;font-weight:600;background:#12384f}" +
+    ".red__pasek button.akt{background:#1c6fa0;border-color:#3f9dd0}" +
+    ".red__pasek .sep{width:1px;background:rgba(255,255,255,.14);margin:2px 4px}" +
+    ".red__pasek .rosnie{flex:1}" +
+    ".red__tresc{min-height:220px;max-height:460px;overflow:auto;padding:14px 16px;background:#08121a;font-size:14px;line-height:1.65;outline:none}" +
+    ".red__tresc:focus{background:#091620}" +
+    ".red__tresc h2{font-size:19px;margin:1.4em 0 .5em;color:#cfe6f4;font-weight:700}" +
+    ".red__tresc h2:first-child{margin-top:0}" +
+    ".red__tresc h3{font-size:15.5px;margin:1.2em 0 .4em;color:#bcd9ea;font-weight:700}" +
+    ".red__tresc p{margin:0 0 .9em}" +
+    ".red__tresc ul,.red__tresc ol{margin:0 0 .9em;padding-left:1.4em}" +
+    ".red__tresc li{margin:.3em 0}" +
+    ".red__tresc a{color:#7fc4e8}" +
+    ".red__tresc p.note{border-left:3px solid #7fc4e8;padding:.5em 0 .5em .9em;color:#a9c9da;background:rgba(127,196,232,.07)}" +
+    ".red__tresc:empty::before{content:attr(data-placeholder);color:#5d7382}" +
+    ".wybor-grafiki{position:absolute;z-index:6;left:16px;right:16px;background:#0e1c26;box-shadow:0 12px 40px rgba(0,0,0,.55);max-height:70vh;overflow:auto}" +
+    ".wybor-grafiki .opcje-foto{display:flex;gap:12px;margin-top:8px}" +
+    ".wybor-grafiki .opcje-foto label{flex:1;font-size:11px}" +
+    ".red__tresc .tekst-srodek{text-align:center}" +
+    ".red__tresc ul.tekst-srodek,.red__tresc ol.tekst-srodek," +
+    ".red__tresc ul.tekst-prawo,.red__tresc ol.tekst-prawo{list-style-position:inside;padding-left:0}" +
+    ".red__tresc .tekst-prawo{text-align:right}" +
+    ".red__tresc figure.foto-mala{width:40%}" +
+    ".red__tresc figure.foto-srednia{width:65%}" +
+    ".red__tresc figure.tekst-srodek{margin-left:auto;margin-right:auto}" +
+    ".red__tresc figure.foto-oblewa-lewo{float:left;margin:.35em 1.2rem .8rem 0}" +
+    ".red__tresc figure.foto-oblewa-prawo{float:right;margin:.35em 0 .8rem 1.2rem}" +
+    ".red__tresc h2,.red__tresc h3{clear:both}" +
+    ".red__tresc::after{content:\'\';display:table;clear:both}" +
+    ".red__tresc figure.tekst-prawo{margin-left:auto;margin-right:0}" +
+    ".wybor-grafiki .siatka{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:10px}" +
+    ".wybor-grafiki .kafel{padding:0;overflow:hidden;background:#08121a;border:1px solid rgba(255,255,255,.14);border-radius:8px;cursor:pointer;text-align:left}" +
+    ".wybor-grafiki .kafel:hover{border-color:#3f9dd0}" +
+    ".wybor-grafiki .kafel img{display:block;width:100%;height:78px;object-fit:cover}" +
+    ".wybor-grafiki .kafel span{display:block;padding:5px 7px;font-size:10.5px;line-height:1.3;color:#9fc0d2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}" +
+    ".red__tresc figure{margin:1.2em 0}" +
+    ".red__tresc img{display:block;width:100%;height:auto;border-radius:8px}" +
+    ".red__tresc figcaption{margin-top:.4em;font-size:12px;color:#8fa8b6}" +
+    ".red__kod{width:100%;min-height:220px;border:0;border-radius:0;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}" +
     ".wiersz{display:grid;gap:6px;margin-bottom:6px;align-items:start}" +
     ".wiersz textarea{min-height:52px}" +
     ".wiersz select{min-width:0}" +
@@ -122,7 +164,7 @@
     ".dwie{display:grid;grid-template-columns:1fr 1fr;gap:12px}" +
     "pre{white-space:pre-wrap;word-break:break-word;margin:0;font-size:11.5px;max-height:180px;overflow:auto}";
 
-  var host, root, stan = { lista: [], kategorie: [], adresy: [], etykiety: [],
+  var host, root, stan = { lista: [], kategorie: [], adresy: [], etykiety: [], grafiki: [],
                            biezacy: null, artykul: null, zmiany: {} };
 
   // ------------------------------------------------------------------ API
@@ -176,7 +218,6 @@
       '      <span class="adres rosnie"></span>' +
       '      <button class="podglad-wl">Podgląd</button>' +
       '      <button class="zapisz glowny">Zapisz</button>' +
-      '      <button class="publikuj">Zapisz i przebuduj</button>' +
       '      <button class="usun grozny">Usuń</button>' +
       '      <button class="zamknij">Zamknij</button>' +
       '    </div>' +
@@ -218,8 +259,7 @@
       });
     });
     el(".nowy").addEventListener("click", function () { wczytaj(null); });
-    el(".zapisz").addEventListener("click", function () { zapisz(false); });
-    el(".publikuj").addEventListener("click", function () { zapisz(true); });
+    el(".zapisz").addEventListener("click", zapisz);
     el(".usun").addEventListener("click", usun);
     el(".szukaj").addEventListener("input", rysujListe);
   }
@@ -304,8 +344,463 @@
     return pole;
   }
 
+  // ============================================== wizualny edytor treści
+  // Redaktor nie powinien pisać znaczników. Pasek narzędzi produkuje pod
+  // spodem dokładnie ten zestaw HTML-a, który dopuszcza serwis:
+  // h2, h3, p, p.note, ul, ol, li, strong, em, a.
+  var DOZWOLONE = {
+    H2: 1, H3: 1, P: 1, UL: 1, OL: 1, LI: 1, STRONG: 1, EM: 1, A: 1, BR: 1,
+    FIGURE: 1, FIGCAPTION: 1, IMG: 1
+  };
+  var ZAMIENNIKI = { B: "STRONG", I: "EM", DIV: "P" };
+
+  // Wyrownanie i rozmiar zapisujemy KLASAMI, nie stylem inline: filtr i tak
+  // wycina style, a zamkniety zestaw nazw gwarantuje, ze do tresci nie trafi
+  // nic, czego CSS serwisu nie obsluguje.
+  var KLASY_WYROWNANIA = ["tekst-srodek", "tekst-prawo"];
+  var KLASY_ROZMIARU = ["foto-mala", "foto-srednia", "foto-pelna"];
+  var KLASY_OBLEWANIA = ["foto-oblewa-lewo", "foto-oblewa-prawo"];
+
+  function dozwolonaKlasa(nazwaZnacznika, wartosc) {
+    var czesci = String(wartosc || "").split(/\s+/).filter(Boolean);
+    if (!czesci.length) return false;
+    return czesci.every(function (klasa) {
+      if (klasa === "note") return nazwaZnacznika === "P";
+      if (KLASY_WYROWNANIA.indexOf(klasa) !== -1) {
+        // Na LI nie ma sensu — wyrownujemy cala liste.
+        return nazwaZnacznika !== "LI";
+      }
+      if (KLASY_ROZMIARU.indexOf(klasa) !== -1) return nazwaZnacznika === "FIGURE";
+      if (KLASY_OBLEWANIA.indexOf(klasa) !== -1) return nazwaZnacznika === "FIGURE";
+      return false;
+    });
+  }
+
+  /** Sprowadza to, co wyprodukuje contenteditable, do dozwolonego HTML-a. */
+  function oczysc(korzen) {
+    var dokument = korzen.ownerDocument;
+
+    // Te znaczniki usuwamy RAZEM z zawartoscia. Rozpuszczenie ich zostawiloby
+    // kod jako widoczny tekst artykulu.
+    var DO_WYRZUCENIA = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, IFRAME: 1, OBJECT: 1, EMBED: 1 };
+
+    (function przejdz(wezel) {
+      var dzieci = [].slice.call(wezel.childNodes);
+      dzieci.forEach(przejdz);
+
+      if (wezel.nodeType !== 1 || wezel === korzen) return;
+      var nazwa = wezel.tagName;
+
+      if (DO_WYRZUCENIA[nazwa]) {
+        wezel.parentNode.removeChild(wezel);
+        return;
+      }
+
+      if (ZAMIENNIKI[nazwa]) {
+        var nowy = dokument.createElement(ZAMIENNIKI[nazwa]);
+        while (wezel.firstChild) nowy.appendChild(wezel.firstChild);
+        wezel.parentNode.replaceChild(nowy, wezel);
+        wezel = nowy;
+        nazwa = wezel.tagName;
+      }
+
+      if (!DOZWOLONE[nazwa]) {
+        // Nieznany znacznik (span, font, style…) rozpuszczamy, zachowując treść.
+        while (wezel.firstChild) wezel.parentNode.insertBefore(wezel.firstChild, wezel);
+        wezel.parentNode.removeChild(wezel);
+        return;
+      }
+
+      [].slice.call(wezel.attributes).forEach(function (atr) {
+        var zostaje =
+          (nazwa === "A" && (atr.name === "href" || atr.name === "target" || atr.name === "rel")) ||
+          (atr.name === "class" && dozwolonaKlasa(nazwa, atr.value)) ||
+          (nazwa === "IMG" && (atr.name === "src" || atr.name === "alt" ||
+                               atr.name === "loading" || atr.name === "width" ||
+                               atr.name === "height"));
+        if (!zostaje) wezel.removeAttribute(atr.name);
+      });
+    })(korzen);
+
+    // Przegladarka potrafi zbudowac <p><ul>…</ul></p> albo <p><p>…</p></p>.
+    // To niedozwolone zagniezdzenie: przy nastepnej edycji przegladarka je
+    // rozrywa i lista przepada. Rozpuszczamy akapit, ktory zawiera blok.
+    var BLOKI_W_AKAPICIE = { P: 1, UL: 1, OL: 1, H2: 1, H3: 1, FIGURE: 1 };
+    for (var runda = 0; runda < 5; runda++) {
+      var winowajcy = [].slice.call(korzen.querySelectorAll("p")).filter(function (p) {
+        return [].slice.call(p.children).some(function (dziecko) {
+          return BLOKI_W_AKAPICIE[dziecko.tagName];
+        });
+      });
+      if (!winowajcy.length) break;
+      winowajcy.forEach(function (p) {
+        while (p.firstChild) p.parentNode.insertBefore(p.firstChild, p);
+        p.parentNode.removeChild(p);
+      });
+    }
+
+    // Tekst i elementy liniowe lezace bezposrednio w korzeniu opakowujemy
+    // w akapit — inaczej trafilyby na strone poza jakimkolwiek blokiem.
+    var BLOKOWE = { H2: 1, H3: 1, P: 1, UL: 1, OL: 1, FIGURE: 1 };
+    var biezacy = null;
+    [].slice.call(korzen.childNodes).forEach(function (wezel) {
+      var blok = wezel.nodeType === 1 && BLOKOWE[wezel.tagName];
+      var pusty = wezel.nodeType === 3 && !wezel.nodeValue.trim();
+      if (blok || pusty) { biezacy = null; return; }
+      if (!biezacy) {
+        biezacy = dokument.createElement("p");
+        korzen.insertBefore(biezacy, wezel);
+      }
+      biezacy.appendChild(wezel);
+    });
+
+    return korzen.innerHTML
+      .replace(/<p>(\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, "")
+      .trim();
+  }
+
+  function poleRedaktor(def, wartosc) {
+    var pole = document.createElement("div");
+    pole.dataset.kolumna = def.k;
+    pole.innerHTML =
+      "<label></label>" +
+      '<div class="red">' +
+      '  <div class="red__pasek"></div>' +
+      '  <div class="red__tresc" contenteditable="true" data-placeholder="Zacznij pisać…  (Enter = nowy akapit, Shift+Enter = złamanie wiersza)"></div>' +
+      '  <textarea class="red__kod" style="display:none"></textarea>' +
+      "</div>" +
+      (def.pomoc ? '<div class="pomoc"></div>' : "");
+    pole.querySelector("label").textContent = def.label;
+    if (def.pomoc) pole.querySelector(".pomoc").textContent = def.pomoc;
+
+    var pasek = pole.querySelector(".red__pasek");
+    var tresc = pole.querySelector(".red__tresc");
+    var kod = pole.querySelector(".red__kod");
+    tresc.innerHTML = wartosc || "";
+
+    /** Zaznaczenie widoczne WEWNATRZ Shadow DOM.
+     *  document.getSelection() zwraca tu zaznaczenie przekierowane na hosta,
+     *  przez co anchorNode nigdy nie trafia w wezel edytora. */
+    function zaznaczenie() {
+      var korzen = tresc.getRootNode();
+      var sel = (korzen && korzen.getSelection) ? korzen.getSelection()
+                                                : tresc.ownerDocument.getSelection();
+      return sel && tresc.contains(sel.anchorNode) ? sel : null;
+    }
+
+    function zapiszStan() {
+      stan.zmiany[def.k] = kod.style.display === "none" ? oczysc(tresc) : kod.value;
+      zaplanujPodglad();
+    }
+
+    function polecenie(cmd, arg) {
+      tresc.focus();
+      document.execCommand(cmd, false, arg);
+      zapiszStan();
+    }
+
+    function przycisk(etykieta, tytul, dzialanie) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = etykieta;
+      b.title = tytul;
+      // mousedown zamiast click: klik najpierw zabrałby zaznaczenie tekstu,
+      // a bez zaznaczenia polecenia formatujące nie mają na czym działać.
+      b.addEventListener("mousedown", function (e) { e.preventDefault(); dzialanie(); });
+      pasek.appendChild(b);
+      return b;
+    }
+
+    function separator() {
+      var s = document.createElement("span");
+      s.className = "sep";
+      pasek.appendChild(s);
+    }
+
+    // Zestaw i nazewnictwo pod redaktora, nie pod programiste: zamiast
+    // "H2"/"H3" jest "Naglowek", zamiast wpisywania adresu — wybor strony,
+    // zamiast znacznika <img> — wybor grafiki z podgladem.
+    przycisk("Nagłówek", "Nagłówek sekcji artykułu", function () {
+      polecenie("formatBlock", "<h2>");
+    });
+    przycisk("Paragraf", "Zwykły akapit tekstu", function () {
+      polecenie("formatBlock", "<p>");
+    });
+    /** Zamienia bloki objete zaznaczeniem w liste (albo liste z powrotem
+     *  w akapity). Robimy to sami, bo execCommand potrafi zbudowac
+     *  <p><ul>…</ul></p>, co rozpada sie przy nastepnej edycji. */
+    function przelaczListe(znacznik) {
+      var bloki = blokiZaznaczenia();
+      if (!bloki.length) {
+        komunikat("Ustaw kursor w tekście, który ma być listą.", true);
+        return;
+      }
+
+      // Kursor w istniejacej liscie tego samego rodzaju → rozbijamy na akapity.
+      var lista = bloki[0].closest && bloki[0].closest(znacznik.toLowerCase());
+      if (lista && tresc.contains(lista)) {
+        [].slice.call(lista.children).forEach(function (li) {
+          var p = tresc.ownerDocument.createElement("p");
+          while (li.firstChild) p.appendChild(li.firstChild);
+          lista.parentNode.insertBefore(p, lista);
+        });
+        lista.parentNode.removeChild(lista);
+        zapiszStan();
+        return;
+      }
+
+      var nowa = tresc.ownerDocument.createElement(znacznik);
+      bloki[0].parentNode.insertBefore(nowa, bloki[0]);
+      bloki.forEach(function (blok) {
+        var li = tresc.ownerDocument.createElement("li");
+        while (blok.firstChild) li.appendChild(blok.firstChild);
+        nowa.appendChild(li);
+        blok.parentNode.removeChild(blok);
+      });
+      zapiszStan();
+    }
+
+    przycisk("Lista punktowana", "Lista wypunktowana", function () {
+      przelaczListe("UL");
+    });
+    przycisk("Lista numerowana", "Lista numerowana", function () {
+      przelaczListe("OL");
+    });
+    przycisk("Zdjęcie", "Wstaw grafikę z zasobów serwisu", function () {
+      pokazWyborGrafiki(function (kodHtml) {
+        tresc.focus();
+        document.execCommand("insertHTML", false, kodHtml);
+        zapiszStan();
+      });
+    });
+    przycisk("Link", "Wstaw odnośnik do strony serwisu", function () {
+      var sel = zaznaczenie();
+      if (!sel || !String(sel)) {
+        komunikat("Zaznacz najpierw tekst, który ma być odnośnikiem.", true);
+        return;
+      }
+      pokazWyborStrony(function (url) { polecenie("createLink", url); });
+    });
+
+    separator();
+
+    var BLOKI_TRESCI = { P: 1, H2: 1, H3: 1, LI: 1, FIGURE: 1 };
+
+    /** WSZYSTKIE bloki objete zaznaczeniem, nie tylko ten z kursorem —
+     *  inaczej zaznaczenie trzech akapitow wyrownywaloby jeden. */
+    function blokiZaznaczenia() {
+      var sel = zaznaczenie();
+      if (!sel || !sel.rangeCount) return [];
+      var zakres = sel.getRangeAt(0);
+
+      var wszystkie = [].slice.call(tresc.querySelectorAll("p,h2,h3,li,figure"));
+      var objete = wszystkie.filter(function (blok) {
+        return zakres.intersectsNode ? zakres.intersectsNode(blok)
+                                     : zakres.commonAncestorContainer.contains(blok);
+      });
+      // Zagniezdzone bloki (li wewnatrz zaznaczonego ul) liczymy raz.
+      objete = objete.filter(function (blok) {
+        return !objete.some(function (inny) { return inny !== blok && inny.contains(blok); });
+      });
+      if (objete.length) return objete;
+
+      var wezel = sel.anchorNode;
+      while (wezel && wezel !== tresc) {
+        if (wezel.nodeType === 1 && BLOKI_TRESCI[wezel.tagName]) return [wezel];
+        wezel = wezel.parentNode;
+      }
+      return [];
+    }
+
+    function wyrownaj(klasa) {
+      var bloki = blokiZaznaczenia();
+      if (!bloki.length) {
+        komunikat("Ustaw kursor w akapicie, który chcesz wyrównać.", true);
+        return;
+      }
+      var cele = [];
+      bloki.forEach(function (blok) {
+        // Pozycja listy: wyrownujemy CALA liste, nie pojedynczy punkt.
+        // Inaczej punktor zostaje przy lewej krawedzi, a tekst ucieka
+        // na prawo — dokladnie tak wyglada zepsuty sklad.
+        var cel = blok.tagName === "LI" ? blok.parentNode : blok;
+        if (cele.indexOf(cel) === -1) cele.push(cel);
+        if (cel !== blok) {
+          KLASY_WYROWNANIA.forEach(function (k) { blok.classList.remove(k); });
+          if (!blok.getAttribute("class")) blok.removeAttribute("class");
+        }
+      });
+      cele.forEach(function (cel) {
+        KLASY_WYROWNANIA.forEach(function (k) { cel.classList.remove(k); });
+        if (klasa) cel.classList.add(klasa);
+        if (!cel.getAttribute("class")) cel.removeAttribute("class");
+      });
+      zapiszStan();
+    }
+
+    przycisk("\u2261 Lewo", "Wyrównaj do lewej (domyślnie)", function () { wyrownaj(null); });
+    przycisk("\u2261 Środek", "Wyśrodkuj", function () { wyrownaj("tekst-srodek"); });
+    przycisk("\u2261 Prawo", "Wyrównaj do prawej", function () { wyrownaj("tekst-prawo"); });
+
+    separator();
+    przycisk("B", "Pogrubienie", function () { polecenie("bold"); });
+    przycisk("I", "Kursywa", function () { polecenie("italic"); });
+    przycisk("Uwaga", "Wyróżniony akapit na marginesie", function () {
+      tresc.focus();
+      document.execCommand("formatBlock", false, "<p>");
+      var sel = zaznaczenie();
+      var wezel = sel && sel.anchorNode;
+      while (wezel && wezel !== tresc && wezel.tagName !== "P") wezel = wezel.parentNode;
+      if (wezel && wezel.tagName === "P") wezel.classList.toggle("note");
+      else komunikat("Ustaw kursor w akapicie, który ma być uwagą.", true);
+      zapiszStan();
+    });
+
+    separator();
+    var rosnie = document.createElement("span");
+    rosnie.className = "rosnie";
+    pasek.appendChild(rosnie);
+
+    var przelacznik = przycisk("HTML", "Podejrzyj i popraw kod źródłowy", function () {
+      var doKodu = kod.style.display === "none";
+      if (doKodu) {
+        kod.value = oczysc(tresc);
+        kod.style.display = "";
+        tresc.style.display = "none";
+        przelacznik.classList.add("akt");
+      } else {
+        tresc.innerHTML = kod.value;
+        kod.style.display = "none";
+        tresc.style.display = "";
+        przelacznik.classList.remove("akt");
+      }
+      zapiszStan();
+    });
+
+    tresc.addEventListener("input", zapiszStan);
+    kod.addEventListener("input", zapiszStan);
+
+    // Wklejanie zawsze jako czysty tekst — inaczej z Worda albo strony WWW
+    // wjeżdżają style, tabele i znaczniki, których serwis nie obsługuje.
+    tresc.addEventListener("paste", function (e) {
+      e.preventDefault();
+      var tekst = (e.clipboardData || window.clipboardData).getData("text/plain");
+      document.execCommand("insertText", false, tekst);
+    });
+
+    return pole;
+  }
+
+  /** Wybór grafiki z podglądem. Redaktor nie wpisuje ścieżki ani znacznika. */
+  function pokazWyborGrafiki(gotowe) {
+    var okno = document.createElement("div");
+    okno.className = "sekcja wybor-grafiki";
+    okno.innerHTML =
+      "<h3>Wstaw zdjęcie</h3>" +
+      '<input type="text" class="opis" placeholder="Opis zdjęcia (alt) — ważny dla wyszukiwarki i czytników ekranu">' +
+      '<input type="text" class="podpis" placeholder="Podpis pod zdjęciem (opcjonalny)" style="margin-top:6px">' +
+      '<div class="opcje-foto">' +
+      '  <label>Rozmiar<select class="rozmiar">' +
+      '    <option value="foto-pelna">pełna szerokość</option>' +
+      '    <option value="foto-srednia">średnie (65%)</option>' +
+      '    <option value="foto-mala">małe (40%)</option>' +
+      '  </select></label>' +
+      '  <label>Położenie<select class="polozenie">' +
+      '    <option value="tekst-srodek" selected>osobno, wyśrodkowane</option>' +
+      '    <option value="">osobno, do lewej</option>' +
+      '    <option value="tekst-prawo">osobno, do prawej</option>' +
+      '    <option value="foto-oblewa-lewo">obok tekstu, z lewej</option>' +
+      '    <option value="foto-oblewa-prawo">obok tekstu, z prawej</option>' +
+      '  </select></label>' +
+      '</div>' +
+      '<div class="siatka"></div>' +
+      '<button class="anuluj" style="margin-top:10px">Anuluj</button>';
+
+    var siatka = okno.querySelector(".siatka");
+    var opis = okno.querySelector(".opis");
+    var podpis = okno.querySelector(".podpis");
+
+    (stan.grafiki || []).forEach(function (g) {
+      var kafel = document.createElement("button");
+      kafel.className = "kafel";
+      kafel.title = g.url + "  (" + g.rozmiar_kb + " kB)";
+      kafel.innerHTML = '<img src="' + g.url + '" alt="" loading="lazy"><span></span>';
+      kafel.querySelector("span").textContent = g.nazwa;
+      kafel.addEventListener("click", function () {
+        var alt = opis.value.trim();
+        if (!alt) {
+          komunikat("Wpisz opis zdjęcia — bez niego grafika jest niewidoczna " +
+                    "dla wyszukiwarki i czytników ekranu.", true);
+          opis.focus();
+          return;
+        }
+        var podpisTekst = podpis.value.trim();
+        var klasy = [okno.querySelector(".rozmiar").value,
+                     okno.querySelector(".polozenie").value].filter(Boolean).join(" ");
+        var kod = '<figure class="' + klasy + '"><img src="' + g.url +
+                  '" alt="' + alt.replace(/"/g, "&quot;") + '" loading="lazy">' +
+                  (podpisTekst ? "<figcaption>" + podpisTekst + "</figcaption>" : "") +
+                  "</figure><p><br></p>";
+        okno.remove();
+        gotowe(kod);
+      });
+      siatka.appendChild(kafel);
+    });
+
+    // Grafika na pelna szerokosc nie da sie oblac tekstem — przy wyborze
+    // oblewania podnosimy rozmiar do sredniego, zamiast dawac ustawienie,
+    // ktore nic nie zmienia.
+    var polePolozenia = okno.querySelector(".polozenie");
+    var poleRozmiaru = okno.querySelector(".rozmiar");
+    polePolozenia.addEventListener("change", function () {
+      var oblewa = polePolozenia.value.indexOf("oblewa") !== -1;
+      if (oblewa && poleRozmiaru.value === "foto-pelna") {
+        poleRozmiaru.value = "foto-srednia";
+        komunikat("Grafika oblewana tekstem nie może zajmować pełnej " +
+                  "szerokości — ustawiłem rozmiar średni.", false);
+      }
+    });
+
+    okno.querySelector(".anuluj").addEventListener("click", function () { okno.remove(); });
+    el(".form").appendChild(okno);
+    okno.scrollIntoView({ block: "nearest" });
+    opis.focus();
+  }
+
+  /** Małe okienko wyboru strony — używane przy wstawianiu odnośnika. */
+  function pokazWyborStrony(gotowe) {
+    var wybor = document.createElement("select");
+    wybor.innerHTML = '<option value="">(wybierz stronę)</option>';
+    stan.adresy.forEach(function (a) {
+      var opt = document.createElement("option");
+      opt.value = a.url;
+      opt.textContent = a.etykieta + "  —  " + a.url;
+      wybor.appendChild(opt);
+    });
+
+    var okno = document.createElement("div");
+    okno.className = "sekcja";
+    okno.style.cssText = "position:absolute;z-index:5;left:16px;right:16px;background:#0e1c26;box-shadow:0 12px 40px rgba(0,0,0,.5)";
+    okno.innerHTML = "<h3>Odnośnik do strony</h3>";
+    okno.appendChild(wybor);
+    var anuluj = document.createElement("button");
+    anuluj.textContent = "Anuluj";
+    anuluj.style.marginTop = "10px";
+    anuluj.addEventListener("click", function () { okno.remove(); });
+    okno.appendChild(anuluj);
+
+    wybor.addEventListener("change", function () {
+      if (wybor.value) gotowe(wybor.value);
+      okno.remove();
+    });
+
+    el(".form").appendChild(okno);
+    wybor.focus();
+  }
+
   function poleTekstowe(def, wartosc) {
     if (def.typ === "lista") return poleListy(def, wartosc);
+    if (def.typ === "redaktor") return poleRedaktor(def, wartosc);
 
     var pole = document.createElement("div");
     pole.dataset.kolumna = def.k;
@@ -622,7 +1117,24 @@
     }).catch(function (e) { komunikat(e.message, true); });
   }
 
-  function zapisz(przebuduj) {
+  /** Przebudowa strony po każdej zmianie w bazie.
+   *
+   *  Build czyta z content/snapshot.json, a nie prosto z Postgresa. Bez tego
+   *  kroku wpis siedzi w bazie, ale strony nie ma — i nie widać, że coś jest
+   *  nie tak. Dlatego przebudowa nie jest osobnym przyciskiem do zapamiętania,
+   *  tylko doklejonym końcem każdego zapisu i usunięcia.
+   */
+  function przebuduj(komunikatPoczatkowy) {
+    komunikat(komunikatPoczatkowy, false);
+    return api("publish", { metoda: "POST", dane: {} }).then(function (b) {
+      komunikat(b.ok
+        ? "Gotowe. Strona przebudowana — odśwież kartę, żeby zobaczyć zmiany."
+        : "Zapisano w bazie, ale przebudowa się nie powiodła:\n" + b.wyjscie, !b.ok);
+      return b.ok;
+    });
+  }
+
+  function zapisz() {
     var dane = {};
     Object.keys(stan.zmiany).forEach(function (k) { dane[k] = stan.zmiany[k]; });
     if (!dane.slug && stan.biezacy) dane.slug = stan.biezacy;
@@ -631,24 +1143,18 @@
       ? api("articles/" + stan.biezacy, { metoda: "PUT", dane: dane })
       : api("articles", { metoda: "POST", dane: dane });
 
-    el(".zapisz").disabled = el(".publikuj").disabled = true;
+    el(".zapisz").disabled = el(".usun").disabled = true;
     komunikat("Zapisuję…", false);
 
     zadanie.then(function (wynik) {
       stan.biezacy = wynik.slug;
       return odswiezListe().then(function () {
-        if (!przebuduj) { komunikat(wynik.komunikat, false); return; }
-        komunikat("Zapisano. Przebudowuję stronę…", false);
-        return api("publish", { metoda: "POST", dane: {} }).then(function (b) {
-          komunikat(b.ok
-            ? "Gotowe. Strona przebudowana — odśwież, żeby zobaczyć zmiany."
-            : "Zapisano, ale build się nie powiódł:\n" + b.wyjscie, !b.ok);
-        });
+        return przebuduj("Zapisano. Przebudowuję stronę…");
       });
     }).catch(function (e) {
       komunikat(e.message, true);
     }).then(function () {
-      el(".zapisz").disabled = el(".publikuj").disabled = false;
+      el(".zapisz").disabled = el(".usun").disabled = false;
     });
   }
 
@@ -660,18 +1166,19 @@
       return odswiezListe();
     }).then(function () {
       rysujFormularz(null);
-      komunikat("Artykuł usunięty. Przebuduj stronę, żeby zniknął z www/.", false);
+      return przebuduj("Artykuł usunięty. Przebudowuję stronę…");
     }).catch(function (e) { komunikat(e.message, true); });
   }
 
   function odswiezListe() {
     return Promise.all([api("articles"), api("categories"),
-                        api("adresy"), api("etykiety")])
+                        api("adresy"), api("etykiety"), api("grafiki")])
       .then(function (wyniki) {
         stan.lista = wyniki[0];
         stan.kategorie = wyniki[1];
         stan.adresy = wyniki[2];
         stan.etykiety = wyniki[3];
+        stan.grafiki = wyniki[4];
         rysujListe();
       });
   }

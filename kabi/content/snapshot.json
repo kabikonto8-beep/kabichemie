@@ -64,6 +64,21 @@
       "topic": "Kotły parowe"
     },
     {
+      "audience": "test",
+      "category": "kotly-parowe",
+      "excerpt": "test",
+      "faq": [],
+      "lead": "test",
+      "list_title": "test",
+      "prose": "test",
+      "read": "8",
+      "related": [],
+      "short": "test",
+      "slug": "test",
+      "title": "test",
+      "topic": "Chłodnictwo przemysłowe"
+    },
+    {
       "audience": "Utrzymanie ruchu i chłodnictwo przemysłowe.",
       "category": "wieze-chlodnicze",
       "excerpt": "jak rozpoznać problem, zanim spadnie sprawność skraplacza.",

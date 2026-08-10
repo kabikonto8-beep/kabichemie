@@ -5095,3 +5095,51 @@ html.nav-open,html.nav-open body{overflow:hidden;overscroll-behavior:none}
   .hero-editorial .hero-benefit__slider .hero-sentence.is-active{opacity:1!important}
   .partner-scale-group,.partner-trust-panel{opacity:1!important;transform:none!important}
 }
+
+/* Obrazki wstawiane w treść artykułu przez panel redakcyjny.
+   Bez tej reguły grafika wychodziła poza kolumnę tekstu. */
+.prose figure{margin:1.7em 0}
+.prose img{display:block;width:100%;height:auto;border-radius:12px}
+.prose figcaption{margin-top:.6em;font-size:.86em;line-height:1.5;color:#5c7382}
+
+/* Wyrównanie i rozmiar wstawiane z panelu redakcyjnego.
+   Klasy, nie style inline — filtr treści przepuszcza wyłącznie znane nazwy. */
+.prose .tekst-srodek{text-align:center}
+.prose .tekst-prawo{text-align:right}
+.prose figure.foto-mala{width:40%}
+.prose figure.foto-srednia{width:65%}
+.prose figure.foto-pelna{width:100%}
+.prose figure.tekst-srodek{margin-left:auto;margin-right:auto}
+.prose figure.tekst-prawo{margin-left:auto;margin-right:0}
+@media (max-width:640px){
+  /* Na wąskim ekranie zmniejszanie grafiki przestaje mieć sens. */
+  .prose figure.foto-mala,.prose figure.foto-srednia{width:100%}
+}
+
+/* Wyrównana lista: punktor musi iść razem z tekstem. Przy domyślnym
+   list-style-position:outside znacznik zostaje przy lewej krawędzi,
+   a tekst ucieka na prawo — wygląda to jak błąd składu. */
+.prose ul.tekst-srodek,.prose ol.tekst-srodek,
+.prose ul.tekst-prawo,.prose ol.tekst-prawo{list-style-position:inside;padding-left:0}
+
+/* Serwis rysuje punktor jako ::before przypięty do left:0, więc przy
+   wyrównanej liście kropka zostawała przy lewej krawędzi, a tekst uciekał.
+   Dla wyrównanych list znacznik musi płynąć razem z tekstem. */
+.prose ul.tekst-srodek li,.prose ul.tekst-prawo li{padding-left:0}
+.prose ul.tekst-srodek li::before,.prose ul.tekst-prawo li::before{
+  position:static;display:inline-block;margin-right:.55rem;vertical-align:middle}
+.prose ol.tekst-srodek,.prose ol.tekst-prawo{list-style-position:inside;padding-left:0}
+
+/* Grafika oblewana tekstem. Zamiast osobnego <div> wystarczy float na
+   <figure>, który i tak jest blokiem — mniej znaczników w treści. */
+.prose figure.foto-oblewa-lewo{float:left;margin:.35em 1.7rem 1rem 0}
+.prose figure.foto-oblewa-prawo{float:right;margin:.35em 0 1rem 1.7rem}
+/* Nagłówek zawsze zaczyna nowy blok, nie wciska się obok grafiki. */
+.prose h2,.prose h3{clear:both}
+/* Domknięcie pływania, żeby grafika nie wystawała poza treść artykułu. */
+.prose::after{content:"";display:table;clear:both}
+@media (max-width:640px){
+  /* Na telefonie oblewanie nie ma sensu — grafika idzie na pełną szerokość. */
+  .prose figure.foto-oblewa-lewo,.prose figure.foto-oblewa-prawo{
+    float:none;width:100%;margin:1.7em 0}
+}
