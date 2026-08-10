@@ -195,6 +195,27 @@ COMMENT ON COLUMN kabi.case_studies.path IS 'Pełny adres ze slashem na końcu, 
 COMMENT ON COLUMN kabi.case_studies.h1   IS 'Dopuszcza <span>…</span> do wyróżnienia fragmentu nagłówka';
 
 
+-- ================================================================ REFERENCJE
+-- Sekcja „Wybrane wdrożenia" na /referencje/. Każdy wpis to jeden kafel;
+-- wpis bez pliku wyświetla się jako „w trakcie tworzenia", dzięki czemu
+-- siatka zachowuje układ, zanim dokumenty będą gotowe.
+CREATE TABLE kabi.referencje (
+  id          integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  tytul       text    NOT NULL,
+  firma       text,
+  opis        text,
+  plik        text,          -- np. /assets/referencje/kociol-fako.pdf
+  miniatura   text,          -- PNG pierwszej strony, generowany przy wgraniu
+  published   boolean NOT NULL DEFAULT true,
+  sort_order  integer NOT NULL DEFAULT 0,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+
+COMMENT ON COLUMN kabi.referencje.plik IS
+  'Wgrany PDF. Pusto = kafel „w trakcie tworzenia”.';
+
+
 -- ================================================================ HUB WIEDZY
 -- Konfiguracja strony /baza-wiedzy/ (odpowiednik knowledge_pages.HUB).
 -- Jeden wiersz, wymuszony warunkiem CHECK.
@@ -218,6 +239,8 @@ CREATE TRIGGER articles_touch      BEFORE UPDATE ON kabi.articles
 CREATE TRIGGER case_studies_touch  BEFORE UPDATE ON kabi.case_studies
   FOR EACH ROW EXECUTE FUNCTION kabi.touch_updated_at();
 CREATE TRIGGER knowledge_hub_touch BEFORE UPDATE ON kabi.knowledge_hub
+  FOR EACH ROW EXECUTE FUNCTION kabi.touch_updated_at();
+CREATE TRIGGER referencje_touch    BEFORE UPDATE ON kabi.referencje
   FOR EACH ROW EXECUTE FUNCTION kabi.touch_updated_at();
 
 

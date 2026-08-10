@@ -3,3 +3,10 @@ psycopg[binary]==3.2.3
 
 # Parser HTML używany przez _validate.py i localize_site.py
 lxml==5.3.0
+
+# Renderowanie pierwszej strony PDF-a na miniaturkę referencji.
+# Osadzony <iframe> oddawał wygląd wtyczce przeglądarki: własne paski
+# przewijania i banner „Ten plik ma ograniczone uprawnienia”. Obrazek daje
+# pełną kontrolę nad kadrem i nie zależy od wtyczki.
+# pypdfium2 to gotowe koło bez zależności systemowych.
+pypdfium2==4.30.0

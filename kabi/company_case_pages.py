@@ -431,6 +431,47 @@ def _render_case(config):
 # Zrodlem prawdy jest content/snapshot.json — generowany z Postgresa przez
 # builder/export_snapshot.py. Wczesniej dane byly literalem w tym pliku.
 CASE_STUDIES = content_source.case_studies()
+REFERENCJE = content_source.referencje()
+
+# ------------------------------------------------------------------ REFERENCJE
+# Siatka na /referencje/. Wpisy pochodza z tabeli kabi.referencje; wpis bez
+# wgranego pliku zostaje kaflem „w trakcie tworzenia”, zeby uklad sekcji
+# trzymal sie, zanim dokumenty beda gotowe.
+MINIMUM_KAFLI = 6
+
+
+def _kafel_referencji(r):
+    """Kafel to sama miniaturka dokumentu — bez tytulu, firmy i opisu.
+
+    Podpisy pod kaflem rozbijaly rowna siatke i powtarzaly informacje, ktora
+    i tak jest widoczna na samym dokumencie. Caly kafel jest odnosnikiem;
+    iframe ma wylaczone zdarzenia myszy, zeby klikniecie trafialo w link,
+    a nie w przegladarke PDF.
+    """
+    tytul = r.get("tytul") or "Referencja"
+    plik = (r.get("plik") or "").strip()
+
+    if not plik:
+        return ('<div class="company-reference-placeholder">'
+                f'<span>{tytul}</span></div>')
+
+    return (f'<a class="company-reference-card" href="{plik}" target="_blank" '
+            f'rel="noopener" aria-label="{tytul} — otwórz dokument PDF">'
+            f'<iframe src="{plik}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" '
+            f'title="{tytul}" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>'
+            "</a>")
+
+
+def _siatka_referencji():
+    wpisy = list(REFERENCJE)
+    # Dopelniamy do pelnego wiersza, zeby siatka nie wygladala na urwana.
+    puste = max(0, MINIMUM_KAFLI - len(wpisy))
+    kafle = [_kafel_referencji(r) for r in wpisy]
+    kafle += ['<div class="company-reference-placeholder">'
+              '<span>w trakcie tworzenia</span></div>'] * puste
+    return ('<div class="company-reference-placeholder-grid" '
+            'aria-label="Referencje">' + "".join(kafle) + "</div>")
+
 
 
 def _company_hero(config):
@@ -786,7 +827,7 @@ def _render_references():
             ("company-overview-link", "Omów podobną instalację", "/kontakt/"),
         ],
     })
-    return hero + _company_trusted_strip() + """
+    return (hero + _company_trusted_strip() + """
 <section class="company-reference-ledger" id="realizacje">
   <div class="wrap company-reference-ledger__grid">
     <header class="company-reference-ledger__intro reveal-left">
@@ -795,14 +836,7 @@ def _render_references():
       <p>Każdą realizację pokazujemy w tym samym układzie. Dzięki temu łatwo ocenić, czy odpowiada warunkom Państwa instalacji.</p>
       <a class="company-inline-link" href="/case-study/">Zobacz wszystkie case studies <span aria-hidden="true">↗</span></a>
     </header>
-    <div class="company-reference-placeholder-grid" aria-label="Referencje w przygotowaniu">
-      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
-      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
-      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
-      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
-      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
-      <div class="company-reference-placeholder"><span>w trakcie tworzenia</span></div>
-    </div>
+    <!--SIATKA-REFERENCJI-->
   </div>
 </section>
 
@@ -816,7 +850,8 @@ def _render_references():
     </ol>
   </div>
 </section>
-""" + _company_final(
+"""
+            .replace("<!--SIATKA-REFERENCJI-->", _siatka_referencji())) + _company_final(
         "Państwa instalacja",
         "Dobierzmy właściwy punkt odniesienia.",
         "Podaj branżę, typ urządzenia i główny problem. Wskażemy realizację zbliżoną technicznie, nie tylko wizualnie.",

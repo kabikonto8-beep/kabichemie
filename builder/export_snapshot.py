@@ -76,6 +76,13 @@ def main():
         """)
         case_studies = [clean(r) for r in cur.fetchall()]
 
+        cur.execute("""
+            SELECT * FROM kabi.referencje
+            WHERE published
+            ORDER BY sort_order, id
+        """)
+        referencje = [clean(r) for r in cur.fetchall()]
+
     data = {
         "wersja": 1,
         "zrodlo": "export_snapshot.py — wygenerowane z bazy kabi",
@@ -83,6 +90,7 @@ def main():
         "categories": categories,
         "articles": articles,
         "case_studies": case_studies,
+        "referencje": referencje,
     }
 
     SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)

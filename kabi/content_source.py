@@ -47,3 +47,9 @@ def articles():
 
 def case_studies():
     return [from_snapshot(r) for r in _load()["case_studies"]]
+
+
+def referencje():
+    """Referencje na /referencje/. Brak klucza = starszy snapshot, sprzed
+    wprowadzenia tej sekcji — traktujemy jak pustą listę."""
+    return [from_snapshot(r) for r in _load().get("referencje", [])]
