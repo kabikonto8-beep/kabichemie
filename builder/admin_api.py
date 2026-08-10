@@ -187,6 +187,142 @@ def grafiki():
     return sorted(wynik, key=lambda g: (g["grupa"], g["url"]))
 
 
+REFERENCJE_KOLUMNY = ["tytul", "firma", "opis", "plik", "miniatura",
+                      "published", "sort_order"]
+REFERENCJE_KATALOG = "/site/src/assets/referencje"
+PDF_LIMIT_MB = 15
+
+
+def referencje_lista():
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("""
+            SELECT id, tytul, firma, opis, plik, published, sort_order, updated_at
+            FROM kabi.referencje
+            ORDER BY sort_order, id
+        """)
+        return cur.fetchall()
+
+
+def referencje_zapisz(dane):
+    dane = dane or {}
+    if not str(dane.get("tytul") or "").strip():
+        raise Blad(400, "Podaj tytuł referencji.")
+
+    kolumny = [k for k in REFERENCJE_KOLUMNY if k in dane]
+    with polacz() as conn, conn.cursor() as cur:
+        if dane.get("id"):
+            cur.execute(
+                "UPDATE kabi.referencje SET %s WHERE id = %%s RETURNING id"
+                % ", ".join("%s = %%s" % k for k in kolumny),
+                [dane[k] for k in kolumny] + [dane["id"]],
+            )
+            if cur.fetchone() is None:
+                raise Blad(404, "Nie ma referencji o tym numerze.")
+            komunikat = "Zapisano."
+        else:
+            cur.execute(
+                "INSERT INTO kabi.referencje (%s) VALUES (%s) RETURNING id"
+                % (", ".join(kolumny), ", ".join(["%s"] * len(kolumny))),
+                [dane[k] for k in kolumny],
+            )
+            dane["id"] = cur.fetchone()["id"]
+            komunikat = "Referencja dodana."
+        conn.commit()
+    return {"id": dane["id"], "komunikat": komunikat}
+
+
+def referencje_usun(numer):
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("DELETE FROM kabi.referencje WHERE id = %s RETURNING id", (numer,))
+        if cur.fetchone() is None:
+            raise Blad(404, "Nie ma referencji o tym numerze.")
+        conn.commit()
+    return {"komunikat": "Referencja usunięta."}
+
+
+def referencje_wgraj(dane):
+    """Zapisuje wgrany PDF do src/assets/referencje i zwraca jego adres.
+
+    Plik przychodzi jako base64 w JSON, a nie jako multipart. Serwer stoi
+    na bibliotece standardowej, a parsowanie multiparta bez zewnętrznych
+    bibliotek to więcej kodu i więcej miejsc na błąd niż zysku.
+    """
+    import base64
+    import re as _re
+
+    dane = dane or {}
+    nazwa = str(dane.get("nazwa") or "").strip()
+    zawartosc = dane.get("dane") or ""
+    if not nazwa.lower().endswith(".pdf"):
+        raise Blad(400, "Przyjmuję wyłącznie pliki PDF.")
+
+    if "," in zawartosc and zawartosc.lstrip().startswith("data:"):
+        zawartosc = zawartosc.split(",", 1)[1]
+    try:
+        bajty = base64.b64decode(zawartosc, validate=True)
+    except Exception:
+        raise Blad(400, "Nie potrafię odczytać przesłanego pliku.")
+
+    if not bajty.startswith(b"%PDF"):
+        raise Blad(400, "To nie jest plik PDF — brakuje nagłówka dokumentu.")
+    if len(bajty) > PDF_LIMIT_MB * 1024 * 1024:
+        raise Blad(400, "Plik ma %.1f MB, limit to %d MB."
+                        % (len(bajty) / 1048576, PDF_LIMIT_MB))
+
+    bezpieczna = _re.sub(r"[^a-z0-9]+", "-", nazwa[:-4].lower()).strip("-") or "referencja"
+    os.makedirs(REFERENCJE_KATALOG, exist_ok=True)
+
+    ostateczna, licznik = bezpieczna + ".pdf", 2
+    while os.path.exists(os.path.join(REFERENCJE_KATALOG, ostateczna)):
+        ostateczna = "%s-%d.pdf" % (bezpieczna, licznik)
+        licznik += 1
+
+    sciezka = os.path.join(REFERENCJE_KATALOG, ostateczna)
+    with open(sciezka, "wb") as fh:
+        fh.write(bajty)
+
+    miniatura, uwaga = zrob_miniature(sciezka)
+    return {"plik": "/assets/referencje/" + ostateczna,
+            "miniatura": miniatura,
+            "rozmiar_kb": round(len(bajty) / 1024),
+            "komunikat": "Wgrano %s.%s" % (ostateczna, (" " + uwaga) if uwaga else "")}
+
+
+MINIATURA_SZEROKOSC = 720
+
+
+def zrob_miniature(sciezka_pdf):
+    """Renderuje pierwszą stronę PDF-a do PNG obok dokumentu.
+
+    Osadzanie PDF-a w <iframe> oddawało wygląd wtyczce przeglądarki: własne
+    paski przewijania i banner „Ten plik ma ograniczone uprawnienia” przy
+    dokumentach z ustawionymi restrykcjami. Obrazek daje pełną kontrolę
+    nad kadrem i wygląda tak samo wszędzie.
+
+    Zwraca (adres_miniatury, uwaga). Niepowodzenie nie przerywa wgrywania —
+    kafel pokaże wtedy sam dokument bez podglądu.
+    """
+    try:
+        import pypdfium2
+    except ImportError:
+        return None, "Podgląd pominięty: brak biblioteki pypdfium2 w obrazie."
+
+    docelowy = os.path.splitext(sciezka_pdf)[0] + ".png"
+    try:
+        dokument = pypdfium2.PdfDocument(sciezka_pdf)
+        if len(dokument) == 0:
+            return None, "Dokument nie ma ani jednej strony."
+        strona = dokument[0]
+        skala = MINIATURA_SZEROKOSC / strona.get_width()
+        strona.render(scale=skala).to_pil().save(docelowy, optimize=True)
+        dokument.close()
+    except Exception as exc:
+        traceback.print_exc()
+        return None, "Nie udało się wygenerować podglądu (%s)." % type(exc).__name__
+
+    return "/assets/referencje/" + os.path.basename(docelowy), None
+
+
 def etykiety():
     """Etykiety (kickery) już używane w powiązanych odnośnikach."""
     with polacz() as conn, conn.cursor() as cur:
@@ -202,8 +338,12 @@ def etykiety():
 
 def categories():
     with polacz() as conn, conn.cursor() as cur:
+        # `dzial` to krótka nazwa pokazywana nad tytułem artykułu. Siedzi
+        # w kickerze kategorii („Baza wiedzy · Kotły parowe"), więc bierzemy
+        # ją stamtąd zamiast kazać redaktorowi wpisywać drugi raz to samo.
         cur.execute("""
             SELECT c.id, c.slug, c.title,
+                   trim(split_part(c.kicker, '·', 2)) AS dzial,
                    (SELECT count(*) FROM kabi.articles a WHERE a.category_id = c.id) AS artykulow
             FROM kabi.categories c
             WHERE c.published
@@ -424,6 +564,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self._odpowiedz(200, etykiety())
             if sciezka == "/api/grafiki" and metoda == "GET":
                 return self._odpowiedz(200, grafiki())
+
+            if sciezka == "/api/referencje" and metoda == "GET":
+                return self._odpowiedz(200, referencje_lista())
+            if sciezka == "/api/referencje" and metoda == "POST":
+                return self._odpowiedz(200, referencje_zapisz(self._cialo()))
+            if sciezka == "/api/referencje/wgraj" and metoda == "POST":
+                return self._odpowiedz(200, referencje_wgraj(self._cialo()))
+            if sciezka.startswith("/api/referencje/") and metoda == "DELETE":
+                return self._odpowiedz(200, referencje_usun(
+                    sciezka[len("/api/referencje/"):]))
             if sciezka == "/api/articles" and metoda == "GET":
                 return self._odpowiedz(200, articles())
             if sciezka == "/api/articles" and metoda == "POST":

@@ -5143,3 +5143,15 @@ html.nav-open,html.nav-open body{overflow:hidden;overscroll-behavior:none}
   .prose figure.foto-oblewa-lewo,.prose figure.foto-oblewa-prawo{
     float:none;width:100%;margin:1.7em 0}
 }
+
+
+/* Kafel referencji — kwadrat identyczny z zaślepką, w środku sama miniaturka
+   dokumentu. Podgląd w <iframe>, bo CSP serwisu blokuje <object>/<embed>. */
+.company-reference-card{position:relative;display:block;aspect-ratio:1/1;
+  border:.8px solid #cddbe3;border-radius:16px;overflow:hidden;background:#fff;
+  transition:border-color .2s,box-shadow .2s}
+.company-reference-card:hover{border-color:#0b75a4;box-shadow:0 6px 22px rgba(11,61,92,.13)}
+/* A4 dopasowane do szerokości ma wysokość 141,4% — kwadrat przycina dół
+   strony i zostaje czytelna góra dokumentu. */
+.company-reference-card iframe{position:absolute;left:0;top:0;width:100%;
+  height:141.4%;border:0;pointer-events:none;background:#fff}

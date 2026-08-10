@@ -32,35 +32,32 @@
 
   // Pola tekstowe: kolumna → etykieta i typ kontrolki
   var POLA = [
-    { k: "slug", label: "Adres (slug)", typ: "text", pomoc: "Zostanie adresem: /baza-wiedzy/<slug>/" },
-    { k: "title", label: "Tytuł (H1 i <title>)", typ: "text" },
-    { k: "list_title", label: "Tytuł na liście", typ: "text" },
-    { k: "short", label: "Etykieta w breadcrumbach", typ: "text" },
-    { k: "topic", label: "Nadtemat", typ: "lista",
-      pomoc: "Widoczny nad tytułem i na liście artykułów." },
-    { k: "lead", label: "Lead (idzie też w meta description)", typ: "textarea" },
-    { k: "excerpt", label: "Zajawka na liście", typ: "text" },
+    { k: "slug", label: "Adres strony", typ: "text", pomoc: "Ta nazwa pojawi się w adresie strony. Same małe litery i myślniki." },
+    { k: "title", label: "Tytuł artykułu", typ: "text" },
+    { k: "list_title", label: "Tytuł na liście artykułów", typ: "text" },
+    { k: "short", label: "Krótka nazwa", typ: "text" },
+    { k: "lead", label: "Wstęp", typ: "textarea" },
+    { k: "excerpt", label: "Zapowiedź na liście", typ: "text" },
     { k: "audience", label: "Dla kogo", typ: "text" },
     { k: "read_time", label: "Czas czytania", typ: "text", pomoc: "np. 6 min" },
-    { k: "image", label: "Grafika", typ: "text", pomoc: "Pusto = grafika huba" },
+    { k: "image", label: "Zdjęcie główne", typ: "text", pomoc: "Jeśli zostawisz puste, pojawi się zdjęcie z listy artykułów." },
     { k: "prose", label: "Treść artykułu", typ: "redaktor",
       pomoc: "Enter zaczyna nowy akapit (z odstępem). Shift+Enter łamie wiersz " +
              "wewnątrz akapitu, bez odstępu." },
-    { k: "html", label: "Własny HTML całej strony", typ: "kod",
-      pomoc: "Wypełnione = zastępuje cały układ powyżej. Pozwala wyjść poza schemat. " +
-             "Nagłówek i stopka serwisu zostają." }
+    { k: "html", label: "Własny kod strony", typ: "kod",
+      pomoc: "Dla zaawansowanych. Jeśli tu coś wpiszesz, zastąpi cały układ " +
+             "artykułu. Menu i stopka strony zostają." }
   ];
 
   // Pola listowe: kolumna → kolumny wiersza
   var LISTY = [
-    { k: "faq", label: "FAQ", kolumny: [["q", "Pytanie"], ["a", "Odpowiedź"]] },
+    { k: "faq", label: "Pytania i odpowiedzi", kolumny: [["q", "Pytanie"], ["a", "Odpowiedź"]] },
     // Wszystkie trzy pola są listami — etykieta z już używanych, tytuł
     // i adres z istniejących stron serwisu, wzajemnie zsynchronizowane.
-    { k: "related", label: "Powiązane odnośniki",
-      kolumny: [["kicker", "Etykieta", "etykiety"],
+    { k: "related", label: "Polecane strony",
+      kolumny: [["kicker", "Rodzaj", "etykiety"],
                 ["title", "Tytuł", "tytuly-stron"],
-                ["url", "Adres", "adresy"]] },
-    { k: "feature_stats", label: "Liczby w hero", kolumny: [["value", "Wartość"], ["label", "Opis"]] }
+                ["url", "Adres", "adresy"]] }
   ];
 
   var STYLE = "" +
@@ -90,6 +87,12 @@
     ".naglowek h2{margin:0;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#7fc4e8;font-weight:700}" +
     ".szukaj{margin:10px;padding:8px 10px;background:#08121a;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#e8f1f6;font-size:13px}" +
     ".lista{overflow:auto;flex:1;padding:0 8px 8px}" +
+    ".zakladka{flex:1;padding:7px 4px;font-size:12px;background:transparent;border-color:transparent;color:#8fa8b6}" +
+    ".zakladka.akt{background:#12384f;border-color:rgba(127,196,232,.4);color:#e8f1f6}" +
+    ".ref-form{display:grid;gap:12px;align-content:start}" +
+    ".ref-plik{border:1px dashed rgba(127,196,232,.45);border-radius:10px;padding:12px;background:rgba(127,196,232,.05)}" +
+    ".ref-plik__stan{font-size:12px;color:#9fc0d2;margin-top:6px}" +
+    ".ref-plik input[type=file]{font-size:12px;color:#9fc0d2}" +
     ".poz{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1.35;border:1px solid transparent}" +
     ".poz:hover{background:rgba(127,196,232,.10)}" +
     ".poz.akt{background:rgba(127,196,232,.16);border-color:rgba(127,196,232,.45)}" +
@@ -207,11 +210,14 @@
     tlo.innerHTML =
       '<div class="okno">' +
       '  <div class="lewa">' +
-      '    <div class="naglowek"><h2>Baza wiedzy</h2></div>' +
+      '    <div class="naglowek">' +
+      '      <button class="zakladka akt" data-widok="artykuly">Artykuły</button>' +
+      '      <button class="zakladka" data-widok="referencje">Referencje</button>' +
+      '    </div>' +
       '    <input class="szukaj" type="text" placeholder="Szukaj artykułu…">' +
       '    <div class="lista"></div>' +
       '    <div style="padding:10px;border-top:1px solid rgba(255,255,255,.08)">' +
-      '      <button class="nowy" style="width:100%">+ Nowy artykuł</button></div>' +
+      '      <button class="nowy" style="width:100%">+ Nowy wpis</button></div>' +
       '  </div>' +
       '  <div class="prawa">' +
       '    <div class="pasek">' +
@@ -258,10 +264,22 @@
         ramka.style.margin = b.dataset.szer === "100%" ? "0" : "0 auto";
       });
     });
-    el(".nowy").addEventListener("click", function () { wczytaj(null); });
-    el(".zapisz").addEventListener("click", zapisz);
-    el(".usun").addEventListener("click", usun);
-    el(".szukaj").addEventListener("input", rysujListe);
+    el(".nowy").addEventListener("click", function () {
+      if (widok === "referencje") { refBiezaca = null; rysujFormularzReferencji(null); rysujListeReferencji(); }
+      else wczytaj(null);
+    });
+    el(".zapisz").addEventListener("click", function () {
+      widok === "referencje" ? zapiszReferencje() : zapisz();
+    });
+    root.querySelectorAll(".zakladka").forEach(function (b) {
+      b.addEventListener("click", function () { przelaczWidok(b.dataset.widok); });
+    });
+    el(".usun").addEventListener("click", function () {
+      widok === "referencje" ? usunReferencje() : usun();
+    });
+    el(".szukaj").addEventListener("input", function () {
+      widok === "referencje" ? rysujListeReferencji() : rysujListe();
+    });
   }
 
   function rysujListe() {
@@ -300,7 +318,7 @@
     var pole = document.createElement("div");
     pole.dataset.kolumna = def.k;
     pole.innerHTML = "<label></label><select></select>" +
-      '<input type="text" style="display:none;margin-top:6px" placeholder="nazwa nowego nadtematu">' +
+      '<input type="text" style="display:none;margin-top:6px" placeholder="nazwa nowego działu">' +
       (def.pomoc ? '<div class="pomoc"></div>' : "");
     pole.querySelector("label").textContent = def.label;
     if (def.pomoc) pole.querySelector(".pomoc").textContent = def.pomoc;
@@ -312,7 +330,7 @@
     // bez tego wypadłaby z listy i zapis po cichu by ją zmienił.
     if (wartosc && wartosci.indexOf(wartosc) === -1) wartosci.unshift(wartosc);
 
-    select.innerHTML = '<option value="">(wybierz)</option>';
+    select.innerHTML = '<option value="">(wybierz z listy)</option>';
     wartosci.forEach(function (v) {
       var opt = document.createElement("option");
       opt.value = v;
@@ -322,7 +340,7 @@
     });
     var nowy = document.createElement("option");
     nowy.value = NOWY;
-    nowy.textContent = "+ nowy nadtemat…";
+    nowy.textContent = "+ dodaj nowy dział…";
     select.appendChild(nowy);
 
     select.addEventListener("change", function () {
@@ -576,7 +594,7 @@
     przycisk("Link", "Wstaw odnośnik do strony serwisu", function () {
       var sel = zaznaczenie();
       if (!sel || !String(sel)) {
-        komunikat("Zaznacz najpierw tekst, który ma być odnośnikiem.", true);
+        komunikat("Zaznacz najpierw tekst, który ma być odnośnikiem do innej strony.", true);
         return;
       }
       pokazWyborStrony(function (url) { polecenie("createLink", url); });
@@ -643,9 +661,9 @@
     przycisk("\u2261 Prawo", "Wyrównaj do prawej", function () { wyrownaj("tekst-prawo"); });
 
     separator();
-    przycisk("B", "Pogrubienie", function () { polecenie("bold"); });
-    przycisk("I", "Kursywa", function () { polecenie("italic"); });
-    przycisk("Uwaga", "Wyróżniony akapit na marginesie", function () {
+    przycisk("Pogrub", "Pogrubienie", function () { polecenie("bold"); });
+    przycisk("Kursywa", "Pochylenie", function () { polecenie("italic"); });
+    przycisk("Wyróżnienie", "Akapit odznaczony kreską przy krawędzi", function () {
       tresc.focus();
       document.execCommand("formatBlock", false, "<p>");
       var sel = zaznaczenie();
@@ -661,7 +679,7 @@
     rosnie.className = "rosnie";
     pasek.appendChild(rosnie);
 
-    var przelacznik = przycisk("HTML", "Podejrzyj i popraw kod źródłowy", function () {
+    var przelacznik = przycisk("Kod", "Podejrzyj i popraw kod strony", function () {
       var doKodu = kod.style.display === "none";
       if (doKodu) {
         kod.value = oczysc(tresc);
@@ -696,16 +714,16 @@
     var okno = document.createElement("div");
     okno.className = "sekcja wybor-grafiki";
     okno.innerHTML =
-      "<h3>Wstaw zdjęcie</h3>" +
-      '<input type="text" class="opis" placeholder="Opis zdjęcia (alt) — ważny dla wyszukiwarki i czytników ekranu">' +
+      "<h3>Wybierz zdjęcie z galerii</h3>" +
+      '<input type="text" class="opis" placeholder="Opis zdjęcia — napisz, co na nim widać">' +
       '<input type="text" class="podpis" placeholder="Podpis pod zdjęciem (opcjonalny)" style="margin-top:6px">' +
       '<div class="opcje-foto">' +
-      '  <label>Rozmiar<select class="rozmiar">' +
+      '  <label>Wielkość zdjęcia<select class="rozmiar">' +
       '    <option value="foto-pelna">pełna szerokość</option>' +
       '    <option value="foto-srednia">średnie (65%)</option>' +
       '    <option value="foto-mala">małe (40%)</option>' +
       '  </select></label>' +
-      '  <label>Położenie<select class="polozenie">' +
+      '  <label>Gdzie umieścić<select class="polozenie">' +
       '    <option value="tekst-srodek" selected>osobno, wyśrodkowane</option>' +
       '    <option value="">osobno, do lewej</option>' +
       '    <option value="tekst-prawo">osobno, do prawej</option>' +
@@ -729,8 +747,8 @@
       kafel.addEventListener("click", function () {
         var alt = opis.value.trim();
         if (!alt) {
-          komunikat("Wpisz opis zdjęcia — bez niego grafika jest niewidoczna " +
-                    "dla wyszukiwarki i czytników ekranu.", true);
+          komunikat("Napisz najpierw, co widać na zdjęciu. Bez tego opisu " +
+                    "zdjęcia nie zobaczą osoby niewidome ani Google.", true);
           opis.focus();
           return;
         }
@@ -781,7 +799,7 @@
     var okno = document.createElement("div");
     okno.className = "sekcja";
     okno.style.cssText = "position:absolute;z-index:5;left:16px;right:16px;background:#0e1c26;box-shadow:0 12px 40px rgba(0,0,0,.5)";
-    okno.innerHTML = "<h3>Odnośnik do strony</h3>";
+    okno.innerHTML = "<h3>Wybierz stronę, do której prowadzi odnośnik</h3>";
     okno.appendChild(wybor);
     var anuluj = document.createElement("button");
     anuluj.textContent = "Anuluj";
@@ -1051,7 +1069,7 @@
 
     var kategoria = document.createElement("div");
     kategoria.innerHTML = "<label>Kategoria</label><select></select>" +
-      '<div class="pomoc">Kategoria bez artykułów przekierowuje na hub — pierwszy artykuł tworzy jej stronę.</div>';
+      '<div class="pomoc">Ustala też napis nad tytułem artykułu. Kategoria bez artykułów przekierowuje na hub — pierwszy artykuł tworzy jej stronę.</div>';
     var select = kategoria.querySelector("select");
     select.innerHTML = '<option value="">(bez kategorii)</option>';
     stan.kategorie.forEach(function (k) {
@@ -1063,6 +1081,14 @@
     });
     select.addEventListener("change", function () {
       stan.zmiany.category_id = select.value ? parseInt(select.value, 10) : null;
+      // „Dział" (napis nad tytułem) to ta sama informacja co kategoria.
+      // Zamiast dwóch pól, które potrafią się rozjechać, bierzemy go
+      // z wybranej kategorii.
+      var wybrana = stan.kategorie.filter(function (k) {
+        return k.id === stan.zmiany.category_id;
+      })[0];
+      if (wybrana && wybrana.dzial) stan.zmiany.topic = wybrana.dzial;
+      zaplanujPodglad();
     });
 
     POLA.forEach(function (def) {
@@ -1181,6 +1207,186 @@
         stan.grafiki = wyniki[4];
         rysujListe();
       });
+  }
+
+  // ============================================================ REFERENCJE
+  // Druga zakladka panelu. Sekcja „Wybrane wdrozenia" na /referencje/ sklada
+  // sie z kafli; wpis bez wgranego PDF-a zostaje kaflem „w trakcie tworzenia”.
+  var widok = "artykuly";
+  var refBiezaca = null;
+
+  function przelaczWidok(nowy) {
+    widok = nowy;
+    root.querySelectorAll(".zakladka").forEach(function (b) {
+      b.classList.toggle("akt", b.dataset.widok === nowy);
+    });
+    refBiezaca = null;
+    if (nowy === "referencje") {
+      el(".usun").style.display = "none";
+      odswiezReferencje();
+    } else {
+      wczytaj(null);
+    }
+  }
+
+  function odswiezReferencje() {
+    return api("referencje").then(function (lista) {
+      stan.referencje = lista;
+      rysujListeReferencji();
+      rysujFormularzReferencji(null);
+    });
+  }
+
+  function rysujListeReferencji() {
+    var fraza = (el(".szukaj").value || "").toLowerCase();
+    var lista = el(".lista");
+    lista.innerHTML = "";
+    (stan.referencje || [])
+      .filter(function (r) {
+        return !fraza || (r.tytul + " " + (r.firma || "")).toLowerCase().indexOf(fraza) !== -1;
+      })
+      .forEach(function (r) {
+        var poz = document.createElement("div");
+        poz.className = "poz" + (refBiezaca === r.id ? " akt" : "") + (r.published ? "" : " ukryty");
+        poz.innerHTML = "<strong></strong><small></small>";
+        poz.querySelector("strong").textContent = r.tytul;
+        poz.querySelector("small").textContent =
+          (r.firma || "bez firmy") + (r.plik ? " · PDF" : " · brak pliku");
+        poz.addEventListener("click", function () {
+          refBiezaca = r.id;
+          rysujFormularzReferencji(r);
+          rysujListeReferencji();
+        });
+        lista.appendChild(poz);
+      });
+  }
+
+  function poleRef(etykieta, klucz, wartosc, wielolinijkowe, pomoc) {
+    var box = document.createElement("div");
+    box.innerHTML = "<label></label>" +
+      (wielolinijkowe ? "<textarea></textarea>" : '<input type="text">') +
+      (pomoc ? '<div class="pomoc"></div>' : "");
+    box.querySelector("label").textContent = etykieta;
+    if (pomoc) box.querySelector(".pomoc").textContent = pomoc;
+    var wej = box.querySelector("input,textarea");
+    wej.dataset.klucz = klucz;
+    wej.value = wartosc == null ? "" : wartosc;
+    return box;
+  }
+
+  function rysujFormularzReferencji(r) {
+    var form = el(".form");
+    form.innerHTML = '<div class="komunikat" style="display:none"></div>';
+    var box = document.createElement("div");
+    box.className = "ref-form";
+
+    box.appendChild(poleRef("Tytuł", "tytul", r && r.tytul, false,
+      "Nagłówek kafla, np. „Kocioł parowy Fako”."));
+    box.appendChild(poleRef("Firma lub zakład", "firma", r && r.firma, false,
+      "Możesz zostawić puste, jeśli klient nie zgodził się na nazwę."));
+    box.appendChild(poleRef("Opis", "opis", r && r.opis, true,
+      "Dwa zdania o tym, czego dotyczy dokument."));
+
+    var plik = document.createElement("div");
+    plik.className = "ref-plik";
+    plik.innerHTML =
+      "<label>Dokument PDF</label>" +
+      '<input type="file" accept="application/pdf,.pdf">' +
+      '<div class="ref-plik__stan"></div>';
+    var stanPliku = plik.querySelector(".ref-plik__stan");
+    var sciezkaPliku = (r && r.plik) || "";
+
+    function opiszPlik() {
+      stanPliku.textContent = sciezkaPliku
+        ? "Wgrany: " + sciezkaPliku
+        : "Brak pliku — kafel pokaże napis „w trakcie tworzenia”.";
+    }
+    opiszPlik();
+
+    plik.querySelector("input[type=file]").addEventListener("change", function (e) {
+      var wybrany = e.target.files && e.target.files[0];
+      if (!wybrany) return;
+      stanPliku.textContent = "Wgrywam " + wybrany.name + "…";
+      var czytnik = new FileReader();
+      czytnik.onload = function () {
+        api("referencje/wgraj", { metoda: "POST", dane: {
+          nazwa: wybrany.name,
+          dane: String(czytnik.result).split(",")[1]
+        }}).then(function (w) {
+          sciezkaPliku = w.plik;
+          opiszPlik();
+          komunikat(w.komunikat + " Kliknij Zapisz, żeby to utrwalić.", false);
+        }).catch(function (err) {
+          stanPliku.textContent = "Nie udało się wgrać: " + err.message;
+          komunikat(err.message, true);
+        });
+      };
+      czytnik.readAsDataURL(wybrany);
+    });
+    box.appendChild(plik);
+
+    var dodatki = document.createElement("div");
+    dodatki.className = "sekcja dwie";
+    dodatki.innerHTML =
+      "<div><label>Widoczna na stronie</label><select data-klucz='published'>" +
+      "<option value='true'>tak</option><option value='false'>nie</option></select></div>" +
+      "<div><label>Kolejność</label><input type='number' data-klucz='sort_order' value='0'></div>";
+    dodatki.querySelector("[data-klucz=published]").value = r ? String(r.published) : "true";
+    dodatki.querySelector("[data-klucz=sort_order]").value = r ? r.sort_order : 0;
+    box.appendChild(dodatki);
+
+    form.appendChild(box);
+
+    el(".adres").textContent = r ? "/referencje/  ·  kafel „" + r.tytul + "”"
+                                 : "/referencje/  ·  nowa referencja";
+    el(".adres").style.color = "#9fe0b0";
+    el(".usun").style.display = r ? "" : "none";
+
+    form.dataset.plik = sciezkaPliku;
+  }
+
+  function zbierzReferencje() {
+    var form = el(".form");
+    var dane = { plik: form.dataset.plik || null };
+    form.querySelectorAll("[data-klucz]").forEach(function (w) {
+      var k = w.dataset.klucz;
+      dane[k] = k === "published" ? w.value === "true"
+              : k === "sort_order" ? (parseInt(w.value, 10) || 0)
+              : w.value.trim() || null;
+    });
+    // Plik mogl zostac wgrany po narysowaniu formularza.
+    var stanPliku = form.querySelector(".ref-plik__stan");
+    if (stanPliku && stanPliku.textContent.indexOf("Wgrany: ") === 0) {
+      dane.plik = stanPliku.textContent.replace("Wgrany: ", "").trim();
+    }
+    if (refBiezaca) dane.id = refBiezaca;
+    return dane;
+  }
+
+  function zapiszReferencje() {
+    el(".zapisz").disabled = el(".usun").disabled = true;
+    komunikat("Zapisuję…", false);
+    api("referencje", { metoda: "POST", dane: zbierzReferencje() })
+      .then(function (w) {
+        refBiezaca = w.id;
+        return odswiezReferencje().then(function () {
+          return przebuduj("Zapisano. Przebudowuję stronę…");
+        });
+      })
+      .catch(function (e) { komunikat(e.message, true); })
+      .then(function () { el(".zapisz").disabled = el(".usun").disabled = false; });
+  }
+
+  function usunReferencje() {
+    if (!refBiezaca) return;
+    if (!confirm("Usunąć tę referencję? Tego nie da się cofnąć.")) return;
+    api("referencje/" + refBiezaca, { metoda: "DELETE" })
+      .then(function () {
+        refBiezaca = null;
+        return odswiezReferencje();
+      })
+      .then(function () { return przebuduj("Referencja usunięta. Przebudowuję stronę…"); })
+      .catch(function (e) { komunikat(e.message, true); });
   }
 
   // ---------------------------------------------------------------- skrót
