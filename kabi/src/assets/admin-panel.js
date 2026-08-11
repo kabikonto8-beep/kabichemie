@@ -206,6 +206,7 @@
     ".wiersz{display:grid;gap:6px;margin-bottom:6px;align-items:start}" +
     ".wiersz textarea{min-height:52px}" +
     ".wiersz select{min-width:0}" +
+    ".form-dzial{margin:20px 0 2px;padding-top:12px;border-top:1px solid rgba(127,196,232,.25);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#7fc4e8}" +
     ".sekcja{border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:12px}" +
     ".sekcja h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#7fc4e8}" +
     ".komunikat{padding:8px 12px;border-radius:8px;font-size:12.5px;line-height:1.45}" +
@@ -266,6 +267,7 @@
       '  <div class="lewa">' +
       '    <div class="naglowek">' +
       '      <button class="zakladka akt" data-widok="artykuly">Artykuły</button>' +
+      '      <button class="zakladka" data-widok="case-studies">Case studies</button>' +
       '      <button class="zakladka" data-widok="referencje">Referencje</button>' +
       '    </div>' +
       '    <input class="szukaj" type="text" placeholder="Szukaj artykułu…">' +
@@ -320,19 +322,26 @@
     });
     el(".nowy").addEventListener("click", function () {
       if (widok === "referencje") { refBiezaca = null; rysujFormularzReferencji(null); rysujListeReferencji(); }
+      else if (widok === "case-studies") wczytajCase(null);
       else wczytaj(null);
     });
     el(".zapisz").addEventListener("click", function () {
-      widok === "referencje" ? zapiszReferencje() : zapisz();
+      if (widok === "referencje") zapiszReferencje();
+      else if (widok === "case-studies") zapiszCase();
+      else zapisz();
     });
     root.querySelectorAll(".zakladka").forEach(function (b) {
       b.addEventListener("click", function () { przelaczWidok(b.dataset.widok); });
     });
     el(".usun").addEventListener("click", function () {
-      widok === "referencje" ? usunReferencje() : usun();
+      if (widok === "referencje") usunReferencje();
+      else if (widok === "case-studies") usunCase();
+      else usun();
     });
     el(".szukaj").addEventListener("input", function () {
-      widok === "referencje" ? rysujListeReferencji() : rysujListe();
+      if (widok === "referencje") rysujListeReferencji();
+      else if (widok === "case-studies") rysujListeCase();
+      else rysujListe();
     });
   }
 
@@ -2270,7 +2279,7 @@
     wej.value = wartosc == null ? "" : wartosc;
     wej.addEventListener("input", function () {
       stan.zmiany[def.k] = wej.value;
-      if (def.k === "slug") odswiezAdres();
+      if (def.k === "slug" || def.k === "path") odswiezAdres();
       zaplanujPodglad();
     });
     return pole;
@@ -2408,6 +2417,9 @@
   function kluczSzkicu() { return "kabiPanelSzkic:" + (stan.biezacy || "(nowy)"); }
 
   function zapiszSzkicLokalnie() {
+    // Autozapis kopii roboczej działa tylko dla artykułów. Case studies mają
+    // pełny, duży formularz zapisywany świadomie; referencje czytają DOM.
+    if (widok !== "artykuly") return;
     try {
       // Czysty stan NIE kasuje kopii: klucz zależy od stan.biezacy, a ta
       // zmienia się podczas nawigacji — kasowanie tutaj wycięłoby dopiero co
@@ -2542,7 +2554,8 @@
     // żeby po błędzie dało się ponowić identyczny render.
     var numer = ++podgladNumer;
 
-    api("preview", { metoda: "POST", dane: dane }).then(function (w) {
+    var endpoint = widok === "case-studies" ? "case-preview" : "preview";
+    api(endpoint, { metoda: "POST", dane: dane }).then(function (w) {
       if (numer !== podgladNumer) return;
       podgladOstatni = odcisk;
       var ramka = el(".podglad iframe");
@@ -2561,6 +2574,16 @@
   }
 
   function odswiezAdres() {
+    // Case study: adres liczymy ze sluga, jak /baza-wiedzy/ dla artykułu.
+    if (widok === "case-studies") {
+      var slugCs = (szkic().slug || "").trim();
+      var okCs = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(slugCs);
+      el(".adres").textContent = slugCs
+        ? "/case-study/" + slugCs + "/" + (okCs ? "" : "  ← niepoprawny slug")
+        : "(nowe case study — wpisz slug)";
+      el(".adres").style.color = slugCs && !okCs ? "#ff9b86" : "#9fe0b0";
+      return;
+    }
     // Czytamy ze szkicu, a nie z samych zmian — inaczej po wczytaniu
     // istniejącego artykułu pasek twierdziłby, że to nowy wpis, dopóki
     // użytkownik nie dotknie pola slug.
@@ -2765,16 +2788,19 @@
 
   function przelaczWidok(nowy) {
     if (nowy === widok) return;   // klik w aktywną zakładkę nie resetuje formularza
-    if (nowy === "referencje" && widok !== "referencje" && brudny() &&
-        !confirm("Masz niezapisane zmiany w artykule. Przejść do referencji mimo to?\n" +
-                 "(Kopia robocza zostanie zachowana.)")) {
+    // Zmiany są niezapisane w widokach artykuły/case studies (referencje czyta
+    // formularz dopiero przy zapisie). Ostrzegamy przed ich porzuceniem.
+    if (widok !== "referencje" && brudny() &&
+        !confirm("Masz niezapisane zmiany. Przełączyć zakładkę mimo to?\n" +
+                 "(W artykułach kopia robocza zostanie zachowana.)")) {
       return;
     }
-    if (nowy === "referencje") {
-      clearTimeout(szkicTimer);
-      zapiszSzkicLokalnie();
-      stan.zmiany = {};
-    }
+    clearTimeout(szkicTimer);
+    zapiszSzkicLokalnie();   // article-only w środku; poza artykułami no-op
+    stan.zmiany = {};
+    stan.artykul = null;
+    stan.biezacy = null;
+    podgladOstatni = "";
     widok = nowy;
     root.querySelectorAll(".zakladka").forEach(function (b) {
       b.classList.toggle("akt", b.dataset.widok === nowy);
@@ -2783,6 +2809,12 @@
     if (nowy === "referencje") {
       el(".usun").style.display = "none";
       odswiezReferencje();
+    } else if (nowy === "case-studies") {
+      // Najpierw synchronicznie montujemy pusty widok case studies (formularz,
+      // pusta lista, ++wczytajNumer unieważnia trwający GET artykułu), potem
+      // dociągamy listę. Gdyby pobranie padło, widok i tak jest już czysty.
+      wczytajCase(null);
+      odswiezListeCase().catch(function (e) { komunikat(e.message, true); });
     } else {
       wczytaj(null);
     }
@@ -2948,6 +2980,194 @@
       .catch(function (e) { komunikat(e.message, true); });
   }
 
+  // ============================================================ CASE STUDIES
+  // Trzecia zakładka: pełnoprawna domena bliźniacza do artykułów (lista +
+  // formularz + żywy podgląd + zapis→przebudowa). Reużywa stan.zmiany/artykul/
+  // biezacy (naraz aktywny jest tylko jeden widok) oraz generyczne budulce pól
+  // poleTekstowe/sekcjaListy, które piszą do stan.zmiany i odświeżają podgląd.
+
+  // Case studies mają DOKŁADNIE te same pola co artykuły (tytuł + treść prose
+  // + opcjonalny własny HTML). Jedyne różnice: slug prowadzi na /case-study/,
+  // „topic" wpisujemy wprost (brak kategorii), no i adres liczy się ze sluga.
+  var POLA_CASE = [
+    { k: "slug", label: "Adres strony", typ: "text",
+      pomoc: "Ta nazwa pojawi się w adresie: /case-study/…/. Same małe litery i myślniki." },
+    { k: "title", label: "Tytuł case study", typ: "text" },
+    { k: "list_title", label: "Tytuł na liście realizacji", typ: "text" },
+    { k: "short", label: "Krótka nazwa", typ: "text" },
+    { k: "topic", label: "Nadtytuł / branża", typ: "text",
+      pomoc: "Napis nad tytułem i etykieta na liście, np. „Kotłownia parowa”." },
+    { k: "lead", label: "Wstęp (lead)", typ: "textarea" },
+    { k: "excerpt", label: "Zapowiedź na liście", typ: "text" },
+    { k: "audience", label: "Dla kogo", typ: "text" },
+    { k: "read_time", label: "Czas czytania", typ: "text", pomoc: "np. 6 min" },
+    { k: "image", label: "Zdjęcie główne", typ: "text",
+      pomoc: "Ścieżka do grafiki, np. /assets/case/nazwa.jpg" },
+    { k: "prose", label: "Treść case study", typ: "redaktor",
+      pomoc: "Pisz jak w edytorze tekstu: Enter zaczyna akapit. Ukośnik „/” w " +
+             "pustym akapicie otwiera menu wstawiania (nagłówki, listy, tabele, zdjęcia)." },
+    { k: "html", label: "Własny kod strony", typ: "kod",
+      pomoc: "Dla zaawansowanych. Jeśli tu coś wpiszesz, zastąpi cały układ " +
+             "case study. Menu i stopka strony zostają." }
+  ];
+
+  var LISTY_CASE = [
+    { k: "faq", label: "Pytania i odpowiedzi", kolumny: [["q", "Pytanie"], ["a", "Odpowiedź"]] },
+    { k: "related", label: "Polecane strony",
+      kolumny: [["kicker", "Rodzaj", "etykiety"],
+                ["title", "Tytuł", "tytuly-stron"],
+                ["url", "Adres", "adresy"]] }
+  ];
+
+  /** Blok „widoczne / kolejność" — wspólny wzór z formularza artykułu. */
+  function dodatkiPubSort(rekord) {
+    var dodatki = document.createElement("div");
+    dodatki.className = "sekcja dwie";
+    dodatki.innerHTML =
+      "<div><label>Widoczne na stronie</label><select class='pub'>" +
+      "<option value='true'>tak</option><option value='false'>nie — ukryte</option></select></div>" +
+      "<div><label>Kolejność</label><input type='number' class='kol' value='0'></div>";
+    dodatki.querySelector(".pub").value =
+      rekord && rekord.published !== undefined ? String(rekord.published) : "true";
+    dodatki.querySelector(".kol").value =
+      rekord && rekord.sort_order !== undefined ? rekord.sort_order : 0;
+    dodatki.querySelector(".pub").addEventListener("change", function (e) {
+      stan.zmiany.published = e.target.value === "true";
+    });
+    dodatki.querySelector(".kol").addEventListener("input", function (e) {
+      stan.zmiany.sort_order = parseInt(e.target.value, 10) || 0;
+    });
+    return dodatki;
+  }
+
+  function rysujFormularzCase(rekord) {
+    var form = el(".form");
+    form.innerHTML = '<div class="komunikat" style="display:none"></div>';
+
+    POLA_CASE.forEach(function (def) {
+      form.appendChild(poleTekstowe(def, rekord ? rekord[def.k] : ""));
+    });
+    LISTY_CASE.forEach(function (def) {
+      form.appendChild(sekcjaListy(def, rekord ? rekord[def.k] : []));
+    });
+
+    form.appendChild(dodatkiPubSort(rekord));
+    el(".usun").style.display = stan.biezacy ? "" : "none";
+    odswiezAdres();
+  }
+
+  function odswiezListeCase() {
+    return Promise.all([api("case-studies"), api("adresy"),
+                        api("etykiety"), api("grafiki")])
+      .then(function (w) {
+        stan.caseStudies = w[0];
+        stan.adresy = w[1];
+        stan.etykiety = w[2];
+        stan.grafiki = w[3];
+        rysujListeCase();
+      });
+  }
+
+  function rysujListeCase() {
+    var fraza = (el(".szukaj").value || "").toLowerCase();
+    var lista = el(".lista");
+    lista.innerHTML = "";
+    (stan.caseStudies || [])
+      .filter(function (c) {
+        return !fraza || ((c.title || "") + " " + c.slug).toLowerCase().indexOf(fraza) !== -1;
+      })
+      .forEach(function (c) {
+        var poz = document.createElement("div");
+        poz.className = "poz" + (stan.biezacy === c.slug ? " akt" : "") +
+                        (c.published ? "" : " ukryty");
+        poz.innerHTML = "<strong></strong><small></small>";
+        // title (nowe) albo h1 (stare) — może mieć <span>, pokazujemy sam tekst.
+        poz.querySelector("strong").textContent =
+          (c.title || c.slug).replace(/<[^>]+>/g, "");
+        poz.querySelector("small").textContent =
+          c.slug + (c.topic ? " · " + c.topic : "") +
+          (c.standardowe ? "" : " · niestandardowe") +
+          (c.published ? "" : " · ukryte");
+        poz.addEventListener("click", function () { wczytajCase(c.slug); });
+        lista.appendChild(poz);
+      });
+  }
+
+  function wczytajCase(slug) {
+    // Bez porównania ze stan.biezacy: klik w już otwarty (podświetlony) wpis
+    // też porzuca zmiany, więc każde brudne przeładowanie wymaga potwierdzenia.
+    // Wewnętrzne wywołania wczytajCase(null) idą po wyczyszczeniu zmian, więc
+    // brudny() jest wtedy false i pytanie się nie pojawia.
+    if (brudny() &&
+        !confirm("Masz niezapisane zmiany w tym case study. Przejść dalej mimo to?")) {
+      return;
+    }
+    stan.zmiany = {};
+    stan.artykul = null;
+    stan.biezacy = slug;
+    podgladOstatni = "";
+    var numer = ++wczytajNumer;
+    if (!slug) {
+      rysujFormularzCase(null);
+      rysujListeCase();
+      zaplanujPodglad();
+      return;
+    }
+    api("case-studies/" + slug).then(function (c) {
+      if (numer !== wczytajNumer) return;
+      stan.artykul = c;
+      stan.zmiany = {};
+      rysujFormularzCase(c);
+      rysujListeCase();
+      odswiezPodglad();
+    }).catch(function (e) {
+      if (numer === wczytajNumer) komunikat(e.message, true);
+    });
+  }
+
+  function zapiszCase() {
+    var dane = {};
+    Object.keys(stan.zmiany).forEach(function (k) { dane[k] = stan.zmiany[k]; });
+    if (!dane.slug && stan.biezacy) dane.slug = stan.biezacy;
+
+    var zadanie = stan.biezacy
+      ? api("case-studies/" + stan.biezacy, { metoda: "PUT", dane: dane })
+      : api("case-studies", { metoda: "POST", dane: dane });
+
+    el(".zapisz").disabled = el(".usun").disabled = true;
+    komunikat("Zapisuję…", false);
+
+    zadanie.then(function (wynik) {
+      stan.artykul = szkic();
+      stan.biezacy = wynik.slug;
+      stan.artykul.slug = wynik.slug;
+      stan.zmiany = {};
+      return odswiezListeCase().then(function () {
+        return przebuduj("Zapisano. Przebudowuję stronę…");
+      });
+    }).catch(function (e) {
+      komunikat(e.message, true);
+    }).then(function () {
+      el(".zapisz").disabled = el(".usun").disabled = false;
+    });
+  }
+
+  function usunCase() {
+    if (!stan.biezacy) return;
+    if (!confirm("Usunąć case study „" + stan.biezacy + "”? Tego nie da się cofnąć.")) return;
+    api("case-studies/" + stan.biezacy, { metoda: "DELETE" }).then(function () {
+      stan.zmiany = {};
+      stan.biezacy = null;
+      stan.artykul = null;
+      podgladOstatni = "";
+      return odswiezListeCase();
+    }).then(function () {
+      rysujFormularzCase(null);
+      zaplanujPodglad();
+      return przebuduj("Case study usunięte. Przebudowuję stronę…");
+    }).catch(function (e) { komunikat(e.message, true); });
+  }
+
   // ---------------------------------------------------------------- skrót
   function otworz() {
     if (host) { host.style.display = ""; return; }
@@ -2993,7 +3213,9 @@
       // Przycisk Zapisz jest zablokowany na czas trwającego zapisu — to samo
       // źródło prawdy chroni przed podwójnym wysłaniem przez przytrzymany skrót.
       if (e.repeat || el(".zapisz").disabled) return;
-      widok === "referencje" ? zapiszReferencje() : zapisz();
+      if (widok === "referencje") zapiszReferencje();
+      else if (widok === "case-studies") zapiszCase();
+      else zapisz();
       return;
     }
 

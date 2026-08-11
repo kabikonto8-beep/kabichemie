@@ -61,6 +61,28 @@ REQUIRED = ["slug", "title", "list_title", "short", "topic",
 REQUIRED_HTML = ["slug", "title", "list_title", "short", "topic",
                  "lead", "audience", "read_time"]
 
+# --------------------------------------------------------- case studies
+# Druga domena treści — działa DOKŁADNIE jak artykuły (te same pola, ten sam
+# edytor prose + własny HTML), tyle że publikuje pod /case-study/{slug}/.
+# Adres strony (kolumna `path`) wyliczamy ze sluga, nie każemy go wpisywać.
+# Istniejące 3 wpisy (fako/bac/evapco) nie mają `prose`/`title` — renderują się
+# dawnym, bogatym układem („niestandardowe"), patrz company_case_pages.
+EDITABLE_CASE = [
+    "slug", "path", "title", "list_title", "short", "topic",
+    "excerpt", "lead", "audience", "read_time", "image", "prose", "html",
+    "feature_stats", "faq", "related", "published", "sort_order",
+]
+JSON_COLUMNS_CASE = {"feature_stats", "faq", "related"}
+REQUIRED_CASE = ["slug", "title", "list_title", "short", "topic",
+                 "lead", "audience", "read_time", "prose"]
+REQUIRED_CASE_HTML = ["slug", "title", "list_title", "short", "topic",
+                      "lead", "audience", "read_time"]
+
+
+def sciezka_case(slug):
+    """Adres case study wyliczony ze sluga — jak /baza-wiedzy/ dla artykułów."""
+    return "/case-study/%s/" % slug
+
 
 class Blad(Exception):
     """Błąd z kodem HTTP — zwracany do panelu jako czytelny komunikat."""
@@ -97,6 +119,35 @@ def wartosci(dane, kolumny):
     for kolumna in kolumny:
         wartosc = dane.get(kolumna)
         if kolumna in JSON_COLUMNS and wartosc is not None:
+            wartosc = Jsonb(wartosc)
+        out.append(wartosc)
+    return out
+
+
+def sprawdz_case(dane, nowy):
+    wymagane = REQUIRED_CASE_HTML if str(dane.get("html") or "").strip() \
+        else REQUIRED_CASE
+    braki = [k for k in wymagane if not str(dane.get(k) or "").strip()] \
+        if nowy else []
+    if braki:
+        raise Blad(400, "Brakuje wymaganych pól: %s" % ", ".join(braki))
+
+    slug = dane.get("slug")
+    if slug is not None and not SLUG_RE.match(slug):
+        raise Blad(400, "Slug %r jest niepoprawny — dozwolone są tylko małe "
+                        "litery, cyfry i pojedyncze myślniki." % slug)
+
+    for kolumna in JSON_COLUMNS_CASE:
+        wartosc = dane.get(kolumna)
+        if wartosc is not None and not isinstance(wartosc, list):
+            raise Blad(400, "Pole %s musi być listą." % kolumna)
+
+
+def wartosci_case(dane, kolumny):
+    out = []
+    for kolumna in kolumny:
+        wartosc = dane.get(kolumna)
+        if kolumna in JSON_COLUMNS_CASE and wartosc is not None:
             wartosc = Jsonb(wartosc)
         out.append(wartosc)
     return out
@@ -491,6 +542,77 @@ def delete(slug):
     return {"komunikat": "Artykuł usunięty."}
 
 
+# ------------------------------------------------------- CRUD case studies
+def case_studies():
+    """Lista do lewego panelu. Nazwę bierzemy z title (nowe), a dla starych
+    wpisów z h1 — dzięki temu i nowe, i „niestandardowe" mają czym się pokazać."""
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("""
+            SELECT id, slug, path,
+                   COALESCE(NULLIF(title, ''), h1) AS title,
+                   topic, (prose IS NOT NULL OR html IS NOT NULL) AS standardowe,
+                   published, sort_order, updated_at
+            FROM kabi.case_studies
+            ORDER BY sort_order, id
+        """)
+        return cur.fetchall()
+
+
+def case_study(slug):
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("SELECT * FROM kabi.case_studies WHERE slug = %s", (slug,))
+        wiersz = cur.fetchone()
+    if wiersz is None:
+        raise Blad(404, "Nie ma case study o slugu %r." % slug)
+    return wiersz
+
+
+def create_case(dane):
+    sprawdz_case(dane, nowy=True)
+    if dane.get("slug"):
+        dane["path"] = sciezka_case(dane["slug"])   # adres ze sluga, jak w artykułach
+    kolumny = [k for k in EDITABLE_CASE if k in dane]
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute(
+            "INSERT INTO kabi.case_studies (%s) VALUES (%s) RETURNING slug"
+            % (", ".join(kolumny), ", ".join(["%s"] * len(kolumny))),
+            wartosci_case(dane, kolumny),
+        )
+        wynik = cur.fetchone()
+        conn.commit()
+    return {"slug": wynik["slug"], "komunikat": "Case study dodane."}
+
+
+def update_case(slug, dane):
+    sprawdz_case(dane, nowy=False)
+    if dane.get("slug"):
+        dane["path"] = sciezka_case(dane["slug"])   # zmiana sluga = nowy adres
+    kolumny = [k for k in EDITABLE_CASE if k in dane]
+    if not kolumny:
+        raise Blad(400, "Nie przesłano żadnego pola do zapisania.")
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute(
+            "UPDATE kabi.case_studies SET %s WHERE slug = %%s RETURNING slug"
+            % ", ".join("%s = %%s" % k for k in kolumny),
+            wartosci_case(dane, kolumny) + [slug],
+        )
+        wynik = cur.fetchone()
+        if wynik is None:
+            raise Blad(404, "Nie ma case study o slugu %r." % slug)
+        conn.commit()
+    return {"slug": wynik["slug"], "komunikat": "Zapisano."}
+
+
+def delete_case(slug):
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("DELETE FROM kabi.case_studies WHERE slug = %s RETURNING slug",
+                    (slug,))
+        if cur.fetchone() is None:
+            raise Blad(404, "Nie ma case study o slugu %r." % slug)
+        conn.commit()
+    return {"komunikat": "Case study usunięte."}
+
+
 # Podglądowi nie wolno animować wejścia: bez main.js elementy .reveal zostają
 # z opacity:0 i strona wygląda na pustą. Wyłączamy też przewijanie kotwic.
 PODGLAD_STYL = """
@@ -583,6 +705,56 @@ def preview(dane):
     }}
 
 
+# Case study renderuje się silnikiem artykułów — te same klucze co przy
+# podglądzie artykułu (renderer sięga po nie bezwarunkowo).
+PODGLAD_DOMYSLNE_CASE = {
+    "title": "(tytuł case study)",
+    "lead": "(lead — pierwszy akapit pod nagłówkiem)",
+    "prose": "<p>(treść case study)</p>",
+    "read": "— min",
+    "audience": "(dla kogo)",
+    "image": "/assets/case/case-fako-boiler-generated.png",
+    "faq": [],
+    "related": [],
+}
+
+
+def preview_case(dane):
+    """Podgląd case study — tym samym silnikiem, co artykuły (render_case_standard)."""
+    import company_case_pages
+    from content_schema import from_snapshot
+
+    szkic = dict(PODGLAD_DOMYSLNE_CASE)
+    for klucz, wartosc in (dane or {}).items():
+        if wartosc not in (None, ""):
+            szkic[klucz] = wartosc
+    if "read_time" in szkic:
+        szkic["read"] = szkic.pop("read_time") or PODGLAD_DOMYSLNE_CASE["read"]
+
+    # Puste wiersze list odrzucamy, żeby konwersja nie wywaliła się na brakach.
+    for pole, klucze in (("faq", ("q", "a")),
+                         ("related", ("kicker", "title", "url")),
+                         ("feature_stats", ("value", "label"))):
+        if isinstance(szkic.get(pole), list):
+            szkic[pole] = [w for w in szkic[pole]
+                           if isinstance(w, dict) and all(k in w for k in klucze)]
+
+    try:
+        rekord = from_snapshot(szkic)
+        tresc = company_case_pages.render_case_standard(rekord)
+    except Exception as exc:
+        tresc = ('<div style="padding:40px;font:14px system-ui;color:#b00">'
+                 '<strong>Nie mogę wyrenderować podglądu.</strong><br>%s</div>'
+                 % html_escape(str(exc)))
+
+    return {"html": PODGLAD_SZKIELET % {
+        "wersja": wersja_stylow(),
+        "styl": PODGLAD_STYL,
+        "klasy": company_case_pages.CASE_BODY_CLASS,
+        "tresc": tresc,
+    }}
+
+
 def html_escape(tekst):
     return (tekst.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
@@ -661,6 +833,21 @@ class Handler(BaseHTTPRequestHandler):
                 return self._odpowiedz(200, publish())
             if sciezka == "/api/preview" and metoda == "POST":
                 return self._odpowiedz(200, preview(self._cialo()))
+            if sciezka == "/api/case-preview" and metoda == "POST":
+                return self._odpowiedz(200, preview_case(self._cialo()))
+
+            if sciezka == "/api/case-studies" and metoda == "GET":
+                return self._odpowiedz(200, case_studies())
+            if sciezka == "/api/case-studies" and metoda == "POST":
+                return self._odpowiedz(201, create_case(self._cialo()))
+            if sciezka.startswith("/api/case-studies/"):
+                slug = sciezka[len("/api/case-studies/"):]
+                if metoda == "GET":
+                    return self._odpowiedz(200, case_study(slug))
+                if metoda == "PUT":
+                    return self._odpowiedz(200, update_case(slug, self._cialo()))
+                if metoda == "DELETE":
+                    return self._odpowiedz(200, delete_case(slug))
 
             if sciezka.startswith("/api/articles/"):
                 slug = sciezka[len("/api/articles/"):]
@@ -675,7 +862,7 @@ class Handler(BaseHTTPRequestHandler):
         except Blad as exc:
             self._odpowiedz(exc.kod, {"blad": exc.komunikat})
         except psycopg.errors.UniqueViolation:
-            self._odpowiedz(409, {"blad": "Artykuł o takim slugu już istnieje."})
+            self._odpowiedz(409, {"blad": "Wpis o takim slugu lub adresie już istnieje."})
         except psycopg.errors.CheckViolation as exc:
             self._odpowiedz(400, {"blad": "Baza odrzuciła dane: %s" % exc})
         except Exception:

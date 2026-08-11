@@ -126,10 +126,13 @@ CREATE TABLE kabi.case_studies (
   path            text    NOT NULL UNIQUE
                           CHECK (path ~ '^/[a-z0-9/-]*/$'),
 
-  kicker          text    NOT NULL,
-  h1              text    NOT NULL,   -- może zawierać <span> do wyróżnienia
+  -- kicker/h1/image są wymagane tylko dla „niestandardowych" wpisów (dawny,
+  -- bogaty renderer). Nowe case studies „artykułowe" używają title/prose/image
+  -- i tych pól nie wypełniają — dlatego nullowalne.
+  kicker          text,
+  h1              text,               -- może zawierać <span> do wyróżnienia
   lead            text    NOT NULL,
-  image           text    NOT NULL,
+  image           text,
   image_position  text    NOT NULL DEFAULT 'center center',
 
   -- ["Kocioł parowy Fako", "Odkamienianie chemiczne", …]
@@ -183,6 +186,25 @@ CREATE TABLE kabi.case_studies (
   actions         jsonb   CHECK (kabi.is_json_array(actions)),
   related         jsonb   NOT NULL DEFAULT '[]'::jsonb
                           CHECK (kabi.is_json_array(related)),
+
+  -- Własny HTML CAŁEJ treści case study. Gdy wypełniony, generator pomija
+  -- układ składany z pól (hero, sekcje, FAQ, CTA) i wstawia to, co tu jest.
+  -- Nagłówek <head>, menu i stopka serwisu zostają — jak przy articles.html.
+  html            text,
+
+  -- Pola „artykułowe": nowe case studies powstają dokładnie jak wpisy bazy
+  -- wiedzy (tytuł + treść `prose` + opcjonalny `html`), renderowane silnikiem
+  -- artykułów. Istniejące 3 wpisy (fako/bac/evapco) ich nie mają — są rozpoznawane
+  -- jako „niestandardowe" i renderują się dawnym, bogatym układem sekcyjnym.
+  title           text,
+  list_title      text,
+  short           text,
+  topic           text,
+  excerpt         text,
+  audience        text,
+  read_time       text,
+  prose           text,
+  feature_stats   jsonb   CHECK (kabi.is_json_array(feature_stats)),
 
   published       boolean NOT NULL DEFAULT true,
   sort_order      integer NOT NULL DEFAULT 0,

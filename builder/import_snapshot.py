@@ -43,7 +43,10 @@ CASE_COLUMNS = [
     "results_title", "results_intro", "results_note", "metrics",
     "field_title", "field_intro", "field_notes",
     "faq_title", "faq_intro", "faq",
-    "cta_title", "cta_text", "actions", "related",
+    "cta_title", "cta_text", "actions", "related", "html",
+    # Pola „artykułowe" nowych case studies (patrz kabi.case_studies w schemacie).
+    "title", "list_title", "short", "topic", "excerpt", "audience",
+    "read_time", "prose", "feature_stats",
 ]
 
 

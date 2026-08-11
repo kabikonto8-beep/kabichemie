@@ -51,13 +51,16 @@ def _case_icon(kind):
 
 
 def _render_fako_case(config):
+    # Ikony/wartości dobierane po pozycji wiersza. Modulo, bo panel redakcyjny
+    # pozwala teraz dodać więcej wierszy niż pierwotne 3/4/3 — bez tego
+    # dodatkowy wiersz wywalałby render (IndexError) i cały build.
     issue_icons = ("hardness", "conductivity", "calendar")
     issue_values = ("8 °n", "4200 µS", "3 mies.")
     issues = _join(
         f"""
         <article class="fako-diagnosis__row reveal">
-          <span class="fako-icon fako-icon--large" aria-hidden="true">{_case_icon(issue_icons[index])}</span>
-          <strong class="fako-diagnosis__value">{issue_values[index]}</strong>
+          <span class="fako-icon fako-icon--large" aria-hidden="true">{_case_icon(issue_icons[index % len(issue_icons)])}</span>
+          <strong class="fako-diagnosis__value">{issue_values[index % len(issue_values)]}</strong>
           <div><h3>{title}</h3><p>{text}</p></div>
           <em>{tag}</em>
         </article>"""
@@ -68,7 +71,7 @@ def _render_fako_case(config):
     process = _join(
         f"""
         <article class="fako-method__step reveal">
-          <span class="fako-icon fako-icon--process" aria-hidden="true">{_case_icon(process_icons[index])}</span>
+          <span class="fako-icon fako-icon--process" aria-hidden="true">{_case_icon(process_icons[index % len(process_icons)])}</span>
           <h3>{title}</h3>
           <p>{text}</p>
         </article>"""
@@ -79,7 +82,7 @@ def _render_fako_case(config):
     field_notes = _join(
         f"""
         <article class="fako-control__item reveal">
-          <span class="fako-icon" aria-hidden="true">{_case_icon(field_icons[index])}</span>
+          <span class="fako-icon" aria-hidden="true">{_case_icon(field_icons[index % len(field_icons)])}</span>
           <div><h3>{title}</h3><p>{text}</p></div>
         </article>"""
         for index, (title, text) in enumerate(config["field_notes"])
@@ -228,6 +231,12 @@ def _render_fako_case(config):
 
 
 def _render_case(config):
+    # Własny HTML całej treści — gdy wypełniony, pomijamy układ składany z pól
+    # (także bespoke layout fako). Nagłówek strony, menu i stopka zostają,
+    # bo pochodzą z build.py, nie stąd. Analogicznie do articles.html.
+    wlasny = (config.get("html") or "").strip()
+    if wlasny:
+        return wlasny
     if config["slug"] == "fako":
         return _render_fako_case(config)
 
@@ -251,13 +260,16 @@ def _render_case(config):
     )
 
     def metric_value(metric):
-        if "count" in metric:
+        # Truthiness, nie samo istnienie klucza: panel zawsze emituje kolumnę
+        # „count" (pustą, gdy redaktor jej nie wypełnił), więc puste count musi
+        # spaść do wariantu tekstowego zamiast animować licznik od zera.
+        if metric.get("count"):
             return (
                 f'<b class="num-counter" data-count-to="{metric["count"]}" '
                 f'data-prefix="{metric.get("prefix", "")}" '
                 f'data-suffix="{metric.get("suffix", "")}">0</b>'
             )
-        return f'<b>{metric["value"]}</b>'
+        return f'<b>{metric.get("value", "")}</b>'
 
     metric_icon_sets = {
         "bac": ("water", "clean", "gauge"),
@@ -267,7 +279,7 @@ def _render_case(config):
     metrics = _join(
         f"""
         <article class="case-story-metric reveal">
-          <span class="case-story-metric__icon" aria-hidden="true">{_case_icon(metric_icons[index])}</span>
+          <span class="case-story-metric__icon" aria-hidden="true">{_case_icon(metric_icons[index % len(metric_icons)])}</span>
           <div class="case-story-metric__outcome">
             <span class="case-story-metric__value">{metric_value(metric)}</span>
             <h3>{metric["label"]}</h3>
@@ -1061,6 +1073,7 @@ def _render_case_index():
       <a class="reveal" href="/case-study/skraplacz-bac-kcaqua/"><span>Chłodnictwo przemysłowe</span><strong>BAC: stabilniejsza praca skraplacza z programem KCAQUA 305.</strong><i aria-hidden="true">↗</i></a>
       <a class="reveal" href="/case-study/skraplacz-evapco-przetworstwo-rybne/"><span>Przetwórstwo rybne</span><strong>Evapco: odzysk wydajności chłodzenia bez wymiany urządzenia.</strong><i aria-hidden="true">↗</i></a>
       <a class="reveal" href="/case-study/warsztaty-amoniakalne-2024/"><span>Wiedza techniczna</span><strong>Warsztaty Amoniakalne 2024: praktyka prowadzenia wody w chłodnictwie.</strong><i aria-hidden="true">↗</i></a>
+      """ + _index_rows_standard() + """
       <p class="stories-search__empty" data-stories-empty hidden>Brak realizacji zawierających podaną frazę.</p>
     </div>
   </div>
@@ -1264,8 +1277,72 @@ def _render_warsztaty():
 """
 
 
+# Nowe case studies używają silnika bazy wiedzy (te same pola: title, lead,
+# prose, html, faq, related). Wygląd = strony rozwiązań/bazy wiedzy.
+CASE_BODY_CLASS = "has-dark-hero firm-page solution-page knowledge-page"
+
+
+def _case_standardowe(case):
+    """Wpis „artykułowy" (nowy) rozpoznajemy po treści prose albo własnym HTML.
+    Stare 3 wpisy nie mają żadnego z nich — idą dawnym, bogatym rendererem."""
+    return bool((case.get("prose") or "").strip() or (case.get("html") or "").strip())
+
+
+def render_case_standard(a):
+    """Case study renderowane DOKŁADNIE jak artykuł bazy wiedzy: własny HTML
+    całości albo hero + prose + powiązane + FAQ + CTA. Różni się od artykułu
+    tylko etykietami (kicker „Case study", powrót na /case-study/)."""
+    import knowledge_pages as kp
+
+    wlasny = (a.get("html") or "").strip()
+    if wlasny:
+        return wlasny
+
+    facts = [
+        ("Czas czytania", a.get("read") or a.get("read_time") or "— min"),
+        ("Dla kogo", a.get("audience") or "Utrzymanie ruchu i decyzje techniczne."),
+        ("Kolejny krok", "Umów konsultację techniczną."),
+    ]
+    hero = kp._hero(
+        a.get("image") or "/assets/case/case-fako-boiler-generated.png",
+        "Case study", a["title"], a["lead"], facts,
+        ("Umów konsultację", "/bezplatna-konsultacja/"),
+        ("Wróć do case studies", "/case-study/"),
+    )
+    body = ('<section class="section knowledge-article reveal">'
+            f'<div class="wrap narrow prose">{a["prose"]}</div></section>')
+    return (hero + body + kp._related(a.get("related", []))
+            + kp._faq(a.get("faq", [])) + kp._cta())
+
+
+def _index_rows_standard():
+    """Wiersze indeksu /case-study/ dla nowych, artykułowych wpisów."""
+    return _join(
+        f'<a class="reveal" href="{c["path"]}">'
+        f'<span>{c.get("topic") or "Realizacja"}</span>'
+        f'<strong>{c.get("list_title") or c.get("title") or c["slug"]}</strong>'
+        f'<i aria-hidden="true">↗</i></a>'
+        for c in CASE_STUDIES if _case_standardowe(c)
+    )
+
+
 def install_company_case_pages(pages, custom, site):
     for case in CASE_STUDIES:
+        if _case_standardowe(case):
+            # Nowy wpis „artykułowy" — silnik jak baza wiedzy.
+            tytul = (case.get("title") or "").strip() or case["slug"]
+            pages[case["path"]] = {
+                "title": tytul,
+                "meta": case.get("lead", ""),
+                "h1": tytul,
+                "og_type": "article",
+                "og_image": case.get("image") or "/assets/case/case-fako-boiler-generated.png",
+                "body_class": CASE_BODY_CLASS,
+                "jsonld": [_faq_schema(case.get("faq", []))],
+                "sections": [custom(render_case_standard(case))],
+            }
+            continue
+        # Istniejący, „niestandardowy" wpis — dawny, bogaty układ sekcyjny.
         pages[case["path"]] = {
             "title": case["h1"].replace("<span>", "").replace("</span>", ""),
             "meta": case["lead"],
