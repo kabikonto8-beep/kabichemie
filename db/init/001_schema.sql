@@ -238,6 +238,28 @@ COMMENT ON COLUMN kabi.referencje.plik IS
   'Wgrany PDF. Pusto = kafel „w trakcie tworzenia”.';
 
 
+-- ============================================================ KONTA PANELU
+-- Logowanie do panelu redakcyjnego. W kolumnie `hash` NIE MA hasła —
+-- jest tam wynik funkcji scrypt razem z solą i parametrami, w postaci
+-- samoopisującej się:
+--     scrypt$n=16384,r=8,p=1$<sól base64>$<hasz base64>
+-- Parametry w rekordzie sprawiają, że podniesienie kosztu w przyszłości
+-- nie unieważni istniejących haseł.
+--
+-- Konta zakłada się poleceniem:
+--     docker compose run --rm builder python /builder/ustaw_haslo.py
+CREATE TABLE kabi.panel_uzytkownicy (
+  id                 integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  login              text NOT NULL UNIQUE,
+  hash               text NOT NULL,
+  utworzony          timestamptz NOT NULL DEFAULT now(),
+  ostatnie_logowanie timestamptz
+);
+
+COMMENT ON TABLE kabi.panel_uzytkownicy IS
+  'Konta do panelu redakcyjnego. Kolumna hash zawiera wynik scrypt razem z solą i parametrami — nigdy samo hasło.';
+
+
 -- ================================================================ HUB WIEDZY
 -- Konfiguracja strony /baza-wiedzy/ (odpowiednik knowledge_pages.HUB).
 -- Jeden wiersz, wymuszony warunkiem CHECK.

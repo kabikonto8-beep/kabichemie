@@ -84,6 +84,58 @@ def sciezka_case(slug):
     return "/case-study/%s/" % slug
 
 
+import logowanie
+
+CIASTECZKO = "kabi_panel"
+# Endpointy dostępne bez zalogowania. Wszystko poza tą listą wymaga sesji.
+BEZ_LOGOWANIA = {("POST", "/api/logowanie"), ("GET", "/api/sesja")}
+
+
+def kto_zalogowany(naglowki):
+    """Login z ważnej sesji albo None."""
+    surowe = naglowki.get("Cookie") or ""
+    token = None
+    for kawalek in surowe.split(";"):
+        nazwa, _, wartosc = kawalek.strip().partition("=")
+        if nazwa == CIASTECZKO:
+            token = wartosc
+            break
+    dane = logowanie.sesja(token)
+    return dane["login"] if dane else None
+
+
+def zaloguj(dane):
+    dane = dane or {}
+    login = str(dane.get("login") or "").strip()
+    haslo = str(dane.get("haslo") or "")
+
+    czekaj = logowanie.czy_zablokowany(login)
+    if czekaj:
+        raise Blad(429, "Za dużo nieudanych prób. Spróbuj za %d s." % czekaj)
+
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("SELECT login, hash FROM kabi.panel_uzytkownicy WHERE login = %s",
+                    (login,))
+        konto = cur.fetchone()
+
+    # Hasło sprawdzamy nawet dla nieistniejącego loginu — inaczej różnica
+    # w czasie odpowiedzi zdradzałaby, które loginy istnieją.
+    zapis = konto["hash"] if konto else logowanie.zahashuj("x" * 12)
+    poprawne = logowanie.sprawdz_haslo(haslo, zapis) and konto is not None
+
+    if not poprawne:
+        logowanie.zapisz_nieudana(login)
+        raise Blad(401, "Nieprawidłowy login lub hasło.")
+
+    logowanie.wyczysc_nieudane(login)
+    with polacz() as conn, conn.cursor() as cur:
+        cur.execute("UPDATE kabi.panel_uzytkownicy SET ostatnie_logowanie = now() "
+                    "WHERE login = %s", (login,))
+        conn.commit()
+
+    return logowanie.zaloz_sesje(login), {"login": login, "komunikat": "Zalogowano."}
+
+
 class Blad(Exception):
     """Błąd z kodem HTTP — zwracany do panelu jako czytelny komunikat."""
 
@@ -779,14 +831,34 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         sys.stderr.write("[admin-api] %s\n" % (format % args))
 
-    def _odpowiedz(self, kod, dane):
+    def _odpowiedz(self, kod, dane, ciasteczko=None):
         tresc = json.dumps(dane, ensure_ascii=False, default=str).encode("utf-8")
         self.send_response(kod)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(tresc)))
         self.send_header("Cache-Control", "no-store")
+        if ciasteczko is not None:
+            # HttpOnly — token jest niedostępny dla JavaScriptu, więc nie da się
+            # go wykraść skryptem wstrzykniętym w stronę.
+            # SameSite=Strict — przeglądarka nie dołączy go do żądań z obcych
+            # witryn, co odcina ataki typu CSRF.
+            if ciasteczko:
+                self.send_header("Set-Cookie",
+                                 "%s=%s; HttpOnly; SameSite=Strict; Path=/; Max-Age=%d"
+                                 % (CIASTECZKO, ciasteczko, logowanie.WAZNOSC_SESJI))
+            else:
+                self.send_header("Set-Cookie",
+                                 "%s=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0"
+                                 % CIASTECZKO)
         self.end_headers()
         self.wfile.write(tresc)
+
+    def _token(self):
+        for kawalek in (self.headers.get("Cookie") or "").split(";"):
+            nazwa, _, wartosc = kawalek.strip().partition("=")
+            if nazwa == CIASTECZKO:
+                return wartosc
+        return None
 
     def _cialo(self):
         dlugosc = int(self.headers.get("Content-Length") or 0)
@@ -803,6 +875,24 @@ class Handler(BaseHTTPRequestHandler):
     def _obsluz(self, metoda):
         sciezka = self._sciezka()
         try:
+            # ---- brama uwierzytelniania ----
+            # Stoi PRZED wszystkimi endpointami, więc dodanie nowego nie wymaga
+            # pamiętania o zabezpieczeniu go — domyślnie jest chroniony.
+            if (metoda, sciezka) not in BEZ_LOGOWANIA:
+                if not kto_zalogowany(self.headers):
+                    raise Blad(401, "Wymagane zalogowanie.")
+
+            if sciezka == "/api/logowanie" and metoda == "POST":
+                token, wynik = zaloguj(self._cialo())
+                return self._odpowiedz(200, wynik, ciasteczko=token)
+            if sciezka == "/api/wylogowanie" and metoda == "POST":
+                logowanie.zamknij_sesje(self._token())
+                return self._odpowiedz(200, {"komunikat": "Wylogowano."},
+                                       ciasteczko="")
+            if sciezka == "/api/sesja" and metoda == "GET":
+                login = kto_zalogowany(self.headers)
+                return self._odpowiedz(200, {"zalogowany": bool(login), "login": login})
+
             if sciezka == "/api/schema" and metoda == "GET":
                 return self._odpowiedz(200, schema())
             if sciezka == "/api/categories" and metoda == "GET":

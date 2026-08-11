@@ -66,6 +66,14 @@
   var STYLE = "" +
     ":host{all:initial}" +
     "*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}" +
+    ".login{position:fixed;inset:0;background:rgba(4,18,28,.72);backdrop-filter:blur(4px);z-index:2147483001;display:flex;align-items:center;justify-content:center}" +
+    ".login__okno{background:#0e1c26;color:#e8f1f6;border:1px solid #1d3a4d;border-radius:14px;padding:26px 28px;width:min(360px,92vw);box-shadow:0 24px 70px rgba(0,0,0,.5)}" +
+    ".login__okno h2{margin:0 0 4px;font-size:15px;color:#7fc4e8;text-transform:uppercase;letter-spacing:.05em}" +
+    ".login__okno p.wstep{margin:0 0 18px;font-size:12.5px;color:#8fa8b6;line-height:1.5}" +
+    ".login__okno label{margin-top:12px}" +
+    ".login__okno input{width:100%;background:#08121a;border:1px solid rgba(255,255,255,.14);border-radius:8px;color:#e8f1f6;padding:9px 11px;font-size:13.5px}" +
+    ".login__akcje{margin-top:18px;display:flex;gap:8px;align-items:center}" +
+    ".login__blad{margin-top:12px;padding:8px 11px;border-radius:8px;font-size:12.5px;line-height:1.45;background:rgba(140,40,30,.3);border:1px solid rgba(226,114,91,.55)}" +
     ".tlo{position:fixed;inset:0;background:rgba(4,18,28,.62);backdrop-filter:blur(3px);z-index:2147483000;display:flex;align-items:stretch;justify-content:center;padding:24px}" +
     ".okno{background:#0e1c26;color:#e8f1f6;border:1px solid #1d3a4d;border-radius:14px;width:min(1180px,100%);display:grid;grid-template-columns:290px 1fr;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}" +
     ".okno.z-podgladem{width:min(1720px,100%);grid-template-columns:250px minmax(360px,1fr) minmax(420px,1.05fr)}" +
@@ -234,6 +242,12 @@
           ? "Plik jest za duży dla serwera."
           : "HTTP " + r.status + " — serwer zwrócił nieoczekiwaną odpowiedź.");
       }).then(function (tresc) {
+        // Sesja wygasla w trakcie pracy — pokazujemy logowanie, zamiast
+        // zostawiac uzytkownika z przyciskami, ktore nic nie robia.
+        if (r.status === 401 && sciezka !== "sesja" && sciezka !== "logowanie") {
+          if (host) host.style.display = "none";
+          pokazLogowanie(function () { if (host) host.style.display = ""; });
+        }
         if (!r.ok) throw new Error(tresc && tresc.blad ? tresc.blad : "HTTP " + r.status);
         return tresc;
       });
@@ -281,6 +295,7 @@
       '      <button class="podglad-wl">Podgląd</button>' +
       '      <button class="zapisz glowny">Zapisz</button>' +
       '      <button class="usun grozny">Usuń</button>' +
+      '      <button class="wyloguj">Wyloguj</button>' +
       '      <button class="zamknij">Zamknij</button>' +
       '    </div>' +
       '    <div class="form"></div>' +
@@ -303,6 +318,7 @@
 
     tlo.addEventListener("mousedown", function (e) { if (e.target === tlo) zamknij(); });
     el(".zamknij").addEventListener("click", zamknij);
+    el(".wyloguj").addEventListener("click", wyloguj);
     el(".podglad-wl").addEventListener("click", przelaczPodglad);
     el(".podglad__max").addEventListener("click", function () { przelaczMax(); });
 
@@ -3168,8 +3184,106 @@
     }).catch(function (e) { komunikat(e.message, true); });
   }
 
+  // ============================================================= LOGOWANIE
+  // Panel zapisuje do bazy i uruchamia przebudowę serwisu, więc od strony
+  // API każdy endpoint poza samym logowaniem wymaga ważnej sesji. Token
+  // siedzi w ciasteczku HttpOnly — JavaScript go nie widzi i nie da się go
+  // wykraść skryptem wstrzykniętym w stronę.
+  var hostLogowania = null;
+
+  function pokazLogowanie(poZalogowaniu) {
+    if (hostLogowania) { hostLogowania.style.display = ""; return; }
+
+    hostLogowania = document.createElement("div");
+    document.body.appendChild(hostLogowania);
+    var korzenL = hostLogowania.attachShadow({ mode: "open" });
+
+    var style = document.createElement("style");
+    style.textContent = STYLE;
+    korzenL.appendChild(style);
+
+    var tlo = document.createElement("div");
+    tlo.className = "login";
+    tlo.innerHTML =
+      '<form class="login__okno">' +
+      "  <h2>Panel redakcyjny</h2>" +
+      '  <p class="wstep">Zaloguj się, żeby dodawać i zmieniać treści.</p>' +
+      "  <label>Login</label><input name='login' autocomplete='username' autofocus>" +
+      "  <label>Hasło</label><input name='haslo' type='password' autocomplete='current-password'>" +
+      '  <div class="login__akcje">' +
+      '    <button type="submit" class="glowny">Zaloguj</button>' +
+      '    <button type="button" class="anuluj">Anuluj</button>' +
+      "  </div>" +
+      "</form>";
+    korzenL.appendChild(tlo);
+
+    var formularz = korzenL.querySelector("form");
+    var przyciskAnuluj = korzenL.querySelector(".anuluj");
+
+    function pokazBlad(tresc) {
+      var stary = korzenL.querySelector(".login__blad");
+      if (stary) stary.remove();
+      var box = document.createElement("div");
+      box.className = "login__blad";
+      box.textContent = tresc;
+      formularz.appendChild(box);
+    }
+
+    formularz.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var przyciski = korzenL.querySelectorAll("button");
+      przyciski.forEach(function (b) { b.disabled = true; });
+
+      api("logowanie", { metoda: "POST", dane: {
+        login: formularz.login.value.trim(),
+        haslo: formularz.haslo.value
+      }}).then(function () {
+        hostLogowania.remove();
+        hostLogowania = null;
+        poZalogowaniu();
+      }).catch(function (err) {
+        pokazBlad(err.message);
+        formularz.haslo.value = "";
+        formularz.haslo.focus();
+      }).then(function () {
+        przyciski.forEach(function (b) { b.disabled = false; });
+      });
+    });
+
+    przyciskAnuluj.addEventListener("click", function () {
+      hostLogowania.remove();
+      hostLogowania = null;
+    });
+  }
+
+  function wyloguj() {
+    api("wylogowanie", { metoda: "POST", dane: {} }).then(function () {
+      if (host) host.remove();
+      host = null;
+      komunikatPoWylogowaniu();
+    }).catch(function () {
+      if (host) host.remove();
+      host = null;
+    });
+  }
+
+  function komunikatPoWylogowaniu() {
+    console.info("[panel] Wylogowano. Ctrl + Shift + Y, żeby zalogować się ponownie.");
+  }
+
   // ---------------------------------------------------------------- skrót
   function otworz() {
+    if (host) { host.style.display = ""; return; }
+    // Zanim cokolwiek pokażemy, pytamy API, czy sesja jest ważna.
+    api("sesja").then(function (s) {
+      if (s.zalogowany) otworzPanel();
+      else pokazLogowanie(otworzPanel);
+    }).catch(function () {
+      pokazLogowanie(otworzPanel);
+    });
+  }
+
+  function otworzPanel() {
     if (host) { host.style.display = ""; return; }
     budujOkno();
     odswiezListe().then(function () {
