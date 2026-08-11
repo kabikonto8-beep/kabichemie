@@ -227,6 +227,11 @@ def svg_dimensions(text):
         return int(float(viewbox.group(1))), int(float(viewbox.group(2)))
     return None
 
+def gif_dimensions(data):
+    if len(data) >= 10 and data[:6] in (b'GIF87a', b'GIF89a'):
+        return int.from_bytes(data[6:8], 'little'), int.from_bytes(data[8:10], 'little')
+    return None
+
 def webp_dimensions(data):
     if len(data) < 20 or data[:4] != b'RIFF' or data[8:12] != b'WEBP':
         return None
@@ -272,6 +277,8 @@ def image_dimensions(src):
             dims = svg_dimensions(data.decode('utf-8', errors='ignore'))
         elif ext == '.webp':
             dims = webp_dimensions(data)
+        elif ext == '.gif':
+            dims = gif_dimensions(data)
     except OSError:
         dims = None
     IMAGE_DIM_CACHE[fp] = dims

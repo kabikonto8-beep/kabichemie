@@ -3835,7 +3835,13 @@ body:not(.has-video-hero) .prose h3{margin:1.2rem 0 .4rem;color:#0b75a4}
 body:not(.has-video-hero) .prose p{max-width:72em;color:#435863;line-height:1.72;text-wrap:pretty}
 body:not(.has-video-hero) .prose ul{display:grid;gap:.65rem;margin:1rem 0 0;padding:0;list-style:none}
 body:not(.has-video-hero) .prose li{position:relative;margin:0;padding-left:1.35rem;color:#435863;line-height:1.62}
-body:not(.has-video-hero) .prose li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;border-radius:50%;background:#0b75a4}
+body:not(.has-video-hero) .prose ul>li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;border-radius:50%;background:#0b75a4}
+/* Lista numerowana: bez kropki ::before (byłaby obok cyfry), za to numer
+   przez natywny ::marker. Redaktor wstawia <ol>, więc te reguły są potrzebne. */
+body:not(.has-video-hero) .prose ol{display:grid;gap:.65rem;margin:1rem 0 0;padding-left:1.6rem;list-style:decimal}
+body:not(.has-video-hero) .prose ol>li{padding-left:.35rem}
+body:not(.has-video-hero) .prose ol>li::before{content:none}
+body:not(.has-video-hero) .prose ol>li::marker{color:#0b75a4;font-weight:700}
 body:not(.has-video-hero) .prose .note,body:not(.has-video-hero) .note{border-left:3px solid #0b75a4;border-radius:0;background:#eef7fb}
 
 body:not(.has-video-hero) .table-wrap{position:relative;z-index:1;max-width:100%;overflow:auto;border-radius:8px;border:1px solid #cddfe8;
@@ -5142,6 +5148,28 @@ html.nav-open,html.nav-open body{overflow:hidden;overscroll-behavior:none}
   /* Na telefonie oblewanie nie ma sensu — grafika idzie na pełną szerokość. */
   .prose figure.foto-oblewa-lewo,.prose figure.foto-oblewa-prawo{
     float:none;width:100%;margin:1.7em 0}
+}
+
+/* Elementy wstawiane rozbudowanym edytorem panelu: cytat, tabela, linia,
+   przekreślenie i indeksy (wzory chemiczne, jednostki). Słownik znaczników
+   pilnuje filtr w admin-panel.js — te reguły muszą mu odpowiadać. */
+.prose blockquote{border-left:3px solid #0b75a4;margin:1.8em 0;
+  padding:.6em 0 .6em 1.4em;color:#33525f;font-size:1.04em;line-height:1.65;
+  font-style:italic;background:linear-gradient(90deg,rgba(11,117,164,.05),transparent 70%)}
+.prose blockquote p{margin:0 0 .6em;max-width:none}
+.prose blockquote p:last-child{margin-bottom:0}
+.prose hr{border:0;border-top:1px solid #cddbe3;margin:2.4em auto;max-width:280px}
+.prose table{width:100%;border-collapse:collapse;margin:1.8em 0;
+  font-size:.95em;line-height:1.5}
+.prose th,.prose td{border:1px solid #cddbe3;padding:.65em .85em;
+  text-align:left;vertical-align:top}
+.prose th{background:#eef5f9;font-weight:700;color:#0f2a3a}
+.prose tbody tr:nth-child(even) td{background:#f7fafc}
+.prose s{opacity:.75}
+.prose sub,.prose sup{font-size:.72em;line-height:0}
+@media (max-width:640px){
+  /* Szeroka tabela przewija się w poziomie, zamiast rozpychać stronę. */
+  .prose table{display:block;overflow-x:auto}
 }
 
 

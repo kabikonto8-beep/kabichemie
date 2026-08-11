@@ -25,6 +25,7 @@ Endpointy (wszystkie pod /api/, proxowane przez nginx z tego samego origin,
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import traceback
@@ -174,10 +175,14 @@ def grafiki():
         for nazwa in pliki:
             if not nazwa.lower().endswith(GRAFIKI_ROZSZERZENIA):
                 continue
-            if any(pomin in nazwa.lower() for pomin in GRAFIKI_POMIJANE):
-                continue
             pelna = os.path.join(katalog, nazwa)
             wzgledna = os.path.relpath(pelna, korzen).replace(os.sep, "/")
+            # Grafiki wgrane przez redaktora (uploads/) pokazujemy zawsze —
+            # filtr nazw ukrywa tylko logotypy i ikony motywu, które i tak
+            # mogą przypadkiem zawierać słowo „logo" w nazwie pliku.
+            if not wzgledna.startswith("uploads/") \
+                    and any(pomin in nazwa.lower() for pomin in GRAFIKI_POMIJANE):
+                continue
             wynik.append({
                 "url": "/assets/" + wzgledna,
                 "nazwa": os.path.splitext(nazwa)[0].replace("-", " ").replace("_", " "),
@@ -185,6 +190,78 @@ def grafiki():
                 "rozmiar_kb": round(os.path.getsize(pelna) / 1024),
             })
     return sorted(wynik, key=lambda g: (g["grupa"], g["url"]))
+
+
+GRAFIKI_KATALOG = "/site/src/assets/uploads"
+GRAFIKI_KATALOG_WWW = "/site/www/assets/uploads"
+GRAFIKA_LIMIT_MB = 20
+GRAFIKA_SYGNATURY = (
+    (b"\xff\xd8\xff", ".jpg"),
+    (b"\x89PNG\r\n\x1a\n", ".png"),
+    (b"GIF87a", ".gif"),
+    (b"GIF89a", ".gif"),
+)
+
+
+def grafiki_wgraj(dane):
+    """Zapisuje grafikę wgraną z edytora treści do src/assets/uploads.
+
+    Plik przychodzi jako base64 w JSON — jak referencje_wgraj, patrz tamtejsze
+    uzasadnienie. Rodzaj pliku poznajemy po sygnaturze bajtów, nie po nazwie:
+    nazwa przyjeżdża z przeglądarki i bywa dowolna. Kopiujemy grafikę także
+    do www/assets/uploads, żeby podgląd i strona widziały ją od razu — build
+    i tak odtworzy www/ z src/ przy najbliższej przebudowie.
+    """
+    import base64
+
+    dane = dane or {}
+    nazwa = str(dane.get("nazwa") or "").strip()
+    zawartosc = dane.get("dane") or ""
+
+    if "," in zawartosc and zawartosc.lstrip().startswith("data:"):
+        zawartosc = zawartosc.split(",", 1)[1]
+    try:
+        bajty = base64.b64decode(zawartosc, validate=True)
+    except Exception:
+        raise Blad(400, "Nie potrafię odczytać przesłanego pliku.")
+
+    rozszerzenie = None
+    for sygnatura, roz in GRAFIKA_SYGNATURY:
+        if bajty.startswith(sygnatura):
+            rozszerzenie = roz
+            break
+    if rozszerzenie is None and len(bajty) > 12 \
+            and bajty[:4] == b"RIFF" and bajty[8:12] == b"WEBP":
+        rozszerzenie = ".webp"
+    if rozszerzenie is None:
+        raise Blad(400, "Przyjmuję tylko obrazy JPG, PNG, WEBP i GIF.")
+    if len(bajty) > GRAFIKA_LIMIT_MB * 1024 * 1024:
+        raise Blad(400, "Plik ma %.1f MB, limit to %d MB."
+                        % (len(bajty) / 1048576, GRAFIKA_LIMIT_MB))
+
+    baza = os.path.splitext(nazwa)[0] if nazwa else "grafika"
+    bezpieczna = re.sub(r"[^a-z0-9]+", "-", baza.lower()).strip("-") or "grafika"
+    os.makedirs(GRAFIKI_KATALOG, exist_ok=True)
+
+    ostateczna, licznik = bezpieczna + rozszerzenie, 2
+    while os.path.exists(os.path.join(GRAFIKI_KATALOG, ostateczna)):
+        ostateczna = "%s-%d%s" % (bezpieczna, licznik, rozszerzenie)
+        licznik += 1
+
+    sciezka = os.path.join(GRAFIKI_KATALOG, ostateczna)
+    with open(sciezka, "wb") as fh:
+        fh.write(bajty)
+
+    try:
+        os.makedirs(GRAFIKI_KATALOG_WWW, exist_ok=True)
+        shutil.copy2(sciezka, os.path.join(GRAFIKI_KATALOG_WWW, ostateczna))
+    except OSError:
+        pass  # brak www/ nie przerywa wgrywania — plik pojawi się po buildzie
+
+    return {"url": "/assets/uploads/" + ostateczna,
+            "nazwa": os.path.splitext(ostateczna)[0].replace("-", " "),
+            "rozmiar_kb": round(len(bajty) / 1024),
+            "komunikat": "Wgrano %s." % ostateczna}
 
 
 REFERENCJE_KOLUMNY = ["tytul", "firma", "opis", "plik", "miniatura",
@@ -564,6 +641,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._odpowiedz(200, etykiety())
             if sciezka == "/api/grafiki" and metoda == "GET":
                 return self._odpowiedz(200, grafiki())
+            if sciezka == "/api/grafiki/wgraj" and metoda == "POST":
+                return self._odpowiedz(200, grafiki_wgraj(self._cialo()))
 
             if sciezka == "/api/referencje" and metoda == "GET":
                 return self._odpowiedz(200, referencje_lista())
