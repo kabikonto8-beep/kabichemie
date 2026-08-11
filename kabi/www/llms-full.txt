@@ -42,7 +42,6 @@ Poniżej znajduje się lista publicznych podstron serwisu z krótkim opisem sema
 - [Kalkulator oszczędności wody i energii dla przemysłu | KABI CHEMIE](https://kondycjonowanie-wody.pl/kalkulator-oszczednosci/): Poznaj potencjał ograniczenia kosztów wody, ścieków i energii w kotle parowym lub skraplaczu wyparnym. Bezpłatny kalkulator KABI CHEMIE dla przemysłu.
 - [Chemiczne czyszczenie autoklawów i wózków technologicznych | KABI CHEMIE](https://kondycjonowanie-wody.pl/autoklawy-i-pasteryzatory/): Skuteczne chemiczne czyszczenie autoklawów i wózków technologicznych. Usuwamy przypalenia, tłuszcze i osady technologiczne bez uszkadzania powierzchni.
 - [Co to jest kamień kotłowy i dlaczego niszczy kotły parowe?](https://kondycjonowanie-wody.pl/baza-wiedzy/kamien-kotlowy/): Kamień kotłowy to osad soli twardości na gorących powierzchniach kotła. Działa jak izolator, podnosi zużycie paliwa i grozi przegrzaniem rur.
-- [test](https://kondycjonowanie-wody.pl/baza-wiedzy/test/): test
 - [Biofilm w układzie chłodniczym: jak rozpoznać i usunąć osady?](https://kondycjonowanie-wody.pl/baza-wiedzy/biofilm-w-ukladzie-chlodniczym/): Biofilm to warstwa mikroorganizmów na powierzchniach układu chłodniczego. Pogarsza wymianę ciepła, sprzyja korozji i bywa siedliskiem bakterii.
 - [Antyskalant do membran RO: kiedy naprawdę chroni membranę?](https://kondycjonowanie-wody.pl/baza-wiedzy/antyskalant-ro/): Antyskalant to preparat zapobiegający wytrącaniu soli na membranach odwróconej osmozy. Chroni membrany przed kamieniem i wydłuża ich żywotność.
 
