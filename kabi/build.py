@@ -1615,6 +1615,14 @@ AddType image/svg+xml .svg
 AddType text/plain .txt
 AddType application/xml .xml
 
+# Bez tego Apache pokazuje własną stronę błędu zamiast naszej.
+ErrorDocument 404 /404.html
+
+# Czyste adresy katalogowe: /kotly-parowe/ → /kotly-parowe/index.html
+DirectoryIndex index.html
+# Katalogi bez index.html nie mają wystawiać listy plików.
+Options -Indexes
+
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
