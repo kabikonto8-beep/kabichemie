@@ -16,6 +16,11 @@ kabi/preview-server.err
 # Docker — hasła i dane lokalne
 .env
 
+# Klucze deploy hostowanego panelu (SSH) — NIGDY do repo
+deploy/deploy_key
+deploy/deploy_key.pub
+deploy/known_hosts
+
 # Zrzuty bazy
 db/dump/*.sql
 db/dump/*.dump

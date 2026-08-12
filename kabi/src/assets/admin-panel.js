@@ -16,9 +16,20 @@
 (function () {
   "use strict";
 
+  // Localhost zawsze; dodatkowo hosty podane przy buildzie hostowanego panelu
+  // (data-hosts na znaczniku skryptu, z env PANEL_HOSTS). Realną bramką i tak
+  // jest logowanie po stronie API — to tylko zabezpieczenie przed uruchomieniem
+  // panelu, gdyby skrypt trafił na obcy host.
   var LOKALNE = ["localhost", "127.0.0.1", "[::1]", "::1"];
+  try {
+    var znacznikPanelu = document.querySelector('script[src*="admin-panel.js"]');
+    (znacznikPanelu && znacznikPanelu.dataset.hosts || "").split(",")
+      .map(function (h) { return h.trim(); })
+      .filter(Boolean)
+      .forEach(function (h) { LOKALNE.push(h); });
+  } catch (e) { /* brak dostępu do znacznika nie może wywalić panelu */ }
   if (LOKALNE.indexOf(location.hostname) === -1) {
-    console.warn("[panel] pominięty — działa wyłącznie na localhost");
+    console.warn("[panel] pominięty — host spoza dozwolonej listy");
     return;
   }
 

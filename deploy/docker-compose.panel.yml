@@ -1,0 +1,76 @@
+# Stos HOSTOWANEGO panelu redakcyjnego (edycja treści zdalnie).
+# NIE serwuje publicznej strony — tę hostuje Vercel z gałęzi repo. Ten stos to
+# tylko edytor: admin-api + nginx (build z panelem) + Caddy (HTTPS).
+#
+# Baza jest ZEWNĘTRZNA (Neon/Supabase) — podajesz DATABASE_URL w .env.
+# Publikacja: panel „Publikuj" robi eksport → czysty build → git push, a Vercel
+# deployuje. Wymaga klucza deploy do repo (patrz deploy/README.md).
+#
+# Uruchomienie na hoście:
+#   cd deploy && docker compose -f docker-compose.panel.yml up -d --build
+#
+# Wymagane zmienne (deploy/.env):
+#   DATABASE_URL   — connection string Neon, np. postgresql://…@…/kabi?sslmode=require
+#   DEEPL_API_KEY  — klucz DeepL (Free kończy się na :fx); do tłumaczenia nowej treści
+#   PANEL_DOMAIN   — domena panelu, np. panel.kondycjonowanie-wody.pl
+#   PANEL_HOSTS    — to samo co PANEL_DOMAIN (dozwolony host dla skryptu panelu)
+#   PANEL_GIT_BRANCH — gałąź, z której deployuje Vercel (domyślnie master)
+name: kabi-panel
+
+services:
+  admin-api:
+    build:
+      context: ../builder
+    container_name: kabi-panel-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?ustaw DATABASE_URL (baza Neon/Supabase)}
+      DEEPL_API_KEY: ${DEEPL_API_KEY:-}
+      PYTHONUTF8: "1"
+      # Panel w buildzie + ciasteczko Secure (jesteśmy za HTTPS z Caddy).
+      KABI_ADMIN: "1"
+      PANEL_SECURE_COOKIE: "1"
+      PANEL_HOSTS: ${PANEL_HOSTS:?ustaw PANEL_HOSTS (domena panelu)}
+      # Publikacja w trybie git: export → czysty build → push do repo.
+      PANEL_DEPLOY: "git"
+      PANEL_REPO_DIR: "/repo"
+      PANEL_GIT_BRANCH: ${PANEL_GIT_BRANCH:-master}
+      # Klucz deploy do push (montowany niżej). accept-new zapisuje host key raz.
+      GIT_SSH_COMMAND: "ssh -i /keys/deploy_key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/keys/known_hosts"
+    volumes:
+      - ../:/repo                                   # całe repo (git + kabi/)
+      - ../kabi:/site                               # katalog strony (= /repo/kabi)
+      - ../builder:/builder:ro
+      - ./deploy_key:/keys/deploy_key:ro            # prywatny klucz deploy (gitignore)
+      - panel-known-hosts:/keys
+    working_dir: /site
+    command: ["python", "/builder/admin_api.py"]
+
+  web:
+    image: nginx:alpine
+    container_name: kabi-panel-web
+    restart: unless-stopped
+    volumes:
+      - ../kabi:/site:ro
+      - ../db/nginx.conf:/etc/nginx/conf.d/default.conf:ro   # ten sam proxy /api/ co lokalnie
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: kabi-panel-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      PANEL_DOMAIN: ${PANEL_DOMAIN:?ustaw PANEL_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - web
+
+volumes:
+  caddy-data:
+  caddy-config:
+  panel-known-hosts:

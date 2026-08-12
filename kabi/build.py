@@ -36,7 +36,12 @@ def _admin_panel_tag():
         return ''
     zrodlo = os.path.join(ROOT, 'src', 'assets', 'admin-panel.js')
     token = int(os.path.getmtime(zrodlo)) if os.path.exists(zrodlo) else 0
-    return f'\n<script src="/assets/admin-panel.js?v={token}" defer></script>'
+    # Hosty, na których panel wolno uruchomić poza localhost — podawane przy
+    # buildzie hostowanego panelu (PANEL_HOSTS="panel.example.com"). Domyślnie
+    # pusto → panel działa tylko na localhost (jak dotąd).
+    hosts = html.escape(os.environ.get('PANEL_HOSTS', '').strip(), quote=True)
+    return (f'\n<script src="/assets/admin-panel.js?v={token}" defer'
+            f' data-hosts="{hosts}"></script>')
 
 
 ADMIN_PANEL_TAG = _admin_panel_tag()

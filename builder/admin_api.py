@@ -812,7 +812,16 @@ def html_escape(tekst):
 
 
 def publish():
-    """Eksport treści z bazy + przebudowa www/ (bez mirrorów językowych)."""
+    """Publikacja treści. Dwa tryby (zmienna PANEL_DEPLOY):
+
+      * "local" (domyślnie) — przebudowa www/ w miejscu, jak dotąd. Panel
+        zostaje w www/, bo usługa admin-api ma KABI_ADMIN=1.
+      * "git" — panel HOSTOWANY: eksport z bazy → CZYSTY build (bez panelu,
+        z mirrorami DeepL) → commit + push do repo (Vercel sam zdeployuje) →
+        odbudowa wersji z panelem, żeby host dalej serwował edytor.
+    """
+    if os.environ.get("PANEL_DEPLOY") == "git":
+        return _publish_git()
     wynik = subprocess.run(
         [sys.executable, "/builder/build_all.py"],
         cwd="/site", capture_output=True, text=True,
@@ -822,6 +831,57 @@ def publish():
         "kod": wynik.returncode,
         "wyjscie": (wynik.stdout or "") + (wynik.stderr or ""),
     }
+
+
+def _publish_git():
+    """Hostowana publikacja: czysty build → git push → odtworzenie panelu.
+
+    Repo musi być zamontowane w kontenerze (PANEL_REPO_DIR, domyślnie /repo),
+    z katalogiem strony w /repo/kabi, skonfigurowanym remote i poświadczeniem
+    (deploy key / credential helper). Ustawiane w docker-compose.panel.yml.
+    """
+    repo = os.environ.get("PANEL_REPO_DIR", "/repo")
+    site = os.path.join(repo, "kabi")
+    branch = os.environ.get("PANEL_GIT_BRANCH", "master")
+    remote = os.environ.get("PANEL_GIT_REMOTE", "origin")
+    kroki = []
+
+    def uruchom(cmd, cwd, env=None, wolno_pusto=False):
+        proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, env=env)
+        wyjscie = (proc.stdout or "") + (proc.stderr or "")
+        kroki.append({"cmd": " ".join(cmd), "kod": proc.returncode, "wyjscie": wyjscie})
+        # „nothing to commit" nie jest błędem — treść mogła się nie zmienić.
+        return proc.returncode == 0 or (wolno_pusto and "nothing to commit" in wyjscie)
+
+    def odpowiedz(ok, faza=None):
+        return {"ok": ok, "faza": faza, "kroki": kroki,
+                "wyjscie": "\n\n".join("$ %s\n%s" % (k["cmd"], k["wyjscie"]) for k in kroki)}
+
+    # 1) eksport treści z bazy do snapshot.json
+    if not uruchom([sys.executable, "/builder/export_snapshot.py"], site):
+        return odpowiedz(False, "eksport")
+
+    # 2) CZYSTY build (bez panelu) + mirrory EN/DE/AR przez DeepL
+    czyste = dict(os.environ)
+    czyste.pop("KABI_ADMIN", None)          # produkcyjny build nie zawiera panelu
+    if not uruchom([sys.executable, "build.py"], site, czyste):
+        return odpowiedz(False, "build")
+    if not uruchom([sys.executable, "localize_site.py", "generate"], site, czyste):
+        return odpowiedz(False, "mirrory")
+
+    # 3) commit + push (Vercel deployuje z gałęzi)
+    uruchom(["git", "add", "kabi/www", "kabi/content/snapshot.json", "kabi/i18n",
+             "kabi/src/assets/uploads", "kabi/src/assets/referencje"], repo)
+    uruchom(["git", "commit", "-m", "Publikacja treści z panelu redakcyjnego"],
+            repo, wolno_pusto=True)
+    pushed = uruchom(["git", "push", remote, branch], repo)
+
+    # 4) odbudowa wersji z panelem (KABI_ADMIN z env usługi), żeby host dalej
+    #    serwował edytor po opublikowaniu czystej wersji.
+    uruchom([sys.executable, "build.py"], site)
+    uruchom([sys.executable, "localize_site.py", "generate"], site)
+
+    return odpowiedz(pushed, None if pushed else "push")
 
 
 # ------------------------------------------------------------------ HTTP

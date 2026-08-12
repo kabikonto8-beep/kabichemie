@@ -1,0 +1,18 @@
+# Caddy: terminacja HTTPS dla hostowanego panelu. Automatyczny certyfikat
+# Let's Encrypt dla {$PANEL_DOMAIN}, przekierowanie 80->443, reverse proxy do
+# nginxa (usługa `web`), który serwuje statyczny build z panelem i proxyuje
+# /api/ do admin-api — wszystko z JEDNEGO origin (wymóg ciasteczka + CSP).
+{$PANEL_DOMAIN} {
+	encode zstd gzip
+
+	# Panel nie ma być w indeksie wyszukiwarek.
+	header X-Robots-Tag "noindex, nofollow"
+
+	reverse_proxy web:80 {
+		# /api/publish uruchamia pełny build — dłuższy timeout.
+		transport http {
+			read_timeout 300s
+			write_timeout 300s
+		}
+	}
+}
