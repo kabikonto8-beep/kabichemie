@@ -60,6 +60,9 @@ services:
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-kabi}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-kabi}
       PYTHONUTF8: "1"
+      # Klucz DeepL do mirrorów EN/DE/AR (localize_site.py). Potrzebny tylko na
+      # nowe ciągi — gdy wszystko jest w cache i18n/, można go pominąć.
+      DEEPL_API_KEY: ${DEEPL_API_KEY:-}
     volumes:
       - ./kabi:/site
       - ./builder:/builder:ro
@@ -84,33 +87,13 @@ services:
       # Build wywoływany z panelu (/api/publish) musi zostawić panel w www/,
       # inaczej pierwsza publikacja usuwałaby narzędzie, którym ją wywołano.
       KABI_ADMIN: "1"
+      # Mirrory EN/DE/AR budują się teraz przez DeepL (HTTP) — patrz builder.
+      DEEPL_API_KEY: ${DEEPL_API_KEY:-}
     volumes:
       - ./kabi:/site
       - ./builder:/builder:ro
     working_dir: /site
     command: ["python", "/builder/admin_api.py"]
-
-  # ---------------------------------------------------------------- tłumaczenia
-  # Ciężki obraz (argostranslate + NLLB przez ctranslate2), uruchamiany tylko
-  # gdy pojawi się nowa treść do przetłumaczenia:
-  #   docker compose run --rm translator python /builder/setup_translation.py
-  #   docker compose run --rm translator python localize_site.py generate
-  translator:
-    build:
-      context: ./builder
-      dockerfile: Dockerfile.translator
-    container_name: kabi-translator
-    profiles: ["tools"]
-    environment:
-      PYTHONUTF8: "1"
-      HF_HOME: /models/huggingface
-      ARGOS_PACKAGES_DIR: /models/argos
-    volumes:
-      - ./kabi:/site
-      - ./builder:/builder:ro
-      # Modele przeżywają usunięcie kontenera — pobieramy je raz
-      - translator-models:/models
-    working_dir: /site
 
   # ---------------------------------------------------------------- podgląd www/
   web:
@@ -129,4 +112,3 @@ services:
 volumes:
   db-data:
   pgadmin-data:
-  translator-models:

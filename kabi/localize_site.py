@@ -7,10 +7,13 @@ import argparse
 import copy
 import difflib
 import json
+import os
 import re
 import shutil
 import time
+import urllib.error
 import urllib.parse
+import urllib.request
 from collections import Counter
 from pathlib import Path
 
@@ -23,8 +26,6 @@ from semantic_translations import AUTOKLAW_TRANSLATIONS
 ROOT = Path(__file__).resolve().parent
 WWW = ROOT / "www"
 I18N = ROOT / "i18n"
-NLLB_MODEL = I18N / "nllb-200-distilled-600M"
-NLLB_CT2_MODEL = I18N / "nllb-ct2-int8"
 DOMAIN = "https://kondycjonowanie-wody.pl"
 LANGS = {
     "en": {"locale": "en_US", "name": "English", "dir": "ltr"},
@@ -687,9 +688,58 @@ def restore_value(value: str, keep: dict[str, str]) -> str:
     return " ".join(restored.split())
 
 
+# ---------------------------------------------------------------- silnik: DeepL
+# Zamiast lokalnych modeli (argostranslate + NLLB, setki MB) tłumaczymy przez
+# DeepL API: jeden endpoint HTTP + klucz w zmiennej DEEPL_API_KEY. Klucze Free
+# kończą się na ":fx" i muszą trafiać na host api-free. `tag_handling=html`
+# chroni znaczniki i encje. Cache (i18n/*.json) zostaje — do API idą TYLKO nowe
+# stringi, więc build bez zmian treści nie wysyła ani jednego znaku.
+DEEPL_SOURCE = {"pl": "PL", "en": "EN", "de": "DE", "ar": "AR"}
+DEEPL_TARGET = {"pl": "PL", "en": "EN-US", "de": "DE", "ar": "AR"}
+DEEPL_BATCH = 40   # limit DeepL: 50 tekstów / 128 KiB na żądanie — 40 z zapasem
+
+
+def deepl_translate(texts: list[str], source: str, target: str) -> list[str]:
+    """Tłumaczy partię stringów source->target jednym żądaniem DeepL,
+    zachowując kolejność wejścia i chroniąc HTML (tag_handling=html)."""
+    if not texts:
+        return []
+    key = os.environ.get("DEEPL_API_KEY")
+    if not key:
+        raise RuntimeError(
+            "DEEPL_API_KEY nie jest ustawiony, a są nowe stringi do przetłumaczenia. "
+            "Ustaw klucz DeepL (Free kończy się na ':fx') w środowisku builda."
+        )
+    host = "https://api-free.deepl.com" if key.endswith(":fx") else "https://api.deepl.com"
+    fields = [("text", t) for t in texts] + [
+        ("source_lang", DEEPL_SOURCE.get(source, source.upper())),
+        ("target_lang", DEEPL_TARGET.get(target, target.upper())),
+        ("tag_handling", "html"),
+        ("split_sentences", "nonewlines"),
+    ]
+    body = urllib.parse.urlencode(fields).encode("utf-8")
+    request = urllib.request.Request(
+        host + "/v2/translate", data=body,
+        headers={"Authorization": "DeepL-Auth-Key " + key,
+                 "Content-Type": "application/x-www-form-urlencoded"},
+    )
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            return [item["text"] for item in payload["translations"]]
+        except urllib.error.HTTPError as exc:
+            # 429/529 = za dużo żądań; 456 = wyczerpany limit znaków.
+            if exc.code in (429, 529) and attempt < 3:
+                time.sleep(2 * (attempt + 1))
+                continue
+            raise
+    raise RuntimeError("DeepL: przekroczono liczbę prób.")
+
+
 def request_translation(text: str, source: str, target: str, retries: int = 4) -> str:
-    import argostranslate.translate
-    return argostranslate.translate.translate(text, source, target)
+    """Pojedynczy string przez DeepL (używane m.in. przez backcheck)."""
+    return deepl_translate([text], source, target)[0]
 
 
 def cache_path(target: str, prefix: str = "translations") -> Path:
@@ -709,136 +759,33 @@ def save_cache(target: str, cache: dict[str, str], prefix: str = "translations")
     cache_path(target, prefix).write_text(json.dumps(ordered, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def translate_catalog(strings: set[str], source: str, target: str, prefix: str = "translations") -> dict[str, str]:
+def translate_catalog(
+    strings: set[str], source: str, target: str,
+    prefix: str = "translations",
+    glossary: list[tuple[str, str]] | None = None,
+) -> dict[str, str]:
     cache = load_cache(target, prefix)
     if source == "pl" and target in MANUAL:
         cache.update(MANUAL[target])
-    pending = [value for value in sorted(strings, key=lambda item: (len(item), item.casefold())) if value not in cache]
-    chunks: list[list[str]] = []
-    current: list[str] = []
-    current_size = 0
-    for value in pending:
-        estimated = len(value) + 28
-        if current and current_size + estimated > 3200:
-            chunks.append(current)
-            current = []
-            current_size = 0
-        current.append(value)
-        current_size += estimated
-    if current:
-        chunks.append(current)
-    for chunk_index, chunk in enumerate(chunks, start=1):
-        protected_rows = [protect_value(value) for value in chunk]
-        payload = "\n".join(f"ZXKABISEG{index:04d}ZX {row[0]}" for index, row in enumerate(protected_rows))
-        translated_blob = request_translation(payload, source, target)
-        parts = MARKER_RE.split(translated_blob)
-        parsed: dict[int, str] = {}
-        for index in range(1, len(parts), 2):
-            parsed[int(parts[index])] = parts[index + 1].strip()
-        if len(parsed) != len(chunk):
-            parsed = {}
-            for index, (protected, _) in enumerate(protected_rows):
-                parsed[index] = request_translation(protected, source, target).strip()
-                time.sleep(.08)
-        for index, original in enumerate(chunk):
-            cache[original] = restore_value(parsed[index], protected_rows[index][1])
-        save_cache(target, cache, prefix)
-        print(f"[{source}->{target}] batch {chunk_index}/{len(chunks)}; cached={len(cache)}", flush=True)
-        time.sleep(.12)
-    return cache
-
-
-def translate_catalog_nllb_ar(strings: set[str]) -> dict[str, str]:
-    """Translate Polish directly to Arabic with the local NLLB INT8 model."""
-    prefix = "nllb-glossary-v2"
-    cache = load_cache("ar", prefix)
-    cache.update(MANUAL["ar"])
-    pending = [
-        value for value in sorted(strings, key=lambda item: (len(item), item.casefold()))
-        if value not in cache
-    ]
+    pending = [value for value in sorted(strings, key=lambda item: (len(item), item.casefold()))
+               if value not in cache]
     if not pending:
-        save_cache("ar", cache, prefix)
-        save_cache("ar", cache)
         return cache
-    if not NLLB_MODEL.exists() or not NLLB_CT2_MODEL.exists():
-        raise RuntimeError("The local NLLB Arabic model is not installed and new strings require translation")
-
-    import ctranslate2
-    from transformers import AutoTokenizer
-
-    tokenizer = AutoTokenizer.from_pretrained(
-        str(NLLB_MODEL), src_lang="pol_Latn", local_files_only=True
-    )
-    translator = ctranslate2.Translator(
-        str(NLLB_CT2_MODEL), device="cpu", compute_type="int8",
-        inter_threads=1, intra_threads=8,
-    )
-
-    chunk_size = 48
-    chunks = [pending[index:index + chunk_size] for index in range(0, len(pending), chunk_size)]
-    for chunk_index, chunk in enumerate(chunks, start=1):
-        protected_rows = [protect_value(value, AR_GLOSSARY) for value in chunk]
-        source_tokens = [
-            tokenizer.convert_ids_to_tokens(tokenizer.encode(protected))
-            for protected, _ in protected_rows
-        ]
-        results = translator.translate_batch(
-            source_tokens,
-            target_prefix=[["arb_Arab"] for _ in chunk],
-            beam_size=2,
-            max_decoding_length=512,
-            max_batch_size=16,
-        )
-        for original, (_, keep), result in zip(chunk, protected_rows, results):
-            token_ids = tokenizer.convert_tokens_to_ids(result.hypotheses[0])
-            output = tokenizer.decode(token_ids, skip_special_tokens=True)
-            missing = [marker for marker in keep if marker not in output]
-            if missing:
-                marker_pattern = re.compile(
-                    "(" + "|".join(re.escape(marker) for marker in keep) + ")"
-                )
-                pieces = marker_pattern.split(protect_value(original, AR_GLOSSARY)[0])
-                source_parts = []
-                part_indexes = []
-                for part_index, part in enumerate(pieces):
-                    if part in keep or not any(char.isalpha() for char in part):
-                        continue
-                    compact = part.strip()
-                    if not compact:
-                        continue
-                    source_parts.append(
-                        tokenizer.convert_ids_to_tokens(tokenizer.encode(compact))
-                    )
-                    part_indexes.append(part_index)
-                if source_parts:
-                    part_results = translator.translate_batch(
-                        source_parts,
-                        target_prefix=[["arb_Arab"] for _ in source_parts],
-                        beam_size=2,
-                        max_decoding_length=512,
-                        max_batch_size=16,
-                    )
-                    for part_index, part_result in zip(part_indexes, part_results):
-                        raw = pieces[part_index]
-                        leading = raw[:len(raw) - len(raw.lstrip())]
-                        trailing = raw[len(raw.rstrip()):]
-                        part_ids = tokenizer.convert_tokens_to_ids(part_result.hypotheses[0])
-                        pieces[part_index] = (
-                            leading + tokenizer.decode(part_ids, skip_special_tokens=True) + trailing
-                        )
-                output = "".join(keep.get(piece, piece) for piece in pieces)
-                cache[original] = " ".join(output.split())
-                continue
+    # Chronimy marki/liczby/glosariusz markerami-URL, tłumaczymy resztę partiami
+    # DeepL (zwraca wyniki w kolejności wejścia), potem przywracamy markery.
+    protected = [protect_value(value, glossary) for value in pending]
+    total = (len(pending) + DEEPL_BATCH - 1) // DEEPL_BATCH
+    for batch_index, start in enumerate(range(0, len(pending), DEEPL_BATCH), start=1):
+        rows = protected[start:start + DEEPL_BATCH]
+        originals = pending[start:start + DEEPL_BATCH]
+        outputs = deepl_translate([row[0] for row in rows], source, target)
+        for original, (_, keep), output in zip(originals, rows, outputs):
             cache[original] = restore_value(output, keep)
-        cache.update(MANUAL["ar"])
-        save_cache("ar", cache, prefix)
-        print(f"[pl->ar NLLB] batch {chunk_index}/{len(chunks)}; cached={len(cache)}", flush=True)
-
-    cache.update(MANUAL["ar"])
-    save_cache("ar", cache, prefix)
-    save_cache("ar", cache)
+        save_cache(target, cache, prefix)
+        print(f"[{source}->{target}] batch {batch_index}/{total}; cached={len(cache)}", flush=True)
     return cache
+
+
 
 
 def translated(value: str, mapping: dict[str, str]) -> str:
@@ -1311,23 +1258,16 @@ def generate() -> None:
         strings.update(collect_page_strings(doc))
     print(f"Catalog: {len(strings)} unique translatable strings across {len(pages)} HTML files", flush=True)
     mappings: dict[str, dict[str, str]] = {}
+    # DeepL tłumaczy bezpośrednio PL->EN, PL->DE i PL->AR — bez pivota przez
+    # angielski (mniej błędów) i bez lokalnych modeli NLLB.
     raw_english = translate_catalog(strings, "pl", "en")
-    mappings["de"] = load_cache("de")
-    mappings["de"].update(MANUAL["de"])
-    missing_de = strings - mappings["de"].keys()
-    if missing_de:
-        english_strings = {raw_english.get(value, value) for value in missing_de}
-        stage = translate_catalog(english_strings, "en", "de", prefix="stage-en")
-        mappings["de"].update({
-            source: MANUAL["de"].get(source, stage[raw_english.get(source, source)])
-            for source in missing_de
-        })
-    mappings["de"].update(MANUAL["de"])
+    raw_german = translate_catalog(strings, "pl", "de")
+    raw_arabic = translate_catalog(strings, "pl", "ar", glossary=AR_GLOSSARY)
     mappings["en"] = postedit_western_mapping("en", raw_english)
-    mappings["de"] = postedit_western_mapping("de", mappings["de"])
+    mappings["de"] = postedit_western_mapping("de", raw_german)
     save_cache("en", mappings["en"])
     save_cache("de", mappings["de"])
-    mappings["ar"] = postedit_arabic_mapping(translate_catalog_nllb_ar(strings))
+    mappings["ar"] = postedit_arabic_mapping(raw_arabic)
     save_cache("ar", mappings["ar"])
     update_polish_hreflangs()
     for lang, mapping in mappings.items():

@@ -842,14 +842,18 @@ class Handler(BaseHTTPRequestHandler):
             # go wykraść skryptem wstrzykniętym w stronę.
             # SameSite=Strict — przeglądarka nie dołączy go do żądań z obcych
             # witryn, co odcina ataki typu CSRF.
+            # Secure — TYLKO na hostowanym panelu za HTTPS (PANEL_SECURE_COOKIE=1).
+            # Lokalnie po http://localhost przeglądarka odrzuciłaby ciasteczko
+            # z flagą Secure i logowanie by nie działało, więc domyślnie wyłączone.
+            secure = "; Secure" if os.environ.get("PANEL_SECURE_COOKIE") == "1" else ""
             if ciasteczko:
                 self.send_header("Set-Cookie",
-                                 "%s=%s; HttpOnly; SameSite=Strict; Path=/; Max-Age=%d"
-                                 % (CIASTECZKO, ciasteczko, logowanie.WAZNOSC_SESJI))
+                                 "%s=%s; HttpOnly; SameSite=Strict%s; Path=/; Max-Age=%d"
+                                 % (CIASTECZKO, ciasteczko, secure, logowanie.WAZNOSC_SESJI))
             else:
                 self.send_header("Set-Cookie",
-                                 "%s=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0"
-                                 % CIASTECZKO)
+                                 "%s=; HttpOnly; SameSite=Strict%s; Path=/; Max-Age=0"
+                                 % (CIASTECZKO, secure))
         self.end_headers()
         self.wfile.write(tresc)
 

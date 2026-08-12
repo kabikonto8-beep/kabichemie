@@ -14,12 +14,10 @@ UWAGA: build.py kasuje cały katalog www/ i odtwarza wyłącznie wersję polską
 Mirrory językowe trzeba odtworzyć krokiem 3, inaczej znikną z dysku.
 Dlatego domyślnie ostrzegamy, gdy mirrory istnieją, a build ma iść bez nich.
 
-Krok 3 wymaga silnika tłumaczeń, którego NIE MA w obrazie `builder` — nowe
-ciągi trzeba przetłumaczyć w usłudze `translator`:
-    docker compose run --rm translator python /builder/setup_translation.py
-    docker compose run --rm translator python localize_site.py generate
-Dopóki wszystkie ciągi są w cache (i18n/translations-*.json), krok 3 działa
-też w lekkim builderze — silnik jest potrzebny wyłącznie na nowe treści.
+Krok 3 tłumaczy przez DeepL (HTTP) — działa w lekkim obrazie `builder`, bez
+lokalnych modeli. Nowe ciągi wymagają klucza DEEPL_API_KEY w środowisku; gdy
+wszystkie są już w cache (i18n/translations-*.json), krok 3 nie wysyła nic do
+API i klucz nie jest potrzebny.
 """
 import argparse
 import subprocess
@@ -50,7 +48,7 @@ def main():
         print("UWAGA: build.py skasuje istniejace mirrory %s."
               % ", ".join(mirrors_present))
         print("       Odtworz je przez --z-tlumaczeniami albo osobno:")
-        print("       docker compose run --rm translator python localize_site.py generate")
+        print("       docker compose run --rm builder python localize_site.py generate")
 
     if not args.bez_eksportu:
         run([sys.executable, "/builder/export_snapshot.py"], "1/3 eksport treści z bazy")
