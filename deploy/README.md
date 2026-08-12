@@ -48,7 +48,7 @@ ssh-keyscan github.com > ./known_hosts                 # host key GitHuba
 ```
 Wgraj `deploy_key.pub` do repo na GitHubie jako **Deploy key z prawem zapisu**
 (Settings → Deploy keys → Add, zaznacz „Allow write access").
-Ustaw remote repo na SSH: `git remote set-url origin git@github.com:reginx032-prog/kabi-nowe.git`.
+Ustaw remote repo na SSH: `git remote set-url origin git@github.com:kabikonto8-beep/kabichemie.git`.
 > `deploy_key` NIE trafia do repo (jest w `.gitignore`).
 
 ## Krok 3 — Konfiguracja i start
