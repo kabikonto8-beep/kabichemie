@@ -47,7 +47,7 @@ PRESERVE_EXACT = {
     "KABI CHEMIE", "KABI", "CHEMIE", "KCAQUA", "RO", "NIP", "LinkedIn", "Facebook", "YouTube",
     "Łukasz Mielcarz", "Przemysław Jesiołkowski", "Łukasz Kumor",
     "Siedlce", "Toruń", "Evapco", "EVAPCO", "BAC", "Fako", "PL", "EN", "DE", "AR",
-    "PLN", "pH", "CIP", "TDS", "COD", "B2B", "ISO", "Legionella",
+    "PLN", "EUR", "USD", "pH", "CIP", "TDS", "COD", "B2B", "ISO", "Legionella",
     "kondycjonowanie-wody.pl", "Google Maps", "Microsoft Clarity",
 }
 POLISH_WORDS = re.compile(
@@ -89,6 +89,7 @@ MANUAL = {
         "Menu główne": "Main navigation", "Okruszki": "Breadcrumbs",
         "Wybierz język": "Choose language", "Dostępne języki": "Available languages",
         "Poprzednia strona": "Previous page", "Następna strona": "Next page", "zł": "PLN",
+        "Waluta": "Currency", "Waluta kalkulacji": "Calculation currency",
     },
     "de": {
         "Strona główna": "Startseite", "Technologia KCAQUA": "KCAQUA-Technologie",
@@ -108,6 +109,7 @@ MANUAL = {
         "Menu główne": "Hauptnavigation", "Okruszki": "Brotkrümelnavigation",
         "Wybierz język": "Sprache wählen", "Dostępne języki": "Verfügbare Sprachen",
         "Poprzednia strona": "Vorherige Seite", "Następna strona": "Nächste Seite", "zł": "PLN",
+        "Waluta": "Währung", "Waluta kalkulacji": "Berechnungswährung",
     },
     "ar": {
         "Strona główna": "الرئيسية", "Technologia KCAQUA": "تقنية KCAQUA",
@@ -127,6 +129,7 @@ MANUAL = {
         "Menu główne": "التنقل الرئيسي", "Okruszki": "مسار التنقل",
         "Wybierz język": "اختر اللغة", "Dostępne języki": "اللغات المتاحة",
         "Poprzednia strona": "الصفحة السابقة", "Następna strona": "الصفحة التالية", "zł": "PLN",
+        "Waluta": "العملة", "Waluta kalkulacji": "عملة الحساب",
     },
 }
 

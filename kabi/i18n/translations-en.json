@@ -2149,6 +2149,8 @@
   "W wielu przypadkach czyszczenie prowadzimy w obiegu zamkniętym przez dostępne króćce, bez demontażu urządzenia. Ostateczny sposób zależy od geometrii, przepływu, rodzaju osadu i możliwości bezpiecznego odseparowania instalacji.": "In many cases, cleaning is carried out in a closed circuit through available shortcuts, without dismantling the device. The ultimate method depends on geometry, flow, sediment type and the possibility of safe separation of the installation.",
   "W wielu przypadkach tak. Regeneracja przywraca czystość i funkcjonalność wyposażenia, a jej koszt jest zwykle znacznie niższy niż zakup nowych elementów.": "In many cases, yes. Regeneration restores the cleanliness and functionality of the equipment, and usually costs far less than buying new items.",
   "wahania wydajności": "performance fluctuations",
+  "Waluta": "Currency",
+  "Waluta kalkulacji": "Calculation currency",
   "Wariant po modernizacji": "Version after modernization",
   "Warstwa biologiczna pogarsza chłodzenie, wspiera korozję podosadową i utrudnia utrzymanie higieny obiegu.": "The biological layer worsens cooling, supports floor corrosion and hinders the maintenance of circulation hygiene.",
   "Warstwa magnetytowa, naturalna ochrona": "Magnetic layer, natural protection",

@@ -15,7 +15,68 @@ import knowledge_pages
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, 'www')
 DOMAIN = 'https://kondycjonowanie-wody.pl'
-ASSET_VERSION = '20260806-mobile-v276'
+ASSET_VERSION = '20260817-waluty-v277'
+
+# --- Kursy walut do kalkulatora oszczędności ---------------------------------
+# CSP (connect-src 'self') blokuje pobieranie kursów z przeglądarki, więc bierzemy
+# je w czasie budowania z NBP (tabela A, oficjalny, bez klucza; mid = ile PLN za
+# 1 jednostkę waluty) i wstrzykujemy do strony pod token __KABI_KURSY__. Offline
+# build korzysta z ostatniego cache content/kursy.json, a w ostateczności z
+# wartości domyślnych — build nigdy nie wywraca się przez brak sieci.
+KURSY_DOMYSLNE = {"PLN": 1.0, "EUR": 4.30, "USD": 3.95}
+KURSY_WALUTY = ("PLN", "EUR", "USD")
+
+
+def _kursy_plik():
+    return os.path.join(ROOT, 'content', 'kursy.json')
+
+
+def wczytaj_kursy():
+    """Kursy z lokalnego cache (bez sieci). Fallback: wartości domyślne."""
+    try:
+        with open(_kursy_plik(), encoding='utf-8') as f:
+            dane = json.load(f)
+        if isinstance(dane, dict) and dane.get('PLN'):
+            return dane
+    except Exception:
+        pass
+    return dict(KURSY_DOMYSLNE)
+
+
+def odswiez_kursy():
+    """Pobiera kursy z NBP i zapisuje cache. Przy błędzie zostaje przy cache."""
+    import urllib.request
+    url = 'https://api.nbp.pl/api/exchangerates/tables/A?format=json'
+    try:
+        req = urllib.request.Request(url, headers={'Accept': 'application/json'})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            tabela = json.loads(resp.read().decode('utf-8'))[0]
+        kursy = {'PLN': 1.0}
+        for poz in tabela.get('rates', []):
+            if poz.get('code') in ('EUR', 'USD'):
+                kursy[poz['code']] = round(float(poz['mid']), 4)
+        if 'EUR' in kursy and 'USD' in kursy:
+            kursy['data'] = tabela.get('effectiveDate', '')
+            with open(_kursy_plik(), 'w', encoding='utf-8') as f:
+                json.dump(kursy, f, ensure_ascii=False, indent=0)
+            print('kursy NBP (%s): EUR=%.4f USD=%.4f'
+                  % (kursy.get('data', ''), kursy['EUR'], kursy['USD']), flush=True)
+            return kursy
+        raise ValueError('brak EUR/USD w tabeli NBP')
+    except Exception as blad:
+        print('kursy NBP niedostepne (%s) - uzywam cache' % blad, flush=True)
+        return wczytaj_kursy()
+
+
+def kursy_json(kursy):
+    return json.dumps({k: kursy[k] for k in KURSY_WALUTY if k in kursy},
+                      ensure_ascii=False)
+
+
+# Wartość wstrzykiwana do stron. Przy imporcie modułu (np. w panelu) tylko
+# odczyt cache; realny build odświeża ją z NBP w main().
+KURSY = wczytaj_kursy()
+KURSY_JSON = kursy_json(KURSY)
 
 # Panel redakcyjny (Ctrl+Alt+A) — NARZĘDZIE LOKALNE, domyślnie WYŁĄCZONE.
 # Wchodzi do stron tylko przy jawnym KABI_ADMIN=1, więc produkcyjny build
@@ -1416,6 +1477,8 @@ def build_page(path):
         htmltext = finalize_homepage_html(htmltext)
     htmltext = enhance_media_attributes(htmltext)
     htmltext = enhance_ui_arrows(htmltext)
+    if '__KABI_KURSY__' in htmltext:
+        htmltext = htmltext.replace('__KABI_KURSY__', KURSY_JSON)
     write(path, htmltext)
     return title
 
@@ -1719,6 +1782,10 @@ def sync_generated_headers():
 
 # ---------------------------------------------------------------- MAIN
 def main():
+    # świeże kursy walut z NBP dla kalkulatora (fallback: cache/domyślne)
+    global KURSY, KURSY_JSON
+    KURSY = odswiez_kursy()
+    KURSY_JSON = kursy_json(KURSY)
     # czyszczenie odporne na blokady plików (Windows / otwarty podgląd)
     shutil.rmtree(OUT, ignore_errors=True)
     os.makedirs(OUT, exist_ok=True)

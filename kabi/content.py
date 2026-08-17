@@ -1094,7 +1094,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
       <p>Wybierz rodzaj instalacji i uzupełnij podstawowe parametry jej pracy. Model pokaże potencjał ograniczenia kosztów energii, wody i ścieków związanych z osadami oraz nadmiernym odsalaniem. Wyliczenie pomaga wybrać obszary warte wspólnej weryfikacji technicznej.</p>
     </div>
 
-    <form class="calc2" data-savings-calculator novalidate>
+    <form class="calc2" data-savings-calculator data-rates='__KABI_KURSY__' novalidate>
       <div class="calc2-grid">
         <div class="calc2-panel">
           <header class="calc2-panel__header">
@@ -1119,7 +1119,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Moc cieplna kotła <i class="calc2-info" tabindex="0" aria-label="Maksymalna moc cieplna kotła parowego określona przez producenta." data-tip="Maksymalna moc cieplna kotła parowego określona przez producenta.">i</i></span><span class="calc2-input"><input type="number" name="kb_power" value="2500" min="0" step="50" inputmode="decimal"><em>kW</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Godziny pracy / rok <i class="calc2-info" tabindex="0" aria-label="Łączna liczba godzin pracy kotła w ciągu roku (365 dni × 24 h)." data-tip="Łączna liczba godzin pracy kotła w ciągu roku (365 dni × 24 h).">i</i></span><span class="calc2-input"><input type="number" name="kb_hours" value="8760" min="0" max="8760" step="10" inputmode="decimal"><em>h</em></span></label>
-                <label class="calc2-field"><span class="calc2-field__label">Cena gazu ziemnego <i class="calc2-info" tabindex="0" aria-label="Aktualny koszt zakupu gazu wykorzystywanego do produkcji pary." data-tip="Aktualny koszt zakupu gazu wykorzystywanego do produkcji pary.">i</i></span><span class="calc2-input"><input type="number" name="kb_gas" value="425" min="0" step="5" inputmode="decimal"><em>zł/MWh</em></span></label>
+                <label class="calc2-field"><span class="calc2-field__label">Cena gazu ziemnego <i class="calc2-info" tabindex="0" aria-label="Aktualny koszt zakupu gazu wykorzystywanego do produkcji pary." data-tip="Aktualny koszt zakupu gazu wykorzystywanego do produkcji pary.">i</i></span><span class="calc2-input"><input type="number" name="kb_gas" value="425" min="0" step="5" inputmode="decimal" data-money><em data-cur-unit="/MWh">zł/MWh</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Grubość kamienia <i class="calc2-info" tabindex="0" aria-label="Szacowana lub zmierzona grubość osadów na powierzchniach grzewczych kotła." data-tip="Szacowana lub zmierzona grubość osadów na powierzchniach grzewczych kotła.">i</i></span><span class="calc2-input"><input type="number" name="kb_scale" value="0.2" min="0" max="8" step="0.1" inputmode="decimal"><em>mm</em></span></label>
               </div>
             </fieldset>
@@ -1137,7 +1137,7 @@ PAGES["/kalkulator-oszczednosci/"] = {
               <div class="calc2-rows">
                 <label class="calc2-field"><span class="calc2-field__label">Moc chłodnicza układu <i class="calc2-info" tabindex="0" aria-label="Moc układu chłodniczego opisana w karcie produktu." data-tip="Moc układu chłodniczego opisana w karcie produktu.">i</i></span><span class="calc2-input"><input type="number" name="sk_power" value="1400" min="0" step="50" inputmode="decimal"><em>kW</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Godziny pracy / rok <i class="calc2-info" tabindex="0" aria-label="Dla instalacji pracujących całorocznie w trybie ciągłym przyjmuje się 8760 h/rok (365 dni × 24 h)." data-tip="Dla instalacji pracujących całorocznie w trybie ciągłym przyjmuje się 8760 h/rok (365 dni × 24 h).">i</i></span><span class="calc2-input"><input type="number" name="sk_hours" value="8760" min="0" max="8760" step="10" inputmode="decimal"><em>h</em></span></label>
-                <label class="calc2-field"><span class="calc2-field__label">Cena energii elektr. <i class="calc2-info" tabindex="0" aria-label="Cena energii elektrycznej netto." data-tip="Cena energii elektrycznej netto.">i</i></span><span class="calc2-input"><input type="number" name="sk_energy" value="425" min="0" step="5" inputmode="decimal"><em>zł/MWh</em></span></label>
+                <label class="calc2-field"><span class="calc2-field__label">Cena energii elektr. <i class="calc2-info" tabindex="0" aria-label="Cena energii elektrycznej netto." data-tip="Cena energii elektrycznej netto.">i</i></span><span class="calc2-input"><input type="number" name="sk_energy" value="425" min="0" step="5" inputmode="decimal" data-money><em data-cur-unit="/MWh">zł/MWh</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Średnica czystej wężownicy <i class="calc2-info" tabindex="0" aria-label="Średnica zewnętrzna czystej wężownicy, zmierzona suwmiarką." data-tip="Średnica zewnętrzna czystej wężownicy, zmierzona suwmiarką.">i</i></span><span class="calc2-input"><input type="number" name="sk_d_clean" value="20" min="0" step="0.5" inputmode="decimal"><em>mm</em></span></label>
                 <label class="calc2-field"><span class="calc2-field__label">Średnica z osadem <i class="calc2-info" tabindex="0" aria-label="Średnica wężownicy z osadem. Osad liczony po obu stronach, dlatego grubość = (z osadem − czysta) / 2." data-tip="Średnica wężownicy z osadem. Osad liczony po obu stronach, dlatego grubość = (z osadem − czysta) / 2.">i</i></span><span class="calc2-input"><input type="number" name="sk_d_scaled" value="22" min="0" step="0.5" inputmode="decimal"><em>mm</em></span></label>
               </div>
@@ -1147,15 +1147,15 @@ PAGES["/kalkulator-oszczednosci/"] = {
           <section class="calc2-adv" aria-label="Założenia i ceny mediów">
             <div class="calc2-fields" data-calc-fields="kotly">
               <div class="calc2-rows">
-                <label class="calc2-field"><span class="calc2-field__label">Cena gazu - odzysk ciepła <i class="calc2-info" tabindex="0" aria-label="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania." data-tip="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania.">i</i></span><span class="calc2-input"><input type="number" name="kb_gas2" value="425.4" min="0" step="0.1" inputmode="decimal"><em>zł/MWh</em></span></label>
-                <label class="calc2-field"><span class="calc2-field__label">Koszt wody <i class="calc2-info" tabindex="0" aria-label="Koszt zakupu 1 m³ wody." data-tip="Koszt zakupu 1 m³ wody.">i</i></span><span class="calc2-input"><input type="number" name="kb_water" value="6" min="0" step="0.5" inputmode="decimal"><em>zł/m³</em></span></label>
-                <label class="calc2-field"><span class="calc2-field__label">Koszt ścieków <i class="calc2-info" tabindex="0" aria-label="Koszt odprowadzenia 1 m³ ścieków." data-tip="Koszt odprowadzenia 1 m³ ścieków.">i</i></span><span class="calc2-input"><input type="number" name="kb_sewage" value="6" min="0" step="0.5" inputmode="decimal"><em>zł/m³</em></span></label>
+                <label class="calc2-field"><span class="calc2-field__label">Cena gazu - odzysk ciepła <i class="calc2-info" tabindex="0" aria-label="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania." data-tip="Cena paliwa użyta do wyceny odzysku ciepła z ograniczenia odsalania.">i</i></span><span class="calc2-input"><input type="number" name="kb_gas2" value="425.4" min="0" step="0.1" inputmode="decimal" data-money><em data-cur-unit="/MWh">zł/MWh</em></span></label>
+                <label class="calc2-field"><span class="calc2-field__label">Koszt wody <i class="calc2-info" tabindex="0" aria-label="Koszt zakupu 1 m³ wody." data-tip="Koszt zakupu 1 m³ wody.">i</i></span><span class="calc2-input"><input type="number" name="kb_water" value="6" min="0" step="0.5" inputmode="decimal" data-money><em data-cur-unit="/m³">zł/m³</em></span></label>
+                <label class="calc2-field"><span class="calc2-field__label">Koszt ścieków <i class="calc2-info" tabindex="0" aria-label="Koszt odprowadzenia 1 m³ ścieków." data-tip="Koszt odprowadzenia 1 m³ ścieków.">i</i></span><span class="calc2-input"><input type="number" name="kb_sewage" value="6" min="0" step="0.5" inputmode="decimal" data-money><em data-cur-unit="/m³">zł/m³</em></span></label>
               </div>
             </div>
             <div class="calc2-fields" data-calc-fields="skraplacze" hidden>
               <div class="calc2-rows">
-                <label class="calc2-field"><span class="calc2-field__label">Koszt wody <i class="calc2-info" tabindex="0" aria-label="Koszt zakupu 1 m³ wody." data-tip="Koszt zakupu 1 m³ wody.">i</i></span><span class="calc2-input"><input type="number" name="sk_water" value="6" min="0" step="0.5" inputmode="decimal"><em>zł/m³</em></span></label>
-                <label class="calc2-field"><span class="calc2-field__label">Koszt ścieków <i class="calc2-info" tabindex="0" aria-label="Koszt odprowadzenia 1 m³ ścieków." data-tip="Koszt odprowadzenia 1 m³ ścieków.">i</i></span><span class="calc2-input"><input type="number" name="sk_sewage" value="6" min="0" step="0.5" inputmode="decimal"><em>zł/m³</em></span></label>
+                <label class="calc2-field"><span class="calc2-field__label">Koszt wody <i class="calc2-info" tabindex="0" aria-label="Koszt zakupu 1 m³ wody." data-tip="Koszt zakupu 1 m³ wody.">i</i></span><span class="calc2-input"><input type="number" name="sk_water" value="6" min="0" step="0.5" inputmode="decimal" data-money><em data-cur-unit="/m³">zł/m³</em></span></label>
+                <label class="calc2-field"><span class="calc2-field__label">Koszt ścieków <i class="calc2-info" tabindex="0" aria-label="Koszt odprowadzenia 1 m³ ścieków." data-tip="Koszt odprowadzenia 1 m³ ścieków.">i</i></span><span class="calc2-input"><input type="number" name="sk_sewage" value="6" min="0" step="0.5" inputmode="decimal" data-money><em data-cur-unit="/m³">zł/m³</em></span></label>
               </div>
             </div>
           </section>
@@ -1166,6 +1166,14 @@ PAGES["/kalkulator-oszczednosci/"] = {
             <span class="calc2-section-brand calc2-section-brand--mark" aria-hidden="true"></span>
             <span><strong>Wynik kalkulacji</strong><small>Roczny potencjał ograniczenia kosztów</small></span>
           </header>
+          <div class="calc2-currency" data-calc-currency role="group" aria-label="Waluta kalkulacji">
+            <span class="calc2-currency__lbl">Waluta</span>
+            <span class="calc2-currency__seg">
+              <button type="button" class="calc2-currency__btn is-active" data-cur="PLN" aria-pressed="true">PLN</button>
+              <button type="button" class="calc2-currency__btn" data-cur="EUR" aria-pressed="false">EUR</button>
+              <button type="button" class="calc2-currency__btn" data-cur="USD" aria-pressed="false">USD</button>
+            </span>
+          </div>
           <span class="panel-kicker">Łączny potencjał oszczędności</span>
           <strong data-calc-total>0 zł</strong>
           <span class="calc2-accent" aria-hidden="true"></span>

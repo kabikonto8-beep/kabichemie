@@ -988,6 +988,19 @@
     var result = form.querySelector(".calc2-result");
     if (!result) return;
 
+    // Waluta kalkulacji. Kursy pobrane z NBP w czasie budowania (data-rates,
+    // mid = ile PLN za 1 jednostkę). Poza polską wersją domyślnie euro.
+    var rates = { PLN: 1 };
+    try {
+      var parsedRates = JSON.parse(form.getAttribute("data-rates") || "{}");
+      for (var rk in parsedRates) { if (+parsedRates[rk] > 0) rates[rk] = +parsedRates[rk]; }
+    } catch (rateError) {}
+    if (!(rates.PLN > 0)) rates.PLN = 1;
+    var pageLang = (document.documentElement.lang || "pl").slice(0, 2).toLowerCase();
+    var currency = (pageLang === "pl" || !(rates.EUR > 0)) ? "PLN" : "EUR";
+    var CUR_SYM = { PLN: "PLN", EUR: "€", USD: "$" };
+    var curSym = function (code) { code = code || currency; return CUR_SYM[code] || code; };
+
     // Własne przyciski zmiany wartości zastępują nachodzące na jednostki kontrolki przeglądarki.
     form.querySelectorAll(".calc2-input input[type='number']").forEach(function (input, inputIndex) {
       if (input.getAttribute("data-calc-stepper-ready") === "true") return;
@@ -1086,7 +1099,7 @@
       if (!el) return DEF[name] != null ? DEF[name] : 0;
       return Math.max(0, Number((el.value || "0").replace(",", ".")) || 0);
     };
-    var zl = function (v) { return fmt(v, "PLN", 2); };
+    var zl = function (v) { return fmt(v, curSym(currency), 2); };
     var unit = function (v, u) { return fmt(v, u, 2); };
     var grp = function (s) { return String(s).replace(/\B(?=(\d{3})+(?!\d))/g, " "); };
     var fmt = function (v, unitStr, dec) {                  // wartość pośrednia z jednostką
@@ -1218,9 +1231,10 @@
     };
 
     var resultMessage = function (total) {
-      return total > 250000
+      var pln = total * (rates[currency] || 1);   // progi wyrażone w złotych
+      return pln > 250000
         ? "لدينا إمكانات كبيرة لتحقيق التكاليف، لذا دعونا نرى ما هي الأنشطة التي يمكن أن تحقق أكبر تأثير على المنشأة."
-        : total > 80000
+        : pln > 80000
           ? "هناك إمكانات كبيرة للتحسين، ومن المهم أن نحدد الخسائر التي يمكن الحد منها أولاً."
           : "يجدر فحص مستوى الترسّبات الكلسية ونظام التصريف لتحديد إمكانات خفض التكاليف.";
     };
@@ -1638,6 +1652,58 @@
     });
     form.addEventListener("input", calculateAfterManualChange);
     form.addEventListener("change", calculateAfterManualChange);
+
+    // --- waluta: konwersja pól cenowych i wyniku ---
+    var moneyInputs = Array.prototype.slice.call(form.querySelectorAll("input[data-money]"));
+    var currencySeg = form.querySelector("[data-calc-currency]");
+    var segButtons = currencySeg
+      ? Array.prototype.slice.call(currencySeg.querySelectorAll("[data-cur]"))
+      : [];
+    var parseAmount = function (raw) {
+      return Number(String(raw == null ? "" : raw).replace(",", ".")) || 0;
+    };
+    var formatAmount = function (v) {                 // wartość do pola number
+      return String(Math.round((+v || 0) * 100) / 100);
+    };
+    var applyCurrency = function (nextCurrency, isInit) {
+      if (!(rates[nextCurrency] > 0)) return;
+      // Najpierw domknij animację scrolla — przywraca pola do wartości bazowych
+      // (w zł), zanim je przeliczymy; inaczej nadpisałaby naszą konwersję.
+      if (!isInit && scrollScrubActive) finishScrollScrub();
+      moneyInputs.forEach(function (input) {
+        var unitNode = input.parentNode
+          ? input.parentNode.querySelector("em[data-cur-unit]") : null;
+        // Bazę cen trzymamy w PLN (data-base-pln), więc przełączanie walut nie
+        // kumuluje zaokrągleń. Pola startują z cenami w złotych.
+        if (isInit) input.setAttribute("data-base-pln", parseAmount(input.value));
+        var basePln = parseAmount(input.getAttribute("data-base-pln"));
+        input.value = formatAmount(basePln / rates[nextCurrency]);
+        if (unitNode) {
+          unitNode.textContent = curSym(nextCurrency) + (unitNode.getAttribute("data-cur-unit") || "");
+        }
+      });
+      currency = nextCurrency;
+      segButtons.forEach(function (button) {
+        var on = button.getAttribute("data-cur") === nextCurrency;
+        button.classList.toggle("is-active", on);
+        button.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      if (!isInit) calculate();
+    };
+    // Ręczna edycja ceny aktualizuje bazę w PLN (pomijamy zapisy animacji scrolla).
+    moneyInputs.forEach(function (input) {
+      input.addEventListener("input", function () {
+        if (scrollScrubWriting) return;
+        input.setAttribute("data-base-pln", parseAmount(input.value) * (rates[currency] || 1));
+      });
+    });
+    segButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        applyCurrency(button.getAttribute("data-cur"), false);
+      });
+    });
+    // ustaw walutę startową (przelicza ceny i jednostki) PRZED animacją scrolla
+    applyCurrency(currency, true);
 
     var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!reducedMotion && "requestAnimationFrame" in window && setupScrollScrub()) {
